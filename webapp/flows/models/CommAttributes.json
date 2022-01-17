@@ -1,0 +1,40 @@
+{
+    "phone": [
+        {
+            "text": "attribute.fragment.label",
+            "value": "name"
+        },
+        {
+            "text": "attribute.fragment.type",
+            "value": "type"
+        },
+        {
+            "text": "attribute.fragment.value",
+            "value": "value"
+        }
+    ],
+    "mail": [
+        {
+            "text": "attribute.fragment.label",
+            "value": "name"
+        },
+        {
+            "text": "attribute.fragment.type",
+            "value": "type"
+        },
+        {
+            "text": "attribute.fragment.value",
+            "value": "value"
+        }
+    ],
+    "messenger": [
+        {
+            "text": "attribute.fragment.label",
+            "value": "name"
+        },
+        {
+            "text": "attribute.fragment.value",
+            "value": "value"
+        }
+    ]
+}

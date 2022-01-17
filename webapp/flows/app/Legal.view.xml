@@ -1,0 +1,56 @@
+<mvc:View controllerName="nmshd.app.flows.app.Legal"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.f"
+	xmlns:c="nmshd.app.core.controls">
+
+	<semantic:DetailPage id="wizardContentPage"
+		navButtonPress="onNavButtonPress"
+		showNavButton="{d>/system/phone}"
+		title="Rechtliche Hinweise"
+		showFooter="false"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+
+
+		<semantic:content>
+			<f:DynamicPage class="sapUiSmallContentPadding">
+				<f:title>
+					<f:DynamicPageTitle>
+
+						<f:snappedContent>
+							<HBox alignItems="Center"
+								justifyContent="SpaceBetween">
+								<Text text="{v>/legalVersion}" />
+								<Text text="{path:'v>/legalChanged', formatter:'.formatter.toAbsoluteDate'}"
+									class="sapUiSmallMarginStart" />
+							</HBox>
+						</f:snappedContent>
+						<f:expandedContent>
+							<form:SimpleForm class="sapUiNoContentPadding">
+								<Label text="Version" />
+								<Text text="{v>/legalVersion}" />
+								<Label text="Geändert am" />
+								<Text text="{path:'v>/legalChanged', formatter:'.formatter.toAbsoluteDate'}" />
+							</form:SimpleForm>
+
+						</f:expandedContent>
+
+						<f:actions>
+
+						</f:actions>
+					</f:DynamicPageTitle>
+				</f:title>
+				<f:content>
+					<FormattedText htmlText="{v>/legalText}" />
+
+
+				</f:content>
+			</f:DynamicPage>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

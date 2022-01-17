@@ -1,0 +1,51 @@
+<mvc:View controllerName="nmshd.app.flows.account.share.Card"
+	xmlns:m="sap.m"
+	xmlns:layout="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:f="sap.f"
+	xmlns:controls="nmshd.app.core.controls"
+	xmlns:u="sap.ui.unified">
+	<semantic:DetailPage id="page"
+		navButtonPress="onNavButtonPress"
+		showNavButton="true"
+		title="{t>master.share}"
+		showFooter="false"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+
+		<semantic:customHeaderContent>
+			<m:Button text="{t>relationship.refresh}"
+				icon="sap-icon://refresh"
+				press="refresh"
+				visible="{= !${d>/system/phone}}" />
+		</semantic:customHeaderContent>
+
+
+		<semantic:content>
+			<m:Panel headerText="{v>/template/title}"
+				visible="{=!!${v>/token} }">
+				<m:Text text="Diesen Code sollte dein Kontakt einscannen:" />
+				<m:VBox alignItems="Center"
+					justifyContent="Center"
+					class="sapUiSmallMargin">
+					<controls:QRCode id="qrcode"
+						content="{v>/token}" />
+				</m:VBox>
+				<m:Text text="Es ist ebenfalls möglich folgenden Link an deinen Kontakt zu schicken:"
+					class="sapUiSmallMarginTopBottom" />
+				<m:VBox alignItems="Center">
+					<m:Text text="nmshd://qr#{v>/token}"
+						class="textSelectAll inlineText" />
+				</m:VBox>
+
+			</m:Panel>
+
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

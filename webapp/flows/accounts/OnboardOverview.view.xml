@@ -1,0 +1,77 @@
+<mvc:View controllerName="nmshd.app.flows.accounts.OnboardOverview"
+	xmlns="sap.m"
+	xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:controls="nmshd.app.core.controls">
+	<semantic:DetailPage id="wizardContentPage"
+		navButtonPress="onNavButtonPress"
+		showNavButton="{d>/system/phone}"
+		title="{t>accounts.create.title}"
+		showFooter="false"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:subHeader>
+
+
+		</semantic:subHeader>
+
+		<semantic:content>
+			<m:VBox class="sapUiResponsiveMargin">
+
+				<m:Title text="Deine Identität"
+					class="sapUiSmallMargin" />
+
+				<controls:Container class="sapUiSmallMargin">
+
+
+					<m:Text text="Bevor es richtig losgeht, benötigst Du eine digitale Identität."
+						class="inlineText" />
+					<m:Text text=" Um diese zu erstellen, wird Dir von unseren Partnern ein QR-Code erzeugt, den Du jetzt einscannen kannst."
+						class="inlineText" />
+					<m:Text text=" Falls Du dieses Gerät zu einer vorhandenen Identität hinzufügen möchtest, kannst Du den entsprechenden Code ebenfalls einscannen."
+						class="inlineText" />
+				</controls:Container>
+
+				<HBox alignItems="Center"
+					renderType="Bare"
+					class="sapUiSmallMargin sapUiMediumMarginBottom">
+					<m:Link text="Ich habe keinen Code"
+						press="onNoCode" />
+					<ToolbarSpacer />
+
+					<m:Button text="Code Scannen"
+						icon="sap-icon://accept"
+						type="Emphasized"
+						press="scan" />
+
+				</HBox>
+
+
+				<m:HBox class="contentInfo sapUiMediumMarginTopBottom">
+					<m:Avatar src="sap-icon://compare"
+						backgroundColor="Accent10"
+						class="sapUiSmallMargin" />
+					<controls:Container class="sapUiTinyMargin">
+						<Text text="Die Benutzung dieser App erfordert die Zustimmung zu unseren"
+							class="inlineText" />
+						<Link press="toPrivacy"
+							text=" Datenschutzbedingungen"
+							class="sapUiTinyMarginStart inlineText" />
+						<Text text=". Sobald Du einen Code einscannst, erklärst Du dich ausdrücklich und vollumfänglich mit den Bedingungen einverstanden."
+							class="inlineText" />
+					</controls:Container>
+				</m:HBox>
+
+			</m:VBox>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

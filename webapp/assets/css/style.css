@@ -1,0 +1,59 @@
+body .avatarRealSquare {
+    border-radius: 0;
+}
+
+body .inlineText {
+    display: inline;
+    white-space: normal;
+}
+
+body .noContentPadding .sapUiFormResLayout > div {
+    padding: 0;
+    padding-top: 0.25rem;
+}
+
+/* Fix margins/paddings on phones for UXAP */
+body .sapUxAPObjectPageLayout-Std-Phone .sapUxAPBlockContainer {
+    padding: 0;
+}
+
+body .sapUxAPObjectPageLayout-Std-Phone .sapUxAPObjectPageSubSectionPromoted .sapUxAPBlockContainer {
+    padding-top: 0;
+}
+
+body .sapUxAPObjectPageLayout-Std-Phone .sapUxAPObjectPageSubSection .sapUiRespGrid.sapUiRespGridHSpace1 > div {
+    width: 100%;
+}
+
+body .title {
+    font-size: 1rem;
+}
+
+.sap-phone .phoneTinyMargin {
+    margin: 0.5rem !important;
+}
+
+.sap-phone .phoneTinyMarginStart {
+    margin-left: 0.5rem !important;
+}
+
+.sap-phone .phoneTinyMarginEnd {
+    margin-right: 0.5rem !important;
+}
+
+.sap-phone .phoneTinyMarginTop {
+    margin-top: 0.5rem !important;
+}
+
+.sap-phone .phoneTinyMarginBottom {
+    margin-bottom: 0.5rem !important;
+}
+
+.sap-phone .phoneTinyMarginTopBottom {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.sap-phone .phoneSmallMargin {
+    margin: 1rem !important;
+}

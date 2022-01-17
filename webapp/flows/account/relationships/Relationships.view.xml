@@ -1,0 +1,63 @@
+<mvc:View controllerName="nmshd.app.flows.account.relationships.Relationships"
+	xmlns:m="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:controls="nmshd.app.core.controls">
+
+	<semantic:DetailPage id="page"
+		navButtonPress="onNavButtonPress"
+		title="{t>relationship.title}"
+		showFooter="false">
+
+
+		<semantic:customHeaderContent>
+			<m:Button text="Kontakt hinzufügen"
+				icon="sap-icon://bar-code"
+				visible="{= !${d>/system/phone}}"
+				press="onNewLink" />
+
+			<m:Button text="{= ${d>/system/phone} ? '' : ${t>relationship.refresh}}"
+				icon="sap-icon://refresh"
+				visible="{= !${d>/system/phone}}"
+				press="refresh" />
+
+		</semantic:customHeaderContent>
+
+		<semantic:subHeader>
+		</semantic:subHeader>
+
+		<semantic:content>
+			<m:PullToRefresh id="pullToRefresh"
+				refresh="refresh"
+				visible="{=${d>/system/phone}}" />
+
+			<m:SegmentedButton id="filters"
+				selectionChange="onSelectionChange"
+				selectedKey="active"
+				class="sapUiTinyMargin">
+				<m:items>
+					<m:SegmentedButtonItem text="Relevant"
+						key="active" />
+					<m:SegmentedButtonItem text="Alle"
+						key="all" />
+				</m:items>
+
+			</m:SegmentedButton>
+			<m:List id="list"
+				items="{path:'/items', factory:'.itemFactory'}"
+				noDataText="Keine Kontakte vorhanden">
+			</m:List>
+			<m:VBox alignItems="Center"
+				alignContent="Center"
+				class="sapUiSmallMarginTop"
+				visible="{=${d>/system/phone}}">
+				<m:Button text="Kontakt hinzufügen"
+					icon="sap-icon://bar-code"
+					press="onNewLink" />
+			</m:VBox>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>
