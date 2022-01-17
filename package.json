@@ -9,8 +9,7 @@
         "dist"
     ],
     "scripts": {
-        "build:develop": "node ./.ci/build.develop.js",
-        "build:release": "node ./.ci/build.release.js",
+        "build": "node ./.ci/build.js",
         "lint": "npm run lint:eslint && npm run lint:prettier",
         "lint:eslint": "eslint --ext .js ./webapp",
         "lint:prettier": "prettier --check .",
