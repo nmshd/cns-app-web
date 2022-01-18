@@ -7,7 +7,7 @@ sap.ui.define(
     (App, RelationshipController, JSONModel) => {
         "use strict"
 
-        return RelationshipController.extend("nmshd.app.flows.account.relationship.Attributes", {
+        return RelationshipController.extend("nmshd.app.flows.account.relationship.AttributesReceived", {
             routeName: "account.relationship.attributesReceived",
 
             async refresh() {

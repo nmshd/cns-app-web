@@ -2,7 +2,7 @@ specVersion: "2.0"
 type: application
 
 metadata:
-  name: cns-app-blueprint
+  name: cns-app-web
 
 resources:
   configuration:
