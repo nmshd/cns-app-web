@@ -1,0 +1,81 @@
+<mvc:View controllerName="nmshd.app.flows.account.messages.New"
+	xmlns:m="sap.m"
+	xmlns:u="sap.ui.unified"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.layout.form">
+
+	<semantic:DetailPage id="page"
+		navButtonPress="onNavButtonPress"
+		showNavButton="true"
+		title="{t>inbox.new.draft}"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:content>
+
+			<m:VBox class="sapUiNoMargin">
+				<form:SimpleForm editable="true">
+					<m:Label text="{t>inbox.new.subject}" />
+					<m:Input id="subject" />
+					<m:Label text="{t>inbox.new.message}" />
+					<m:TextArea id="body"
+						rows="10"
+						growingMaxLines="20"
+						growing="true" />
+				</form:SimpleForm>
+
+				<form:SimpleForm editable="true">
+					<m:Toolbar>
+						<m:Title text="{t>inbox.new.attachment}" />
+					</m:Toolbar>
+					<m:Label text="{t>inbox.new.availableFiles}" />
+					<m:MultiInput width="100%"
+						id="fileInput"
+						startSuggestion="0"
+						showSuggestion="true"
+						autocomplete="true"
+						filterSuggests="false"
+						suggestionItems="{
+						path: 'v>/files/items',
+						sorter: { path: 'title' }
+					}"
+						showValueHelp="false">
+						<core:Item key="{v>id}"
+							text="{v>title}" />
+					</m:MultiInput>
+					<m:Label text="{t>inbox.new.fileName}" />
+
+					<m:Input id="name" />
+
+					<m:Label text="{t>inbox.new.upload}"
+						labelFor="fileBrowser" />
+					<m:Button id="fileBrowser"
+						text="{t>inbox.new.browse}"
+						press="doChoose" />
+
+
+				</form:SimpleForm>
+			</m:VBox>
+		</semantic:content>
+		<semantic:customFooterContent>
+			<m:Toolbar>
+				<m:ToolbarSpacer />
+				<m:Button text="{t>inbox.new.send}"
+					enabled="{v>/submitAvailable}"
+					press="onMessageSubmit"
+					type="Emphasized" />
+
+			</m:Toolbar>
+		</semantic:customFooterContent>
+
+
+	</semantic:DetailPage>
+</mvc:View>

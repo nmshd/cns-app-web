@@ -1,0 +1,133 @@
+<mvc:View controllerName="nmshd.app.flows.account.messages.Detail"
+    xmlns="sap.uxap"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:f="sap.f"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:uxap="sap.uxap"
+    xmlns:controls="nmshd.app.core.controls">
+    <semantic:DetailPage id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="true"
+        title="{t>inbox.new.message}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}">
+
+
+        <semantic:content>
+            <uxap:ObjectPageLayout id="ObjectPageLayout"
+                showAnchorBarPopover="false"
+                showAnchorBar="false"
+                headerContentPinnable="false"
+                toggleHeaderOnTitleClick="false"
+                subSectionLayout="TitleOnLeft"
+                useTwoColumnsForLargeScreen="true">
+
+
+                <uxap:headerContent>
+                    <m:HBox width="100%"
+                        class="sapUiNoMargin">
+                        <m:Title text="{name}"
+                            wrapping="true" />
+                    </m:HBox>
+                    <m:Text text="{= ${/isOwn} ? ${t>message.direction.sent} : ${t>message.direction.received} } {path:'createdAt',formatter:'.formatter.toRelativeDate'}"
+                        visible="{/isOwn}" />
+                    <m:Text text="{= ${/isOwn} ? ${t>message.direction.sent} : ${t>message.direction.received} } {path:'createdAt',formatter:'.formatter.toRelativeDate'}"
+                        visible="{=!${/isOwn}}" />
+
+                </uxap:headerContent>
+
+                <uxap:sections>
+                    <uxap:ObjectPageSection titleUppercase="false"
+                        title="{t>detail.content}"
+                        showTitle="false">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection titleUppercase="false">
+                                <m:HBox class="sapUiSmallMargin">
+                                    <m:FormattedText htmlText="{body}" />
+                                </m:HBox>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                    <uxap:ObjectPageSection titleUppercase="false"
+                        title="{t>detail.requests} ({/requestCount})"
+                        visible="{= ${/requestCount} > 0}">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection titleUppercase="false">
+                                <m:List id="requests"
+                                    items="{path:'/requests', factory:'.requestItemFactory',templateShareable:false}"
+                                    noDataText="{t>detail.noRequests}">
+                                </m:List>
+                            </uxap:ObjectPageSubSection>
+
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                    <uxap:ObjectPageSection titleUppercase="false"
+                        title="{t>detail.attachments} ({/attachmentCount})"
+                        visible="{= ${/attachmentCount} > 0}">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection titleUppercase="false">
+                                <m:List id="attachments"
+                                    items="{/attachments}"
+                                    noDataText="{t>detail.noAttachments}">
+                                    <m:CustomListItem>
+                                        <m:HBox class="sapUiSmallMargin">
+                                            <core:Icon size="2rem"
+                                                src="{icon}"
+                                                class="sapUiTinyMarginEnd" />
+                                            <m:VBox alignItems="Stretch"
+                                                width="calc(100% - 2.5rem)">
+                                                <m:Text text="{name}"
+                                                    class="title" />
+                                                <m:HBox justifyContent="End"
+                                                    alignItems="End">
+                                                    <m:Button icon="sap-icon://action"
+                                                        text="Datei öffnen"
+                                                        press="openLink" />
+                                                </m:HBox>
+                                            </m:VBox>
+
+                                        </m:HBox>
+                                    </m:CustomListItem>
+
+                                </m:List>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                    <uxap:ObjectPageSection titleUppercase="false"
+                        title="{t>detail}">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection title=""
+                                titleUppercase="false">
+                                <form:SimpleForm>
+                                    <m:Label text="{t>detail.messageId}" />
+                                    <m:Text text="{/id}" />
+                                    <m:Label text="{t>detail.sender}" />
+                                    <m:Text text="{path:'/createdBy/name',formatter:'.formatter.toTranslated'}" />
+                                    <m:Label text="{t>detail.recipient}" />
+                                    <m:Text text="{path:'/recipients/0/name',formatter:'.formatter.toTranslated'}" />
+                                    <m:Label text="{t>details.postmark}" />
+                                    <m:Text text="{path:'/createdAt',formatter:'.formatter.toAbsoluteDate'}" />
+                                    <!--
+                                    <m:Label text="{t>details.delivered}" />
+                                    <m:Text text="{path:'/recipients/0/receivedAt',formatter:'.formatter.toAbsoluteDate'}" />
+                                    -->
+                                </form:SimpleForm>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                </uxap:sections>
+
+            </uxap:ObjectPageLayout>
+        </semantic:content>
+    </semantic:DetailPage>
+</mvc:View>

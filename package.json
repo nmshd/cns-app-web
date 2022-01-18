@@ -1,0 +1,56 @@
+{
+    "name": "@nmshd/app-web",
+    "version": "1.0.0",
+    "description": "The web sources for the Enmeshed App",
+    "repository": "github:nmshd/cns-app-web",
+    "license": "MIT",
+    "author": "j&s-soft GmbH",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "node ./.ci/build.js",
+        "lint": "npm run lint:eslint && npm run lint:prettier",
+        "lint:eslint": "eslint --ext .js ./webapp",
+        "lint:prettier": "prettier --check .",
+        "start": "npx ui5 serve",
+        "test": "echo \"no test specified\"",
+        "versionBump": "node ./_tools/versionBump.js && npm i"
+    },
+    "dependencies": {
+        "@js-soft/native-cordova": "1.0.3",
+        "@js-soft/native-electron": "1.0.3",
+        "@js-soft/native-web": "1.0.3",
+        "@js-soft/ts-serval": "1.0.2",
+        "@nmshd/app-runtime": "1.0.0",
+        "bson": "^4.6.1",
+        "pako": "^2.0.4"
+    },
+    "devDependencies": {
+        "@js-soft/license-check": "^1.0.3",
+        "@types/jquery": "^3.5.13",
+        "@ui5/cli": "^2.14.2",
+        "cross-env": "^7.0.3",
+        "eslint": "^8.7.0",
+        "eslint-config-prettier": "^8.3.0",
+        "fs-extra": "^10.0.0",
+        "prettier": "^2.5.1",
+        "prompt": "^1.2.1",
+        "ui5-middleware-livereload": "^0.5.8",
+        "ui5-middleware-simpleproxy": "^0.7.6"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "ui5": {
+        "dependencies": [
+            "ui5-middleware-livereload",
+            "ui5-middleware-simpleproxy",
+            "@js-soft/ts-serval",
+            "@nmshd/app-runtime",
+            "@js-soft/native-cordova",
+            "@js-soft/native-web",
+            "@js-soft/native-electron"
+        ]
+    }
+}

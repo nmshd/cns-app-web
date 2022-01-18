@@ -1,0 +1,45 @@
+<mvc:View controllerName="nmshd.app.flows.accounts.ProcessRelationshipToken"
+	xmlns="sap.m"
+	xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:controls="nmshd.app.core.controls">
+	<semantic:DetailPage id="wizardContentPage"
+		navButtonPress="onNavButtonPress"
+		showNavButton="true"
+		title="{t>accounts.create.title}"
+		showFooter="false"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:subHeader>
+
+
+		</semantic:subHeader>
+
+		<semantic:content>
+			<m:VBox class="sapUiSmallMargin">
+				<m:Text text="Sehr gut! Der eingescannte Code konnte gelesen werden und Deine Identität ist erstellt." />
+				<m:Text text="Wir leiten Dich jetzt zu der eingescannten Kontaktanfrage von unserem Partner weiter." />
+			</m:VBox>
+			<HBox alignItems="Center"
+				renderType="Bare"
+				class="sapUiSmallMargin sapUiMediumMarginBottom">
+				<ToolbarSpacer />
+				<m:Button text="Weiter"
+					enabled="{v>/submitAvailable}"
+					icon="sap-icon://accept"
+					type="Emphasized"
+					press="onSubmit" />
+
+			</HBox>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

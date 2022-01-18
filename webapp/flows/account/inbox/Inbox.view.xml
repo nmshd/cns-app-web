@@ -1,0 +1,41 @@
+<mvc:View controllerName="nmshd.app.flows.account.inbox.Inbox"
+	xmlns:m="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:controls="nmshd.app.core.controls">
+
+	<semantic:DetailPage id="page"
+		navButtonPress="onNavButtonPress"
+		showNavButton="{d>/system/phone}"
+		title="{t>master.inbox}"
+		showFooter="false"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+		<semantic:customHeaderContent>
+			<m:Button text="{= ${d>/system/phone} ? '' : ${t>inbox.refresh}}"
+				icon="sap-icon://refresh"
+				visible="{= !${d>/system/phone}}"
+				press="refresh" />
+		</semantic:customHeaderContent>
+
+		<semantic:subHeader>
+		</semantic:subHeader>
+
+		<semantic:content>
+			<m:PullToRefresh id="pullToRefresh"
+				refresh="refresh"
+				visible="{=${d>/system/phone}}" />
+
+			<m:List id="messageList"
+				noDataText="Willkommen!"
+				items="{path:'/items', factory:'.itemFactory', sorter: { path: 'createdAt', group: false, descending: true}}">
+			</m:List>
+
+		</semantic:content>
+	</semantic:DetailPage>
+
+</mvc:View>

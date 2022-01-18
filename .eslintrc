@@ -1,0 +1,25 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "globals": {
+        "sap": true,
+        "jQuery": true,
+        "NMSHDAppRuntime": true,
+        "isCordovaApp": true,
+        "deviceId": true,
+        "fcmToken": true,
+        "App": true,
+        "QRCode": true,
+        "cordova": true,
+        "loki": true,
+        "moment": true,
+        "cc": true,
+        "jss": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "extends": ["prettier"]
+}

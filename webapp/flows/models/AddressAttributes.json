@@ -1,0 +1,198 @@
+{
+    "address": [
+        {
+            "text": "attribute.fragment.label",
+            "value": "name",
+            "type": "input",
+            "minLength": 0,
+            "maxLength": 30
+        },
+        {
+            "text": "attribute.fragment.street",
+            "value": "street",
+            "type": "input",
+            "minLength": 1,
+            "maxLength": 30
+        },
+        {
+            "text": "attribute.fragment.houseNo",
+            "value": "houseNo",
+            "type": "input",
+            "minLength": 1,
+            "maxLength": 6
+        },
+        {
+            "text": "attribute.fragment.zipCode",
+            "value": "zipCode",
+            "type": "input",
+            "semantic": "number",
+            "minLength": 1,
+            "maxLength": 8
+        },
+        {
+            "text": "attribute.fragment.city",
+            "value": "city",
+            "type": "input",
+            "minLength": 1,
+            "maxLength": 30
+        },
+        {
+            "text": "attribute.fragment.country",
+            "value": "country",
+            "type": "input",
+            "minLength": 1,
+            "maxLength": 30
+        }
+    ],
+    "officeHq": [
+        {
+            "text": "attribute.fragment.label",
+            "value": "name"
+        },
+        {
+            "text": "attribute.fragment.street",
+            "value": "street"
+        },
+        {
+            "text": "attribute.fragment.houseNo",
+            "value": "houseNo"
+        },
+        {
+            "text": "attribute.fragment.zipCode",
+            "value": "zipCode",
+            "semantic": "number"
+        },
+        {
+            "text": "attribute.fragment.city",
+            "value": "city"
+        },
+        {
+            "text": "attribute.fragment.country",
+            "value": "country"
+        },
+        {
+            "text": "attribute.fragment.vatId",
+            "value": "vatId"
+        }
+    ],
+    "postOfficeBox": [
+        {
+            "text": "attribute.fragment.label",
+            "value": "name"
+        },
+        {
+            "text": "attribute.fragment.postNo",
+            "value": "postNo",
+            "semantic": "number"
+        },
+        {
+            "text": "attribute.fragment.packingstation",
+            "value": "packingstation"
+        },
+        {
+            "text": "attribute.fragment.boxNo",
+            "value": "boxNo",
+            "semantic": "number"
+        },
+        {
+            "text": "attribute.fragment.zipCode",
+            "value": "zipCode",
+            "semantic": "number"
+        },
+        {
+            "text": "attribute.fragment.city",
+            "value": "city"
+        },
+        {
+            "text": "attribute.fragment.country",
+            "value": "country"
+        }
+    ],
+    "packingstation": [
+        {
+            "text": "attribute.fragment.label",
+            "value": "name"
+        },
+        {
+            "text": "attribute.fragment.postNo",
+            "value": "postNo",
+            "semantic": "number"
+        },
+        {
+            "text": "attribute.fragment.packingstation",
+            "value": "packingstation"
+        },
+        {
+            "text": "attribute.fragment.boxNo",
+            "value": "boxNo",
+            "semantic": "number"
+        },
+        {
+            "text": "attribute.fragment.zipCode",
+            "value": "zipCode",
+            "semantic": "number"
+        },
+        {
+            "text": "attribute.fragment.city",
+            "value": "city"
+        },
+        {
+            "text": "attribute.fragment.country",
+            "value": "country"
+        }
+    ],
+    "officeAddress": [
+        {
+            "text": "attribute.fragment.label",
+            "value": "name"
+        },
+        {
+            "text": "attribute.fragment.street",
+            "value": "street"
+        },
+        {
+            "text": "attribute.fragment.houseNo",
+            "value": "houseNo"
+        },
+        {
+            "text": "attribute.fragment.zipCode",
+            "value": "zipCode",
+            "semantic": "number"
+        },
+        {
+            "text": "attribute.fragment.city",
+            "value": "city"
+        },
+        {
+            "text": "attribute.fragment.country",
+            "value": "country"
+        }
+    ],
+    "invoiceAddress": [
+        {
+            "text": "attribute.fragment.label",
+            "value": "name"
+        },
+        {
+            "text": "attribute.fragment.street",
+            "value": "street"
+        },
+        {
+            "text": "attribute.fragment.houseNo",
+            "value": "houseNo"
+        },
+        {
+            "text": "attribute.fragment.zipCode",
+            "value": "zipCode",
+            "semantic": "number"
+        },
+        {
+            "text": "attribute.fragment.city",
+            "value": "city"
+        },
+        {
+            "text": "attribute.fragment.country",
+            "value": "country"
+        }
+    ]
+}

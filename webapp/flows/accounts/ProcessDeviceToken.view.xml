@@ -1,0 +1,59 @@
+<mvc:View controllerName="nmshd.app.flows.accounts.ProcessDeviceToken"
+	xmlns="sap.m"
+	xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:controls="nmshd.app.core.controls">
+	<semantic:DetailPage id="wizardContentPage"
+		navButtonPress="onNavButtonPress"
+		showNavButton="true"
+		title="Geräteregistrierung"
+		showFooter="false"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:subHeader>
+
+
+		</semantic:subHeader>
+
+		<semantic:content>
+
+			<m:Text text="Möchtest du das aktuelle Gerät mit folgender Identität verbinden:"
+				class="sapUiSmallMargin" />
+			<form:SimpleForm editable="true">
+				<m:Label text="Adresse der Identität" />
+				<m:Input editable="false"
+					value="{/address}" />
+
+				<m:Label text="Gerätename" />
+				<m:Input editable="false"
+					value="{/name}" />
+				<m:Label text="Beschreibung" />
+				<m:Input editable="false"
+					value="{/description}" />
+				<m:Label text="Geräte ID" />
+				<m:Input editable="false"
+					value="{/id}" />
+
+			</form:SimpleForm>
+			<HBox alignItems="Center"
+				renderType="Bare"
+				class="sapUiSmallMargin sapUiMediumMarginBottom">
+				<ToolbarSpacer />
+				<m:Button text="Mit Identität verbinden"
+					icon="sap-icon://accept"
+					type="Emphasized"
+					press="onSubmit" />
+
+			</HBox>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

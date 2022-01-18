@@ -1,0 +1,14 @@
+{
+    "_default": {
+        "image": "",
+        "fontColor": "#ffffff",
+        "fontStyle": "light",
+        "backgroundColor": "#29235c"
+    },
+    "error": {
+        "image": "",
+        "fontColor": "#ffffff",
+        "fontStyle": "light",
+        "backgroundColor": "#770000"
+    }
+}

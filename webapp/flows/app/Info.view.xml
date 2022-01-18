@@ -1,0 +1,34 @@
+<mvc:View controllerName="nmshd.app.flows.app.Info"
+	xmlns:m="sap.m"
+	xmlns:layout="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:tnt="sap.tnt"
+	xmlns="sap.uxap"
+	xmlns:l="sap.ui.layout">
+
+	<semantic:DetailPage id="page"
+		navButtonPress="onNavButtonPress"
+		showNavButton="{d>/system/phone}"
+		title="Info"
+		showFooter="false"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:content>
+			<m:VBox class="sapUiTinyMargin">
+				<m:Text text="Wir bilden die digitale Identität so nah wie möglich am Menschen ab, auf ihren eigenen Geräten." />
+				<m:Text text="Damit sind sehr viele Arbeitsschritte und Datenschutzproblematiken aus dem Weg geräumt - aber es tun sich natürlich neue Fragen auf." />
+				<m:Text text="Diese Fragen möchten wir auf dieser Seite und in den weiterführenden Links klären." />
+			</m:VBox>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

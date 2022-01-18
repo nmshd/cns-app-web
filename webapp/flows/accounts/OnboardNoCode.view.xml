@@ -1,0 +1,44 @@
+<mvc:View controllerName="nmshd.app.flows.accounts.OnboardNoCode"
+	xmlns="sap.m"
+	xmlns:m="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:controls="nmshd.app.core.controls">
+	<semantic:DetailPage id="wizardContentPage"
+		navButtonPress="onNavButtonPress"
+		showNavButton="true"
+		title="{t>accounts.create.title}"
+		showFooter="false"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:subHeader>
+
+
+		</semantic:subHeader>
+
+		<semantic:content>
+			<m:Title text="Du hast keinen Code?"
+				class="sapUiSmallMargin" />
+
+			<controls:Container class="sapUiSmallMargin">
+
+
+				<m:Text text="Das tut uns sehr leid!"
+					class="inlineText" />
+				<m:Text text=" Aktuell benötigen wir den von unseren Partnern erstellen Code um eine optimale Erfahrung zu gewährleisten."
+					class="inlineText" />
+				<m:Text text=" Bitte schau doch einmal bei unseren Partnern vorbei - vielleicht haben sie einen Code für dich?"
+					class="inlineText" />
+
+			</controls:Container>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

@@ -1,0 +1,70 @@
+<mvc:View controllerName="nmshd.app.flows_phone.app.App"
+	xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true"
+	class="phone"
+	xmlns:m="sap.m"
+	xmlns:controls="nmshd.app.core.controls">
+	<controls:ArcHeader backgroundColor="{v>/theme/backgroundColor}"
+		image="{v>/theme/image}"
+		fontStyle="{v>/theme/fontStyle}">
+		<m:Bar>
+			<m:contentLeft>
+				<m:Button icon="{v>/leftIcon}"
+					id="appLeft"
+					visible="{=!!${v>/leftIcon}}"
+					press="onLeftPress" />
+			</m:contentLeft>
+			<m:contentMiddle>
+				<m:Title text="{v>/title}"
+					visible="{=!${v>/theme/image}}" />
+			</m:contentMiddle>
+			<m:contentRight>
+				<m:Button icon="{v>/rightIcon}"
+					id="appRight"
+					visible="{=!!${v>/rightIcon}}"
+					press="onRightPress" />
+
+			</m:contentRight>
+		</m:Bar>
+		<m:Bar class="arcSub">
+			<m:contentLeft>
+
+			</m:contentLeft>
+			<m:contentMiddle>
+			</m:contentMiddle>
+			<m:contentRight>
+
+
+			</m:contentRight>
+		</m:Bar>
+	</controls:ArcHeader>
+
+	<m:SplitApp id="appComponent">
+	</m:SplitApp>
+	<m:HBox class="mainButtons"
+		alignItems="Center"
+		justifyContent="SpaceAround"
+		visible="{v>/showAccountNavigation}">
+		<m:ToggleButton text="Start"
+			id="appStart"
+			icon="sap-icon://home"
+			pressed="{v>/selectStart}"
+			press="toStart" />
+		<m:ToggleButton text="Teilen"
+			id="appShare"
+			icon="sap-icon://business-card"
+			pressed="{v>/selectShare}"
+			press="toCards" />
+
+		<m:ToggleButton text="Kontakte"
+			id="appRelationships"
+			icon="sap-icon://contacts"
+			pressed="{v>/selectContacts}"
+			press="toContacts" />
+		<m:ToggleButton text="Daten"
+			id="appProfile"
+			icon="sap-icon://work-history"
+			pressed="{v>/selectProfile}"
+			press="toProfile" />
+	</m:HBox>
+</mvc:View>

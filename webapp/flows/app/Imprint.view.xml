@@ -1,0 +1,53 @@
+<mvc:View controllerName="nmshd.app.flows.app.Imprint"
+	xmlns:m="sap.m"
+	xmlns:layout="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:tnt="sap.tnt"
+	xmlns="sap.uxap"
+	xmlns:l="sap.ui.layout">
+
+	<semantic:DetailPage id="page"
+		navButtonPress="onNavButtonPress"
+		showNavButton="{d>/system/phone}"
+		title="Impressum"
+		showFooter="false"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:content>
+			<m:VBox>
+				<form:SimpleForm>
+					<form:content>
+						<m:Label text="Herausgeber" />
+						<m:VBox>
+							<m:Text text="(verantwortlich nach § 5 Abs. 1 TMG, § 18 Abs. 1 MStV)" />
+							<m:Title text="j&amp;s-soft GmbH" />
+							<m:Text text="Max-Jarecki-Str. 21" />
+							<m:Text text="69115 Heidelberg" />
+							<m:Text text="info@js-soft.com" />
+						</m:VBox>
+						<m:Label text="Geschäftsführer" />
+						<m:Text text="Dirk Jennerjahn" />
+						<m:Label text="Umsatzsteuer-Identifikationsnummer" />
+						<m:Text text="DE229831469" />
+						<m:Label text="Registergericht" />
+						<m:Text text="HRB 337601, Amtsgericht Mannheim" />
+
+
+
+					</form:content>
+				</form:SimpleForm>
+			</m:VBox>
+
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

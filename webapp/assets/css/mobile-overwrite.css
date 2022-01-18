@@ -1,0 +1,294 @@
+.sap-phone .sapMPageHeader {
+    z-index: 2 !important;
+}
+
+.sap-phone .sapUiLocalBusyIndicator {
+    display: none;
+}
+
+.sap-phone .contactList {
+    padding: 8px;
+}
+
+.sap-phone .contactList .sapMTitle {
+    color: #ffffff;
+}
+
+.sap-phone .contactTitleBackground {
+    background-color: #42a8e0;
+    border-radius: 4px;
+    margin: 4px;
+    display: block;
+    width: calc(100% - 8px);
+}
+
+.sap-phone .contactListItem.sapMLIB {
+    background-color: #e2f3fe;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.sap-phone .sapMPanelContent:not(.sapMPanelBGTransparent) {
+    border: none;
+}
+
+.sap-phone .sapMPullDown {
+    background-color: transparent;
+    overflow: inherit;
+    bottom: 1rem;
+}
+
+.sap-phone :not(.sapMBtnDisabled) .sapMBtnBack > .sapMBtnIcon,
+.sap-phone :not(.sapMBtnDisabled) .sapMBtnTransparent > .sapMBtnIcon,
+.sap-phone :not(.sapMBtnDisabled) .sapMBtnGhost > .sapMBtnIcon {
+    color: #ffffff;
+}
+
+.mainButtons.sapMHBox {
+    padding-bottom: 0.5rem;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: #dddce5;
+    border-top: 1px solid #b3b1c5;
+}
+
+.mainButtons .sapMBtn {
+    height: 4rem;
+    min-width: 4rem;
+}
+
+.mainButtons .sapMBtnInner {
+    height: 4rem;
+    flex-wrap: wrap;
+    flex-direction: column;
+    border: none;
+    color: #29235c;
+    background-color: transparent;
+}
+
+.mainButtons .sapMToggleBtnPressed:not(.sapMBtnDisabled),
+.mainButtons .sapMBar-CTX:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive,
+.mainButtons :not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive {
+    background-color: transparent;
+}
+
+.mainButtons .sapMToggleBtnPressed:not(.sapMBtnDisabled),
+.mainButtons .sapMBtn .sapMBtnInner.sapMToggleBtnPressed:not(.sapMBtnDisabled),
+.mainButtons .sapMBtn .sapMBtnInner.sapMBtnActive {
+    background-color: #29235c;
+    color: #ffffff;
+}
+
+.mainButtons .sapMBtn .sapMBtnInner.sapMBtnText .sapMBtnIcon {
+    font-size: 2rem; /* Icon size */
+    padding: 0;
+    width: 100%;
+    color: #29235c;
+}
+
+.mainButtons .sapMBtn .sapMBtnInner.sapMToggleBtnPressed:not(.sapMBtnDisabled) .sapMBtnIcon,
+.mainButtons .sapMBtn .sapMBtnInner.sapMBtnActive.sapMBtnText .sapMBtnIcon,
+.mainButtons .sapMBtn .sapMBtnInner.sapMBtnActive.sapMBtnText .sapMBtnContent {
+    color: #ffffff;
+}
+
+.sap-phone .mainButtons .sapMBtn .sapMBtnInner.sapMBtnText .sapMBtnIcon:before {
+    width: 100%;
+}
+
+.mainButtons .sapMBtnContent {
+    line-height: normal;
+    vertical-align: bottom;
+}
+
+.sap-phone .noNavArrow .sapMLIBImgNav {
+    display: none;
+}
+
+.sap-phone .sapUiNoContentPadding .sapUiRespGrid {
+    padding: 0 !important;
+}
+
+.sap-phone .sapMPageHeader .sapMBtnIcon,
+.sap-phone .sapMPageSubHeader .sapMBtnIcon,
+.sap-phone .sapMPageHeader .sapMBtnContent,
+.sap-phone .sapMPageSubHeader .sapMBtnContent {
+    color: #ffffff;
+}
+
+.sap-phone .sapMPageHeader .sapMTitle {
+    color: #ffffff;
+}
+
+.sap-phone .sapMDialog .sapMPageHeader .sapMTitle {
+    color: #333333;
+}
+
+.relationshipAvatar {
+    position: absolute;
+    top: -20px;
+}
+
+.sap-phone .sapMPageSubHeader {
+    margin-top: 7px;
+}
+
+.sap-phone .sapMPageSubHeader .sapMIBar {
+    background-color: transparent;
+    box-shadow: none;
+    margin-top: -12px;
+}
+
+.sap-phone .sapMPageWithSubHeader .sapMPageSubHeader:not(.sapMIBar-CTX):after {
+    display: none;
+}
+
+.sap-phone .sapMPageSubHeader .sapMBtn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 0px;
+}
+
+.sap-phone .sapMPageSubHeader .sapMBarLeft.sapMBarContainer,
+.sap-phone .sapMPageSubHeader .sapMBarRight.sapMBarContainer {
+    margin-top: -15px;
+}
+.sap-phone .sapMPageSubHeader .sapMBarMiddle .sapMBarContainer img {
+    margin-top: -12px !important;
+}
+
+.sap-phone .sapMPageSubHeader .sapMBarContainer {
+    overflow: inherit;
+}
+
+.sap-phone .sapMPageSubHeader .sapMBar > .sapMBarContainer.sapMBarLeft {
+    padding-left: 1.5rem;
+}
+
+.sap-phone .sapMPageSubHeader .sapMBar > .sapMBarContainer.sapMBarRight {
+    padding-right: 1.5rem;
+}
+
+.sap-phone .sapMPageSubHeader .sapMBtn.help > .sapMBtnInner {
+    background-color: #f7b232;
+}
+
+.sap-phone .sapMBar-CTX.sapMBtn.help:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive,
+.sap-phone .sapMBtn.help:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive {
+    background-color: #e7a222;
+}
+
+.light .sapUiIcon {
+    color: #ffffff !important;
+}
+
+.dark .sapUiIcon {
+    color: #333333 !important;
+}
+
+/* POPUP */
+
+html.sap-phone body .sapMDialog.sapMDialogStretched {
+    top: 20px !important;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.sap-phone .sapMDialog header .sapMBarLeft,
+.sap-phone .sapMDialog header .sapMBarPH {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.sap-phone .sapMDialog {
+    transform: scale(1) translateZ(0px);
+    -webkit-transform: scale(1) translateZ(0px);
+    background-clip: padding-box;
+    min-height: 6rem;
+    outline: none;
+    overflow: hidden;
+    position: fixed !important;
+    opacity: 0;
+    -webkit-transition: opacity 0.15s, left 0.2s, top 0.2s;
+    transition: opacity 0.15s, left 0.2s, top 0.2s;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0 0.0625rem rgba(0, 0, 0, 0.42), 0 1.25rem 5rem 0 rgba(0, 0, 0, 0.3);
+}
+.sap-phone .sapMDialog:not(.sapMDialogHighPixelDensity) {
+    -webkit-filter: blur(0);
+    filter: blur(0);
+}
+
+.sap-phone .sapUiBLy {
+    background-color: transparent;
+}
+
+.sap-phone .sapMDialog.sapMDialogOpen {
+    opacity: 1 !important;
+    animation: showDialog 0.25s ease-out;
+}
+
+.sap-phone .sapMDialog:not(.sapMDialogOpen) {
+    opacity: 1 !important;
+    animation: hideDialog 0.25s ease-out;
+}
+
+@keyframes hideDialog {
+    from {
+        transform: translateY(0);
+        transform-origin: bottom left;
+    }
+    to {
+        transform: translateY(20px);
+        transform-origin: bottom left;
+    }
+}
+
+@keyframes showDialog {
+    from {
+        transform: translateY(20px);
+        transform-origin: bottom left;
+    }
+    to {
+        transform: translateY(0);
+        transform-origin: bottom left;
+    }
+}
+
+.sap-phone .sapUiNoContentPadding > div > div > .sapUiRLContainer {
+    padding: 0;
+}
+
+.sap-phone .sapFDynamicPageTitleWrapper.sapFDynamicPageTitleSnapped > .sapFDynamicPageTitle,
+.sap-phone .sapFDynamicPageTitleWrapper.sapFDynamicPageTitleOnly > .sapFDynamicPageTitle {
+    box-shadow: none;
+}
+
+.sapMPullDown {
+    outline: none !important;
+}
+
+.sapUiMedia-Std-Phone .sapMListNoData {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+html.sap-phone body .sapMDialog.sapMDialogStretched {
+    top: 20px !important;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+#errors {
+    position: absolute;
+    bottom: 5rem;
+    font-size: 10px;
+}
+
+.sapMMessageToast {
+    z-index: 1000000000 !important;
+}

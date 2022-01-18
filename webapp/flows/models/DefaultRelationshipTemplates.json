@@ -1,0 +1,101 @@
+[
+    {
+        "title": "Private Visitenkarte",
+        "id": "vcard",
+        "description": "Die typische private Visitenkarte mit Name, privater Adresse und Kontaktdaten",
+        "key": "share.template",
+        "icon": "sap-icon://home",
+        "template": {
+            "title": "Visitenkarte Privat",
+            "attributes": [
+                { "attribute": "Thing.identifier" },
+                { "attribute": "Thing.name" },
+                { "attribute": "Person.familyName" },
+                { "attribute": "Person.givenName" },
+                { "attribute": "Person.honorificSuffix" },
+                { "attribute": "Person.gender" },
+                { "attribute": "Address.private" },
+                { "attribute": "Comm.phone.private" },
+                { "attribute": "Comm.phone.mobile" },
+                { "attribute": "Comm.email.private" },
+                { "attribute": "Comm.fax.private" }
+            ],
+            "request": {
+                "required": [{ "attribute": "Person.givenName" }, { "attribute": "Person.familyName" }],
+                "dataUse": [
+                    {
+                        "id": "private",
+                        "title": "Die Daten werden privat benutzt.",
+                        "duration": "Dauer der Beziehung"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "title": "Professionelle Visitenkarte",
+        "id": "vcard-work",
+        "description": "Die typische professionelle Visitenkarte mit Name, geschäftlicher Adresse und Kontaktdaten",
+        "key": "share.template",
+        "icon": "sap-icon://building",
+        "template": {
+            "title": "Visitenkarte Arbeit",
+            "attributes": [
+                { "attribute": "Thing.identifier" },
+                { "attribute": "Thing.name" },
+                { "attribute": "Person.familyName" },
+                { "attribute": "Person.givenName" },
+                { "attribute": "Person.honorificSuffix" },
+                { "attribute": "Address.work" },
+                { "attribute": "Comm.phone.work" },
+                { "attribute": "Comm.phone.mobile" },
+                { "attribute": "Comm.email.work" },
+                { "attribute": "Comm.fax.work" }
+            ],
+            "request": {
+                "required": [{ "attribute": "Person.givenName" }, { "attribute": "Person.familyName" }],
+                "dataUse": [
+                    {
+                        "id": "private",
+                        "title": "Die Daten werden privat benutzt.",
+                        "duration": "Dauer der Beziehung"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "title": "Visitenkarte Freunde und Familie",
+        "id": "family",
+        "description": "Zusätzlich zur privaten Visitenkarte wird das Geburtsdatum übertragen.",
+        "key": "share.template",
+        "icon": "sap-icon://family-protection",
+        "template": {
+            "title": "Visitenkarte Freunde und Familie",
+            "attributes": [
+                { "attribute": "Thing.identifier" },
+                { "attribute": "Thing.name" },
+                { "attribute": "Person.familyName" },
+                { "attribute": "Person.givenName" },
+                { "attribute": "Person.honorificSuffix" },
+                { "attribute": "Person.gender" },
+                { "attribute": "Person.birthDate" },
+                { "attribute": "Address.private" },
+                { "attribute": "Comm.phone.private" },
+                { "attribute": "Comm.phone.mobile" },
+                { "attribute": "Comm.email.private" },
+                { "attribute": "Comm.fax.private" }
+            ],
+            "request": {
+                "required": [{ "attribute": "Person.givenName" }, { "attribute": "Person.familyName" }],
+                "dataUse": [
+                    {
+                        "id": "private",
+                        "title": "Die Daten werden privat benutzt.",
+                        "duration": "Dauer der Beziehung"
+                    }
+                ]
+            }
+        }
+    }
+]

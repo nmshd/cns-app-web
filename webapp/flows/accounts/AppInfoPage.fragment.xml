@@ -1,0 +1,35 @@
+<core:FragmentDefinition height="100%"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+    xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <m:Popover showHeader="false"
+        class="sapUiResponsivePadding--header sapUiResponsivePadding--footer"
+        placement="Bottom">
+        <!--
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button text="{t>appinfo.feedback}" press="handleEmailPress" />
+            </OverflowToolbar>
+        </footer>
+        -->
+
+        <m:List itemPress="onPopupPress">
+            <m:StandardListItem title="Überblick"
+                icon="sap-icon://sys-help"
+                type="Navigation"
+                data:key="app.info" />
+            <m:StandardListItem title="App-Informationen"
+                icon="sap-icon://message-information"
+                type="Navigation"
+                data:key="app.master" />
+            <!--
+            <m:StandardListItem title="Einstellungen" icon="sap-icon://customize" type="Navigation" data:key="app.settings" />
+                -->
+        </m:List>
+
+    </m:Popover>
+</core:FragmentDefinition>
