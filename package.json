@@ -18,9 +18,9 @@
         "versionBump": "node ./_tools/versionBump.js && npm i"
     },
     "dependencies": {
-        "@js-soft/native-cordova": "file:../ts-native-access/packages/cordova",
-        "@js-soft/native-electron": "file:../ts-native-access/packages/electron",
-        "@js-soft/native-web": "file:../ts-native-access/packages/web",
+        "@js-soft/native-cordova": "1.0.3",
+        "@js-soft/native-electron": "1.0.3",
+        "@js-soft/native-web": "1.0.3",
         "@js-soft/ts-serval": "1.0.2",
         "@nmshd/app-runtime": "1.0.1",
         "bson": "^4.6.1",
