@@ -38,7 +38,7 @@ sap.ui.define(
                         if (!tokenResult || tokenResult.isError || !tokenResult.value) {
                         } else {
                             const tokenValue = tokenResult.value.truncatedReference
-                            this.viewProp("/token", tokenValue)
+                            this.viewProp("/token", `nmshd://qr#${tokenValue}`)
                         }
                         this.viewProp("/status", "Noch nicht zugewiesen")
                     }
