@@ -111,7 +111,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
                         })
                         return
                     }
-                    this.viewProp("/token", token)
+                    this.viewProp("/token", `nmshd://qr#${token}`)
                 }
             } catch (oError) {
                 const sUserFriendlyMsg = oError.message

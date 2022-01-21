@@ -40,7 +40,7 @@
 				<m:Text text="Es ist ebenfalls möglich folgenden Link an deinen Kontakt zu schicken:"
 					class="sapUiSmallMarginTopBottom" />
 				<m:VBox alignItems="Center">
-					<m:Text text="nmshd://qr#{v>/token}"
+					<m:Text text="{v>/token}"
 						class="textSelectAll inlineText" />
 				</m:VBox>
 
