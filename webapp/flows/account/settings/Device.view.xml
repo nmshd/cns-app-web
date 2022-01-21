@@ -53,7 +53,7 @@
 				<m:Text text="Es ist ebenfalls möglich folgenden Link auf dem neuen Gerät zu öffnen:"
 					class="sapUiSmallMarginTopBottom" />
 				<m:VBox alignItems="Center">
-					<m:Text text="nmshd://qr#{v>/token}"
+					<m:Text text="{v>/token}"
 						class="textSelectAll inlineText" />
 
 				</m:VBox>
