@@ -44,11 +44,11 @@
 					<m:items>
 
 						<controls:MessageRenderer type="Navigation"
-							subject="{name}"
+							subject="{path:'name', formatter:'.formatter.toTranslated'}"
 							time="{path:'createdAt',formatter:'.formatter.toRelativeDate'}"
 							press="openMessage">
 							<m:FormattedText htmlText="{body}"
-								class="sapUiTinyMarginTopBottom" />
+								class="sapUiTinyMarginTopBottom" visible="{=!!${body}}" />
 						</controls:MessageRenderer>
 					</m:items>
 				</m:List>

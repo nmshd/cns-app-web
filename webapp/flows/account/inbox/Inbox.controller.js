@@ -54,7 +54,7 @@ sap.ui.define(
                 const message = oContext.getObject()
                 const renderer = new MessageRenderer({
                     type: "Active",
-                    subject: message.name,
+                    subject: Formatter.toTranslated(message.name),
                     authorName: Formatter.toTranslated(message.createdBy.name),
                     time: Formatter.toRelativeDate(message.createdAt),
                     icon: "sap-icon://log"
