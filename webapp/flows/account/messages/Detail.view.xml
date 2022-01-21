@@ -32,7 +32,7 @@
                 <uxap:headerContent>
                     <m:HBox width="100%"
                         class="sapUiNoMargin">
-                        <m:Title text="{name}"
+                        <m:Title text="{path:'name', formatter:'.formatter.toTranslated'}"
                             wrapping="true" />
                     </m:HBox>
                     <m:Text text="{= ${/isOwn} ? ${t>message.direction.sent} : ${t>message.direction.received} } {path:'createdAt',formatter:'.formatter.toRelativeDate'}"
@@ -45,7 +45,7 @@
                 <uxap:sections>
                     <uxap:ObjectPageSection titleUppercase="false"
                         title="{t>detail.content}"
-                        showTitle="false">
+                        showTitle="false" visible="{= !!${body}}">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection titleUppercase="false">
                                 <m:HBox class="sapUiSmallMargin">
