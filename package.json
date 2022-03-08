@@ -19,25 +19,25 @@
     },
     "dependencies": {
         "@js-soft/native-cordova": "1.0.3",
-        "@js-soft/native-electron": "1.0.3",
-        "@js-soft/native-web": "1.0.3",
+        "@js-soft/native-electron": "1.0.4",
+        "@js-soft/native-web": "1.0.4",
         "@js-soft/ts-serval": "1.0.2",
-        "@nmshd/app-runtime": "1.0.1",
+        "@nmshd/app-runtime": "1.0.4",
         "bson": "^4.6.1",
         "pako": "^2.0.4"
     },
     "devDependencies": {
         "@js-soft/license-check": "^1.0.3",
-        "@types/jquery": "^3.5.13",
-        "@ui5/cli": "^2.14.3",
+        "@types/jquery": "^3.5.14",
+        "@ui5/cli": "^2.14.6",
         "cross-env": "^7.0.3",
-        "eslint": "^8.7.0",
-        "eslint-config-prettier": "^8.3.0",
-        "fs-extra": "^10.0.0",
+        "eslint": "^8.10.0",
+        "eslint-config-prettier": "^8.5.0",
+        "fs-extra": "^10.0.1",
         "prettier": "^2.5.1",
-        "prompt": "^1.2.1",
-        "ui5-middleware-livereload": "^0.5.8",
-        "ui5-middleware-simpleproxy": "^0.7.6"
+        "prompt": "^1.2.2",
+        "ui5-middleware-livereload": "^0.5.9",
+        "ui5-middleware-simpleproxy": "^0.8.0"
     },
     "publishConfig": {
         "access": "public"
