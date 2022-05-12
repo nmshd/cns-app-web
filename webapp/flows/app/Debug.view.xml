@@ -13,7 +13,7 @@
 	<semantic:DetailPage id="page"
 		navButtonPress="onNavButtonPress"
 		showNavButton="{d>/system/phone}"
-		title="Debugger"
+		title="{t>debug.title}"
 		showFooter="false"
 		busy="{v>/busy}"
 		busyIndicatorDelay="{v>/delay}">
@@ -27,13 +27,13 @@
 			<m:MessageStrip id="message"
 				type="Warning"
 				class="sapUiTinyMargin"
-				text="This is a debugger with experimental functionality. Use at your own risk." />
+				text="{t>debug.warning}" />
 
 			<m:VBox class="sapUiTinyMargin">
 				<m:HBox>
-					<m:Button text="Refresh"
+					<m:Button text="{t>debug.refresh}"
 						press="refreshLogs" />
-					<m:Button text="Download Logs"
+					<m:Button text="{t>debug.download}"
 						press="downloadLogs" />
 				</m:HBox>
 				<m:TextArea id="logs"

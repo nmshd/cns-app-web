@@ -27,30 +27,30 @@
 		<semantic:content>
 
 			<form:SimpleForm editable="true">
-				<m:Label text="Name" />
+				<m:Label text="{t>settings.device.name}" />
 				<m:Input editable="false"
 					value="{/name}" />
-				<m:Label text="Beschreibung" />
+				<m:Label text="{t>settings.device.description}" />
 				<m:Input editable="false"
 					value="{/description}" />
-				<m:Label text="ID" />
+				<m:Label text="{t>settings.device.id}" />
 				<m:Input editable="false"
 					value="{/id}" />
-				<m:Label text="Status" />
+				<m:Label text="{t>settings.device.status}" />
 				<m:Input editable="false"
 					value="{v>/status}" />
 
 			</form:SimpleForm>
 
-			<m:Panel headerText="Gerätecode"
+			<m:Panel headerText="{t>settings.device.dviceCodeHeader}"
 				visible="{=!!${v>/token} }">
-				<m:Text text="Bitte scanne folgenden Code auf dem neuen Gerät ab. Dieser Code ist 5 Minuten lang gültig." />
+				<m:Text text="{t>settings.device.dviceCodeDescription1}" />
 				<m:HBox justifyContent="Center"
 					class="sapUiSmallMargin">
 					<controls:QRCode content="{v>/token}" />
 
 				</m:HBox>
-				<m:Text text="Es ist ebenfalls möglich folgenden Link auf dem neuen Gerät zu öffnen:"
+				<m:Text text="{t>settings.device.dviceCodeDescription2}"
 					class="sapUiSmallMarginTopBottom" />
 				<m:VBox alignItems="Center">
 					<m:Text text="{v>/token}"

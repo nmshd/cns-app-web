@@ -89,7 +89,7 @@
                                                 <m:HBox justifyContent="End"
                                                     alignItems="End">
                                                     <m:Button icon="sap-icon://action"
-                                                        text="Datei öffnen"
+                                                        text="{t>messages.details.openFileButton}"
                                                         press="openLink" />
                                                 </m:HBox>
                                             </m:VBox>

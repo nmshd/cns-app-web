@@ -25,17 +25,17 @@
 		</semantic:subHeader>
 
 		<semantic:content>
-			<m:Title text="Dieser Code ist fehlerhaft :("
+			<m:Title text="{t>onboardWrongCode.title}"
 				class="sapUiSmallMargin" />
 
 			<controls:Container class="sapUiSmallMargin">
 
 
-				<m:Text text="Es tut uns leid, aber dieser Code scheint leider fehlerhaft zu sein."
+				<m:Text text="{t>onboardWrongCode.text1}"
 					class="inlineText" />
-				<m:Text text=" Vielleicht ist er schon abgelaufen? Teilweise sind die Codes nur eine begrenzte Zeit gültig, um Deine Daten bestmöglich zu schützen."
+				<m:Text text="{t>onboardWrongCode.text2}"
 					class="inlineText" />
-				<m:Text text=" Vesuche bitte, bei unserem Partner einen neuen Code erzeugen zu lassen und probiere es erneut?"
+				<m:Text text="{t>onboardWrongCode.text3}"
 					class="inlineText" />
 
 			</controls:Container>

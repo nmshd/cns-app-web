@@ -10,18 +10,18 @@
                 <m:CustomListItem >
                     <m:VBox visible="{=!!${oldAttribute/bestMatch}}"
                         class="sapUiTinyMarginBottom">
-                        <m:Text text="Ein bestehendes Attribut wird überschrieben:" />
-                        <m:Text text="Der alte Wert '{oldAttribute/bestMatch/value}' des bestehendes Attribut '{newAttribute/name}' wird auf '{newAttribute/value}' gesetzt." />
+                        <m:Text text="{t>messages.attributeChange.overwrite1}" />
+                        <m:Text text="{t>messages.attributeChange.overwrite2}" />
                     </m:VBox>
                     <m:VBox visible="{=!${oldAttribute/bestMatch}}"
                         class="sapUiTinyMarginBottom">
-                        <m:Text text="Ein neues Attribut '{newAttribute/name}' wird mit dem Wert '{newAttribute/value}' eingetragen." />
+                        <m:Text text="{t>messages.attributeChange.newAttribute}" />
                     </m:VBox>
                 </m:CustomListItem>
             </m:List>
             <m:HBox justifyContent="End"
                 class="sapUiTinyMarginTop">
-                <m:Button text="Daten ändern"
+                <m:Button text="{t>messages.attributeChange.button}"
                     icon="sap-icon://save"
                     enabled="{=!${processed}}"
                     type="Accept"

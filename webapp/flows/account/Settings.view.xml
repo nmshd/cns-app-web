@@ -26,7 +26,7 @@
 		<semantic:content>
 
 			<form:SimpleForm editable="true">
-				<m:Label text="Adresse" />
+				<m:Label text="{t>settings.address}" />
 				<m:Input editable="false"
 					value="{v>/address}" />
 				<m:Label text="{t>attribute.Thing.name}" />
@@ -42,15 +42,15 @@
 
 
 			<m:List items="{v>/devices}"
-				headerText="Geräte"
+				headerText="{t>settings.devices.header}"
 				itemPress="onDevicePress"
 				class="sapUiNoMargin">
 				<m:headerToolbar>
 					<m:OverflowToolbar>
-						<m:Title text="Geräte" />
+						<m:Title text="{t>settings.devices.title}" />
 						<m:ToolbarSpacer />
 						<m:Button icon="sap-icon://add"
-							text="Gerät hinzufügen"
+							text="{t>settings.devices.button}"
 							press="onCreateDevice" />
 					</m:OverflowToolbar>
 				</m:headerToolbar>

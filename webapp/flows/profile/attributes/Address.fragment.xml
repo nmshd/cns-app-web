@@ -13,7 +13,7 @@
 						press=".onPopupClose" />
 				</m:contentLeft>
 				<m:contentMiddle>
-					<m:Title text="Addresse hinzufügen" />
+					<m:Title text="{t>address.add}" />
 				</m:contentMiddle>
 			</m:Bar>
 		</m:customHeader>

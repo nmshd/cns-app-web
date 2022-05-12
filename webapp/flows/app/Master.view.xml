@@ -24,25 +24,25 @@
 		</m:customHeader>
 		<m:List itemPress="onItemPress"
 			id="AccountNavigation">
-			<m:StandardListItem title="Überblick"
+			<m:StandardListItem title="{t>master.title}"
 				visible="{=!${d>/system/phone}}"
 				icon="sap-icon://sys-help"
 				type="Navigation"
 				data:key="app.info" />
 
-			<m:StandardListItem title="Über die App"
+			<m:StandardListItem title="{t>master.about}"
 				icon="sap-icon://hint"
 				type="Navigation"
 				data:key="app.about" />
-			<m:StandardListItem title="Datenschutz"
+			<m:StandardListItem title="{t>master.privacy}"
 				icon="sap-icon://shield"
 				type="Navigation"
 				data:key="app.privacy" />
-			<m:StandardListItem title="Rechtliche Hinweise"
+			<m:StandardListItem title="{t>master.rights}"
 				icon="sap-icon://compare"
 				type="Navigation"
 				data:key="app.legal" />
-			<m:StandardListItem title="Impressum"
+			<m:StandardListItem title="{t>master.imprint}"
 				icon="sap-icon://message-popup"
 				type="Navigation"
 				data:key="app.imprint" />

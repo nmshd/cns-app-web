@@ -14,7 +14,7 @@
 
 
 		<semantic:customHeaderContent>
-			<m:Button text="Kontakt hinzufügen"
+			<m:Button text="{t>relationship.relationships.addContactButton}"
 				icon="sap-icon://bar-code"
 				visible="{= !${d>/system/phone}}"
 				press="onNewLink" />
@@ -39,16 +39,16 @@
 				selectedKey="active"
 				class="sapUiTinyMargin">
 				<m:items>
-					<m:SegmentedButtonItem text="Relevant"
+					<m:SegmentedButtonItem text="{t>relationship.relationships.ButtonRelevant}"
 						key="active" />
-					<m:SegmentedButtonItem text="Alle"
+					<m:SegmentedButtonItem text="{t>relationship.relationships.ButtonAll}"
 						key="all" />
 				</m:items>
 
 			</m:SegmentedButton>
 			<m:List id="list"
 				items="{path:'/items', factory:'.itemFactory'}"
-				noDataText="Keine Kontakte vorhanden">
+				noDataText="{t>relationship.relationships.noContacts}">
 			</m:List>
 			<m:VBox alignItems="Center"
 				alignContent="Center"

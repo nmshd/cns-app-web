@@ -37,8 +37,8 @@
 			<l:VerticalLayout width="100%">
 				<m:List id="messageList"
 					class="messageList"
-					headerText="Aktuelle Mitteilungen"
-					noDataText="Keine Nachrichten mit {dvo>/name}"
+					headerText="{t>relationship.home.messages.header}"
+					noDataText="{t>relationship.home.messages.noDataText}"
 					items="{path:'/items', sorter: { path: 'createdAt', group: false, descending: true}}"
 					visible="{=!!${/items/0}}">
 					<m:items>
@@ -58,32 +58,32 @@
 						class="listBox"
 						press="onNewMessage">
 						<m:VBox class="sapUiSmallMarginTopBottom">
-							<m:Title text="Neue Nachricht" />
-							<m:Text text="Verfassen einer neuen Nachricht an {dvo>/name}." />
+							<m:Title text="{t>relationship.home.navigation.newMessageTitle}" />
+							<m:Text text="{t>relationship.home.navigation.newMessageDescription}" />
 						</m:VBox>
 					</m:CustomListItem>
 					<m:CustomListItem type="Navigation"
 						class="listBox"
 						press="onInbox">
 						<m:VBox class="sapUiSmallMarginTopBottom">
-							<m:Title text="Nachrichtenliste" />
-							<m:Text text="Anzeige aller Nachrichten von und an {dvo>/name}." />
+							<m:Title text="{t>relationship.home.navigation.inboxTitle}" />
+							<m:Text text="{t>relationship.home.navigation.inboxDescription}" />
 						</m:VBox>
 					</m:CustomListItem>
 					<m:CustomListItem type="Navigation"
 						class="listBox"
 						press="onSent">
 						<m:VBox class="sapUiSmallMarginTopBottom">
-							<m:Title text="Gesendete Daten" />
-							<m:Text text="Listet alle persönlichen Daten auf, die an {dvo>/name} geteilt wurden." />
+							<m:Title text="{t>relationship.home.navigation.sentTitle}" />
+							<m:Text text="relationship.home.navigation.sentDescription" />
 						</m:VBox>
 					</m:CustomListItem>
 					<m:CustomListItem type="Navigation"
 						class="listBox"
 						press="onReceived">
 						<m:VBox class="sapUiSmallMarginTopBottom">
-							<m:Title text="Empfangene Daten" />
-							<m:Text text="Von {dvo>/name} empfangene Daten können hier eingesehen werden." />
+							<m:Title text="{t>relationship.home.navigation.receivedTitle}" />
+							<m:Text text="{t>relationship.home.navigation.receivedDescription}" />
 						</m:VBox>
 					</m:CustomListItem>
 				</m:List>
