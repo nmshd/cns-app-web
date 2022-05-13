@@ -1,0 +1,51 @@
+<mvc:View controllerName="nmshd.app.flows.account.relationships.Template2"
+	xmlns:m="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:requests="nmshd.app.core.controls.requests">
+
+	<semantic:DetailPage id="page"
+		navButtonPress="onNavButtonPress"
+		showNavButton="true"
+		title="{t>newRelationship.newRelationship}"
+		showFooter="true"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+		<semantic:content>
+			<m:MessageStrip id="message"
+				class="sapUiTinyMargin" />
+			<m:Toolbar>
+				<m:Button text="Two Groups" press="switchModel(0)" />
+				<m:Button text="One Group" press="switchModel(1)" />
+				<m:Button text="Multiple Items" press="switchModel(2)" />
+				<m:Button text="Response Params" press="getResponseParams()" />
+				<m:Button text="Context" press="getContext()" />
+				<m:Button text="Selected" press="getSelected()" />
+			</m:Toolbar>
+			<requests:RequestRenderer id="request" binding="{/request}">
+			</requests:RequestRenderer>
+		</semantic:content>
+		<semantic:customFooterContent>
+			<m:Toolbar>
+				<m:ToolbarSpacer />
+				<m:Button id="acceptButton"
+					text="{t>newRelationship.acceptRelationship}"
+					press="onNewLink"
+					type="Emphasized"
+					icon="sap-icon://accept"
+					enabled="{v>/submitEnabled}" />
+				<m:Button id="abortButton"
+					text="{t>newRelationship.abortRelationship}"
+					press="onAbort"
+					type="Reject"
+					icon="sap-icon://decline" />
+			</m:Toolbar>
+		</semantic:customFooterContent>
+	</semantic:DetailPage>
+
+</mvc:View>

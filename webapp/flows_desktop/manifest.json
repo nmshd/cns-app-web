@@ -113,6 +113,13 @@
                 },
 
                 {
+                    "pattern": "test/template",
+                    "name": "test.template",
+                    "target": ["app.master", "test.template"],
+                    "parent": "nmshd.app.Component:generic"
+                },
+
+                {
                     "pattern": "app/about",
                     "name": "app.about",
                     "target": ["app.master", "app.about"],
@@ -476,6 +483,12 @@
                 "desktop_start": {
                     "viewName": "flows_desktop.app.Start",
                     "viewId": "accounts-start",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 3
+                },
+                "test.template": {
+                    "viewName": "flows.account.relationships.Template2",
+                    "viewId": "test-template",
                     "controlAggregation": "detailPages",
                     "viewLevel": 3
                 },
