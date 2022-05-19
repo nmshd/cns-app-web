@@ -10,8 +10,8 @@
                 <m:CustomListItem >
                     <m:VBox visible="{=!!${oldAttribute/bestMatch}}"
                         class="sapUiTinyMarginBottom">
-                        <m:Text text="{t>messages.attributeChange.overwrite1}" />
-                        <m:Text text="{t>messages.attributeChange.overwrite2}" />
+                        <m:Text text="{parts:[{path:'t>messages.attributeChange.overwrite1', {path: 'oldAttribute/bestMatch/value'}, {path: 'newAttribute/name'}, {path: 'newAttribute/value}'}], formatter:'jQuery.sap.formatMessage'}" />
+                        <m:Text text="{parts:[{path:'t>messages.attributeChange.overwrite2', {path: 'newAttribute/name'}, {path: 'newAttribute/value}'}], formatter:'jQuery.sap.formatMessage'}"" />
                     </m:VBox>
                     <m:VBox visible="{=!${oldAttribute/bestMatch}}"
                         class="sapUiTinyMarginBottom">

@@ -38,7 +38,7 @@
 				<m:List id="messageList"
 					class="messageList"
 					headerText="{t>relationship.home.messages.header}"
-					noDataText="{t>relationship.home.messages.noDataText}"
+					noDataText="{parts:[{path:'t>relationship.home.messages.noDataText'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
 					items="{path:'/items', sorter: { path: 'createdAt', group: false, descending: true}}"
 					visible="{=!!${/items/0}}">
 					<m:items>
@@ -59,7 +59,7 @@
 						press="onNewMessage">
 						<m:VBox class="sapUiSmallMarginTopBottom">
 							<m:Title text="{t>relationship.home.navigation.newMessageTitle}" />
-							<m:Text text="{t>relationship.home.navigation.newMessageDescription}" />
+							<m:Text text="{parts:[{path:'t>relationship.home.navigation.newMessageDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"/>
 						</m:VBox>
 					</m:CustomListItem>
 					<m:CustomListItem type="Navigation"
@@ -67,7 +67,7 @@
 						press="onInbox">
 						<m:VBox class="sapUiSmallMarginTopBottom">
 							<m:Title text="{t>relationship.home.navigation.inboxTitle}" />
-							<m:Text text="{t>relationship.home.navigation.inboxDescription}" />
+							<m:Text text="{parts:[{path:'t>relationship.home.navigation.inboxDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}" />
 						</m:VBox>
 					</m:CustomListItem>
 					<m:CustomListItem type="Navigation"
@@ -75,7 +75,7 @@
 						press="onSent">
 						<m:VBox class="sapUiSmallMarginTopBottom">
 							<m:Title text="{t>relationship.home.navigation.sentTitle}" />
-							<m:Text text="relationship.home.navigation.sentDescription" />
+							<m:Text text="{parts:[{path:'t>relationship.home.navigation.sentDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}" />
 						</m:VBox>
 					</m:CustomListItem>
 					<m:CustomListItem type="Navigation"
@@ -83,7 +83,7 @@
 						press="onReceived">
 						<m:VBox class="sapUiSmallMarginTopBottom">
 							<m:Title text="{t>relationship.home.navigation.receivedTitle}" />
-							<m:Text text="{t>relationship.home.navigation.receivedDescription}" />
+							<m:Text text="{parts:[{path:'t>relationship.home.navigation.receivedDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}" />
 						</m:VBox>
 					</m:CustomListItem>
 				</m:List>
