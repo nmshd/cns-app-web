@@ -120,28 +120,28 @@ sap.ui.define(
                                 let sCommAlt = ""
                                 switch (aSplit[1]) {
                                     case "email":
-                                        sCommType = "E-Mail"
+                                        sCommType = "E-Mail" // TODO:
                                         break
                                     case "phone":
-                                        sCommType = "Telefon"
+                                        sCommType = "Telefon" // TODO:
                                         break
                                     case "fax":
-                                        sCommType = "Fax"
+                                        sCommType = "Fax" // TODO:
                                         break
                                     case "mobile":
-                                        sCommType = "Mobiltelefon"
+                                        sCommType = "Mobiltelefon" // TODO:
                                         break
                                     case "facebook":
-                                        sCommType = "Facebook"
+                                        sCommType = "Facebook" // TODO:
                                         break
                                     case "linkedin":
-                                        sCommType = "LinkedIn"
+                                        sCommType = "LinkedIn" // TODO:
                                         break
                                     case "whatsapp":
-                                        sCommType = "WhatsApp"
+                                        sCommType = "WhatsApp" // TODO:
                                         break
                                     case "website":
-                                        sCommType = "Website"
+                                        sCommType = "Webseite" // TODO:
                                         break
                                 }
 
@@ -202,11 +202,11 @@ sap.ui.define(
                 this.setModel(this.files, "files")
 
                 this.prop("/CommAttributes", [
-                    { key: "Comm.email", text: "E-Mail" },
-                    { key: "Comm.phone", text: "Telefon" },
-                    { key: "Comm.mobile", text: "Mobil" },
-                    { key: "Comm.fax", text: "Fax" },
-                    { key: "Comm.website", text: "Website" }
+                    { key: "Comm.email", text: "E-Mail" }, // TODO:
+                    { key: "Comm.phone", text: "Telefon" }, // TODO:
+                    { key: "Comm.mobile", text: "Mobil" }, // TODO:
+                    { key: "Comm.fax", text: "Fax" }, // TODO:
+                    { key: "Comm.website", text: "Website" } // TODO:
                 ])
             },
 

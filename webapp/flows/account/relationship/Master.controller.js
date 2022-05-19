@@ -25,15 +25,15 @@ sap.ui.define(
                 if (!this.relationshipId) return
 
                 this.viewProp("/navigation", [
-                    { title: "Übersicht", key: "account.relationship.home", icon: "sap-icon://customer-view" },
-                    { title: "Kommunikation", key: "account.relationship.inbox", icon: "sap-icon://post" },
+                    { title: "Übersicht", key: "account.relationship.home", icon: "sap-icon://customer-view" }, // TODO:
+                    { title: "Kommunikation", key: "account.relationship.inbox", icon: "sap-icon://post" }, // TODO:
                     {
-                        title: "Gesendete Daten",
+                        title: "Gesendete Daten", // TODO:
                         key: "account.relationship.attributesSent",
                         icon: "sap-icon://chain-link"
                     },
                     {
-                        title: "Empfangene Daten",
+                        title: "Empfangene Daten", // TODO:
                         key: "account.relationship.attributesReceived",
                         icon: "sap-icon://chain-link"
                     }

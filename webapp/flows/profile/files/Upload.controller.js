@@ -25,7 +25,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
                     if (file.error.code === "FILESYSTEM_SELECTION_CANCELLED") {
                         this.setMessage()
                     } else {
-                        this.setMessage("Ein Fehler ist aufgetreten", "Error")
+                        this.setMessage("Ein Fehler ist aufgetreten", "Error") // TODO:
                     }
                     this.file = undefined
                     this.viewProp("/submitEnabled", false)
@@ -44,7 +44,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
                     }
                     if (this.file.size > this.maxFileSizeMB * 1024 * 1024) {
                         this.viewProp("/submitEnabled", false)
-                        this.setMessage(`Die maximale Dateigröße sind ${this.maxFileSizeMB} MB.`, "Error")
+                        this.setMessage(`Die maximale Dateigröße sind ${this.maxFileSizeMB} MB.`, "Error") // TODO:
                         return
                     }
                     this.setMessage()

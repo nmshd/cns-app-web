@@ -40,7 +40,7 @@ sap.ui.define(
                         if (file.error.code === JSSNative.NativeErrorCodes.FILESYSTEM_SELECTION_CANCELLED) {
                             this.setMessage()
                         } else {
-                            this.setMessage("Ein Fehler ist aufgetreten", "Error")
+                            this.setMessage("Ein Fehler ist aufgetreten", "Error") // TODO:
                         }
                         this.file = undefined
                     } else {
@@ -57,7 +57,7 @@ sap.ui.define(
                             return
                         }
                         if (this.file.size > 10 * 1024 * 1024) {
-                            this.setMessage("Die maximale Dateigröße sind 10 MB.", "Error")
+                            this.setMessage("Die maximale Dateigröße sind 10 MB.", "Error") // TODO:
                             return
                         }
                         this.setMessage()
@@ -172,7 +172,7 @@ sap.ui.define(
                     })
                 } catch (e) {
                     appLogger.error(e)
-                    MessageToast.show("Error while sending.")
+                    MessageToast.show("Error while sending.") // TODO:
                 }
             },
 

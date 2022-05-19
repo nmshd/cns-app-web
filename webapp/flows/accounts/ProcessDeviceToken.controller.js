@@ -16,7 +16,7 @@ sap.ui.define(
             async onRouteMatched(oEvent) {
                 App.appController.setLeft("sap-icon://nav-back", null)
                 App.appController.clearRight()
-                App.appController.setTitle("Gerät hinzufügen")
+                App.appController.setTitle("Gerät hinzufügen") // TODO:
                 await this.super("onRouteMatched")
                 await App.isInitialized()
                 this.clear()

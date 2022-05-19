@@ -88,7 +88,7 @@ sap.ui.define(
                 if (themeInfo) {
                     this.viewProp("/theme", themeInfo)
                     App.appController.viewProp("/theme", themeInfo)
-                    App.appController.setTitle("Kontaktanfrage stellen")
+                    App.appController.setTitle("Kontaktanfrage stellen") // TODO:
                 }
 
                 this.refresh()
@@ -146,7 +146,7 @@ sap.ui.define(
                     sap.ui
                         .getCore()
                         .getEventBus()
-                        .publish("relationship", "error", { message: "Keine Daten verfügbar." })
+                        .publish("relationship", "error", { message: "Keine Daten verfügbar." }) // TODO:
                     this.navBack("account.relationships")
                 }
             },
@@ -156,7 +156,7 @@ sap.ui.define(
 
                 if (App.account().identity.address.toString() === template.createdBy) {
                     this.setMessage(
-                        `Du versuchst einen Kontakt mit dir selbst einzugehen - dies ist leider nicht möglich.`,
+                        `Du versuchst einen Kontakt mit dir selbst einzugehen - dies ist leider nicht möglich.`, // TODO:
                         "Error"
                     )
                     this.viewProp("/error", true)
@@ -188,7 +188,7 @@ sap.ui.define(
                             })
                         } catch (e) {
                             this.setMessage(
-                                `Das zu öffnende Element ist fehlerhaft oder existiert nicht mehr.`,
+                                `Das zu öffnende Element ist fehlerhaft oder existiert nicht mehr.`, // TODO:
                                 "Error"
                             )
                             this.viewProp("/error", true)
@@ -198,7 +198,7 @@ sap.ui.define(
                         identity.relationship.status === "Pending" &&
                         identity.relationship.direction === "Outgoing"
                     ) {
-                        this.setMessage(`Du hast schon einen offene Kontaktanfrage zu ${identity.name}.`, "Error")
+                        this.setMessage(`Du hast schon einen offene Kontaktanfrage zu ${identity.name}.`, "Error") // TODO:
                         this.viewProp("/error", true)
                         return
                     } else if (
@@ -206,7 +206,7 @@ sap.ui.define(
                         identity.relationship.direction === "Incoming"
                     ) {
                         this.setMessage(
-                            `${identity.name} hat dir schon eine Kontaktanfrage gestellt, die noch offen ist.`,
+                            `${identity.name} hat dir schon eine Kontaktanfrage gestellt, die noch offen ist.`, // TODO:
                             "Error"
                         )
                         this.viewProp("/error", true)
@@ -217,7 +217,7 @@ sap.ui.define(
                 this.name = ""
 
                 if (!template) {
-                    this.setMessage("Es konnten keine Informationen der Beziehung abgefragt werden.", "Error")
+                    this.setMessage("Es konnten keine Informationen der Beziehung abgefragt werden.", "Error") // TODO:
                     return
                 } else {
                     const attrResult = await runtime.consumptionServices.attributes.getAttributesByNames({})
@@ -570,15 +570,15 @@ sap.ui.define(
                     if (oRequiredAttribute.attribute && oRequiredAttribute.attribute.indexOf("Address") > -1) {
                         const form = new SimpleForm({
                             content: [
-                                new Label({ text: "Straße" }),
+                                new Label({ text: "Straße" }), // TODO:
                                 new Input({ id: "street", value: "{address/street}", editable: false }),
-                                new Label({ text: "Hausnummer" }),
+                                new Label({ text: "Hausnummer" }), // TODO:
                                 new Input({ id: "houseNo", value: "{address/houseNo}", editable: false }),
-                                new Label({ text: "PLZ" }),
+                                new Label({ text: "PLZ" }), // TODO:
                                 new Input({ id: "zipCode", value: "{address/zipCode}", editable: false }),
-                                new Label({ text: "Stadt" }),
+                                new Label({ text: "Stadt" }), // TODO:
                                 new Input({ id: "city", value: "{address/city}", editable: false }),
-                                new Label({ text: "Land" }),
+                                new Label({ text: "Land" }), // TODO:
                                 new Input({ id: "country", value: "{address/country}", editable: false })
                             ],
                             editable: true
@@ -804,35 +804,35 @@ sap.ui.define(
                         oAttribute.address = {}
                         return new SimpleForm({
                             content: [
-                                new Label({ text: "Straße" }),
+                                new Label({ text: "Straße" }), // TODO:
                                 new Input({
                                     id: "street",
                                     value: "{address/street}",
                                     liveChange: this._updateStatus.bind(this),
                                     submit: this._updateStatus.bind(this)
                                 }),
-                                new Label({ text: "Hausnummer" }),
+                                new Label({ text: "Hausnummer" }), // TODO:
                                 new Input({
                                     id: "houseNo",
                                     value: "{address/houseNo}",
                                     liveChange: this._updateStatus.bind(this),
                                     submit: this._updateStatus.bind(this)
                                 }),
-                                new Label({ text: "PLZ" }),
+                                new Label({ text: "PLZ" }), // TODO:
                                 new Input({
                                     id: "zipCode",
                                     value: "{address/zipCode}",
                                     liveChange: this._updateStatus.bind(this),
                                     submit: this._updateStatus.bind(this)
                                 }),
-                                new Label({ text: "Stadt" }),
+                                new Label({ text: "Stadt" }), // TODO:
                                 new Input({
                                     id: "city",
                                     value: "{address/city}",
                                     liveChange: this._updateStatus.bind(this),
                                     submit: this._updateStatus.bind(this)
                                 }),
-                                new Label({ text: "Land" }),
+                                new Label({ text: "Land" }), // TODO:
                                 new Input({
                                     id: "country",
                                     value: "{address/country}",
@@ -868,10 +868,10 @@ sap.ui.define(
                     const checkbox = this.privacyCheckbox
                     if (checkbox) {
                         if (checkbox.getSelected() !== true) {
-                            error = "Die Datenschutzbedingungen müssen akzeptiert werden."
+                            error = "Die Datenschutzbedingungen müssen akzeptiert werden." // TODO:
                         }
                     } else {
-                        error = "Die Datenschutzbedingungen müssen akzeptiert werden."
+                        error = "Die Datenschutzbedingungen müssen akzeptiert werden." // TODO:
                     }
                 }
 
@@ -932,7 +932,7 @@ sap.ui.define(
                                 !oAttribute.address.zipCode ||
                                 !oAttribute.address.city
                             ) {
-                                error = `${this.resource("attribute." + oAttribute.attribute)} muss gesetzt werden`
+                                error = `${this.resource("attribute." + oAttribute.attribute)} muss gesetzt werden` // TODO:
                                 return error
                             }
                         } else {
@@ -940,7 +940,7 @@ sap.ui.define(
                                 return
                             }
                             if (!oAttribute.value) {
-                                error = `${this.resource("attribute." + oAttribute.attribute)} muss gesetzt werden`
+                                error = `${this.resource("attribute." + oAttribute.attribute)} muss gesetzt werden` // TODO:
                                 return error
                             }
                         }

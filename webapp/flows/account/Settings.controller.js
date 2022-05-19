@@ -19,7 +19,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
 
             await this.super("onRouteMatched", oEvent)
             App.appController.clearRight()
-            App.appController.setTitle("Einstellungen")
+            App.appController.setTitle("Einstellungen") // TODO:
         },
 
         async refresh() {
@@ -45,7 +45,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
             await runtime.accountServices.renameAccount(this.accountId, newAccountName)
             this.refresh()
             App.appController.setTitle(newAccountName)
-            this.addError({ sUserFriendlyMsg: "Das Profil wurde umbenannt.", quick: true })
+            this.addError({ sUserFriendlyMsg: "Das Profil wurde umbenannt.", quick: true }) // TODO:
         },
 
         async toggleExpertMode() {

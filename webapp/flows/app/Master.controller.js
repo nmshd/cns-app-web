@@ -27,7 +27,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
         onRouteMatched(oEvent) {
             App.appController.setLeft("sap-icon://nav-back", null)
             App.appController.clearRight()
-            App.appController.setTitle("App-Informationen")
+            App.appController.setTitle("App-Informationen") // TODO:
             this.super("onRouteMatched", oEvent)
             this.taps = 0
         },
