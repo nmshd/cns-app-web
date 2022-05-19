@@ -14,7 +14,7 @@
 
 
 		<semantic:customHeaderContent>
-			<m:Button text="{t>relationship.relationships.addContactButton}"
+			<m:Button text="{t>relationships.relationships.addContactButton}"
 				icon="sap-icon://bar-code"
 				visible="{= !${d>/system/phone}}"
 				press="onNewLink" />

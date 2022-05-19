@@ -42,7 +42,7 @@
 
 			</form:SimpleForm>
 
-			<m:Panel headerText="{t>settings.device.dviceCodeHeader}"
+			<m:Panel headerText="{t>settings.device.deviceCodeHeader}"
 				visible="{=!!${v>/token} }">
 				<m:Text text="{t>settings.device.dviceCodeDescription1}" />
 				<m:HBox justifyContent="Center"

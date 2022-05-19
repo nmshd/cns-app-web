@@ -12,7 +12,7 @@
                     description="{bestMatch/name}"
                     visible="{=!!${bestMatch}}" />
             </m:List>
-            <m:Label text="{t>messages.attributeShare.recepient}" />
+            <m:Label text="{t>messages.attributeShare.recipient}" />
             <m:List items="{path:'recipients',templateShareable:false}">
                 <controls:PersonItemRenderer title="{name}"
                     status="{description}"

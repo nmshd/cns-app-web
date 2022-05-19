@@ -867,10 +867,10 @@ sap.ui.define(
                     const checkbox = this.privacyCheckbox
                     if (checkbox) {
                         if (checkbox.getSelected() !== true) {
-                            error = this.resource("relationships.template.privacy1")
+                            error = this.resource("relationships.template.privacy")
                         }
                     } else {
-                        error = this.resource("relationships.template.privacy2")
+                        error = this.resource("relationships.template.privacy")
                     }
                 }
 
