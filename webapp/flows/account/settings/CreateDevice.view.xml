@@ -13,7 +13,7 @@
 	<semantic:DetailPage id="page"
 		navButtonPress="onNavButtonPress"
 		showNavButton="true"
-		title="Gerät hinzufügen"
+		title="{t>settings.createDevice.title}"
 		showFooter="false"
 		busy="{v>/busy}"
 		busyIndicatorDelay="{v>/delay}">
@@ -24,27 +24,27 @@
 		</semantic:customHeaderContent>
 
 		<semantic:content>
-			<m:MessageStrip text="Achtung: Die Unterstützung mehrerer Geräte ist derzeit noch in einem experimentellen Stadium."
+			<m:MessageStrip text="{t>settings.createDevice.warning}"
 				type="Warning"
 				showIcon="true"
 				class="sapUiSmallMargin" />
 
 
 			<form:SimpleForm editable="true">
-				<m:Label text="Name" />
+				<m:Label text="{t>settings.createDevice.name}" />
 				<m:Input enabled="true"
 					id="name"
 					value="{/name}" />
-				<m:Label text="Beschreibung" />
+				<m:Label text="{t>settings.createDevice.description}" />
 				<m:Input enabled="true"
 					id="description"
 					value="{/description}" />
 
-				<m:Label text="Rechte des Gerätes" />
+				<m:Label text="{t>settings.createDevice.deviceAuthorization}" />
 				<m:CheckBox id="isAdmin"
 					enabled="false"
 					selected="true"
-					text="Das Gerät erhält Administratorberechtigung." />
+					text="{t>settings.createDevice.deviceAuthorizationDescription}" />
 
 
 			</form:SimpleForm>
@@ -53,7 +53,7 @@
 				class="sapUiSmallMargin sapUiMediumMarginBottom">
 				<m:ToolbarSpacer />
 
-				<m:Button text="Gerät erstellen"
+				<m:Button text="{t>settings.createDevice.button}"
 					enabled="{v>/submitAvailable}"
 					icon="sap-icon://accept"
 					type="Emphasized"

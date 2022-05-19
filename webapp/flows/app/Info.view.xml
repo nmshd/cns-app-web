@@ -13,7 +13,7 @@
 	<semantic:DetailPage id="page"
 		navButtonPress="onNavButtonPress"
 		showNavButton="{d>/system/phone}"
-		title="Info"
+		title="{t>info.title}"
 		showFooter="false"
 		busy="{v>/busy}"
 		busyIndicatorDelay="{v>/delay}">
@@ -25,9 +25,9 @@
 
 		<semantic:content>
 			<m:VBox class="sapUiTinyMargin">
-				<m:Text text="Wir bilden die digitale Identität so nah wie möglich am Menschen ab, auf ihren eigenen Geräten." />
-				<m:Text text="Damit sind sehr viele Arbeitsschritte und Datenschutzproblematiken aus dem Weg geräumt - aber es tun sich natürlich neue Fragen auf." />
-				<m:Text text="Diese Fragen möchten wir auf dieser Seite und in den weiterführenden Links klären." />
+				<m:Text text="{t>info.text1}" />
+				<m:Text text="{t>info.text2}" />
+				<m:Text text="{t>info.text3}" />
 			</m:VBox>
 		</semantic:content>
 	</semantic:DetailPage>

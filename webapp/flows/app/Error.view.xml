@@ -13,7 +13,7 @@
 	<semantic:DetailPage id="page"
 		navButtonPress="onNavButtonPress"
 		showNavButton="{d>/system/phone}"
-		title="Fehler"
+		title="{t>error.title}"
 		showFooter="false"
 		busy="{v>/busy}"
 		busyIndicatorDelay="{v>/delay}">
@@ -25,7 +25,7 @@
 
 		<semantic:content>
 			<m:VBox class="sapUiTinyMargin">
-				<m:Text text="Ein Fehler ist aufgetreten. Bitte warte kurz und versuche es dann nochmals. Gegegebenfalls hilft auch ein Neustart der Applikation." />
+				<m:Text text="{t>error.text}" />
 				<m:Text text="{v>/code}"
 					visible="{=!!${v>/code}}"
 					class="sapUiSmallMargin" />

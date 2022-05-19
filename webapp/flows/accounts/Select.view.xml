@@ -7,7 +7,7 @@
 	xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns:form="sap.ui.layout.form"
 	xmlns:controls="nmshd.app.core.controls">
-	<m:Page title="Enmeshed"
+	<m:Page title="{t>select.title}"
 		showHeader="true"
 		showNavButton="false"
 		navButtonPress="onNavButtonPress"
@@ -22,7 +22,7 @@
 		<m:List items="{/items}"
 			itemPress="onItemPress"
 			id="AccountsList"
-			noDataText="Bisher sind keine Profile eingerichtet.">
+			noDataText="{t>select.noDataText}">
 			<m:StandardListItem title="{name}"
 				icon="{v>icon}"
 				type="Navigation" />
@@ -30,7 +30,7 @@
 		<m:VBox alignItems="Center"
 			alignContent="Center"
 			visible="{d>/system/phone}">
-			<m:Button text="Neues Profil"
+			<m:Button text="{t>select.newProfileButton}"
 				id="accountsCreateAccount"
 				icon="sap-icon://add"
 				press="onCreate" />

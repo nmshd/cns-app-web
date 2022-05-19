@@ -15,11 +15,11 @@
 
 		<semantic:content>
 			<form:SimpleForm>
-				<m:Label text="Empfangen" />
+				<m:Label text="{t>relationship.request.incoming.received}" />
 				<m:Text text="{path:'/relationship/date',formatter:'.formatter.toRelativeDate'}" />
-				<m:Label text="Name" />
+				<m:Label text="{t>relationship.request.incoming.name}" />
 				<m:Text text="{name}" />
-				<m:Label text="Adresse" />
+				<m:Label text="{t>relationship.request.incoming.address}" />
 				<m:Text text="{/id}" />
 			</form:SimpleForm>
 		</semantic:content>

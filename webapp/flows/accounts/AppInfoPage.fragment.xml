@@ -18,11 +18,11 @@
         -->
 
         <m:List itemPress="onPopupPress">
-            <m:StandardListItem title="Überblick"
+            <m:StandardListItem title="{t>appinfopage.navigation.overview}"
                 icon="sap-icon://sys-help"
                 type="Navigation"
                 data:key="app.info" />
-            <m:StandardListItem title="App-Informationen"
+            <m:StandardListItem title="{t>appinfopage.navigation.info}"
                 icon="sap-icon://message-information"
                 type="Navigation"
                 data:key="app.master" />

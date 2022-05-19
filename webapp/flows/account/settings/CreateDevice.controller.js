@@ -45,7 +45,7 @@ sap.ui.define(
 
                 await this.super("onRouteMatched", oEvent)
                 App.appController.clearRight()
-                App.appController.setTitle("Gerät erstellen")
+                App.appController.setTitle(this.resource("settings.createDevice.title"))
                 this.viewProp("/submitAvailable", true)
             },
 

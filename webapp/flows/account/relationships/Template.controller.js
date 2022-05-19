@@ -88,7 +88,7 @@ sap.ui.define(
                 if (themeInfo) {
                     this.viewProp("/theme", themeInfo)
                     App.appController.viewProp("/theme", themeInfo)
-                    App.appController.setTitle("Kontaktanfrage stellen")
+                    App.appController.setTitle(this.resource("relationships.template.request"))
                 }
 
                 this.refresh()
@@ -146,7 +146,9 @@ sap.ui.define(
                     sap.ui
                         .getCore()
                         .getEventBus()
-                        .publish("relationship", "error", { message: "Keine Daten verfügbar." })
+                        .publish("relationship", "error", {
+                            message: this.resource("relationships.template.noDataAvailableError")
+                        })
                     this.navBack("account.relationships")
                 }
             },
@@ -155,10 +157,7 @@ sap.ui.define(
                 const template = input
 
                 if (App.account().identity.address.toString() === template.createdBy) {
-                    this.setMessage(
-                        `Du versuchst einen Kontakt mit dir selbst einzugehen - dies ist leider nicht möglich.`,
-                        "Error"
-                    )
+                    this.setMessage(this.resource("relationships.template.selfRelationshipError"), "Error")
                     this.viewProp("/error", true)
                     return
                 }
@@ -187,10 +186,7 @@ sap.ui.define(
                                 relationshipId: identity.relationship.id
                             })
                         } catch (e) {
-                            this.setMessage(
-                                `Das zu öffnende Element ist fehlerhaft oder existiert nicht mehr.`,
-                                "Error"
-                            )
+                            this.setMessage(this.resource("relationships.template.unavailableError"), "Error")
                             this.viewProp("/error", true)
                         }
                         return
@@ -198,7 +194,10 @@ sap.ui.define(
                         identity.relationship.status === "Pending" &&
                         identity.relationship.direction === "Outgoing"
                     ) {
-                        this.setMessage(`Du hast schon einen offene Kontaktanfrage zu ${identity.name}.`, "Error")
+                        this.setMessage(
+                            this.resource("relationships.template.openRequestError", [`${identity.name}`]),
+                            "Error"
+                        )
                         this.viewProp("/error", true)
                         return
                     } else if (
@@ -206,7 +205,7 @@ sap.ui.define(
                         identity.relationship.direction === "Incoming"
                     ) {
                         this.setMessage(
-                            `${identity.name} hat dir schon eine Kontaktanfrage gestellt, die noch offen ist.`,
+                            this.resource("relationships.template.openRequestErrorSpecificError", [`${identity.name}`]),
                             "Error"
                         )
                         this.viewProp("/error", true)
@@ -217,7 +216,7 @@ sap.ui.define(
                 this.name = ""
 
                 if (!template) {
-                    this.setMessage("Es konnten keine Informationen der Beziehung abgefragt werden.", "Error")
+                    this.setMessage(this.resource("relationships.template.noInformationAvailableError"), "Error")
                     return
                 } else {
                     const attrResult = await runtime.consumptionServices.attributes.getAttributesByNames({})
@@ -570,15 +569,15 @@ sap.ui.define(
                     if (oRequiredAttribute.attribute && oRequiredAttribute.attribute.indexOf("Address") > -1) {
                         const form = new SimpleForm({
                             content: [
-                                new Label({ text: "Straße" }),
+                                new Label({ text: this.resource("relationships.template.form.street") }),
                                 new Input({ id: "street", value: "{address/street}", editable: false }),
-                                new Label({ text: "Hausnummer" }),
+                                new Label({ text: this.resource("relationships.template.form.houseNumber") }),
                                 new Input({ id: "houseNo", value: "{address/houseNo}", editable: false }),
-                                new Label({ text: "PLZ" }),
+                                new Label({ text: this.resource("relationships.template.form.zipCode") }),
                                 new Input({ id: "zipCode", value: "{address/zipCode}", editable: false }),
-                                new Label({ text: "Stadt" }),
+                                new Label({ text: this.resource("relationships.template.form.city") }),
                                 new Input({ id: "city", value: "{address/city}", editable: false }),
-                                new Label({ text: "Land" }),
+                                new Label({ text: this.resource("relationships.template.form.country") }),
                                 new Input({ id: "country", value: "{address/country}", editable: false })
                             ],
                             editable: true
@@ -804,35 +803,35 @@ sap.ui.define(
                         oAttribute.address = {}
                         return new SimpleForm({
                             content: [
-                                new Label({ text: "Straße" }),
+                                new Label({ text: this.resource("relationships.template.address.street") }),
                                 new Input({
                                     id: "street",
                                     value: "{address/street}",
                                     liveChange: this._updateStatus.bind(this),
                                     submit: this._updateStatus.bind(this)
                                 }),
-                                new Label({ text: "Hausnummer" }),
+                                new Label({ text: this.resource("relationships.template.address.houseNumber") }),
                                 new Input({
                                     id: "houseNo",
                                     value: "{address/houseNo}",
                                     liveChange: this._updateStatus.bind(this),
                                     submit: this._updateStatus.bind(this)
                                 }),
-                                new Label({ text: "PLZ" }),
+                                new Label({ text: this.resource("relationships.template.address.zipCode") }),
                                 new Input({
                                     id: "zipCode",
                                     value: "{address/zipCode}",
                                     liveChange: this._updateStatus.bind(this),
                                     submit: this._updateStatus.bind(this)
                                 }),
-                                new Label({ text: "Stadt" }),
+                                new Label({ text: this.resource("relationships.template.address.city") }),
                                 new Input({
                                     id: "city",
                                     value: "{address/city}",
                                     liveChange: this._updateStatus.bind(this),
                                     submit: this._updateStatus.bind(this)
                                 }),
-                                new Label({ text: "Land" }),
+                                new Label({ text: this.resource("relationships.template.address.country") }),
                                 new Input({
                                     id: "country",
                                     value: "{address/country}",
@@ -868,10 +867,10 @@ sap.ui.define(
                     const checkbox = this.privacyCheckbox
                     if (checkbox) {
                         if (checkbox.getSelected() !== true) {
-                            error = "Die Datenschutzbedingungen müssen akzeptiert werden."
+                            error = this.resource("relationships.template.privacy")
                         }
                     } else {
-                        error = "Die Datenschutzbedingungen müssen akzeptiert werden."
+                        error = this.resource("relationships.template.privacy")
                     }
                 }
 
@@ -932,7 +931,9 @@ sap.ui.define(
                                 !oAttribute.address.zipCode ||
                                 !oAttribute.address.city
                             ) {
-                                error = `${this.resource("attribute." + oAttribute.attribute)} muss gesetzt werden`
+                                error = this.resource("relationships.template.missingAttributeError1", [
+                                    `${this.resource("attribute." + oAttribute.attribute)}`
+                                ])
                                 return error
                             }
                         } else {
@@ -940,7 +941,9 @@ sap.ui.define(
                                 return
                             }
                             if (!oAttribute.value) {
-                                error = `${this.resource("attribute." + oAttribute.attribute)} muss gesetzt werden`
+                                error = this.resource("relationships.template.missingAttributeError2", [
+                                    `${this.resource("attribute." + oAttribute.attribute)}`
+                                ])
                                 return error
                             }
                         }

@@ -70,7 +70,7 @@ sap.ui.define(["nmshd/app/core/App"], (App) => {
             for (let key in oValue) {
                 if (oValue.hasOwnProperty(key)) {
                     const publicKey = oValue[key]
-                    text += key + ": valid from " + publicKey.validFrom + " to " + publicKey.validTo + "\n\r"
+                    text += key + ": valid from " + publicKey.validFrom + " to " + publicKey.validTo + "\n\r" // TODO: Translate in i18n
                     text += publicKey.key.publicKey + "\n\r\n\r"
                 }
             }
@@ -164,13 +164,13 @@ sap.ui.define(["nmshd/app/core/App"], (App) => {
 
         fromAddress(address) {
             if (address == App.address) {
-                return "Ich (" + address + ")"
+                return "Ich (" + address + ")" // TODO: Translate in i18n
             }
             const identity = App.profile.getIdentity(address)
             if (identity && identity.title) {
                 return identity.title + " (" + address + ")"
             } else {
-                return "Unbekannt (" + address + ")"
+                return "Unbekannt (" + address + ")" // TODO: Translate in i18n
             }
         },
 

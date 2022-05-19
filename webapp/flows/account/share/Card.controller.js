@@ -107,7 +107,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
                     if (typeof token !== "string") {
                         this.addError({
                             oError: token,
-                            sUserFriendlyMsg: "Die Karte konnte leider nicht erstellt werden."
+                            sUserFriendlyMsg: this.resource("share.card.creationError")
                         })
                         return
                     }

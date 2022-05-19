@@ -27,28 +27,28 @@
 		<semantic:content>
 			<m:VBox class="sapUiResponsiveMargin">
 
-				<m:Title text="Deine Identität"
+				<m:Title text="{t>onboardOverview.title}"
 					class="sapUiSmallMargin" />
 
 				<controls:Container class="sapUiSmallMargin">
 
 
-					<m:Text text="Bevor es richtig losgeht, benötigst Du eine digitale Identität."
+					<m:Text text="{t>onboardOverview.text1}"
 						class="inlineText" />
-					<m:Text text=" Um diese zu erstellen, wird Dir von unseren Partnern ein QR-Code erzeugt, den Du jetzt einscannen kannst."
+					<m:Text text="{t>onboardOverview.text2}"
 						class="inlineText" />
-					<m:Text text=" Falls Du dieses Gerät zu einer vorhandenen Identität hinzufügen möchtest, kannst Du den entsprechenden Code ebenfalls einscannen."
+					<m:Text text="{t>onboardOverview.text3}"
 						class="inlineText" />
 				</controls:Container>
 
 				<HBox alignItems="Center"
 					renderType="Bare"
 					class="sapUiSmallMargin sapUiMediumMarginBottom">
-					<m:Link text="Ich habe keinen Code"
+					<m:Link text="{t>onboardOverview.noCode}"
 						press="onNoCode" />
 					<ToolbarSpacer />
 
-					<m:Button text="Code Scannen"
+					<m:Button text="{t>onboardOverview.scanButton}"
 						icon="sap-icon://accept"
 						type="Emphasized"
 						press="scan" />
@@ -61,12 +61,12 @@
 						backgroundColor="Accent10"
 						class="sapUiSmallMargin" />
 					<controls:Container class="sapUiTinyMargin">
-						<Text text="Die Benutzung dieser App erfordert die Zustimmung zu unseren"
+						<Text text="{t>onboardOverview.doAccept}"
 							class="inlineText" />
 						<Link press="toPrivacy"
-							text=" Datenschutzbedingungen"
+							text="{t>onboardOverview.privacy}"
 							class="sapUiTinyMarginStart inlineText" />
-						<Text text=". Sobald Du einen Code einscannst, erklärst Du dich ausdrücklich und vollumfänglich mit den Bedingungen einverstanden."
+						<Text text="{t>onboardOverview.acceptByScan}"
 							class="inlineText" />
 					</controls:Container>
 				</m:HBox>

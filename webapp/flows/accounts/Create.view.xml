@@ -27,12 +27,12 @@
 			<VBox visible="{=${v>/creation}}"
 				class="sapUiResponsiveMargin">
 				<controls:Container class="sapUiTinyMargin">
-					<Text text="Die Benutzung dieser App erfordert die Zustimmung zu unseren"
+					<Text text="{t>create.doAccept}"
 						class="inlineText" />
 					<Link press="toPrivacy"
-						text=" Datenschutzbedingungen"
+						text="{t>create.privacy}"
 						class="sapUiTinyMarginStart inlineText" />
-					<Text text=". Indem Du auf 'Weiter' drückst, erklärst Du dich ausdrücklich und vollumfänglich mit den Bedingungen einverstanden."
+					<Text text="{t>create.continue}"
 						class="inlineText" />
 				</controls:Container>
 
@@ -40,7 +40,7 @@
 					renderType="Bare"
 					class="sapUiTinyMargin">
 					<ToolbarSpacer />
-					<Button text="Weiter"
+					<Button text="{t>create.continueButton}"
 						icon="sap-icon://accept"
 						type="Emphasized"
 						press="submit" />
@@ -49,7 +49,7 @@
 			<VBox visible="{=${v>/creationCompleted}}"
 				class="sapUiResponsiveMargin">
 				<controls:Container>
-					<Text text="Deine digitale Identität wurde soeben auf diesem Gerät erstellt. Falls Du einen Enmeshed QR-Code besitzt, kannst Du diesen nun einscannen."
+					<Text text="{t>create.created}"
 						class="sapUiTinyMargin" />
 				</controls:Container>
 				<HBox alignItems="Center"
@@ -57,12 +57,12 @@
 					class="sapUiTinyMargin">
 					<ToolbarSpacer />
 					<Button icon="sap-icon://bar-code"
-						text="Code Scannen"
+						text="{t>create.scan}"
 						press="qrcode"
 						class="sapUiTinyMargin" />
 					<Button icon="sap-icon://paper-plane"
 						type="Emphasized"
-						text="Weiter"
+						text="{t>create.continueButton}"
 						press="start"
 						class="sapUiTinyMargin" />
 
