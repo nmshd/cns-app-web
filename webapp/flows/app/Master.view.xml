@@ -48,8 +48,29 @@
 				data:key="app.imprint" />
 		</m:List>
 		<m:VBox>
+
+
+
 			<form:SimpleForm>
+
+
+
 				<form:content>
+
+
+					<m:Label text="{t>settings.language}" />
+					<m:VBox>
+						<m:Select id="language">
+							<core:Item key="en" text="English" />
+							<core:Item key="de" text="Deutsch (German)" />
+							<core:Item key="uk-UA" text="Yкраїнський (Ukrainian)" />
+						</m:Select>
+						<m:Button text="{t>settings.choose} (Apply language)"
+							id="choose"
+							press="changeLanguage"/>
+					</m:VBox>
+
+
 					<m:Label text="{t>account.appinfo.appversion}" />
 					<m:Text text="{v>/appVersion}"
 						id="version" />

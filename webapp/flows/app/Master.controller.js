@@ -25,6 +25,11 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
         },
 
         onRouteMatched(oEvent) {
+            let language = bootstrapper.nativeConfigAccess.get("language")
+            if (language.isSuccess) {
+                this.byId("language").setSelectedKey(language.value)
+            }
+
             App.appController.setLeft("sap-icon://nav-back", null)
             App.appController.clearRight()
             App.appController.setTitle(this.resource("app.masterController.title"))
@@ -42,6 +47,13 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
 
         onNavButtonPress() {
             App.navTo("", "accounts.select")
+        },
+
+        async changeLanguage() {
+            const newLanguage = this.byId("language").getSelectedItem().mProperties.key
+            sap.ui.getCore().getConfiguration().setLanguage(newLanguage)
+            bootstrapper.nativeConfigAccess.set("language", newLanguage)
+            bootstrapper.nativeConfigAccess.save()
         }
     })
 })
