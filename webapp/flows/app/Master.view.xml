@@ -58,7 +58,7 @@
 				<form:content>
 
 
-					<m:Label text="{t>settings.language}" />
+					<m:Label text="{t>settings.language} (Language)" />
 					<m:VBox>
 						<m:Select id="language">
 							<core:Item key="en" text="English" />
