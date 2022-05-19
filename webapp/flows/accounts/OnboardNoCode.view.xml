@@ -25,17 +25,17 @@
 		</semantic:subHeader>
 
 		<semantic:content>
-			<m:Title text="Du hast keinen Code?"
+			<m:Title text="{t>onboardNoCode.title}"
 				class="sapUiSmallMargin" />
 
 			<controls:Container class="sapUiSmallMargin">
 
 
-				<m:Text text="Das tut uns sehr leid!"
+				<m:Text text="{t>onboardNoCode.text1}"
 					class="inlineText" />
-				<m:Text text=" Aktuell benötigen wir den von unseren Partnern erstellen Code um eine optimale Erfahrung zu gewährleisten."
+				<m:Text text="{t>onboardNoCode.text2}"
 					class="inlineText" />
-				<m:Text text=" Bitte schau doch einmal bei unseren Partnern vorbei - vielleicht haben sie einen Code für dich?"
+				<m:Text text="{t>onboardNoCode.text3}"
 					class="inlineText" />
 
 			</controls:Container>

@@ -13,7 +13,7 @@
 	<semantic:DetailPage id="page"
 		navButtonPress="onNavButtonPress"
 		showNavButton="{d>/system/phone}"
-		title="Info"
+		title="{t>about.title}"
 		showFooter="false"
 		busy="{v>/busy}"
 		busyIndicatorDelay="{v>/delay}">
@@ -25,7 +25,7 @@
 
 		<semantic:content>
 			<m:VBox class="sapUiTinyMargin">
-				<m:Text text="Die Enmeshed App verwaltet eine oder mehrere digitale Identitäten, über die Daten mit anderen Kontakten sicher geteilt werden können." />
+				<m:Text text="{t>about.text}" />
 			</m:VBox>
 		</semantic:content>
 	</semantic:DetailPage>

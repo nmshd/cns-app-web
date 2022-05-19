@@ -31,7 +31,7 @@
 				visible="{=${d>/system/phone}}" />
 
 			<m:List id="messageList"
-				noDataText="Willkommen!"
+				noDataText="{t>inbox.noDataText}"
 				items="{path:'/items', factory:'.itemFactory', sorter: { path: 'createdAt', group: false, descending: true}}">
 			</m:List>
 

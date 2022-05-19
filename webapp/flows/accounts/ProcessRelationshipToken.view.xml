@@ -26,14 +26,14 @@
 
 		<semantic:content>
 			<m:VBox class="sapUiSmallMargin">
-				<m:Text text="Sehr gut! Der eingescannte Code konnte gelesen werden und Deine Identität ist erstellt." />
-				<m:Text text="Wir leiten Dich jetzt zu der eingescannten Kontaktanfrage von unserem Partner weiter." />
+				<m:Text text="{t>processRelationshipToken.confirmation}" />
+				<m:Text text="{t>processRelationshipToken.forward}" />
 			</m:VBox>
 			<HBox alignItems="Center"
 				renderType="Bare"
 				class="sapUiSmallMargin sapUiMediumMarginBottom">
 				<ToolbarSpacer />
-				<m:Button text="Weiter"
+				<m:Button text="{t>processRelationshipToken.continueButton}"
 					enabled="{v>/submitAvailable}"
 					icon="sap-icon://accept"
 					type="Emphasized"

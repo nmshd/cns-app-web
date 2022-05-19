@@ -9,7 +9,7 @@
 	<semantic:DetailPage id="wizardContentPage"
 		navButtonPress="onNavButtonPress"
 		showNavButton="{d>/system/phone}"
-		title="Datenschutzbedingungen"
+		title="{t>privacy.title}"
 		showFooter="false"
 		busy="{v>/busy}"
 		busyIndicatorDelay="{v>/delay}">
@@ -36,9 +36,9 @@
 						</f:snappedContent>
 						<f:expandedContent>
 							<form:SimpleForm class="sapUiNoContentPadding">
-								<Label text="Version" />
+								<Label text="{t>privacy.version}" />
 								<Text text="{v>/privacyVersion}" />
-								<Label text="Geändert am" />
+								<Label text="{t>privacy.changed}" />
 								<Text text="{path:'v>/privacyChanged', formatter:'.formatter.toLocaleDate'}" />
 							</form:SimpleForm>
 

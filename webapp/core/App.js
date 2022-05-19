@@ -754,6 +754,12 @@ sap.ui.define(
 
                 finishInitialization()
                 Event.publish("App", "ready")
+
+                // Apply language stored in config
+                if (bootstrapper.nativeConfigAccess.config.language) {
+                    sap.ui.getCore().getConfiguration().setLanguage(bootstrapper.nativeConfigAccess.config.language)
+                }
+
                 runtime.registerUIBridge(UIBridge)
                 runtime.nativeEnvironment.eventBus.publish(new JSSNative.AppReadyEvent())
                 Event.publish("Shell", "switchTo", {

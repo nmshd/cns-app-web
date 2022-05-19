@@ -34,7 +34,7 @@
 
 			<l:VerticalLayout width="100%">
 				<m:List id="messageList"
-					noDataText="Es existieren noch keine Nachrichten."
+					noDataText="{t>relationship.inbox.messages.noDataText}"
 					items="{path:'/items', sorter: { path: 'createdAt', group: false, descending: true}}">
 					<m:items>
 

@@ -9,7 +9,7 @@
 	<semantic:DetailPage id="wizardContentPage"
 		navButtonPress="onNavButtonPress"
 		showNavButton="true"
-		title="Geräteregistrierung"
+		title="{t>processDeviceToken.title}"
 		showFooter="false"
 		busy="{v>/busy}"
 		busyIndicatorDelay="{v>/delay}">
@@ -26,20 +26,20 @@
 
 		<semantic:content>
 
-			<m:Text text="Möchtest du das aktuelle Gerät mit folgender Identität verbinden:"
+			<m:Text text="{t>processDeviceToken.connectTitle}"
 				class="sapUiSmallMargin" />
 			<form:SimpleForm editable="true">
-				<m:Label text="Adresse der Identität" />
+				<m:Label text="{t>processDeviceToken.identity}" />
 				<m:Input editable="false"
 					value="{/address}" />
 
-				<m:Label text="Gerätename" />
+				<m:Label text="{t>processDeviceToken.deviceName}" />
 				<m:Input editable="false"
 					value="{/name}" />
-				<m:Label text="Beschreibung" />
+				<m:Label text="{t>processDeviceToken.description}" />
 				<m:Input editable="false"
 					value="{/description}" />
-				<m:Label text="Geräte ID" />
+				<m:Label text="{t>processDeviceToken.deviceID}" />
 				<m:Input editable="false"
 					value="{/id}" />
 
@@ -48,7 +48,7 @@
 				renderType="Bare"
 				class="sapUiSmallMargin sapUiMediumMarginBottom">
 				<ToolbarSpacer />
-				<m:Button text="Mit Identität verbinden"
+				<m:Button text="{t>processDeviceToken.connectButton}"
 					icon="sap-icon://accept"
 					type="Emphasized"
 					press="onSubmit" />

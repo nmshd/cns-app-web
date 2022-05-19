@@ -10,7 +10,7 @@
 	<semantic:DetailPage id="wizardContentPage"
 		navButtonPress="onNavButtonPress"
 		showNavButton="{d>/system/phone}"
-		title="Rechtliche Hinweise"
+		title="{t>legal.title}"
 		showFooter="false"
 		busy="{v>/busy}"
 		busyIndicatorDelay="{v>/delay}">
@@ -32,9 +32,9 @@
 						</f:snappedContent>
 						<f:expandedContent>
 							<form:SimpleForm class="sapUiNoContentPadding">
-								<Label text="Version" />
+								<Label text="{t>legal.version}" />
 								<Text text="{v>/legalVersion}" />
-								<Label text="Geändert am" />
+								<Label text="{t>legal.changed}" />
 								<Text text="{path:'v>/legalChanged', formatter:'.formatter.toAbsoluteDate'}" />
 							</form:SimpleForm>
 

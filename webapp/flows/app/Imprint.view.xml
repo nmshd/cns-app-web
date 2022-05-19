@@ -13,7 +13,7 @@
 	<semantic:DetailPage id="page"
 		navButtonPress="onNavButtonPress"
 		showNavButton="{d>/system/phone}"
-		title="Impressum"
+		title="{t>imprint.title}"
 		showFooter="false"
 		busy="{v>/busy}"
 		busyIndicatorDelay="{v>/delay}">
@@ -27,20 +27,20 @@
 			<m:VBox>
 				<form:SimpleForm>
 					<form:content>
-						<m:Label text="Herausgeber" />
+						<m:Label text="{t>imprint.text1}" />
 						<m:VBox>
-							<m:Text text="(verantwortlich nach § 5 Abs. 1 TMG, § 18 Abs. 1 MStV)" />
-							<m:Title text="j&amp;s-soft GmbH" />
-							<m:Text text="Max-Jarecki-Str. 21" />
-							<m:Text text="69115 Heidelberg" />
-							<m:Text text="info@js-soft.com" />
+							<m:Text text="{t>imprint.text2}" />
+							<m:Title text="{t>imprint.text3}" />
+							<m:Text text="{t>imprint.text4}" />
+							<m:Text text="{t>imprint.text5}" />
+							<m:Text text="{t>imprint.text6}" />
 						</m:VBox>
-						<m:Label text="Geschäftsführer" />
-						<m:Text text="Dirk Jennerjahn" />
-						<m:Label text="Umsatzsteuer-Identifikationsnummer" />
-						<m:Text text="DE229831469" />
-						<m:Label text="Registergericht" />
-						<m:Text text="HRB 337601, Amtsgericht Mannheim" />
+						<m:Label text="{t>imprint.text7}" />
+						<m:Text text="{t>imprint.text8}" />
+						<m:Label text="{t>imprint.text9}" />
+						<m:Text text="{t>imprint.text10}" />
+						<m:Label text="{t>imprint.text11}" />
+						<m:Text text="{t>imprint.text12}" />
 
 
 

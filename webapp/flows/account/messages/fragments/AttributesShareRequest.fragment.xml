@@ -6,13 +6,13 @@
     <m:CustomListItem>
         <m:VBox class="sapUiSmallMargin">
             <m:Title text="{path:'name',formatter:'.formatter.toTranslated'}" />
-            <m:Label text="Attribute die geteilt werden sollen:" />
+            <m:Label text="{t>messages.attributeShare.attributes}" />
             <m:List items="{path:'attributes',templateShareable:false}">
                 <m:StandardListItem title="{bestMatch/value}"
                     description="{bestMatch/name}"
                     visible="{=!!${bestMatch}}" />
             </m:List>
-            <m:Label text="Empfänger der Attribute:" />
+            <m:Label text="{t>messages.attributeShare.recipient}" />
             <m:List items="{path:'recipients',templateShareable:false}">
                 <controls:PersonItemRenderer title="{name}"
                     status="{description}"
@@ -25,7 +25,7 @@
             </m:List>
             <m:HBox justifyContent="End"
                 class="sapUiTinyMarginTop">
-                <m:Button text="Daten teilen"
+                <m:Button text="{t>messages.attributeShare.button}"
                     icon="sap-icon://paper-plane"
                     enabled="{=!${processed}}"
                     type="Accept"
