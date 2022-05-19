@@ -63,7 +63,7 @@
 						<m:Select id="language">
 							<core:Item key="en" text="English" />
 							<core:Item key="de" text="Deutsch (German)" />
-							<core:Item key="uk-UA" text="Yкраїнський (Ukrainian)" />
+							<core:Item key="uk" text="Yкраїнський (Ukrainian)" />
 						</m:Select>
 						<m:Button text="{t>settings.choose} (Apply language)"
 							id="choose"

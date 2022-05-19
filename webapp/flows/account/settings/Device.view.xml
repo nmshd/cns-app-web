@@ -44,13 +44,13 @@
 
 			<m:Panel headerText="{t>settings.device.deviceCodeHeader}"
 				visible="{=!!${v>/token} }">
-				<m:Text text="{t>settings.device.dviceCodeDescription1}" />
+				<m:Text text="{t>settings.device.deviceCodeDescriptionScan}" />
 				<m:HBox justifyContent="Center"
 					class="sapUiSmallMargin">
 					<controls:QRCode content="{v>/token}" />
 
 				</m:HBox>
-				<m:Text text="{t>settings.device.dviceCodeDescription2}"
+				<m:Text text="{t>settings.device.deviceCodeDescriptionLink}"
 					class="sapUiSmallMarginTopBottom" />
 				<m:VBox alignItems="Center">
 					<m:Text text="{v>/token}"
