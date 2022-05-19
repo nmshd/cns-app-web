@@ -38,7 +38,8 @@
 						press="storeAccountName"
 						class="sapUiTinyMarginBegin" />
 				</m:HBox>
-
+				
+				<m:Label text="{t>settings.language}" />
 				<m:HBox>
 					<m:Select id="language">
 						<core:Item key="en" text="English" />
