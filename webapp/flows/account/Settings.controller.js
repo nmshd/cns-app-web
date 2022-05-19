@@ -18,6 +18,12 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
             this.clear()
 
             await this.super("onRouteMatched", oEvent)
+
+            let language = bootstrapper.nativeConfigAccess.get("language")
+            if (language.isSuccess) {
+                this.byId("language").setSelectedKey(language.value)
+            }
+
             App.appController.clearRight()
             App.appController.setTitle(this.resource("settings.title"))
         },
