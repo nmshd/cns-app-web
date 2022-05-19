@@ -17,7 +17,7 @@ sap.ui.define(
             async onRouteMatched(oEvent) {
                 App.appController.setLeft("sap-icon://nav-back", null)
                 App.appController.clearRight()
-                App.appController.setTitle(this.resource("accounts.ProcessRelationshipToken.title"))
+                App.appController.setTitle(this.resource("accounts.processRelationshipToken.title"))
 
                 this.viewProp("/submitAvailable", false)
                 await this.super("onRouteMatched")

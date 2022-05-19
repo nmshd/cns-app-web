@@ -11,11 +11,11 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, App
         async onRouteMatched(oEvent) {
             App.appController.setLeft("sap-icon://nav-back", null)
             App.appController.clearRight()
-            App.appController.setTitle(this.resource("app.errorController.title1"))
+            App.appController.setTitle(this.resource("app.errorController.title"))
             await this.super("onRouteMatched", oEvent)
             App.appController.setLeft("sap-icon://nav-back", null)
             App.appController.clearRight()
-            App.appController.setTitle(this.resource("app.errorController.title2"))
+            App.appController.setTitle(this.resource("app.errorController.title"))
 
             const themeInfo = await App.themeInfoForTemplate("error")
             if (themeInfo) {

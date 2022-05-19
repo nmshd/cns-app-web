@@ -11,11 +11,11 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, App
         async onRouteMatched(oEvent) {
             App.appController.clearLeft()
             App.appController.clearRight()
-            App.appController.setTitle(this.resource("app.fatalErrorController.title1"))
+            App.appController.setTitle(this.resource("app.fatalErrorController.title"))
             await this.super("onRouteMatched", oEvent)
             App.appController.clearLeft()
             App.appController.clearRight()
-            App.appController.setTitle(this.resource("app.fatalErrorController.title2"))
+            App.appController.setTitle(this.resource("app.fatalErrorController.title"))
 
             const themeInfo = await App.themeInfoForTemplate("error")
             if (themeInfo) {
