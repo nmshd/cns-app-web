@@ -61,7 +61,7 @@
 						backgroundColor="Accent10"
 						class="sapUiSmallMargin" />
 					<controls:Container class="sapUiTinyMargin">
-						<Text text=""
+						<Text text="{t>onboardOverview.doAccept}"
 							class="inlineText" />
 						<Link press="toPrivacy"
 							text="{t>onboardOverview.privacy}"
