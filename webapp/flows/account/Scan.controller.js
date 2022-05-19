@@ -34,7 +34,7 @@ sap.ui.define(
                         await this.load(App.parseQR(scanResult.value, this.accountId))
                     } catch (e) {
                         this.addError({
-                            sUserFriendlyMsg: "Der eingescannte QR-Code war fehlerhaft. Bitte versuche es nochmals." // TODO:
+                            sUserFriendlyMsg: this.resource("scanController.retryError")
                         })
                         // QR Code parsing errors might occur
                         appLogger.error(e)

@@ -19,7 +19,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Bas
             await this.super("onRouteMatched")
             App.appController.clearRight()
             App.appController.setLeft("sap-icon://nav-back", null)
-            App.appController.setTitle("Identität Erstellen") // TODO:
+            App.appController.setTitle(this.resource("accounts.create.title"))
 
             this.clear()
         },

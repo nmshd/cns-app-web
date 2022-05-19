@@ -120,28 +120,28 @@ sap.ui.define(
                                 let sCommAlt = ""
                                 switch (aSplit[1]) {
                                     case "email":
-                                        sCommType = "E-Mail" // TODO:
+                                        sCommType = this.resource("profile.files.overview.email")
                                         break
                                     case "phone":
-                                        sCommType = "Telefon" // TODO:
+                                        sCommType = this.resource("profile.files.overview.phone")
                                         break
                                     case "fax":
-                                        sCommType = "Fax" // TODO:
+                                        sCommType = this.resource("profile.files.overview.fax")
                                         break
                                     case "mobile":
-                                        sCommType = "Mobiltelefon" // TODO:
+                                        sCommType = this.resource("profile.files.overview.mobile")
                                         break
                                     case "facebook":
-                                        sCommType = "Facebook" // TODO:
+                                        sCommType = this.resource("profile.files.overview.facebook")
                                         break
                                     case "linkedin":
-                                        sCommType = "LinkedIn" // TODO:
+                                        sCommType = this.resource("profile.files.overview.linkedin")
                                         break
                                     case "whatsapp":
-                                        sCommType = "WhatsApp" // TODO:
+                                        sCommType = this.resource("profile.files.overview.whatsapp")
                                         break
                                     case "website":
-                                        sCommType = "Webseite" // TODO:
+                                        sCommType = this.resource("profile.files.overview.website")
                                         break
                                 }
 
@@ -202,11 +202,11 @@ sap.ui.define(
                 this.setModel(this.files, "files")
 
                 this.prop("/CommAttributes", [
-                    { key: "Comm.email", text: "E-Mail" }, // TODO:
-                    { key: "Comm.phone", text: "Telefon" }, // TODO:
-                    { key: "Comm.mobile", text: "Mobil" }, // TODO:
-                    { key: "Comm.fax", text: "Fax" }, // TODO:
-                    { key: "Comm.website", text: "Website" } // TODO:
+                    { key: "Comm.email", text: this.resource("profile.files.overview.email") },
+                    { key: "Comm.phone", text: this.resource("profile.files.overview.phone") },
+                    { key: "Comm.mobile", text: this.resource("profile.files.overview.mobile") },
+                    { key: "Comm.fax", text: this.resource("profile.files.overview.fax") },
+                    { key: "Comm.website", text: this.resource("profile.files.overview.website") }
                 ])
             },
 

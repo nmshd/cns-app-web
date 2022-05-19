@@ -21,7 +21,7 @@ sap.ui.define(
 
                 await this.super("onRouteMatched", oEvent)
                 App.appController.clearRight()
-                App.appController.setTitle("Gerätedetails") // TODO:
+                App.appController.setTitle(this.resource("settings.device.title"))
             },
 
             async refresh() {
@@ -29,7 +29,7 @@ sap.ui.define(
                 if (!result || result.isError || !result.value) {
                 } else {
                     const device = result.value
-                    this.viewProp("/status", "Aktiv") // TODO:
+                    this.viewProp("/status", this.resource("settings.device.active"))
 
                     if (!device.publicKey || !device.lastLoginAt) {
                         const tokenResult = await runtime.transportServices.devices.getDeviceOnboardingToken({
@@ -40,7 +40,7 @@ sap.ui.define(
                             const tokenValue = tokenResult.value.truncatedReference
                             this.viewProp("/token", `nmshd://qr#${tokenValue}`)
                         }
-                        this.viewProp("/status", "Noch nicht zugewiesen") // TODO:
+                        this.viewProp("/status", this.resource("settings.device.status"))
                     }
                     this.device = new JSONModel(device)
                     this.setModel(this.device)
