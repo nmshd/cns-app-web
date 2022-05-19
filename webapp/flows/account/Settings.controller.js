@@ -48,6 +48,13 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
             this.addError({ sUserFriendlyMsg: this.resource("settings.renameError"), quick: true })
         },
 
+        async changeLanguage() {
+            const newLanguage = this.byId("language").getSelectedItem().mProperties.key
+            sap.ui.getCore().getConfiguration().setLanguage(newLanguage)
+            bootstrapper.nativeConfigAccess.set("language", newLanguage)
+            bootstrapper.nativeConfigAccess.save()
+        },
+
         async toggleExpertMode() {
             const expMode = !(await this.account().info.get("expertMode"))
             await this.load(this.account().info.set("expertMode", expMode))

@@ -38,7 +38,22 @@
 						press="storeAccountName"
 						class="sapUiTinyMarginBegin" />
 				</m:HBox>
+
+				<m:HBox>
+					<m:Select id="language">
+						<core:Item key="en" text="English" />
+						<core:Item key="de" text="Deutsch" />
+						<core:Item key="uk-UA" text="Yкраїнський" />
+					</m:Select>
+					<m:Button text="{t>settings.choose}"
+						id="choose"
+						press="changeLanguage"
+						class="sapUiTinyMarginBegin" />
+				</m:HBox>
+
+
 			</form:SimpleForm>
+			
 
 
 			<m:List items="{v>/devices}"

@@ -27,7 +27,7 @@
 		<semantic:content>
 			<m:VBox class="sapUiResponsiveMargin">
 
-				<m:Title text="Deine Identität"
+				<m:Title text="{t>onboardOverview.title}"
 					class="sapUiSmallMargin" />
 
 				<controls:Container class="sapUiSmallMargin">
