@@ -30,14 +30,14 @@
 		<semantic:content>
 			<m:Panel headerText="{v>/template/title}"
 				visible="{=!!${v>/token} }">
-				<m:Text text="{t>share.card.shareCode1}" />
+				<m:Text text="{t>share.card.shareCodeScan}" />
 				<m:VBox alignItems="Center"
 					justifyContent="Center"
 					class="sapUiSmallMargin">
 					<controls:QRCode id="qrcode"
 						content="{v>/token}" />
 				</m:VBox>
-				<m:Text text="{t>share.card.shareCode2}"
+				<m:Text text="{t>share.card.shareCodeLink}"
 					class="sapUiSmallMarginTopBottom" />
 				<m:VBox alignItems="Center">
 					<m:Text text="{v>/token}"

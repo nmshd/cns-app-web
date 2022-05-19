@@ -40,7 +40,7 @@
 					renderType="Bare"
 					class="sapUiTinyMargin">
 					<ToolbarSpacer />
-					<Button text="{t>create.continueButton1}"
+					<Button text="{t>create.continueButton}"
 						icon="sap-icon://accept"
 						type="Emphasized"
 						press="submit" />
@@ -62,7 +62,7 @@
 						class="sapUiTinyMargin" />
 					<Button icon="sap-icon://paper-plane"
 						type="Emphasized"
-						text="{t>create.continueButton2}"
+						text="{t>create.continueButton}"
 						press="start"
 						class="sapUiTinyMargin" />
 

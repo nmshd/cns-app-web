@@ -39,16 +39,16 @@
 				selectedKey="active"
 				class="sapUiTinyMargin">
 				<m:items>
-					<m:SegmentedButtonItem text="{t>relationship.relationships.ButtonRelevant}"
+					<m:SegmentedButtonItem text="{t>relationships.relationships.ButtonRelevant}"
 						key="active" />
-					<m:SegmentedButtonItem text="{t>relationship.relationships.ButtonAll}"
+					<m:SegmentedButtonItem text="{t>relationships.relationships.ButtonAll}"
 						key="all" />
 				</m:items>
 
 			</m:SegmentedButton>
 			<m:List id="list"
 				items="{path:'/items', factory:'.itemFactory'}"
-				noDataText="{t>relationship.relationships.noContacts}">
+				noDataText="{t>relationships.relationships.noContacts}">
 			</m:List>
 			<m:VBox alignItems="Center"
 				alignContent="Center"
