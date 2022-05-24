@@ -2,7 +2,7 @@ name: Test
 
 on:
   push:
-    branches-ignore: [main]
+    branches-ignore: [main, release/**]
 
 jobs:
   run-checks:
@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
       - run: npm ci
       - run: npm run build
       - run: npm run test
