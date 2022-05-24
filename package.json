@@ -21,7 +21,6 @@
         "@js-soft/native-cordova": "1.0.3",
         "@js-soft/native-electron": "1.0.4",
         "@js-soft/native-web": "1.0.4",
-        "@js-soft/ts-serval": "1.0.2",
         "@nmshd/app-runtime": "1.0.6",
         "bson": "^4.6.1",
         "pako": "^2.0.4"
@@ -46,7 +45,6 @@
         "dependencies": [
             "ui5-middleware-livereload",
             "ui5-middleware-simpleproxy",
-            "@js-soft/ts-serval",
             "@nmshd/app-runtime",
             "@js-soft/native-cordova",
             "@js-soft/native-web",
