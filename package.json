@@ -1,6 +1,6 @@
 {
     "name": "@nmshd/app-web",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "The web sources for the Enmeshed App",
     "repository": "github:nmshd/cns-app-web",
     "license": "MIT",
@@ -21,23 +21,22 @@
         "@js-soft/native-cordova": "1.0.3",
         "@js-soft/native-electron": "1.0.4",
         "@js-soft/native-web": "1.0.4",
-        "@js-soft/ts-serval": "1.0.2",
-        "@nmshd/app-runtime": "1.0.4",
+        "@nmshd/app-runtime": "1.0.6",
         "bson": "^4.6.1",
         "pako": "^2.0.4"
     },
     "devDependencies": {
-        "@js-soft/license-check": "^1.0.3",
+        "@js-soft/license-check": "^1.0.4",
         "@types/jquery": "^3.5.14",
-        "@ui5/cli": "^2.14.6",
+        "@ui5/cli": "^2.14.9",
         "cross-env": "^7.0.3",
-        "eslint": "^8.10.0",
+        "eslint": "^8.16.0",
         "eslint-config-prettier": "^8.5.0",
-        "fs-extra": "^10.0.1",
-        "prettier": "^2.5.1",
-        "prompt": "^1.2.2",
-        "ui5-middleware-livereload": "^0.5.9",
-        "ui5-middleware-simpleproxy": "^0.8.0"
+        "fs-extra": "^10.1.0",
+        "prettier": "^2.6.2",
+        "prompt": "^1.3.0",
+        "ui5-middleware-livereload": "^0.5.13",
+        "ui5-middleware-simpleproxy": "^0.8.4"
     },
     "publishConfig": {
         "access": "public"
@@ -46,7 +45,6 @@
         "dependencies": [
             "ui5-middleware-livereload",
             "ui5-middleware-simpleproxy",
-            "@js-soft/ts-serval",
             "@nmshd/app-runtime",
             "@js-soft/native-cordova",
             "@js-soft/native-web",
