@@ -27,7 +27,7 @@
 				<m:Button text="Context" press="getContext()" />
 				<m:Button text="Selected" press="getSelected()" />
 			</m:Toolbar>
-			<requests:RequestRenderer id="request" binding="{/request}">
+			<requests:RequestRenderer id="request" binding="{/request}" change="onChange">
 			</requests:RequestRenderer>
 		</semantic:content>
 		<semantic:customFooterContent>

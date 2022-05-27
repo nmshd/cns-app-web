@@ -585,18 +585,15 @@ sap.ui.define(
 
             getResponseParams() {
                 const value = this.byId("request").getResponseParams()
-                console.log("Response Params", value)
                 return value
             },
 
             getContext() {
                 const context = this.byId("request").getContext()
-                console.log("Context", context)
                 return context
             },
             getSelected() {
                 const selection = this.byId("request").getSelected()
-                console.log("Selected", selection)
                 return selection
             },
 
@@ -636,6 +633,12 @@ sap.ui.define(
                     backgroundColor: "#29235c"
                 })
                 App.appController.setTitle("")
+            },
+
+            onChange(oEvent) {
+                console.log("Change Event Fired", oEvent)
+                const responseParams = this.getResponseParams()
+                console.log("Response Params", responseParams)
             },
 
             setMessage(message, type) {
