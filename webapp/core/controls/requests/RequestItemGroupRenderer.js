@@ -22,7 +22,9 @@ sap.ui.define(
                     group: { type: "object", defaultValue: { title: "", description: "", mustBeAccepted: false } }
                 },
                 publicMethods: [],
-                events: {},
+                events: {
+                    change: { allowPreventDefault: true }
+                },
                 defaultAggregation: "content"
             },
 
@@ -30,6 +32,7 @@ sap.ui.define(
             _activeHandling: function () {},
 
             init(e) {
+                const that = this
                 this.setAggregation(
                     "_list",
                     new List({
@@ -37,13 +40,17 @@ sap.ui.define(
                             path: "items",
                             template: new RequestItemRenderer({
                                 item: "{}"
-                            })
+                            }).attachChange((oEvent) => that.fireChange(oEvent))
                         }
                     })
                 )
                 this.setAggregation(
                     "_checkbox",
-                    new CheckBox({ text: "", editable: "{=!${mustBeAccepted}}", selected: "{mustBeAccepted}" })
+                    new CheckBox({
+                        text: "",
+                        editable: "{=!${mustBeAccepted}}",
+                        selected: "{mustBeAccepted}"
+                    }).attachSelect((oEvent) => that.fireChange(oEvent))
                 )
                 this.setAggregation("_title", new Text({ text: "{title}", visible: "{=!!${title}}" }))
                 this.setAggregation("_description", new Text({ text: "{description}", visible: "{=!!${description}}" }))

@@ -17,7 +17,9 @@ sap.ui.define(
                 },
                 properties: {},
                 publicMethods: [],
-                events: {},
+                events: {
+                    change: { allowPreventDefault: true }
+                },
                 defaultAggregation: "_editControl"
             },
 
@@ -48,6 +50,7 @@ sap.ui.define(
                 this.createNewEditControl()
             },
             createNewSelectControl() {
+                const that = this
                 let control
                 switch (this.renderHints.semantic) {
                     default:
@@ -60,7 +63,7 @@ sap.ui.define(
                                     text: "{title}"
                                 })
                             }
-                        })
+                        }).attachChange((oEvent) => that.fireChange(oEvent))
                         break
                     case "sex":
                         const model = new JSONModel({
@@ -90,19 +93,20 @@ sap.ui.define(
                                     text: "{title}"
                                 })
                             }
-                        })
+                        }).attachChange((oEvent) => that.fireChange(oEvent))
                         control.setModel(model)
                 }
                 return control
             },
             createNewInputControl() {
+                const that = this
                 let control
                 switch (this.renderHints.dataType) {
                     case "integer":
                         control = new StepInput({
                             min: this.valueHints.min,
                             max: this.valueHints.max
-                        })
+                        }).attachChange((oEvent) => that.fireChange(oEvent))
                         break
                     case "float":
                         control = new StepInput({
@@ -110,10 +114,10 @@ sap.ui.define(
                             max: this.valueHints.max,
                             displayValuePrecision: 2,
                             step: 0.1
-                        })
+                        }).attachChange((oEvent) => that.fireChange(oEvent))
                         break
                     default:
-                        control = new Input()
+                        control = new Input().attachLiveChange((oEvent) => that.fireChange(oEvent))
                         break
                 }
                 if (this.renderHints.semantic === "Password") {

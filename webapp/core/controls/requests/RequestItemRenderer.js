@@ -21,7 +21,9 @@ sap.ui.define(
                     item: { type: "object", defaultValue: {} }
                 },
                 publicMethods: [],
-                events: {},
+                events: {
+                    change: { allowPreventDefault: true }
+                },
                 defaultAggregation: "content"
             },
 
@@ -31,9 +33,14 @@ sap.ui.define(
             isAttributeRequestItem(item) {},
 
             init(e) {
+                const that = this
                 this.setAggregation(
                     "_checkbox",
-                    new CheckBox({ text: "", editable: "{=!${mustBeAccepted}}", selected: "{mustBeAccepted}" })
+                    new CheckBox({
+                        text: "",
+                        editable: "{=!${mustBeAccepted}}",
+                        selected: "{mustBeAccepted}"
+                    }).attachSelect((oEvent) => that.fireChange(oEvent))
                 )
                 this.setAggregation("_title", new Text({ text: "{title}", visible: "{=!!${title}}" }))
                 this.setAggregation("_description", new Text({ text: "{description}", visible: "{=!!${description}}" }))
@@ -66,13 +73,16 @@ sap.ui.define(
             },
 
             updateInternalControl() {
+                const that = this
                 // TODO: Make this update smart, e.g. we do not need to create the control new
                 // if we have the same value, valuetype or control class
                 const item = this.getItem()
                 let control
                 switch (item["@type"]) {
                     case "ReadAttributeRequestItem":
-                        control = new ReadAttributeRequestItemRenderer({ requestItem: "{}" })
+                        control = new ReadAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange((oEvent) =>
+                            that.fireChange(oEvent)
+                        )
                         break
                     default:
                         control = new Text({ text: "{value}" })

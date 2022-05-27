@@ -22,11 +22,14 @@ sap.ui.define(
                     requestItem: { type: "object", defaultValue: {} }
                 },
                 publicMethods: [],
-                events: {},
+                events: {
+                    change: { allowPreventDefault: true }
+                },
                 defaultAggregation: "_control"
             },
 
             init(e) {
+                const that = this
                 this.setAggregation(
                     "_label",
                     new Label({ text: "{name}" })
@@ -45,6 +48,7 @@ sap.ui.define(
                     new ValueEditRenderer({
                         visible: "{= ${results} === undefined || ${results/length} === 0}"
                     })
+                        .attachChange((oEvent) => that.fireChange(oEvent))
                         .addStyleClass("readAttributeRequestItemRendererEditControl")
                         .bindElement("query")
                 )

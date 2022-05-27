@@ -15,11 +15,14 @@ sap.ui.define(
                 },
                 properties: {},
                 publicMethods: [],
-                events: {},
+                events: {
+                    change: { allowPreventDefault: true }
+                },
                 defaultAggregation: "_list"
             },
 
             init(e) {
+                const that = this
                 this.setAggregation(
                     "_list",
                     new List({
@@ -32,11 +35,11 @@ sap.ui.define(
                                 if (item["@type"] === "RequestItemGroup") {
                                     renderer = new RequestItemGroupRenderer({
                                         group: { path: oContext.getPath() }
-                                    })
+                                    }).attachChange((oEvent) => that.fireChange(oEvent))
                                 } else {
                                     renderer = new RequestItemRenderer({
                                         item: { path: oContext.getPath() }
-                                    })
+                                    }).attachChange((oEvent) => that.fireChange(oEvent))
                                 }
                                 return renderer
                             }
