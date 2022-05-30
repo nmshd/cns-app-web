@@ -192,14 +192,6 @@ body .messageList header {
     margin-bottom: 0.2rem;
 }
 
-
-
-
-
-
-
-
-
 /* ====================================== */
 
 .requestItemGroupRenderer {
@@ -234,12 +226,9 @@ body .messageList header {
     align-self: flex-end;
 }
 
-
-
 .requestItemRenderer {
     border-top: 1px solid #eeeeee;
 }
-
 
 .attributeRenderer {
     display: flex;
