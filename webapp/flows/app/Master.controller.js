@@ -25,7 +25,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
         },
 
         onRouteMatched(oEvent) {
-            let autoLanguage = sap.ui.getCore().getConfiguration().getLanguage()?.substring(0, 2)
+            const autoLanguage = sap.ui.getCore().getConfiguration().getLanguage()?.substring(0, 2)
             if (autoLanguage) {
                 this.byId("language").setSelectedKey(autoLanguage)
             }
