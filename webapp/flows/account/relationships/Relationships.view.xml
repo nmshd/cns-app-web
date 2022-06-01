@@ -54,7 +54,7 @@
 				alignContent="Center"
 				class="sapUiSmallMarginTop"
 				visible="{=${d>/system/phone}}">
-				<m:Button text="Kontakt hinzufügen"
+				<m:Button text="{t>relationships.relationships.addContactButton}"
 					icon="sap-icon://bar-code"
 					press="onNewLink" />
 			</m:VBox>

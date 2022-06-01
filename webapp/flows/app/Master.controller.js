@@ -25,8 +25,12 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
         },
 
         onRouteMatched(oEvent) {
+            const autoLanguage = sap.ui.getCore().getConfiguration().getLanguage()?.substring(0, 2)
+            if (autoLanguage) {
+                this.byId("language").setSelectedKey(autoLanguage)
+            }
             let language = bootstrapper.nativeConfigAccess.get("language")
-            if (language.isSuccess) {
+            if (language.isSuccess && language.value) {
                 this.byId("language").setSelectedKey(language.value)
             }
 
@@ -54,6 +58,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
             sap.ui.getCore().getConfiguration().setLanguage(newLanguage)
             bootstrapper.nativeConfigAccess.set("language", newLanguage)
             bootstrapper.nativeConfigAccess.save()
+            App.appController.setTitle(this.resource("app.masterController.title"))
         }
     })
 })

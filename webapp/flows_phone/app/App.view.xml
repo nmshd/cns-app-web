@@ -45,23 +45,23 @@
 		alignItems="Center"
 		justifyContent="SpaceAround"
 		visible="{v>/showAccountNavigation}">
-		<m:ToggleButton text="Start"
+		<m:ToggleButton text="{t>master.inbox}"
 			id="appStart"
 			icon="sap-icon://home"
 			pressed="{v>/selectStart}"
 			press="toStart" />
-		<m:ToggleButton text="Teilen"
+		<m:ToggleButton text="{t>master.share}"
 			id="appShare"
 			icon="sap-icon://business-card"
 			pressed="{v>/selectShare}"
 			press="toCards" />
 
-		<m:ToggleButton text="Kontakte"
+		<m:ToggleButton text="{t>master.relationships}"
 			id="appRelationships"
 			icon="sap-icon://contacts"
 			pressed="{v>/selectContacts}"
 			press="toContacts" />
-		<m:ToggleButton text="Daten"
+		<m:ToggleButton text="{t>master.attribute}"
 			id="appProfile"
 			icon="sap-icon://work-history"
 			pressed="{v>/selectProfile}"
