@@ -59,6 +59,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
             sap.ui.getCore().getConfiguration().setLanguage(newLanguage)
             bootstrapper.nativeConfigAccess.set("language", newLanguage)
             bootstrapper.nativeConfigAccess.save()
+            App.appController.setTitle(this.resource("app.masterController.title"))
         }
     })
 })
