@@ -13,9 +13,21 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
                 token: ""
             }
         },
+        translateTemplates(templates) {
+            console.log(templates)
+            for (const temp_index in templates.oData) {
+                const temp = templates.oData[temp_index]
+                let temp_string = JSON.stringify(temp)
+                temp_string = temp_string.replace(/\{t>(.*?)\}/g, (match) => {
+                    return this.resource(match.substring(3, match.length - 1))
+                })
+                templates.oData[temp_index] = JSON.parse(temp_string)
+            }
+        },
 
         async onInitialized(oEvent) {
             const relationshipTemplates = this.getOwnerComponent().getModel("DefaultRelationshipTemplates")
+            this.translateTemplates(relationshipTemplates)
             this.setModel(relationshipTemplates, "templates")
         },
 

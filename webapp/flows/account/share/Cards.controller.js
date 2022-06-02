@@ -13,8 +13,20 @@ sap.ui.define(
                 }
             },
 
+            translateTemplates(templates) {
+                for (const temp_index in templates.oData) {
+                    const temp = templates.oData[temp_index]
+                    let temp_string = JSON.stringify(temp)
+                    temp_string = temp_string.replace(/\{t>(.*?)\}/g, (match) => {
+                        return this.resource(match.substring(3, match.length - 1))
+                    })
+                    templates.oData[temp_index] = JSON.parse(temp_string)
+                }
+            },
+
             async onInitialized(oEvent) {
-                const relationshipTemplates = this.getOwnerComponent().getModel("DefaultRelationshipTemplates")
+                let relationshipTemplates = this.getOwnerComponent().getModel("DefaultRelationshipTemplates")
+                this.translateTemplates(relationshipTemplates)
                 this.setModel(new JSONModel({ templates: relationshipTemplates.getData() }))
             },
 
