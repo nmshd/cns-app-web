@@ -13,6 +13,10 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
                 token: ""
             }
         },
+        /**
+         * Use i18n resources to translate content of the json model
+         * @param {*} templates json model
+         */
         translateTemplates(templates) {
             console.log(templates)
             for (const temp_index in templates.oData) {

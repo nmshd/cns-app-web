@@ -12,7 +12,10 @@ sap.ui.define(
                     navigation: []
                 }
             },
-
+            /**
+             * Use i18n resources to translate content of the json model
+             * @param {*} templates json model
+             */
             translateTemplates(templates) {
                 for (const temp_index in templates.oData) {
                     const temp = templates.oData[temp_index]
