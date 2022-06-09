@@ -17,13 +17,13 @@ sap.ui.define(
              * @param {*} templates json model
              */
             translateTemplates(templates) {
-                for (const temp_index in templates.oData) {
-                    const temp = templates.oData[temp_index]
-                    let temp_string = JSON.stringify(temp)
-                    temp_string = temp_string.replace(/\{t>(.*?)\}/g, (match) => {
+                for (const tempIndex in templates.oData) {
+                    const temp = templates.oData[tempIndex]
+                    let tempString = JSON.stringify(temp)
+                    tempString = tempString.replace(/\{t>(.*?)\}/g, (match) => {
                         return this.resource(match.substring(3, match.length - 1))
                     })
-                    templates.oData[temp_index] = JSON.parse(temp_string)
+                    templates.oData[tempIndex] = JSON.parse(tempString)
                 }
             },
 
