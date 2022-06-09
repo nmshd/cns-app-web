@@ -56,6 +56,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
         async changeLanguage() {
             const newLanguage = this.byId("language").getSelectedItem().mProperties.key
             sap.ui.getCore().getConfiguration().setLanguage(newLanguage)
+            location.reload()
             bootstrapper.nativeConfigAccess.set("language", newLanguage)
             bootstrapper.nativeConfigAccess.save()
             App.appController.setTitle(this.resource("app.masterController.title"))

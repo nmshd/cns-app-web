@@ -13,9 +13,25 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
                 token: ""
             }
         },
+        /**
+         * Use i18n resources to translate content of the json model
+         * @param {*} templates json model
+         */
+        translateTemplates(templates) {
+            console.log(templates)
+            for (const tempIndex in templates.oData) {
+                const temp = templates.oData[tempIndex]
+                let tempString = JSON.stringify(temp)
+                tempString = tempString.replace(/\{t>(.*?)\}/g, (match) => {
+                    return this.resource(match.substring(3, match.length - 1))
+                })
+                templates.oData[tempIndex] = JSON.parse(tempString)
+            }
+        },
 
         async onInitialized(oEvent) {
             const relationshipTemplates = this.getOwnerComponent().getModel("DefaultRelationshipTemplates")
+            this.translateTemplates(relationshipTemplates)
             this.setModel(relationshipTemplates, "templates")
         },
 

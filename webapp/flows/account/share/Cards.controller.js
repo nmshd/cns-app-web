@@ -12,9 +12,24 @@ sap.ui.define(
                     navigation: []
                 }
             },
+            /**
+             * Use i18n resources to translate content of the json model
+             * @param {*} templates json model
+             */
+            translateTemplates(templates) {
+                for (const tempIndex in templates.oData) {
+                    const temp = templates.oData[tempIndex]
+                    let tempString = JSON.stringify(temp)
+                    tempString = tempString.replace(/\{t>(.*?)\}/g, (match) => {
+                        return this.resource(match.substring(3, match.length - 1))
+                    })
+                    templates.oData[tempIndex] = JSON.parse(tempString)
+                }
+            },
 
             async onInitialized(oEvent) {
-                const relationshipTemplates = this.getOwnerComponent().getModel("DefaultRelationshipTemplates")
+                let relationshipTemplates = this.getOwnerComponent().getModel("DefaultRelationshipTemplates")
+                this.translateTemplates(relationshipTemplates)
                 this.setModel(new JSONModel({ templates: relationshipTemplates.getData() }))
             },
 
