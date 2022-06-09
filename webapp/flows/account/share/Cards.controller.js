@@ -12,6 +12,7 @@ sap.ui.define(
                     navigation: []
                 }
             },
+
             /**
              * Use i18n resources to translate content of the json model
              * @param {*} templates json model
