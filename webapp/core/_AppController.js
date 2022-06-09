@@ -60,9 +60,10 @@ sap.ui.define(
                 this.getOwnerComponent().addController(this.getMetadata().getName(), this)
             },
 
-            onRouteMatched(oEvent, doNotRefresh) {
+            async onRouteMatched(oEvent, doNotRefresh) {
+                await App.isInitialized()
                 if (!doNotRefresh) {
-                    this.refresh()
+                    await this.refresh()
                 }
             },
 
