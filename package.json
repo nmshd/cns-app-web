@@ -21,7 +21,7 @@
         "@js-soft/native-cordova": "1.0.3",
         "@js-soft/native-electron": "1.0.4",
         "@js-soft/native-web": "1.0.4",
-        "@nmshd/app-runtime": "1.0.6",
+        "@nmshd/app-runtime": "2.0.0-alpha.2",
         "bson": "^4.6.1",
         "pako": "^2.0.4"
     },
