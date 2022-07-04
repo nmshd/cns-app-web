@@ -57,7 +57,7 @@
 
                     <uxap:ObjectPageSection titleUppercase="false"
                         title="{t>detail.requests} ({/requestCount})"
-                        visible="{= ${/requestCount} > 0}">
+                        visible="false">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection titleUppercase="false">
                                 <m:List id="requests"

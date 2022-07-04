@@ -191,3 +191,48 @@ body .messageList header {
     font-weight: bold;
     margin-bottom: 0.2rem;
 }
+
+/* ====================================== */
+
+.requestItemGroupRenderer {
+    border-top: 1px solid #eeeeee;
+    margin-top: 1rem;
+}
+
+.requestItemGroupRenderer,
+.requestItemRenderer,
+.readAttributeRequestItemRenderer {
+    display: flex;
+    width: 100%;
+    flex-flow: row wrap;
+}
+
+.readAttributeRequestItemRenderer {
+    align-items: center;
+    justify-content: stretch;
+}
+
+.requestItemRendererChildContainer {
+    flex-grow: 1;
+}
+
+.readAttributeRequestItemRendererLabel {
+    min-width: 8rem;
+}
+
+.readAttributeRequestItemRendererFoundAttribute,
+.readAttributeRequestItemRendererEditControl {
+    width: 100%;
+}
+
+.readAttributeRequestItemRendererButton {
+    align-self: flex-end;
+}
+
+.requestItemRenderer {
+    border-top: 1px solid #eeeeee;
+}
+
+.attributeRenderer {
+    display: flex;
+}
