@@ -219,7 +219,9 @@ sap.ui.define(
                     this.setMessage(this.resource("relationships.template.noInformationAvailableError"), "Error")
                     return
                 } else {
-                    const attrResult = await runtime.consumptionServices.attributes.getAttributesByNames({})
+                    const attrResult = await runtime.currentSession.consumptionServices.attributes.getAttributesByNames(
+                        {}
+                    )
                     if (!attrResult || attrResult.isError || !attrResult.value) {
                         appLogger.error(attrResult.error)
                         return
@@ -293,9 +295,10 @@ sap.ui.define(
                                     prop.set = false
                                     error = true
                                     prop.state = false
-                                    const attrResult = await runtime.consumptionServices.attributes.getAttributeByName({
-                                        name: prop.attribute
-                                    })
+                                    const attrResult =
+                                        await runtime.currentSession.consumptionServices.attributes.getAttributeByName({
+                                            name: prop.attribute
+                                        })
                                     if (!attrResult || attrResult.isError || !attrResult.value) {
                                     } else {
                                         cattribute = attrResult.value
@@ -369,9 +372,10 @@ sap.ui.define(
                                     prop.set = false
                                     error = true
                                     prop.state = false
-                                    const attrResult = await runtime.consumptionServices.attributes.getAttributeByName({
-                                        name: prop.attribute
-                                    })
+                                    const attrResult =
+                                        await runtime.currentSession.consumptionServices.attributes.getAttributeByName({
+                                            name: prop.attribute
+                                        })
                                     if (!attrResult || attrResult.isError || !attrResult.value) {
                                     } else {
                                         cattribute = attrResult.value
@@ -1007,7 +1011,9 @@ sap.ui.define(
                             value: oAttribute.value
                         })
                     }
-                    await runtime.consumptionServices.attributes.succeedAttribute({ attribute: attribute })
+                    await runtime.currentSession.consumptionServices.attributes.succeedAttribute({
+                        attribute: attribute
+                    })
                 } catch (oError) {
                     appLogger.error(oError)
                     this.navBack("account.relationships")
@@ -1020,7 +1026,7 @@ sap.ui.define(
             async onNewLink() {
                 this.viewProp("/submitEnabled", false)
                 this.viewProp("/requestRunning", true)
-                await runtime.transportServices.account.disableAutoSync()
+                await runtime.currentSession.transportServices.account.disableAutoSync()
                 try {
                     const isIdentity = this.viewProp("/showIdentity")
                     await this._addMissingAttributes()
@@ -1047,7 +1053,9 @@ sap.ui.define(
 
                     const shareData = { attributes: {} }
                     let attr = {}
-                    const attrResult = await runtime.consumptionServices.attributes.getAttributesByNames({})
+                    const attrResult = await runtime.currentSession.consumptionServices.attributes.getAttributesByNames(
+                        {}
+                    )
                     if (!attrResult || attrResult.isError || !attrResult.value) {
                         appLogger.error(attrResult.error)
                         return
@@ -1074,9 +1082,10 @@ sap.ui.define(
                                 }
                                 shareData.attributes[name] = o
                             } else {
-                                const attrResult = await runtime.consumptionServices.attributes.getAttributeByName({
-                                    name: prop.attribute
-                                })
+                                const attrResult =
+                                    await runtime.currentSession.consumptionServices.attributes.getAttributeByName({
+                                        name: prop.attribute
+                                    })
                                 if (!attrResult || attrResult.isError || !attrResult.value) {
                                     appLogger.error(attrResult.error)
                                 } else {
@@ -1152,10 +1161,11 @@ sap.ui.define(
                     // TODO: Remove this once it is clear, how to get the template's identity from the connector
                     shareData["identity"] = App.account(this.accountId).identity.identity.toJSON()
 
-                    const relationshipResult = await runtime.appServices.relationships.createRelationship({
-                        templateId: this.relationship.getProperty("/id"),
-                        content: shareData
-                    })
+                    const relationshipResult =
+                        await runtime.currentSession.appServices.relationships.createRelationship({
+                            templateId: this.relationship.getProperty("/id"),
+                            content: shareData
+                        })
                     if (relationshipResult.isError) {
                         App.error(relationshipResult.error)
                         this.viewProp("/requestRunning", false)
@@ -1169,7 +1179,7 @@ sap.ui.define(
                     App.error(e)
                 } finally {
                     this.viewProp("/requestRunning", false)
-                    runtime.transportServices.account.enableAutoSync()
+                    runtime.currentSession.transportServices.account.enableAutoSync()
                 }
             },
 

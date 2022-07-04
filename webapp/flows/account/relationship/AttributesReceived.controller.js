@@ -13,11 +13,13 @@ sap.ui.define(
             async refresh() {
                 if (!this.relationshipId) return
 
-                const receivedItemsResult = await runtime.consumptionServices.sharedItems.getSharedItems({
-                    query: {
-                        sharedBy: this.identity.id
+                const receivedItemsResult = await runtime.currentSession.consumptionServices.sharedItems.getSharedItems(
+                    {
+                        query: {
+                            sharedBy: this.identity.id
+                        }
                     }
-                })
+                )
 
                 if (receivedItemsResult.isError) {
                     App.error(receivedItemsResult.error)

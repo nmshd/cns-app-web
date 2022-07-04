@@ -41,7 +41,7 @@ sap.ui.define(
                     try {
                         this.localAccount = oAccounts
                         await App.selectAccount(this.localAccount.id, "")
-                        await runtime.transportServices.account.disableAutoSync()
+                        await runtime.currentSession.transportServices.account.disableAutoSync()
                         this.accountId = this.localAccount.id
 
                         this.templatetoken = this.info.token.content
@@ -49,10 +49,12 @@ sap.ui.define(
                             JSON.stringify(this.templatetoken.secretKey)
                         ).toBase64URL()
                         const templateResult =
-                            await runtime.transportServices.relationshipTemplates.loadPeerRelationshipTemplate({
-                                id: this.templatetoken.templateId,
-                                secretKey: this.templatetoken.secretKey
-                            })
+                            await runtime.currentSession.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
+                                {
+                                    id: this.templatetoken.templateId,
+                                    secretKey: this.templatetoken.secretKey
+                                }
+                            )
                         if (!templateResult || templateResult.isError || !templateResult.value) {
                         } else {
                             this.template = templateResult.value
@@ -61,8 +63,8 @@ sap.ui.define(
                         App.error(e)
                         return
                     } finally {
-                        if (runtime.transportServices) {
-                            runtime.transportServices.account.enableAutoSync()
+                        if (runtime.currentSession.transportServices) {
+                            runtime.currentSession.transportServices.account.enableAutoSync()
                         }
                     }
 

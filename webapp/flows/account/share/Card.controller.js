@@ -24,7 +24,9 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
             if (!item || !item.template) return
             const attributes = item.template.attributes
 
-            const attributeMapResult = await runtime.consumptionServices.attributes.getAttributesByNames({})
+            const attributeMapResult = await runtime.currentSession.consumptionServices.attributes.getAttributesByNames(
+                {}
+            )
             let attributeMap
             if (!attributeMapResult || attributeMapResult.isError || !attributeMapResult.value) {
                 appLogger.error(attributeMapResult.error)
@@ -50,7 +52,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
             try {
                 const expiry = NMSHDTransport.CoreDate.utc().add({ hour: 1 }).toISOString()
                 const templateResult =
-                    await runtime.transportServices.relationshipTemplates.createOwnRelationshipTemplate({
+                    await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate({
                         content: {
                             attributes: shareData.attributes,
                             request: shareData.request
@@ -62,11 +64,12 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
                     return templateResult.error
                 }
 
-                const tokenResult = await runtime.transportServices.relationshipTemplates.createTokenForOwnTemplate({
-                    templateId: templateResult.value.id,
-                    expiresAt: expiry,
-                    ephemeral: true
-                })
+                const tokenResult =
+                    await runtime.currentSession.transportServices.relationshipTemplates.createTokenForOwnTemplate({
+                        templateId: templateResult.value.id,
+                        expiresAt: expiry,
+                        ephemeral: true
+                    })
 
                 if (tokenResult.isError) {
                     App.error(tokenResult.error)

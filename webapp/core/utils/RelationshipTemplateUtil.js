@@ -12,7 +12,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
             }
 
             const relationshipTemplateResult =
-                await runtime.transportServices.relationshipTemplates.getRelationshipTemplate({
+                await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplate({
                     id: id
                 })
             if (relationshipTemplateResult.isError) {
@@ -32,14 +32,14 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
         },
 
         async getRelationshipTemplates() {
-            const syncResult = await runtime.transportServices.account.syncEverything()
+            const syncResult = await runtime.currentSession.transportServices.account.syncEverything()
             if (syncResult.isError) {
                 App.error(syncResult.error)
                 return
             }
 
             const relationshipTemplatesResult =
-                await runtime.transportServices.relationshipTemplates.getRelationshipTemplates({})
+                await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates({})
             if (relationshipTemplatesResult.isError) {
                 App.error(relationshipTemplatesResult.error)
                 return

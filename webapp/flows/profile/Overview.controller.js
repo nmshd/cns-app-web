@@ -63,9 +63,12 @@ sap.ui.define(
                     this.byId("pullToRefresh").hide()
                 }
                 this.setMessage()
-                const aAttributes = (await runtime.consumptionServices.attributes.getAttributesByNames({})).value
+                const aAttributes = (
+                    await runtime.currentSession.consumptionServices.attributes.getAttributesByNames({})
+                ).value
                 this.prop("/map", aAttributes)
-                const aAttributesList = (await runtime.consumptionServices.attributes.getAllValid()).value
+                const aAttributesList = (await runtime.currentSession.consumptionServices.attributes.getAllValid())
+                    .value
                 const oOverview = {}
                 const aCustomAttribute = []
                 const aAddresses = []
@@ -257,7 +260,7 @@ sap.ui.define(
                 if (oOriginalName) {
                     oName = oOriginalName
                 }
-                await runtime.consumptionServices.attributes.succeedAttribute({
+                await runtime.currentSession.consumptionServices.attributes.succeedAttribute({
                     attribute: {
                         name: oName,
                         value: oValue
@@ -288,7 +291,7 @@ sap.ui.define(
                         oName = oOriginalName
                     }
                     this.viewProp("/submitAvailable", false)
-                    await runtime.consumptionServices.attributes.succeedAttribute({
+                    await runtime.currentSession.consumptionServices.attributes.succeedAttribute({
                         attribute: {
                             name: oName,
                             value: oValue
@@ -388,7 +391,7 @@ sap.ui.define(
                     boxNo: oPopupInputFields.boxNo
                 }
 
-                await runtime.consumptionServices.attributes.succeedAttribute({
+                await runtime.currentSession.consumptionServices.attributes.succeedAttribute({
                     attribute: {
                         name: `${sKey}.${(await NMSHDTransport.CoreId.generate()).toString()}`,
                         value: JSON.stringify(oAddress)
@@ -463,7 +466,7 @@ sap.ui.define(
 
             async onSave() {
                 this.viewProp("/submitAvailable", false)
-                await runtime.transportServices.account.disableAutoSync()
+                await runtime.currentSession.transportServices.account.disableAutoSync()
                 const aIds = [
                     "Person.familyName",
                     "Person.givenName",
@@ -489,11 +492,11 @@ sap.ui.define(
                         name: sName,
                         value: sValue
                     }
-                    await runtime.consumptionServices.attributes.succeedAttribute({
+                    await runtime.currentSession.consumptionServices.attributes.succeedAttribute({
                         attribute: attribute
                     })
                 }
-                runtime.transportServices.account.enableAutoSync()
+                runtime.currentSession.transportServices.account.enableAutoSync()
 
                 App.navTo("account.home", "account.attributes", {
                     accountId: this.accountId

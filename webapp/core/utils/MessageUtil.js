@@ -11,7 +11,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 return
             }
 
-            const messageResult = await runtime.transportServices.messages.getMessage({
+            const messageResult = await runtime.currentSession.transportServices.messages.getMessage({
                 id: id
             })
             if (messageResult.isError) {
@@ -19,7 +19,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 return
             }
             try {
-                const message = await runtime.expander.expandMessageDTO(messageResult.value)
+                const message = await runtime.currentSession.expander.expandMessageDTO(messageResult.value)
                 console.log(message)
                 const model = new JSONModel(message)
                 return model
@@ -34,20 +34,20 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
 
         async getReceivedMessages() {
             /*
-                const syncResult = await runtime.transportServices.account.syncEverything()
+                const syncResult = await runtime.currentSession.transportServices.account.syncEverything()
                 if (syncResult.isError) {
                     App.error(syncResult.error)
                     return
                 }
                 */
 
-            const ownIdentity = await runtime.transportServices.account.getIdentityInfo()
+            const ownIdentity = await runtime.currentSession.transportServices.account.getIdentityInfo()
             if (ownIdentity.isError) {
                 App.error(ownIdentity.error)
                 return
             }
 
-            const messagesResult = await runtime.transportServices.messages.getMessages({
+            const messagesResult = await runtime.currentSession.transportServices.messages.getMessages({
                 query: {
                     "recipients.address": ownIdentity.value.address
                 }
@@ -57,7 +57,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 return
             }
             try {
-                const messages = await runtime.expander.expandMessageDTOs(messagesResult.value)
+                const messages = await runtime.currentSession.expander.expandMessageDTOs(messagesResult.value)
                 console.log(messages)
                 const model = new JSONModel({ items: messages })
                 return model
@@ -72,14 +72,14 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
 
         async getMessagesByRelationship(relationshipId) {
             /*
-                const syncResult = await runtime.transportServices.account.syncEverything()
+                const syncResult = await runtime.currentSession.transportServices.account.syncEverything()
                 if (syncResult.isError) {
                     App.error(syncResult.error)
                     return
                 }
                 */
 
-            const messagesResult = await runtime.transportServices.messages.getMessages({
+            const messagesResult = await runtime.currentSession.transportServices.messages.getMessages({
                 query: {
                     relationshipIds: relationshipId
                 }
@@ -89,7 +89,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 return
             }
             try {
-                const messages = await runtime.expander.expandMessageDTOs(messagesResult.value)
+                const messages = await runtime.currentSession.expander.expandMessageDTOs(messagesResult.value)
                 console.log(messages)
                 const model = new JSONModel({ items: messages })
                 return model

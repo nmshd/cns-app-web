@@ -25,16 +25,17 @@ sap.ui.define(
             },
 
             async refresh() {
-                const result = await runtime.transportServices.devices.getDevice({ id: this.deviceId })
+                const result = await runtime.currentSession.transportServices.devices.getDevice({ id: this.deviceId })
                 if (!result || result.isError || !result.value) {
                 } else {
                     const device = result.value
                     this.viewProp("/status", this.resource("settings.device.active"))
 
                     if (!device.publicKey || !device.lastLoginAt) {
-                        const tokenResult = await runtime.transportServices.devices.getDeviceOnboardingToken({
-                            id: this.deviceId
-                        })
+                        const tokenResult =
+                            await runtime.currentSession.transportServices.devices.getDeviceOnboardingToken({
+                                id: this.deviceId
+                            })
                         if (!tokenResult || tokenResult.isError || !tokenResult.value) {
                         } else {
                             const tokenValue = tokenResult.value.truncatedReference

@@ -28,7 +28,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
 
             this.viewProp("/address", App.account().identity.address.toString())
 
-            const devices = await runtime.transportServices.devices.getDevices()
+            const devices = await runtime.currentSession.transportServices.devices.getDevices()
             if (!devices || devices.isError || !devices.value) {
             } else {
                 this.viewProp("/devices", devices.value)

@@ -123,7 +123,7 @@ sap.ui.define(
                     }
                 } else if (item["@type"] === "AttributesChangeRequest") {
                     for (const attribute of item.attributes) {
-                        await runtime.consumptionServices.attributes.succeedAttribute({
+                        await runtime.currentSession.consumptionServices.attributes.succeedAttribute({
                             attribute: {
                                 name: "" + attribute.name,
                                 value: "" + attribute.value
