@@ -19,7 +19,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Bas
             await this.super("onRouteMatched")
             App.appController.clearRight()
             App.appController.setLeft("sap-icon://nav-back", null)
-            App.appController.setTitle(this.resource("accounts.create.title"))
+            App.appController.setTitle(this.resource("accounts.create.title1"))
 
             this.clear()
         },
@@ -64,7 +64,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Bas
 
         async submit(oEvent) {
             const accounts = await runtime.accountServices.getAccounts()
-            const accountname = "Profil " + (accounts.length + 1)
+            const accountname = this.resource("accounts.create.profile") + (accounts.length + 1)
 
             try {
                 const oAccounts = await this.load(

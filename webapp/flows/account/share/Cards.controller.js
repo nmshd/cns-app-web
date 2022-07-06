@@ -13,12 +13,35 @@ sap.ui.define(
                 }
             },
 
+            /**
+             * Use i18n resources to translate content of the json model
+             * @param {*} templates json model
+             */
+            translateTemplates(templates) {
+                for (const tempIndex in templates) {
+                    const temp = templates[tempIndex]
+                    let tempString = JSON.stringify(temp)
+                    tempString = tempString.replace(/\{t>(.*?)\}/g, (match) => {
+                        return this.resource(match.substring(3, match.length - 1))
+                    })
+                    templates[tempIndex] = JSON.parse(tempString)
+                }
+            },
+
+            loadModel() {
+                let relationshipTemplates = this.getOwnerComponent().getModel("DefaultRelationshipTemplates")
+                let data = JSON.parse(JSON.stringify(relationshipTemplates.getData()))
+                this.translateTemplates(data)
+                this.setModel(new JSONModel({ templates: data }))
+            },
+
             async onInitialized(oEvent) {
-                const relationshipTemplates = this.getOwnerComponent().getModel("DefaultRelationshipTemplates")
-                this.setModel(new JSONModel({ templates: relationshipTemplates.getData() }))
+                this.loadModel()
             },
 
             async onRouteMatched(oEvent) {
+                this.loadModel()
+
                 App.appController.setRight("sap-icon://settings", () => {
                     this.onSettings()
                 })

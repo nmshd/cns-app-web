@@ -45,11 +45,12 @@
                 <uxap:sections>
                     <uxap:ObjectPageSection titleUppercase="false"
                         title="{t>detail.content}"
-                        showTitle="false" visible="{= !!${body}}">
+                        showTitle="false">
                         <uxap:subSections>
                             <uxap:ObjectPageSubSection titleUppercase="false">
-                                <m:HBox class="sapUiSmallMargin">
-                                    <m:FormattedText htmlText="{body}" />
+                                <m:HBox class="sapUiNoMargin">
+                                    <m:FormattedText htmlText="{body}"
+                                        visible="{= !!${body}}" />
                                 </m:HBox>
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
