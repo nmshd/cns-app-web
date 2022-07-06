@@ -2,25 +2,35 @@ name: Version Check
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, release/**]
     types: [synchronize, opened, reopened, edited]
 
 jobs:
   version_check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: sudo apt-get update && sudo apt-get install jq -y
       - name: Ensure valid package version
         run: |
+          BASE_REF=${{ github.base_ref }}
+
+          if [[ $BASE_REF =~ ^release/.*$ ]]; then
+            echo "Skipping version check when merging into a release/** branch"
+            exit 0
+          fi
+
           HEAD_REF=${{ github.head_ref }}
+
           # allow the merging from release branches
           # the version in package.json is updated after merging into main; therefore we need to be able to merge a -alpha/-beta/-rc version in that specific case
           if [[ $HEAD_REF =~ ^release/.*$ ]]; then
             echo "Skipping version check for release branch"
             exit 0
           fi
+
           VERSION=$(jq .version package.json -cr)
+
           case "$VERSION" in
           *-alpha*) echo "The package.json defines an alpha-version ($VERSION) for this package. You cannot merge alpha-versions from this branch." && exit 1 ;;
           *-beta*) echo "The package.json defines an beta-version ($VERSION) for this package. You cannot merge beta-versions from this branch." && exit 1 ;;
