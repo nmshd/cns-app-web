@@ -1,0 +1,44 @@
+<mvc:View controllerName="nmshd.app.flows.profile.attributes.Attribute"
+	xmlns:m="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:controls="nmshd.app.core.controls"
+	xmlns:attributeControls="nmshd.app.core.controls.attributes">
+
+	<semantic:DetailPage id="page"
+		navButtonPress="onNavButtonPress"
+		showNavButton="true"
+		title="{t>file}"
+		showFooter="false"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:subHeader>
+		</semantic:subHeader>
+
+		<semantic:content>
+			<form:SimpleForm>
+				<m:Label text="{t>attribute.id}" />
+				<m:Text text="{id}" />
+				<m:Label text="{t>attribute.createdAt}" />
+				<m:Text text="{createdAt}" />
+				<m:Label text="{t>attribute.type}" />
+				<m:Text text="{path:'description',formatter:'.toTranslated'}" />
+				<m:Label text="{t>attribute.value}" />
+				<attributeControls:ValueRenderer binding="{}" />
+				<m:Label text="{t>attribute.sharedWith}" />
+				<m:List items="{sharedWith}" noDataText="{t>attribute.sharedWith.nobody}">
+					<m:StandardListItem title="{peer/name}" description="{date}" />
+				</m:List>
+			</form:SimpleForm>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

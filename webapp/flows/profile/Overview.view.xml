@@ -6,7 +6,8 @@
 	xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns:f="sap.ui.layout.form"
 	xmlns:l="sap.ui.layout"
-	xmlns:controls="nmshd.app.core.controls">
+	xmlns:controls="nmshd.app.core.controls"
+	xmlns:attributeControls="nmshd.app.core.controls.attributes">
 
 	<semantic:DetailPage id="page"
 		navButtonPress="onNavButtonPress"
@@ -34,6 +35,7 @@
 							icon="sap-icon://edit" />
 					</m:Toolbar>
 				</m:headerToolbar>
+
 				<f:Form editable="false">
 					<f:layout>
 						<f:ResponsiveGridLayout labelSpanXL="4"
@@ -55,12 +57,12 @@
 							<f:formElements>
 								<f:FormElement label="{t>attribute.Person.givenName}">
 									<f:fields>
-										<m:Text text="{/overview/Person.givenName}" />
+										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/GivenName}" />
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="{t>attribute.Person.familyName}">
 									<f:fields>
-										<m:Text text="{/overview/Person.familyName}" />
+										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/Surname}" />
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="{t>attribute.Person.honorificSuffix}">
@@ -75,17 +77,17 @@
 							<f:formElements>
 								<f:FormElement label="{t>attribute.Person.gender}">
 									<f:fields>
-										<m:Text text="{path:'/overview/Person.gender',formatter:'.formatter.toGender'}" />
+										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/Sex}" />
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="{t>attribute.Person.birthDate}">
 									<f:fields>
-										<m:Text text="{/overview/Person.birthDate}" />
+										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/BirthDate}" />
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="{t>attribute.Person.birthPlace}">
 									<f:fields>
-										<m:Text text="{/overview/Person.birthPlace}" />
+										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/BirthPlace}" />
 									</f:fields>
 								</f:FormElement>
 							</f:formElements>
@@ -95,206 +97,23 @@
 							<f:formElements>
 								<f:FormElement label="{t>attribute.Person.birthName}">
 									<f:fields>
-										<m:Text text="{/overview/Person.birthName}" />
+										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/BirthName}" />
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="{t>attribute.Person.nationality}">
 									<f:fields>
-										<m:Text text="{/overview/Person.nationality}" />
+										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/Nationality}" />
 									</f:fields>
 								</f:FormElement>
-								<f:FormElement label="{t>attribute.Person.taxId}">
+								<f:FormElement label="{t>attribute.Person.communicationLanguage}">
 									<f:fields>
-										<m:Text text="{/overview/Person.taxId}" />
+										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/CommunicationLanguage}" />
 									</f:fields>
 								</f:FormElement>
 							</f:formElements>
 						</f:FormContainer>
 					</f:formContainers>
 				</f:Form>
-			</m:Panel>
-
-			<m:Panel headerText="{t>attribute.Addresses}"
-				class="sapUiNoContentPadding">
-				<m:headerToolbar>
-					<m:Toolbar height="3rem">
-						<m:Title text="{t>attribute.Addresses}" />
-						<m:ToolbarSpacer />
-						<m:MenuButton icon="sap-icon://add"
-							text="{t>attribute.newAddress}">
-							<m:menu>
-								<m:Menu>
-									<m:MenuItem text="{t>attribute.new.address}"
-										icon="sap-icon://home"
-										press=".onNewAddress"
-										key="address"
-										visible="{v>/isPerson}" />
-									<m:MenuItem text="{t>attribute.new.officeHq}"
-										icon="sap-icon://factory"
-										press=".onNewAddress"
-										key="officeHq"
-										visible="{v>/isCorporation}" />
-									<m:MenuItem text="{t>attribute.new.postOfficeBox}"
-										icon="sap-icon://shelf"
-										press=".onNewAddress"
-										key="postOfficeBox"
-										visible="{v>/isCorporation}" />
-									<m:MenuItem text="{t>attribute.new.packingstation}"
-										icon="sap-icon://product"
-										press=".onNewAddress"
-										key="packingstation" />
-									<m:MenuItem text="{t>attribute.new.officeAddress}"
-										icon="sap-icon://building"
-										press=".onNewAddress"
-										key="officeAddress" />
-									<m:MenuItem text="{t>attribute.new.invoiceAddress}"
-										icon="sap-icon://receipt"
-										press=".onNewAddress"
-										key="invoiceAddress" />
-								</m:Menu>
-							</m:menu>
-						</m:MenuButton>
-					</m:Toolbar>
-				</m:headerToolbar>
-
-				<m:List showNoData="false"
-					items="{/addresses}">
-					<m:items>
-						<m:ObjectListItem icon="sap-icon://home"
-							title="{name}">
-							<m:attributes>
-								<m:ObjectAttribute text="{street} {houseNo}" />
-								<m:ObjectAttribute text="{zipCode} {city}" />
-								<m:ObjectAttribute text="{country}" />
-							</m:attributes>
-						</m:ObjectListItem>
-					</m:items>
-				</m:List>
-
-				<m:List showNoData="false"
-					items="{/postOfficeBoxes}">
-					<m:items>
-						<m:ObjectListItem icon="sap-icon://shelf"
-							title="{name}">
-							<m:attributes>
-								<m:ObjectAttribute text="{postNo}" />
-								<m:ObjectAttribute text="{boxStation} {boxNo}" />
-								<m:ObjectAttribute text="{zipCode} {city}" />
-								<m:ObjectAttribute text="{country}" />
-							</m:attributes>
-						</m:ObjectListItem>
-					</m:items>
-				</m:List>
-
-				<m:List showNoData="false"
-					items="{/packingstations}">
-					<m:items>
-						<m:ObjectListItem icon="sap-icon://product"
-							title="{name}">
-							<m:attributes>
-								<m:ObjectAttribute text="{postNo}" />
-								<m:ObjectAttribute text="{boxStation} {boxNo}" />
-								<m:ObjectAttribute text="{zipCode} {city}" />
-								<m:ObjectAttribute text="{country}" />
-							</m:attributes>
-						</m:ObjectListItem>
-					</m:items>
-				</m:List>
-
-				<m:List showNoData="false"
-					items="{/officeHqs}">
-					<m:items>
-						<m:ObjectListItem icon="sap-icon://factory"
-							title="{name}">
-							<m:attributes>
-								<m:ObjectAttribute text="{street} {houseNo}" />
-								<m:ObjectAttribute text="{zipCode} {city}" />
-								<m:ObjectAttribute text="{country}" />
-								<m:ObjectAttribute text="{vatId}" />
-							</m:attributes>
-						</m:ObjectListItem>
-					</m:items>
-				</m:List>
-			</m:Panel>
-
-			<m:List showNoData="false"
-				items="{/officeAddresses}">
-				<m:items>
-					<m:ObjectListItem icon="sap-icon://building"
-						title="{name}">
-						<m:attributes>
-							<m:ObjectAttribute text="{street} {houseNo}" />
-							<m:ObjectAttribute text="{zipCode} {city}" />
-							<m:ObjectAttribute text="{country}" />
-						</m:attributes>
-					</m:ObjectListItem>
-				</m:items>
-			</m:List>
-
-			<m:List showNoData="false"
-				items="{/invoiceAddresses}">
-				<m:items>
-					<m:ObjectListItem icon="sap-icon://receipt"
-						title="{name}">
-						<m:attributes>
-							<m:ObjectAttribute text="{street} {houseNo}" />
-							<m:ObjectAttribute text="{zipCode} {city}" />
-							<m:ObjectAttribute text="{country}" />
-						</m:attributes>
-					</m:ObjectListItem>
-				</m:items>
-			</m:List>
-
-			<m:Panel headerText="{t>attribute.communication}"
-				class="sapUiNoContentPadding">
-				<m:headerToolbar>
-					<m:Toolbar height="3rem">
-						<m:Title text="{t>attribute.communication}" />
-						<m:ToolbarSpacer />
-						<m:Button text="{t>attribute.newAttribute}"
-							press="onNewComm"
-							icon="sap-icon://add" />
-					</m:Toolbar>
-				</m:headerToolbar>
-				<m:List showNoData="false"
-					items="{/comm}">
-					<m:items>
-						<m:StandardListItem title="{value}"
-							description="{label}" />
-					</m:items>
-				</m:List>
-			</m:Panel>
-
-			<m:Panel headerText="{t>files}"
-				class="sapUiNoContentPadding">
-				<m:headerToolbar>
-					<m:Toolbar height="3rem">
-						<m:Title text="{t>files}" />
-						<m:ToolbarSpacer />
-						<m:Button text="{t>files.new}"
-							id="uploadFile"
-							press="toUpload"
-							icon="sap-icon://add" />
-					</m:Toolbar>
-				</m:headerToolbar>
-				<m:List id="list"
-					items="{files>/items}"
-					noDataText="{t>files.noDataText}"
-					itemPress="onFileItemPress">
-					<m:items>
-						<m:ObjectListItem title="{files>title}"
-							type="Navigation"
-							icon="{files>icon}">
-							<m:attributes>
-								<m:ObjectAttribute text="{path:'files>createdAt',formatter:'.formatter.toRelativeDate'}" />
-								<m:ObjectAttribute text="{t>files.view}"
-									active="true"
-									press="openFile" />
-							</m:attributes>
-						</m:ObjectListItem>
-					</m:items>
-
-				</m:List>
 			</m:Panel>
 
 			<m:Panel headerText="{t>attribute.moreAttributes}"
@@ -308,10 +127,9 @@
 							icon="sap-icon://add" />
 					</m:Toolbar>
 				</m:headerToolbar>
-				<m:List items="{/custom}">
+				<m:List items="{/items}">
 					<m:items>
-						<m:StandardListItem title="{value}"
-							description="{label}" />
+						<attributeControls:AttributeRenderer showLabel="true" />
 					</m:items>
 				</m:List>
 			</m:Panel>
