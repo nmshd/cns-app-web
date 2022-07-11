@@ -447,26 +447,34 @@ sap.ui.define(
                 if (content.substr(0, 11) === "nmshd://qr#") {
                     content = content.substr(11)
                 }
-                const token = await this.account(accountId).tokens.loadPeerTokenByTruncated(content)
-                appLogger.trace("Token", token)
+                const tokenResult = await runtime.currentSession.transportServices.tokens.loadPeerToken({
+                    ephemeral: true,
+                    reference: content
+                })
+                if (!tokenResult.isSuccess) {
+                    return App.error(tokenResult.error)
+                }
 
-                if (token.cache.content) {
-                    const template = await this.account(accountId).relationshipTemplates.loadPeerRelationshipTemplate(
-                        token.cache.content.templateId,
-                        token.cache.content.secretKey
-                    )
+                const token = tokenResult.value
 
-                    try {
-                        await App.navAndReplaceHistory(-1, [
-                            "account.template",
-                            {
-                                accountId: accountId,
-                                relationshipId: template.id.toString()
-                            }
-                        ])
-                    } catch (e) {
-                        appLogger.log("Navigation is already in progress", e)
-                    }
+                const templateResult =
+                    await runtime.currentSession.transportServices.relationshipTemplates.loadPeerRelationshipTemplate({
+                        reference: content
+                    })
+                if (!templateResult.isSuccess) {
+                    return App.error(templateResult.error)
+                }
+
+                try {
+                    await App.navAndReplaceHistory(-1, [
+                        "account.template",
+                        {
+                            accountId: accountId,
+                            relationshipId: templateResult.value.id
+                        }
+                    ])
+                } catch (e) {
+                    appLogger.log("Navigation is already in progress", e)
                 }
             },
 
