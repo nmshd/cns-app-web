@@ -3,9 +3,18 @@ sap.ui.define(
         "sap/m/ListItemBase",
         "sap/m/CheckBox",
         "sap/m/Text",
-        "nmshd/app/core/controls/requests/items/ReadAttributeRequestItemRenderer"
+        "nmshd/app/core/controls/requests/items/ReadAttributeRequestItemRenderer",
+        "nmshd/app/core/controls/requests/items/CreateAttributeRequestItemRenderer",
+        "nmshd/app/core/controls/requests/items/ProposeAttributeRequestItemRenderer"
     ],
-    (ListItemBase, CheckBox, Text, ReadAttributeRequestItemRenderer) => {
+    (
+        ListItemBase,
+        CheckBox,
+        Text,
+        ReadAttributeRequestItemRenderer,
+        CreateAttributeRequestItemRenderer,
+        ProposeAttributeRequestItemRenderer
+    ) => {
         "use strict"
 
         return ListItemBase.extend("nmshd.app.core.controls.requests.RequestItemRenderer", {
@@ -39,11 +48,13 @@ sap.ui.define(
                     new CheckBox({
                         text: "",
                         editable: "{=!${mustBeAccepted}}",
+                        visible: "{= ${isDecidable}}",
                         selected: "{mustBeAccepted}"
                     }).attachSelect((oEvent) => that.fireChange(oEvent))
                 )
                 this.setAggregation("_title", new Text({ text: "{title}", visible: "{=!!${title}}" }))
                 this.setAggregation("_description", new Text({ text: "{description}", visible: "{=!!${description}}" }))
+                this.updateInternalControl()
             },
 
             getSelected() {
@@ -58,7 +69,13 @@ sap.ui.define(
                     return { accept: false }
                 }
                 const accept = this.getSelected()
+                if (!accept) {
+                    return { accept: false }
+                }
                 const params = control.getResponseParams()
+                if (!params) {
+                    return { accept: false }
+                }
                 return { accept: accept, ...params }
             },
 
@@ -78,10 +95,23 @@ sap.ui.define(
                 // if we have the same value, valuetype or control class
                 const item = this.getItem()
                 let control
-                switch (item["@type"]) {
-                    case "ReadAttributeRequestItem":
+                switch (item.type) {
+                    case "ReadAttributeRequestItemDVO":
+                    case "DecidableReadAttributeRequestItemDVO":
                         control = new ReadAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange((oEvent) =>
                             that.fireChange(oEvent)
+                        )
+                        break
+                    case "CreateAttributeRequestItemDVO":
+                    case "DecidableCreateAttributeRequestItemDVO":
+                        control = new CreateAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange((oEvent) =>
+                            that.fireChange(oEvent)
+                        )
+                        break
+                    case "ProposeAttributeRequestItemDVO":
+                    case "DecidableProposeAttributeRequestItemDVO":
+                        control = new ProposeAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
+                            (oEvent) => that.fireChange(oEvent)
                         )
                         break
                     default:
@@ -93,6 +123,7 @@ sap.ui.define(
             },
 
             setItem(value) {
+                console.log("RequestItem.item = ", value)
                 this.setProperty("item", value, true)
                 if (value) {
                     this.updateInternalControl()
