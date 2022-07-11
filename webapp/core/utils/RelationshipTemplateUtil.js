@@ -19,8 +19,13 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 App.error(relationshipTemplateResult.error)
                 return
             }
+
+            const templateDVO = await runtime.currentSession.expander.expandRelationshipTemplateDTO(
+                relationshipTemplateResult.value
+            )
+
             try {
-                const model = new JSONModel(relationshipTemplateResult.value)
+                const model = new JSONModel(templateDVO)
                 return model
             } catch (e) {
                 App.error({
