@@ -5,9 +5,38 @@ sap.ui.define(
         "sap/m/StepInput",
         "sap/m/Select",
         "sap/ui/core/ListItem",
-        "sap/ui/model/json/JSONModel"
+        "sap/ui/model/json/JSONModel",
+        "nmshd/app/core/Formatter",
+        "sap/m/RadioButton",
+        "sap/m/RadioButtonGroup",
+        "sap/m/RatingIndicator",
+        "sap/m/SegmentedButtonItem",
+        "sap/m/SegmentedButton",
+        "sap/m/DatePicker",
+        "sap/m/DateTimePicker",
+        "sap/m/DateRangeSelection",
+        "sap/m/TimePicker",
+        "sap/ui/core/CustomData"
     ],
-    (Control, Input, StepInput, Select, ListItem, JSONModel) => {
+    (
+        Control,
+        Input,
+        StepInput,
+        Select,
+        ListItem,
+        JSONModel,
+        Formatter,
+        RadioButton,
+        RadioButtonGroup,
+        RatingIndicator,
+        SegmentedButtonItem,
+        SegmentedButton,
+        DatePicker,
+        DateTimePicker,
+        DateRangeSelection,
+        TimePicker,
+        CustomData
+    ) => {
         "use strict"
 
         return Control.extend("nmshd.app.core.controls.attributes.ValueEditRenderer", {
@@ -15,7 +44,9 @@ sap.ui.define(
                 aggregations: {
                     _editControl: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" }
                 },
-                properties: {},
+                properties: {
+                    valueType: { type: "string" }
+                },
                 publicMethods: [],
                 events: {
                     change: { allowPreventDefault: true }
@@ -29,111 +60,326 @@ sap.ui.define(
             modelContextChangeListener(oEvent) {
                 const context = oEvent.getSource().getBindingContext()
                 if (!context) {
-                    this.renderHints = {}
-                    this.valueHints = {}
+                    this.renderHints = undefined
+                    this.valueHints = undefined
                     return
                 }
                 const object = context.getObject()
+                if (object === this.object) {
+                    console.log("Same Object -> IGNORE")
+                    return
+                }
+                this.object = object
                 if (!object) {
-                    this.renderHints = {}
-                    this.valueHints = {}
+                    this.renderHints = undefined
+                    this.valueHints = undefined
                     return
                 }
                 this.renderHints = object.renderHints
                 this.valueHints = object.valueHints
                 if (!this.renderHints) {
-                    this.renderHints = {}
+                    this.renderHints = undefined
                 }
                 if (!this.valueHints) {
-                    this.valueHints = {}
+                    this.valueHints = undefined
                 }
                 this.createNewEditControl()
             },
-            createNewSelectControl() {
-                const that = this
-                let control
-                switch (this.renderHints.semantic) {
-                    default:
-                        control = new Select({
-                            forceSelection: false,
-                            items: {
-                                path: "valueHints/values",
-                                template: new ListItem({
-                                    key: "{key}",
-                                    text: "{title}"
-                                })
-                            }
-                        }).attachChange((oEvent) => that.fireChange(oEvent))
-                        break
-                    case "sex":
-                        const model = new JSONModel({
-                            items: [
-                                {
-                                    key: "intersex",
-                                    title: "i18n://attribute.value.sex.intersex"
-                                },
-                                {
-                                    key: "male",
-                                    title: "i18n://attribute.value.sex.male"
-                                },
-                                {
-                                    key: "female",
-                                    title: "i18n://attribute.value.sex.female"
-                                }
-                            ]
-                        })
-
-                        control = new Select({
-                            forceSelection: false,
-                            items: {
-                                path: "/items",
-                                template: new ListItem({
-                                    icon: "{icon}",
-                                    key: "{key}",
-                                    text: "{title}"
-                                })
-                            }
-                        }).attachChange((oEvent) => that.fireChange(oEvent))
-                        control.setModel(model)
-                }
-                return control
-            },
-            createNewInputControl() {
+            createSelectControl() {
                 const that = this
                 let control
                 switch (this.renderHints.dataType) {
-                    case "integer":
-                        control = new StepInput({
-                            min: this.valueHints.min,
-                            max: this.valueHints.max
+                    case "Day":
+                        break
+                    case "Month":
+                        break
+                    case "Year":
+                        control = new DatePicker({
+                            displayFormat: "yyyy"
                         }).attachChange((oEvent) => that.fireChange(oEvent))
                         break
-                    case "float":
-                        control = new StepInput({
-                            min: this.valueHints.min,
-                            max: this.valueHints.max,
-                            displayValuePrecision: 2,
-                            step: 0.1
-                        }).attachChange((oEvent) => that.fireChange(oEvent))
+                    case "Time":
+                        control = new TimePicker({}).attachChange((oEvent) => that.fireChange(oEvent))
+                        break
+                    case "Date":
+                        control = new DatePicker({}).attachChange((oEvent) => that.fireChange(oEvent))
+                        break
+                    case "DateTime":
+                        control = new DateTimePicker({}).attachChange((oEvent) => that.fireChange(oEvent))
+                        break
+                    case "TimePeriod":
+                        break
+                    case "DatePeriod":
+                        control = new DateRangeSelection({}).attachChange((oEvent) => that.fireChange(oEvent))
+                        break
+                    case "DateTimePeriod":
                         break
                     default:
-                        control = new Input().attachLiveChange((oEvent) => that.fireChange(oEvent))
+                        if (this.valueHints.values) {
+                            control = new Select({
+                                forceSelection: false,
+                                items: {
+                                    path: "valueHints/values",
+                                    template: new ListItem({
+                                        key: "{key}",
+                                        text: { path: "displayName", formatter: Formatter.toTranslated }
+                                    })
+                                }
+                            }).attachChange((oEvent) => that.fireChange(oEvent))
+                        } else {
+                            control = new RatingIndicator({
+                                maxValue: Math.min(this.valueHints.max, 10),
+                                visualMode: "Full"
+                            })
+                        }
                         break
                 }
-                if (this.renderHints.semantic === "Password") {
-                    control.setType("Password")
+                return control
+            },
+            createStringControl() {
+                const that = this
+                let control
+                switch (this.renderHints.editType) {
+                    case "InputLike":
+                        control = new Input().attachLiveChange((oEvent) => that.fireChange(oEvent))
+                        break
+                    case "ButtonLike":
+                        if (this.valueHints.values) {
+                            const buttons = this.valueHints.values.map((item, index) => {
+                                return new RadioButton({
+                                    text: {
+                                        path: `valueHints/values/${index}/displayName`,
+                                        formatter: Formatter.toTranslated
+                                    },
+                                    customData: [new CustomData({ key: `{valueHints/values/${index}/key}` })]
+                                })
+                            })
+                            control = new RadioButtonGroup({
+                                buttons: buttons
+                            })
+                        } else {
+                            // ?
+                        }
+                        break
+                    case "SelectLike":
+                        control = this.createSelectControl()
+                        break
+                    case "SliderLike":
+                        if (this.valueHints.values) {
+                            const items = this.valueHints.values.map((item, index) => {
+                                return new SegmentedButtonItem({
+                                    key: `{valueHints/values/${index}/key}`,
+                                    text: {
+                                        path: `valueHints/values/${index}/displayName`,
+                                        formatter: Formatter.toTranslated
+                                    }
+                                })
+                            })
+                            control = new SegmentedButton({
+                                items: items
+                            })
+                        } else {
+                            // ?
+                        }
+                        break
+                }
+                return control
+            },
+            createIntegerControl() {
+                const that = this
+                let control
+                switch (this.renderHints.editType) {
+                    case "InputLike":
+                        control = new Input().attachLiveChange((oEvent) => that.fireChange(oEvent))
+                        break
+                    case "ButtonLike":
+                        if (this.valueHints.values) {
+                            const buttons = this.valueHints.values.map((item, index) => {
+                                return new RadioButton({
+                                    text: {
+                                        path: `valueHints/values/${index}/displayName`,
+                                        formatter: Formatter.toTranslated
+                                    },
+                                    customData: [new CustomData({ key: `{valueHints/values/${index}/key}` })]
+                                })
+                            })
+                            control = new RadioButtonGroup({
+                                buttons: buttons
+                            })
+                        } else {
+                            control = new StepInput({
+                                min: this.valueHints.min,
+                                max: this.valueHints.max
+                            }).attachChange((oEvent) => that.fireChange(oEvent))
+                        }
+                        break
+                    case "SelectLike":
+                        control = this.createSelectControl()
+
+                        break
+                    case "SliderLike":
+                        if (this.valueHints.values) {
+                            const items = this.valueHints.values.map((item, index) => {
+                                return new SegmentedButtonItem({
+                                    key: `{valueHints/values/${index}/key}`,
+                                    text: {
+                                        path: `valueHints/values/${index}/displayName`,
+                                        formatter: Formatter.toTranslated
+                                    }
+                                })
+                            })
+                            control = new SegmentedButton({
+                                items: items
+                            })
+                        } else {
+                            // Slider
+                        }
+                        break
+                }
+                return control
+            },
+            createFloatControl() {
+                const that = this
+                let control
+                switch (this.renderHints.editType) {
+                    case "InputLike":
+                        control = new Input().attachLiveChange((oEvent) => that.fireChange(oEvent))
+                        break
+                    case "ButtonLike":
+                        if (this.valueHints.values) {
+                            const buttons = this.valueHints.values.map((item, index) => {
+                                return new RadioButton({
+                                    text: {
+                                        path: `valueHints/values/${index}/displayName`,
+                                        formatter: Formatter.toTranslated
+                                    },
+                                    customData: [new CustomData({ key: `{valueHints/values/${index}/key}` })]
+                                })
+                            })
+                            control = new RadioButtonGroup({
+                                buttons: buttons
+                            })
+                        } else {
+                            control = new StepInput({
+                                min: this.valueHints.min,
+                                max: this.valueHints.max,
+                                displayValuePrecision: 2,
+                                step: 0.1
+                            }).attachChange((oEvent) => that.fireChange(oEvent))
+                        }
+
+                        break
+                    case "SelectLike":
+                        control = this.createSelectControl()
+                        break
+                    case "SliderLike":
+                        if (this.valueHints.values) {
+                            const items = this.valueHints.values.map((item, index) => {
+                                return new SegmentedButtonItem({
+                                    key: `{valueHints/values/${index}/key}`,
+                                    text: {
+                                        path: `valueHints/values/${index}/displayName`,
+                                        formatter: Formatter.toTranslated
+                                    }
+                                })
+                            })
+                            control = new SegmentedButton({
+                                items: items
+                            })
+                        } else {
+                            // Slider
+                        }
+                        break
+                }
+                return control
+            },
+            createBooleanControl() {
+                const that = this
+                let control
+                switch (this.renderHints.editType) {
+                    case "InputLike":
+                        break
+                    case "ButtonLike":
+                        if (this.valueHints.values) {
+                            const buttons = this.valueHints.values.map((item, index) => {
+                                return new RadioButton({
+                                    text: {
+                                        path: `valueHints/values/${index}/displayName`,
+                                        formatter: Formatter.toTranslated
+                                    },
+                                    customData: [new CustomData({ key: `{valueHints/values/${index}/key}` })]
+                                })
+                            })
+                            control = new RadioButtonGroup({
+                                buttons: buttons
+                            })
+                        } else {
+                            // Checkbox
+                        }
+                        break
+                    case "SelectLike":
+                        control = this.createSelectControl()
+                        break
+                    case "SliderLike":
+                        if (this.valueHints.values) {
+                            const items = this.valueHints.values.map((item, index) => {
+                                return new SegmentedButtonItem({
+                                    key: `{valueHints/values/${index}/key}`,
+                                    text: {
+                                        path: `valueHints/values/${index}/displayName`,
+                                        formatter: Formatter.toTranslated
+                                    }
+                                })
+                            })
+                            control = new SegmentedButton({
+                                items: items
+                            })
+                        } else {
+                            // Switch
+                        }
+                        break
                 }
                 return control
             },
             createNewEditControl() {
+                if (!this.getValueType() && !this.renderHints) {
+                    return
+                }
+                let valueTypeClass
+                if (!this.renderHints || !this.valueHints) {
+                    const valueType = this.getValueType()
+                    if (!window.TSServal || !TSServal.Serializable) {
+                        App.error("Serializable could not be obtained.")
+                        return
+                    }
+                    valueTypeClass = TSServal.Serializable.getModule(valueType)
+                    if (!valueTypeClass) {
+                        App.error(`Rendering information for valueType ${valueType} could not be found.`)
+                        return
+                    }
+                }
+                if (!this.renderHints) {
+                    this.renderHints = valueTypeClass.renderHints
+                    this.getModel().setProperty("/renderHints", this.renderHints)
+                }
+                if (!this.valueHints) {
+                    this.valueHints = valueTypeClass.valueHints
+                    this.getModel().setProperty("/valueHints", this.valueHints)
+                }
                 this.removeAggregation("_editControl")
                 let control
-                switch (this.renderHints.editType) {
-                    case "input":
-                        control = this.createNewInputControl()
+                switch (this.renderHints.technicalType) {
+                    case "Boolean":
+                        control = this.createBooleanControl()
                         break
-                    case "select":
-                        control = this.createNewSelectControl()
+                    case "String":
+                        control = this.createStringControl()
+                        break
+                    case "Integer":
+                        control = this.createIntegerControl()
+                        break
+                    case "Float":
+                        control = this.createFloatControl()
                         break
                 }
                 if (control) {
@@ -146,15 +392,68 @@ sap.ui.define(
                 const control = this.getAggregation("_editControl")
                 if (!control) return
                 let value
-                switch (this.renderHints.editType) {
-                    case "input":
+                const controlName = control.getMetadata().getName()
+                switch (controlName) {
+                    case "sap.m.RadioButtonGroup":
+                        const index = control.getSelectedIndex()
+                        const button = control.getButtons()[index]
+                        value = button.getCustomData()[0].getKey()
+                        break
+                    case "sap.m.TimePicker":
+                    case "sap.m.DatePicker":
+                    case "sap.m.StepInput":
+                    case "sap.m.Input":
                         value = control.getValue()
                         break
-                    case "select":
+                    case "sap.m.Select":
+                    case "sap.m.SegmentedButton":
                         value = control.getSelectedKey()
                         break
                 }
-                return value
+                switch (this.renderHints.dataType) {
+                    case "Year":
+                        value = new Date(value).getUTCFullYear()
+                        break
+                }
+                switch (this.renderHints.technicalType) {
+                    case "Integer":
+                        try {
+                            value = parseInt(value)
+                        } catch (e) {
+                            console.error(e)
+                        }
+                        break
+                    case "Float":
+                        try {
+                            value = parseFloat(value)
+                        } catch (e) {
+                            console.error(e)
+                        }
+                        break
+                    case "Boolean":
+                        if (value) value = true
+                        else value = false
+                        break
+                }
+                const returnValue = {
+                    "@type": "IdentityAttribute",
+                    value: {
+                        "@type": this.object.valueType ? this.object.valueType : this.getValueType(),
+                        value: value
+                    },
+                    owner: runtime.currentAccount.address
+                }
+                return returnValue
+            },
+
+            setValueType(valueType) {
+                if (valueType === this.getProperty("valueType")) {
+                    return
+                }
+                this.renderHints = undefined
+                this.valueHints = undefined
+                this.setProperty("valueType", valueType, true)
+                this.createNewEditControl()
             },
 
             getEditedContext() {

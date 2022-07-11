@@ -1,4 +1,4 @@
-sap.ui.define(["sap/ui/core/Control", "sap/m/Text"], (Control, Text) => {
+sap.ui.define(["sap/ui/core/Control", "sap/m/Text", "nmshd/app/core/Formatter"], (Control, Text, Formatter) => {
     "use strict"
 
     return Control.extend("nmshd.app.core.controls.attributes.ValueRenderer", {
@@ -22,81 +22,86 @@ sap.ui.define(["sap/ui/core/Control", "sap/m/Text"], (Control, Text) => {
             this.attachModelContextChange(this.modelContextChangeListener)
         },
         modelContextChangeListener(oEvent) {
-            console.log("modelContextChangeListener", oEvent)
+            const context = oEvent.getSource().getBindingContext()
+            if (!context) {
+                this.renderHints = {}
+                this.valueHints = {}
+                return
+            }
+            const object = context.getObject()
+            if (object === this.object) {
+                console.log("Same Object -> IGNORE")
+                return
+            }
+            if (!object) {
+                this.renderHints = {}
+                this.valueHints = {}
+                return
+            }
+            this.object = object
+            this.renderHints = object.renderHints
+            this.valueHints = object.valueHints
+            if (!this.renderHints) {
+                this.renderHints = {}
+            }
+            if (!this.valueHints) {
+                this.valueHints = {}
+            }
+            this.updateInternalControl()
         },
         bindingChangeListener(oEvent) {
             console.log("Request Binding Change", oEvent)
         },
+        /*
         bindElement(a) {
             console.log("bindElement", a)
             return Control.bindElement.apply(this, [a])
         },
-
-        isNumberValue(value) {
-            switch (value["@type"]) {
-                case "ProprietaryInteger":
-                case "ProprietaryFloat":
-                    return true
-
-                case "AbstractFloat":
-                case "AbstractDay":
-                case "BirthDay":
-                    return true
-
-                case "AbstractMonth":
-                case "BirthMonth":
-                    return true
-
-                case "AbstractYear":
-                case "BirthYear":
-                    return true
-
-                case "AbstractInteger":
-                case "Age":
-                    return true
-            }
-            return false
-        },
-
-        isComplexValue(value) {
-            switch (value["@type"]) {
-                case "AbstractComplexValue":
-                case "AbstractMeasurement":
-                case "AbstractLengthMeasurement":
-                    return true
-                case "AbstractPeriod":
-                    return true
-                case "BirthDate":
-                case "BirthPlace":
-                case "Salutation":
-                    return true
-                case "LegalName":
-                case "LegalNameDE":
-                    return true
-                case "AbstractAddress":
-                case "StreetAddress":
-                case "DeliveryBoxAddress":
-                case "PostOfficeBoxAddress":
-                    return true
-            }
-            return false
-        },
+        */
 
         updateInternalControl() {
             // TODO: Make this update smart, e.g. we do not need to create the control new
             // if we have the same value, valuetype or control class
-            const value = this.getValue()
+            this.removeAggregation("_editControl")
+            let translationNamespace = ""
             let control
-            if (!value) {
-                control = new Text({ text: "Empty" })
-            }
-            if (this.isComplexValue(value)) {
-                control = new Text({ text: "Complex" })
-            } else {
-                control = new Text({ text: value })
+
+            switch (this.renderHints.dataType) {
+                case "Sex":
+                    translationNamespace = "i18n://attributes.values.sex."
+                    break
+                case "Nationality":
+                    translationNamespace = "i18n://attributes.values.countries."
+                    break
+                case "Language":
+                    translationNamespace = "i18n://attributes.values.languages."
+                    break
             }
 
-            this.setAggregation("_control", control)
+            let binding = "value/value"
+            if (this.object && this.object.results && this.object.results.length > 0) {
+                binding = "results/0/value/value"
+            }
+            let formatter
+            if (translationNamespace) {
+                formatter = Formatter.toTranslated
+                control = new Text({
+                    text: {
+                        parts: [{ path: "valueType" }, { path: binding }],
+                        formatter: (valueType, value) => {
+                            return Formatter.toTranslated(`${translationNamespace}${value}`)
+                        }
+                    }
+                })
+            } else {
+                control = new Text({ text: { path: binding } })
+            }
+
+            if (control) {
+                this.setAggregation("_control", control)
+            }
+
+            return control
         },
 
         setValue(value) {
