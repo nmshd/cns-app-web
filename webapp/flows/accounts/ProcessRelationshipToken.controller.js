@@ -56,6 +56,7 @@ sap.ui.define(
                                 }
                             )
                         if (!templateResult || templateResult.isError || !templateResult.value) {
+                            App.error(templateResult.error)
                         } else {
                             this.template = templateResult.value
                         }
