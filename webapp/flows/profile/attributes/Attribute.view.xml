@@ -31,7 +31,7 @@
 				<m:Label text="{t>attribute.createdAt}" />
 				<m:Text text="{createdAt}" />
 				<m:Label text="{t>attribute.type}" />
-				<m:Text text="{path:'description',formatter:'.toTranslated'}" />
+				<m:Text text="{path:'name',formatter:'.toTranslated'}" />
 				<m:Label text="{t>attribute.value}" />
 				<attributeControls:ValueRenderer binding="{}" />
 				<m:Label text="{t>attribute.sharedWith}" />
