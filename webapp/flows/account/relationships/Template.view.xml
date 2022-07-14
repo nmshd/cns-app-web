@@ -18,12 +18,7 @@
 
 		<semantic:content>
 			<m:MessageStrip id="message"
-				class="sapUiTinyMargin" />
-			<m:Toolbar>
-				<m:Button text="Response Params" press="getResponseParams()" />
-				<m:Button text="Context" press="getContext()" />
-				<m:Button text="Selected" press="getSelected()" />
-			</m:Toolbar>
+				class="sapUiTinyMargin" visible="false" />
 			<requests:RequestRenderer id="request" binding="{/onNewRelationship}" change="onChange">
 			</requests:RequestRenderer>
 		</semantic:content>

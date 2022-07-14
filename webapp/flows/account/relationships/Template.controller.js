@@ -113,24 +113,30 @@ sap.ui.define(
                 App.appController.setTitle("")
             },
 
-            async onChange(oEvent) {
+            async checkCanAccept() {
                 if (!this.template || !this.request) return
                 const responseParams = this.getResponseParams()
-                console.log("Response Params", responseParams)
                 const canAcceptResult = await runtime.currentSession.consumptionServices.incomingRequests.canAccept(
                     responseParams
                 )
                 if (canAcceptResult.isSuccess) {
                     if (canAcceptResult.value.isSuccess) {
                         this.byId("acceptButton").setEnabled(true)
+                        this.setMessage()
                         return
                     }
                     this.byId("acceptButton").setEnabled(false)
+                    this.setMessage(canAcceptResult.value.items, "Error")
                     console.warn("Cannot Accept", canAcceptResult.value.items)
                 } else {
                     this.byId("acceptButton").setEnabled(false)
+                    this.setMessage(canAcceptResult.error, "Error")
                     console.warn("Cannot Accept", canAcceptResult.error)
                 }
+            },
+
+            async onChange(oEvent) {
+                await this.checkCanAccept()
             },
 
             setMessage(message, type) {
@@ -145,8 +151,7 @@ sap.ui.define(
                 }
             },
 
-            refresh(index) {
-                //this.template = models[index ? index : 0]
+            async refresh() {
                 this.setMessage()
 
                 this.viewProp("/error", false)
@@ -159,6 +164,7 @@ sap.ui.define(
                     sap.ui.getCore().getEventBus().publish("template", "error", { message: "Keine Daten verfügbar." })
                     this.navBack("account.relationships")
                 }
+                await this.checkCanAccept()
             },
 
             refreshWithData(data) {
@@ -185,7 +191,6 @@ sap.ui.define(
                     )
 
                     if (acceptResult.isSuccess) {
-                        await App.sleep(5000)
                         App.navTo("account.home", "account.relationships", {
                             accountId: this.accountId
                         })
