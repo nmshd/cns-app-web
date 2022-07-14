@@ -47,27 +47,6 @@ sap.ui.define(
                 this.message = message.getData()
             },
 
-            onRequestItemPress(oEvent) {},
-
-            requestItemFactory(sId, oContext) {
-                const request = oContext.getObject()
-                console.log(request)
-                let renderer
-                switch (request["@type"]) {
-                    case "AttributesChangeRequest":
-                        if (!this.oChangeRequestRenderer) break
-                        renderer = this.oChangeRequestRenderer.clone(sId)
-                        break
-                    case "AttributesShareRequest":
-                        if (!this.oShareRequestRenderer) break
-                        renderer = this.oShareRequestRenderer.clone(sId)
-                        break
-                }
-
-                //renderer.attachPress(this.onRequestItemPress.bind(this))
-                return renderer
-            },
-
             onForward(oEvent) {
                 const route = this.viewProp("/route")
                 switch (route._name) {
@@ -86,52 +65,6 @@ sap.ui.define(
                         })
                         break
                 }
-            },
-
-            async acceptRequest(oEvent) {
-                const oItem = oEvent.getParameter("listItem") || oEvent.getSource()
-                const item = oItem.getBindingContext().getProperty()
-
-                if (item["@type"] === "AttributesShareRequest") {
-                    const attributes = item.attributes
-                    const share = []
-                    for (const attribute of attributes) {
-                        const attributeToShare = attribute.bestMatch
-                        if (!attributeToShare) continue
-
-                        share.push(
-                            NMSHDContent.Attribute.from({
-                                name: attributeToShare.name,
-                                value: "" + attributeToShare.value
-                            })
-                        )
-                    }
-                    if (share.length > 0) {
-                        for (const recipient of item.recipients) {
-                            if (!recipient.relationship) continue
-
-                            await this.account().messages.sendMessage({
-                                recipients: [recipient.id],
-                                content: {
-                                    "@type": "AttributesChangeRequest",
-                                    key: item.key,
-                                    attributes: share
-                                },
-                                attachment: []
-                            })
-                        }
-                    }
-                } else if (item["@type"] === "AttributesChangeRequest") {
-                    for (const attribute of item.attributes) {
-                        await runtime.currentSession.consumptionServices.attributes.succeedAttribute({
-                            attribute: {
-                                name: "" + attribute.name,
-                                value: "" + attribute.value
-                            }
-                        })
-                    }
-                }
-                this.prop(oItem.getBindingContext().getPath() + "/processed", true)
             },
 
             clear() {

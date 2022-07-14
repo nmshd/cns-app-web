@@ -56,20 +56,6 @@
                     </uxap:ObjectPageSection>
 
                     <uxap:ObjectPageSection titleUppercase="false"
-                        title="{t>detail.requests} ({/requestCount})"
-                        visible="false">
-                        <uxap:subSections>
-                            <uxap:ObjectPageSubSection titleUppercase="false">
-                                <m:List id="requests"
-                                    items="{path:'/requests', factory:'.requestItemFactory',templateShareable:false}"
-                                    noDataText="{t>detail.noRequests}">
-                                </m:List>
-                            </uxap:ObjectPageSubSection>
-
-                        </uxap:subSections>
-                    </uxap:ObjectPageSection>
-
-                    <uxap:ObjectPageSection titleUppercase="false"
                         title="{t>detail.attachments} ({/attachmentCount})"
                         visible="{= ${/attachmentCount} > 0}">
                         <uxap:subSections>
