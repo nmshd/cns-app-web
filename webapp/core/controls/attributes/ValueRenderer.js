@@ -470,6 +470,9 @@ sap.ui.define(
                     case "sap.m.SegmentedButton":
                         value = control.getSelectedKey()
                         break
+                    case "sap.m.Text":
+                        value = control.getText()
+                        break
                 }
                 switch (this.renderHints.dataType) {
                     case "Year":
@@ -499,10 +502,14 @@ sap.ui.define(
                         if (!value) return undefined
                         break
                 }
+                let valueType = this.object.valueType ? this.object.valueType : this.getValueType()
+                if (!valueType) {
+                    valueType = this.object.content.value["@type"]
+                }
                 const returnValue = {
                     "@type": "IdentityAttribute",
                     value: {
-                        "@type": this.object.valueType ? this.object.valueType : this.getValueType(),
+                        "@type": valueType,
                         value: value
                     },
                     owner: runtime.currentAccount.address
