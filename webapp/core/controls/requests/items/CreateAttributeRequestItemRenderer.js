@@ -51,6 +51,13 @@ sap.ui.define(
                 return textControl.getBindingContext().getObject("results/0")
             },
 
+            getEditedValue() {
+                const valueRenderer = this.getAggregation("_valueRenderer")
+                if (!valueRenderer) return undefined
+                if (!valueRenderer.getVisible()) return undefined
+                return valueRenderer.getEditedValue()
+            },
+
             getContext() {
                 const context = {}
                 return context

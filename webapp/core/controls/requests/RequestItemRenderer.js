@@ -45,14 +45,21 @@ sap.ui.define(
 
             init(e) {
                 const that = this
+                const model = new JSONModel({
+                    isChecked: false
+                })
+                this.model = model
+                this.setModel(model, "requestItemRenderer")
                 this.setAggregation(
                     "_checkbox",
                     new CheckBox({
                         text: "",
                         editable: "{=!${mustBeAccepted}}",
                         visible: "{= ${isDecidable}}",
-                        selected: "{mustBeAccepted}"
-                    }).attachSelect((oEvent) => that.fireChange(oEvent))
+                        selected: "{= ${mustBeAccepted} || ${requestItemRenderer>/isChecked}}"
+                    })
+                        .attachSelect((oEvent) => that.fireChange(oEvent))
+                        .setModel(model, "requestItemRenderer")
                 )
                 this.setAggregation("_title", new Text({ text: "{title}", visible: "{=!!${title}}" }))
                 this.setAggregation("_description", new Text({ text: "{description}", visible: "{=!!${description}}" }))
@@ -96,10 +103,10 @@ sap.ui.define(
                 const checkbox = this.getAggregation("_checkbox")
                 const value = control.getEditedValue()
                 const item = this.getItem()
-                if (value) {
-                    checkbox.setSelected(true)
-                } else if (item && !item.mustBeAccepted) {
-                    checkbox.setSelected(false)
+                if (value || (item && item.mustBeAccepted)) {
+                    this.model.setProperty("/isChecked", true)
+                } else {
+                    this.model.setProperty("/isChecked", false)
                 }
             },
 
@@ -135,13 +142,12 @@ sap.ui.define(
                             }
                         )
                         break
-                    default:
-                        control = new Text({ text: "{value}" })
-                        break
                 }
+                if (!control) return
                 control.setModel(new JSONModel(item), "item")
 
                 this.setAggregation("_control", control)
+                this.updateCheckbox()
             },
 
             setItem(value) {
