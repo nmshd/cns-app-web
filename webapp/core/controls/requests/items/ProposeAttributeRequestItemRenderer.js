@@ -5,11 +5,10 @@ sap.ui.define(
         "sap/m/Label",
         "sap/m/Button",
         "sap/m/Select",
-        "nmshd/app/core/controls/attributes/ValueEditRenderer",
         "nmshd/app/core/controls/attributes/ValueRenderer",
         "nmshd/app/core/Formatter"
     ],
-    (Control, Text, Label, Button, Select, ValueEditRenderer, ValueRenderer, Formatter) => {
+    (Control, Text, Label, Button, Select, ValueRenderer, Formatter) => {
         "use strict"
 
         return Control.extend("nmshd.app.core.controls.requests.items.ProposeAttributeRequestItemRenderer", {
@@ -44,8 +43,8 @@ sap.ui.define(
                     "_button",
                     new Button({
                         text: "Ändern",
-                        visible: "{= ${results/length} > 0 && ${isDecidable}}",
-                        enabled: "{isDecidable}"
+                        visible: "{item>/isDecidable}",
+                        enabled: "{item>/isDecidable}"
                     })
 
                         .addStyleClass("proposeAttributeRequestItemRendererButton")
@@ -53,7 +52,7 @@ sap.ui.define(
                 )
                 this.setAggregation(
                     "_editControl",
-                    new ValueEditRenderer({
+                    new ValueRenderer({
                         visible: false // "{= ${results/length} === 0}"
                     })
                         .attachChange((oEvent) => that.fireChange(oEvent))

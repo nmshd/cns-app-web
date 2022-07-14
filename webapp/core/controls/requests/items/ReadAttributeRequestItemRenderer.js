@@ -6,10 +6,9 @@ sap.ui.define(
         "sap/m/Button",
         "sap/m/Select",
         "nmshd/app/core/controls/attributes/ValueRenderer",
-        "nmshd/app/core/controls/attributes/ValueEditRenderer",
         "nmshd/app/core/Formatter"
     ],
-    (Control, Text, Label, Button, Select, ValueRenderer, ValueEditRenderer, Formatter) => {
+    (Control, Text, Label, Button, Select, ValueRenderer, Formatter) => {
         "use strict"
 
         return Control.extend("nmshd.app.core.controls.requests.items.ReadAttributeRequestItemRenderer", {
@@ -43,17 +42,18 @@ sap.ui.define(
                     "_button",
                     new Button({
                         text: "Ändern",
-                        visible: "{= ${results/length} > 0 && ${isDecidable}}",
-                        enabled: "{isDecidable}"
+                        visible: "{= ${results/length} > 0 && ${item>/isDecidable}}",
+                        enabled: "{item>/isDecidable}"
                     })
                         .addStyleClass("readAttributeRequestItemRendererButton")
                         .bindElement("query")
                 )
+
                 this.setAggregation(
                     "_editControl",
-                    new ValueEditRenderer({
-                        visible: "{= (${results} === undefined || ${results/length} === 0) && ${isDecidable}}",
-                        enabled: "{isDecidable}"
+                    new ValueRenderer({
+                        visible: "{= (${results} === undefined || ${results/length} === 0) && ${item>/isDecidable}}",
+                        editable: "{item>/isDecidable}"
                     })
                         .attachChange((oEvent) => that.fireChange(oEvent))
                         .addStyleClass("readAttributeRequestItemRendererEditControl")
