@@ -19,7 +19,7 @@
                     text="{text}" />
             </m:Select>
             <m:Label text="{t>attribute.value}" />
-            <attributesControl:ValueEditRenderer id="allValue" />
+            <attributesControl:ValueRenderer id="allValue" editable="true" />
         </form:SimpleForm>
 
         <m:endButton>
