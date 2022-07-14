@@ -24,8 +24,8 @@
 				headerText="{t>relationship.receivedData}"
 				items="{/items}">
 				<m:items>
-					<m:StandardListItem title="{path:'content/value', formatter:'.formatter.value'}"
-						description="{path:'content/name', formatter:'.formatter.attributeName'}" />
+					<m:StandardListItem title="{path:'id'}"
+						description="{path:'value/@type', formatter:'.formatter.attributeName'} = {path:'value/value', formatter:'.formatter.attributeName'}" />
 				</m:items>
 
 			</m:List>

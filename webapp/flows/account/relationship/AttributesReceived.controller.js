@@ -13,22 +13,21 @@ sap.ui.define(
             async refresh() {
                 if (!this.relationshipId) return
 
-                const receivedItemsResult = await runtime.currentSession.consumptionServices.sharedItems.getSharedItems(
-                    {
-                        query: {
-                            sharedBy: this.identity.id
-                        }
-                    }
-                )
+                const receivedItemsResult = await runtime.currentSession.consumptionServices.attributes.getAttributes({
+                    query: { shareInfo: { peer: this.identity.id, sourceAttribute: "!" } }
+                })
 
                 if (receivedItemsResult.isError) {
                     App.error(receivedItemsResult.error)
                     return
                 }
+                const receivedItems = await runtime.currentSession.expander.expandLocalAttributeDTOs(
+                    receivedItemsResult.value
+                )
 
                 this.setModel(
                     new JSONModel({
-                        items: receivedItemsResult.value
+                        items: receivedItems
                     })
                 )
             }
