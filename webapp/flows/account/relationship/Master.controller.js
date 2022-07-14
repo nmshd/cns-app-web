@@ -44,6 +44,11 @@ sap.ui.define(
                         title: this.resource("relationship.master.navigation.receivedData"),
                         key: "account.relationship.attributesReceived",
                         icon: "sap-icon://chain-link"
+                    },
+                    {
+                        title: this.resource("relationship.master.navigation.requests"),
+                        key: "account.relationship.requests",
+                        icon: "sap-icon://chain-link"
                     }
                 ])
 

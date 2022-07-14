@@ -1,0 +1,40 @@
+<mvc:View controllerName="nmshd.app.flows.account.relationship.Request"
+	xmlns:m="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:requests="nmshd.app.core.controls.requests">
+
+	<semantic:DetailPage id="page"
+		navButtonPress="onNavButtonPress"
+		showNavButton="{d>/system/phone}"
+		title="{t>relationship.transmitted.attributes} {dvo>/name}"
+		showFooter="false"
+		busy="{v>/busy}"
+		busyIndicatorDelay="{v>/delay}">
+
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:content>
+
+			<form:SimpleForm>
+				<m:Label text="{t>request.id}" />
+				<m:Text text="{id}" />
+				<m:Label text="{t>request.createdAt}" />
+				<m:Text text="{createdAt}" />
+				<m:Label text="{t>request.type}" />
+				<m:Text text="{path:'description',formatter:'.toTranslated'}" />
+			</form:SimpleForm>
+
+			<requests:RequestRenderer id="request" binding="{}">
+			</requests:RequestRenderer>
+
+		</semantic:content>
+	</semantic:DetailPage>
+
+</mvc:View>

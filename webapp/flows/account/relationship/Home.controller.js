@@ -58,6 +58,9 @@ sap.ui.define(
             onReceived() {
                 this.navTo("account.relationship.attributesReceived")
             },
+            onRequests() {
+                this.navTo("account.relationship.requests")
+            },
 
             onNavButtonPress() {
                 this.navBack("account.relationships")

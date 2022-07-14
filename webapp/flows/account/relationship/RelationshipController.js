@@ -4,7 +4,7 @@ sap.ui.define(
         "use strict"
 
         return AccountController.extend("nmshd.app.flows.account.relationship.Relationship", {
-            async onRouteMatched(oEvent) {
+            async onRouteMatched(oEvent, doNotRefresh) {
                 await AccountController.prototype.onRouteMatched.apply(this, [oEvent, true])
 
                 this.relationshipId = oEvent.getParameter("arguments").relationshipId
@@ -41,7 +41,9 @@ sap.ui.define(
                 */
                 App.appController.setTitle(this.identity.name)
 
-                this.refresh()
+                if (!doNotRefresh) {
+                    this.refresh()
+                }
             },
 
             async onRouteExit(oEvent) {

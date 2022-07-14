@@ -430,6 +430,18 @@
                     "target": ["account.relationship.master", "account.relationship.attributesReceived"],
                     "parent": "nmshd.app.Component:generic"
                 },
+                {
+                    "pattern": "accounts/{accountId}/relationships/{relationshipId}/requests",
+                    "name": "account.relationship.requests",
+                    "target": ["account.relationship.master", "account.relationship.requests"],
+                    "parent": "nmshd.app.Component:generic"
+                },
+                {
+                    "pattern": "accounts/{accountId}/relationships/{relationshipId}/requests/{requestId}",
+                    "name": "account.relationship.request",
+                    "target": ["account.relationship.requests", "account.relationship.request"],
+                    "parent": "nmshd.app.Component:generic"
+                },
 
                 {
                     "pattern": "accounts/{accountId}/files",
@@ -788,6 +800,20 @@
                     "viewId": "account-relationship-attributesReceived",
                     "controlAggregation": "detailPages",
                     "viewLevel": 253
+                },
+
+                "account.relationship.requests": {
+                    "viewName": "flows.account.relationship.Requests",
+                    "viewId": "account-relationship-requests",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 260
+                },
+
+                "account.relationship.request": {
+                    "viewName": "flows.account.relationship.Request",
+                    "viewId": "account-relationship-request",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 270
                 },
 
                 "account.files": {
