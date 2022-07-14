@@ -69,58 +69,51 @@ sap.ui.define(
 
                 const map = {}
                 for (const attribute of expandedAttributes) {
-                    const existing = map[attribute.value["@type"]]
-                    /*
-                    if (existing) {
-                        if (Array.isArray(existing)) {
-                            existing.push(attribute)
-                        } else {
-                            map[attribute.value["@type"]] = [existing, attribute]
-                        }
-                    } else {
-                        */
                     map[attribute.value["@type"]] = attribute
-                    // }
                 }
                 this.map = map
 
                 const model = new JSONModel({ items: expandedAttributes, map: map })
                 this.setModel(model)
                 this.prop("/AllAttributes", [
-                    { key: "GivenName", text: this.resource("profile.files.overview.GivenName") },
-                    { key: "Surname", text: this.resource("profile.files.overview.Surname") },
-                    { key: "BirthName", text: this.resource("profile.files.overview.BirthName") },
-                    { key: "DisplayName", text: this.resource("profile.files.overview.DisplayName") },
-                    { key: "HonorificPrefix", text: this.resource("profile.files.overview.HonorificPrefix") },
-                    { key: "HonorificSuffix", text: this.resource("profile.files.overview.HonorificSuffix") },
-                    { key: "Pseudonym", text: this.resource("profile.files.overview.Pseudonym") },
-                    { key: "Salutation", text: this.resource("profile.files.overview.Salutation") },
-                    { key: "Age", text: this.resource("profile.files.overview.Age") },
-                    { key: "Citizenship", text: this.resource("profile.files.overview.Citizenship") },
-                    { key: "Nationality", text: this.resource("profile.files.overview.Nationality") },
-                    { key: "Sex", text: this.resource("profile.files.overview.Sex") },
-                    { key: "BirthDate", text: this.resource("profile.files.overview.BirthDate") },
-                    { key: "BirthDay", text: this.resource("profile.files.overview.BirthDay") },
-                    { key: "BirthMonth", text: this.resource("profile.files.overview.BirthMonth") },
-                    { key: "BirthYear", text: this.resource("profile.files.overview.BirthYear") },
-                    { key: "BirthPlace", text: this.resource("profile.files.overview.BirthPlace") },
-                    { key: "BirthCity", text: this.resource("profile.files.overview.BirthCity") },
-                    { key: "BirthState", text: this.resource("profile.files.overview.BirthState") },
-                    { key: "BirthCountry", text: this.resource("profile.files.overview.BirthCountry") },
+                    { key: "GivenName", text: this.resource("dvo.attribute.name.GivenName") },
+                    { key: "Surname", text: this.resource("dvo.attribute.name.Surname") },
+                    { key: "BirthName", text: this.resource("dvo.attribute.name.BirthName") },
+                    { key: "DisplayName", text: this.resource("dvo.attribute.name.DisplayName") },
+                    { key: "HonorificPrefix", text: this.resource("dvo.attribute.name.HonorificPrefix") },
+                    { key: "HonorificSuffix", text: this.resource("dvo.attribute.name.HonorificSuffix") },
+                    { key: "Pseudonym", text: this.resource("dvo.attribute.name.Pseudonym") },
+                    { key: "Salutation", text: this.resource("dvo.attribute.name.Salutation") },
+                    { key: "Age", text: this.resource("dvo.attribute.name.Age") },
+                    { key: "Citizenship", text: this.resource("dvo.attribute.name.Citizenship") },
+                    { key: "Nationality", text: this.resource("dvo.attribute.name.Nationality") },
+                    { key: "Sex", text: this.resource("dvo.attribute.name.Sex") },
+                    { key: "BirthDate", text: this.resource("dvo.attribute.name.BirthDate") },
+                    { key: "BirthDay", text: this.resource("dvo.attribute.name.BirthDay") },
+                    { key: "BirthMonth", text: this.resource("dvo.attribute.name.BirthMonth") },
+                    { key: "BirthYear", text: this.resource("dvo.attribute.name.BirthYear") },
+                    { key: "BirthPlace", text: this.resource("dvo.attribute.name.BirthPlace") },
+                    { key: "BirthCity", text: this.resource("dvo.attribute.name.BirthCity") },
+                    { key: "BirthState", text: this.resource("dvo.attribute.name.BirthState") },
+                    { key: "BirthCountry", text: this.resource("dvo.attribute.name.BirthCountry") },
                     {
                         key: "CommunicationLanguage",
-                        text: this.resource("profile.files.overview.CommunicationLanguage")
+                        text: this.resource("dvo.attribute.name.CommunicationLanguage")
                     },
-                    { key: "EMailAddress", text: this.resource("profile.files.overview.EMailAddress") },
-                    { key: "Fax", text: this.resource("profile.files.overview.Fax") },
-                    { key: "Phone", text: this.resource("profile.files.overview.Phone") },
-                    { key: "Website", text: this.resource("profile.files.overview.Website") },
-                    { key: "City", text: this.resource("profile.files.overview.City") },
-                    { key: "Country", text: this.resource("profile.files.overview.Country") },
-                    { key: "Street", text: this.resource("profile.files.overview.Street") },
-                    { key: "HouseNumber", text: this.resource("profile.files.overview.HouseNumber") },
-                    { key: "ZipCode", text: this.resource("profile.files.overview.ZipCode") }
+                    { key: "EMailAddress", text: this.resource("dvo.attribute.name.EMailAddress") },
+                    { key: "Fax", text: this.resource("dvo.attribute.name.Fax") },
+                    { key: "Phone", text: this.resource("dvo.attribute.name.Phone") },
+                    { key: "Website", text: this.resource("dvo.attribute.name.Website") },
+                    { key: "City", text: this.resource("dvo.attribute.name.City") },
+                    { key: "Country", text: this.resource("dvo.attribute.name.Country") },
+                    { key: "Street", text: this.resource("dvo.attribute.name.Street") },
+                    { key: "HouseNumber", text: this.resource("dvo.attribute.name.HouseNumber") },
+                    { key: "ZipCode", text: this.resource("dvo.attribute.name.ZipCode") }
                 ])
+
+                this.files = await App.FileUtil.getFiles()
+                this.files.refresh()
+                this.setModel(this.files, "files")
             },
 
             clear() {
@@ -149,6 +142,17 @@ sap.ui.define(
                 this.navTo("account.files.detail", { id: file.id })
             },
 
+            async openFile(oEvent) {
+                const oPath = oEvent.getSource().getParent().getBindingContextPath()
+                const item = this.getModel("files").getProperty(oPath)
+
+                await App.FileUtil.openFile(item)
+            },
+
+            toUpload() {
+                this.navTo("account.files.upload")
+            },
+
             onEdit() {
                 this.navTo("account.attributes.edit")
             },
@@ -161,6 +165,7 @@ sap.ui.define(
                 const valueEditRenderer = this.byId("allValue")
                 valueEditRenderer.setValueType(selectedValueType)
             },
+
             async onAllSave() {
                 try {
                     const oModel = this.currentPopup.getModel()
