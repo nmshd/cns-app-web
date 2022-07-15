@@ -69,7 +69,6 @@ sap.ui.define(
                 }
                 const object = context.getObject()
                 if (object === this.object) {
-                    console.log("Same Object -> IGNORE")
                     return
                 }
                 this.object = object

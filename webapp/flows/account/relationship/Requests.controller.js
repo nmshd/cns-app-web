@@ -48,8 +48,6 @@ sap.ui.define(
                     expandedRequests.push(await runtime.currentSession.expander.expandLocalRequestDTO(request))
                 }
 
-                console.log(expandedRequests)
-
                 this.setModel(
                     new JSONModel({
                         items: expandedRequests

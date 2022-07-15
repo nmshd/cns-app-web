@@ -151,7 +151,6 @@ sap.ui.define(
             },
 
             setItem(value) {
-                console.log("RequestItem.item = ", value)
                 this.setProperty("item", value, true)
                 if (value) {
                     this.updateInternalControl()

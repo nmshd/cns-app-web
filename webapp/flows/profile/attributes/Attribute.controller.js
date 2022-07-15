@@ -34,7 +34,6 @@ sap.ui.define(
                     attributeResult.value
                 )
                 this.expandedAttribute = expandedAttribute
-                console.log("Attribute", expandedAttribute)
                 const attributeModel = new JSONModel(expandedAttribute)
                 this.model = attributeModel
                 this.setModel(attributeModel)

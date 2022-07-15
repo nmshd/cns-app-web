@@ -20,7 +20,6 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
             }
             try {
                 const message = await runtime.currentSession.expander.expandMessageDTO(messageResult.value)
-                console.log(message)
                 const model = new JSONModel(message)
                 return model
             } catch (e) {
@@ -58,7 +57,6 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
             }
             try {
                 const messages = await runtime.currentSession.expander.expandMessageDTOs(messagesResult.value)
-                console.log(messages)
                 const model = new JSONModel({ items: messages })
                 return model
             } catch (e) {
@@ -90,7 +88,6 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
             }
             try {
                 const messages = await runtime.currentSession.expander.expandMessageDTOs(messagesResult.value)
-                console.log(messages)
                 const model = new JSONModel({ items: messages })
                 return model
             } catch (e) {

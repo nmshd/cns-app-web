@@ -168,7 +168,6 @@ sap.ui.define(
             },
 
             refreshWithData(data) {
-                console.log(data)
                 if (this.model) {
                     this.model.setData(data)
                 } else {
@@ -184,7 +183,6 @@ sap.ui.define(
                 await runtime.currentSession.transportServices.account.disableAutoSync()
                 try {
                     const responseParams = this.getResponseParams()
-                    console.log("Response Params", responseParams)
 
                     const acceptResult = await runtime.currentSession.consumptionServices.incomingRequests.accept(
                         responseParams
