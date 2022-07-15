@@ -91,7 +91,7 @@ sap.ui.define(
             },
             /**
              * @param {LocalAccountDTO} account
-             * @param {RelationshipTemplateDVO} relationshipTemplate
+             * @param {RelationshipTemplateDTO} relationshipTemplate
              */
             showRelationshipTemplate(account, relationshipTemplate) {
                 return new Promise((resolve) => {

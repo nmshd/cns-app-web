@@ -1,10 +1,10 @@
 /**
  * @typedef { import('@nmshd/runtime').RelationshipDVO} RelationshipDVO
  * @typedef { import('@nmshd/runtime').RelationshipChangeDTO} RelationshipChangeDTO
+ * @typedef { import('@nmshd/runtime').RelationshipTemplateDTO} RelationshipTemplateDTO
  * @typedef { import('@nmshd/runtime').RelationshipTemplateDVO} RelationshipTemplateDVO
  * @typedef { import('@nmshd/runtime').MessageDVO} MessageDVO
  * @typedef { import('@nmshd/runtime').MailDVO} MailDVO
- * @typedef { import('@nmshd/runtime').RequestMailDVO} RequestMailDVO
  * @typedef { import('@nmshd/runtime').IdentityDVO} IdentityDVO
  * @typedef { import('@nmshd/runtime').TokenDTO} TokenDTO
  * @typedef { import('@nmshd/app-runtime').LocalAccountDTO} LocalAccountDTO
