@@ -117,6 +117,12 @@ sap.ui.define(
                     this.valueHints = valueTypeClass.valueHints
                     if (model) model.setProperty("/valueHints", this.valueHints)
                 }
+
+                let valueType = this.object.valueType ? this.object.valueType : this.getValueType()
+                if (!valueType) {
+                    valueType = this.object.content.value["@type"]
+                }
+                this._valueType = valueType
                 if (this.getEditable()) {
                     this.createEditableControl()
                 } else {
@@ -196,7 +202,12 @@ sap.ui.define(
                                 buttons: buttons
                             }).attachSelect((oEvent) => that.fireChange(oEvent))
                         } else {
-                            // ?
+                            appLogger.warn(
+                                `Invalid rendering combination found for ${this._valueType}.`,
+                                this.renderHints,
+                                this.valueHints
+                            )
+                            break
                         }
                         break
                     case "SelectLike":
@@ -217,7 +228,11 @@ sap.ui.define(
                                 items: items
                             })
                         } else {
-                            // ?
+                            appLogger.warn(
+                                `Invalid rendering combination found for ${this._valueType}.`,
+                                this.renderHints,
+                                this.valueHints
+                            )
                         }
                         break
                 }
@@ -270,7 +285,11 @@ sap.ui.define(
                                 items: items
                             })
                         } else {
-                            // Slider
+                            appLogger.warn(
+                                `Invalid rendering combination found for ${this._valueType}.`,
+                                this.renderHints,
+                                this.valueHints
+                            )
                         }
                         break
                 }
@@ -325,7 +344,11 @@ sap.ui.define(
                                 items: items
                             })
                         } else {
-                            // Slider
+                            appLogger.warn(
+                                `Invalid rendering combination found for ${this._valueType}.`,
+                                this.renderHints,
+                                this.valueHints
+                            )
                         }
                         break
                 }
@@ -352,7 +375,11 @@ sap.ui.define(
                                 buttons: buttons
                             }).attachSelect((oEvent) => that.fireChange(oEvent))
                         } else {
-                            // Checkbox
+                            appLogger.warn(
+                                `Invalid rendering combination found for ${this._valueType}.`,
+                                this.renderHints,
+                                this.valueHints
+                            )
                         }
                         break
                     case "SelectLike":
@@ -373,7 +400,11 @@ sap.ui.define(
                                 items: items
                             })
                         } else {
-                            // Switch
+                            appLogger.warn(
+                                `Invalid rendering combination found for ${this._valueType}.`,
+                                this.renderHints,
+                                this.valueHints
+                            )
                         }
                         break
                 }
@@ -501,14 +532,10 @@ sap.ui.define(
                         if (!value) return undefined
                         break
                 }
-                let valueType = this.object.valueType ? this.object.valueType : this.getValueType()
-                if (!valueType) {
-                    valueType = this.object.content.value["@type"]
-                }
                 const returnValue = {
                     "@type": "IdentityAttribute",
                     value: {
-                        "@type": valueType,
+                        "@type": this._valueType,
                         value: value
                     },
                     owner: runtime.currentAccount.address
