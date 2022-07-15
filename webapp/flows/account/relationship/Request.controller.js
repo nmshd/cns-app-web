@@ -19,7 +19,10 @@ sap.ui.define(
             },
 
             async refresh() {
-                if (!this.relationshipId) return
+                if (!this.relationshipId || !this.relationshipIdentityDVO) {
+                    App.error("Error while fetching relationship")
+                    return
+                }
 
                 let requestResult = await runtime.currentSession.consumptionServices.incomingRequests.getRequest({
                     id: this.requestId

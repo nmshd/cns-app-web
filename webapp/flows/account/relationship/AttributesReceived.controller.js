@@ -11,10 +11,13 @@ sap.ui.define(
             routeName: "account.relationship.attributesReceived",
 
             async refresh() {
-                if (!this.relationshipId) return
+                if (!this.relationshipId || !this.relationshipIdentityDVO) {
+                    App.error("Error while fetching relationship")
+                    return
+                }
 
                 const receivedItemsResult = await runtime.currentSession.consumptionServices.attributes.getAttributes({
-                    query: { shareInfo: { peer: this.identity.id, sourceAttribute: "!" } }
+                    query: { shareInfo: { peer: this.relationshipIdentityDVO.id, sourceAttribute: "!" } }
                 })
 
                 if (receivedItemsResult.isError) {

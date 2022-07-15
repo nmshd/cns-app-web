@@ -20,6 +20,11 @@ sap.ui.define(
             },
 
             async refresh() {
+                if (!this.relationshipId || !this.relationshipIdentityDVO) {
+                    App.error("Error while fetching relationship")
+                    return
+                }
+
                 this.byId("pullToRefresh").hide()
 
                 const messages = await App.MessageUtil.getMessagesByRelationship(this.relationshipId)

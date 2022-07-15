@@ -11,12 +11,15 @@ sap.ui.define(
             routeName: "account.relationship.requests",
 
             async refresh() {
-                if (!this.relationshipId) return
+                if (!this.relationshipId || !this.relationshipIdentityDVO) {
+                    App.error("Error while fetching relationship")
+                    return
+                }
 
                 const incomingRequestsResult =
                     await runtime.currentSession.consumptionServices.incomingRequests.getRequests({
                         query: {
-                            peer: this.identity.id
+                            peer: this.relationshipIdentityDVO.id
                         }
                     })
 
@@ -28,7 +31,7 @@ sap.ui.define(
                 const outgoingRequestsResult =
                     await runtime.currentSession.consumptionServices.outgoingRequests.getRequests({
                         query: {
-                            peer: this.identity.id
+                            peer: this.relationshipIdentityDVO.id
                         }
                     })
 
