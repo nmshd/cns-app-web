@@ -33,7 +33,8 @@ sap.ui.define(
                     }
                     App.prop("/redirect", null)
                     const accounts = await runtime.accountServices.getAccounts()
-                    const accountname = "Profil " + (accounts.length + 1)
+                    const accountname =
+                        this.resource("accounts.processRelationshipToken.profile") + (accounts.length + 1)
                     const oAccounts = await runtime.accountServices.createAccount(
                         NMSHDTransport.Realm.Prod,
                         accountname

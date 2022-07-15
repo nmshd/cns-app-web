@@ -1,12 +1,12 @@
 [
     {
-        "title": "Private Visitenkarte",
+        "title": "{t>relationshipTemplate.private.title}",
         "id": "vcard",
-        "description": "Die typische private Visitenkarte mit Name, privater Adresse und Kontaktdaten",
+        "description": "{t>relationshipTemplate.private.description}",
         "key": "share.template",
         "icon": "sap-icon://home",
         "template": {
-            "title": "Visitenkarte Privat",
+            "title": "{t>relationshipTemplate.private.template.title}",
             "attributes": [
                 { "attribute": "Thing.identifier" },
                 { "attribute": "Thing.name" },
@@ -25,21 +25,21 @@
                 "dataUse": [
                     {
                         "id": "private",
-                        "title": "Die Daten werden privat benutzt.",
-                        "duration": "Dauer der Beziehung"
+                        "title": "{t>relationshipTemplate.private.template.request.dataUse.title}",
+                        "duration": "{t>relationshipTemplate.private.template.request.dataUse.duration}"
                     }
                 ]
             }
         }
     },
     {
-        "title": "Professionelle Visitenkarte",
+        "title": "{t>relationshipTemplate.professional.title}",
         "id": "vcard-work",
-        "description": "Die typische professionelle Visitenkarte mit Name, geschäftlicher Adresse und Kontaktdaten",
+        "description": "{t>relationshipTemplate.professional.description}",
         "key": "share.template",
         "icon": "sap-icon://building",
         "template": {
-            "title": "Visitenkarte Arbeit",
+            "title": "{t>relationshipTemplate.professional.template.title}",
             "attributes": [
                 { "attribute": "Thing.identifier" },
                 { "attribute": "Thing.name" },
@@ -57,21 +57,21 @@
                 "dataUse": [
                     {
                         "id": "private",
-                        "title": "Die Daten werden privat benutzt.",
-                        "duration": "Dauer der Beziehung"
+                        "title": "{t>relationshipTemplate.professional.template.request.dataUse.title}",
+                        "duration": "{t>relationshipTemplate.professional.template.request.dataUse.duration}"
                     }
                 ]
             }
         }
     },
     {
-        "title": "Visitenkarte Freunde und Familie",
+        "title": "{t>relationshipTemplate.friends.title}",
         "id": "family",
-        "description": "Zusätzlich zur privaten Visitenkarte wird das Geburtsdatum übertragen.",
+        "description": "{t>relationshipTemplate.friends.description}",
         "key": "share.template",
         "icon": "sap-icon://family-protection",
         "template": {
-            "title": "Visitenkarte Freunde und Familie",
+            "title": "{t>relationshipTemplate.friends.template.title}",
             "attributes": [
                 { "attribute": "Thing.identifier" },
                 { "attribute": "Thing.name" },
@@ -91,8 +91,8 @@
                 "dataUse": [
                     {
                         "id": "private",
-                        "title": "Die Daten werden privat benutzt.",
-                        "duration": "Dauer der Beziehung"
+                        "title": "{t>relationshipTemplate.friends.template.request.dataUse.title}",
+                        "duration": "{t>relationshipTemplate.friends.template.request.dataUse.duration}"
                     }
                 ]
             }
