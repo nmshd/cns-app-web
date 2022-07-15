@@ -9,7 +9,8 @@
 	xmlns:form="sap.ui.layout.form"
 	xmlns:f="sap.f"
 	xmlns:controls="nmshd.app.core.controls"
-	xmlns:u="sap.ui.unified">
+	xmlns:u="sap.ui.unified"
+	xmlns:requests="nmshd.app.core.controls.requests">
 	<semantic:DetailPage id="page"
 		navButtonPress="onNavButtonPress"
 		showNavButton="true"
@@ -44,6 +45,11 @@
 						class="textSelectAll inlineText" />
 				</m:VBox>
 
+			</m:Panel>
+
+			<m:Panel headerText="Geteilte Attribute" visible="{=!!${/onNewRelationship} }">
+				<requests:RequestRenderer id="request" binding="{/onNewRelationship}" change="onChange">
+				</requests:RequestRenderer>
 			</m:Panel>
 
 		</semantic:content>

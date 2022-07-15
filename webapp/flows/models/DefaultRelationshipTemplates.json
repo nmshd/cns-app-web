@@ -6,59 +6,55 @@
         "key": "share.template",
         "icon": "sap-icon://home",
         "template": {
+            "@type": "RelationshipTemplateBody",
             "title": "{t>relationshipTemplate.private.template.title}",
-            "attributes": [
-                { "attribute": "Thing.identifier" },
-                { "attribute": "Thing.name" },
-                { "attribute": "Person.familyName" },
-                { "attribute": "Person.givenName" },
-                { "attribute": "Person.honorificSuffix" },
-                { "attribute": "Person.gender" },
-                { "attribute": "Address.private" },
-                { "attribute": "Comm.phone.private" },
-                { "attribute": "Comm.phone.mobile" },
-                { "attribute": "Comm.email.private" },
-                { "attribute": "Comm.fax.private" }
-            ],
-            "request": {
-                "required": [{ "attribute": "Person.givenName" }, { "attribute": "Person.familyName" }],
-                "dataUse": [
+            "onNewRelationship": {
+                "@type": "Request",
+                "items": [
                     {
-                        "id": "private",
-                        "title": "{t>relationshipTemplate.private.template.request.dataUse.title}",
-                        "duration": "{t>relationshipTemplate.private.template.request.dataUse.duration}"
-                    }
-                ]
-            }
-        }
-    },
-    {
-        "title": "{t>relationshipTemplate.professional.title}",
-        "id": "vcard-work",
-        "description": "{t>relationshipTemplate.professional.description}",
-        "key": "share.template",
-        "icon": "sap-icon://building",
-        "template": {
-            "title": "{t>relationshipTemplate.professional.template.title}",
-            "attributes": [
-                { "attribute": "Thing.identifier" },
-                { "attribute": "Thing.name" },
-                { "attribute": "Person.familyName" },
-                { "attribute": "Person.givenName" },
-                { "attribute": "Person.honorificSuffix" },
-                { "attribute": "Address.work" },
-                { "attribute": "Comm.phone.work" },
-                { "attribute": "Comm.phone.mobile" },
-                { "attribute": "Comm.email.work" },
-                { "attribute": "Comm.fax.work" }
-            ],
-            "request": {
-                "required": [{ "attribute": "Person.givenName" }, { "attribute": "Person.familyName" }],
-                "dataUse": [
+                        "@type": "RequestItemGroup",
+                        "mustBeAccepted": true,
+                        "title": "Attribute von mir",
+                        "items": [
+                            { "valueType": "DisplayName" },
+                            { "valueType": "GivenName" },
+                            { "valueType": "Surname" },
+                            { "valueType": "StreetAddress" },
+                            { "valueType": "EMailAddress" },
+                            { "valueType": "CommunicationLanguage" },
+                            { "valueType": "Phone" }
+                        ]
+                    },
                     {
-                        "id": "private",
-                        "title": "{t>relationshipTemplate.professional.template.request.dataUse.title}",
-                        "duration": "{t>relationshipTemplate.professional.template.request.dataUse.duration}"
+                        "@type": "RequestItemGroup",
+                        "mustBeAccepted": true,
+                        "title": "Attribute die ich von dir benötige",
+                        "items": [
+                            {
+                                "@type": "ReadAttributeRequestItem",
+                                "mustBeAccepted": true,
+                                "query": {
+                                    "@type": "IdentityAttributeQuery",
+                                    "valueType": "DisplayName"
+                                }
+                            },
+                            {
+                                "@type": "ReadAttributeRequestItem",
+                                "mustBeAccepted": true,
+                                "query": {
+                                    "@type": "IdentityAttributeQuery",
+                                    "valueType": "GivenName"
+                                }
+                            },
+                            {
+                                "@type": "ReadAttributeRequestItem",
+                                "mustBeAccepted": true,
+                                "query": {
+                                    "@type": "IdentityAttributeQuery",
+                                    "valueType": "Surname"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -66,33 +62,61 @@
     },
     {
         "title": "{t>relationshipTemplate.friends.title}",
-        "id": "family",
+        "id": "vcard-family",
         "description": "{t>relationshipTemplate.friends.description}",
         "key": "share.template",
         "icon": "sap-icon://family-protection",
         "template": {
+            "@type": "RelationshipTemplateBody",
             "title": "{t>relationshipTemplate.friends.template.title}",
-            "attributes": [
-                { "attribute": "Thing.identifier" },
-                { "attribute": "Thing.name" },
-                { "attribute": "Person.familyName" },
-                { "attribute": "Person.givenName" },
-                { "attribute": "Person.honorificSuffix" },
-                { "attribute": "Person.gender" },
-                { "attribute": "Person.birthDate" },
-                { "attribute": "Address.private" },
-                { "attribute": "Comm.phone.private" },
-                { "attribute": "Comm.phone.mobile" },
-                { "attribute": "Comm.email.private" },
-                { "attribute": "Comm.fax.private" }
-            ],
-            "request": {
-                "required": [{ "attribute": "Person.givenName" }, { "attribute": "Person.familyName" }],
-                "dataUse": [
+            "onNewRelationship": {
+                "@type": "Request",
+                "items": [
                     {
-                        "id": "private",
-                        "title": "{t>relationshipTemplate.friends.template.request.dataUse.title}",
-                        "duration": "{t>relationshipTemplate.friends.template.request.dataUse.duration}"
+                        "@type": "RequestItemGroup",
+                        "mustBeAccepted": true,
+                        "title": "Attribute von uns",
+                        "items": [
+                            { "valueType": "DisplayName" },
+                            { "valueType": "GivenName" },
+                            { "valueType": "Surname" },
+                            { "valueType": "StreetAddress" },
+                            { "valueType": "EMailAddress" },
+                            { "valueType": "CommunicationLanguage" },
+                            { "valueType": "Phone" },
+                            { "valueType": "BirthDate" }
+                        ]
+                    },
+                    {
+                        "@type": "RequestItemGroup",
+                        "mustBeAccepted": true,
+                        "title": "Attribute die ich von dir benötige",
+                        "items": [
+                            {
+                                "@type": "ReadAttributeRequestItem",
+                                "mustBeAccepted": true,
+                                "query": {
+                                    "@type": "IdentityAttributeQuery",
+                                    "valueType": "DisplayName"
+                                }
+                            },
+                            {
+                                "@type": "ReadAttributeRequestItem",
+                                "mustBeAccepted": true,
+                                "query": {
+                                    "@type": "IdentityAttributeQuery",
+                                    "valueType": "GivenName"
+                                }
+                            },
+                            {
+                                "@type": "ReadAttributeRequestItem",
+                                "mustBeAccepted": true,
+                                "query": {
+                                    "@type": "IdentityAttributeQuery",
+                                    "valueType": "Surname"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
