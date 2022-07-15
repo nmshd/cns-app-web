@@ -96,13 +96,13 @@ sap.ui.define(
                 const responseParams = {}
                 const editedValue = this.getEditedValue()
                 if (editedValue) {
-                    responseParams.newAttributeValue = editedValue
+                    responseParams.newAttribute = editedValue
                     return responseParams
                 }
 
                 const selectedAttribute = this.getSelectedAttribute()
                 if (selectedAttribute) {
-                    responseParams.attributeId = selectedAttribute.id
+                    responseParams.existingAttributeId = selectedAttribute.id
                     return responseParams
                 }
 
