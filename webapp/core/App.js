@@ -447,15 +447,6 @@ sap.ui.define(
                 if (content.substr(0, 11) === "nmshd://qr#") {
                     content = content.substr(11)
                 }
-                const tokenResult = await runtime.currentSession.transportServices.tokens.loadPeerToken({
-                    ephemeral: true,
-                    reference: content
-                })
-                if (!tokenResult.isSuccess) {
-                    return App.error(tokenResult.error)
-                }
-
-                const token = tokenResult.value
 
                 const templateResult =
                     await runtime.currentSession.transportServices.relationshipTemplates.loadPeerRelationshipTemplate({
