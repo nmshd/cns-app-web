@@ -1,7 +1,9 @@
-<mvc:View controllerName="nmshd.app.flows_desktop.app.App"
-	xmlns:mvc="sap.ui.core.mvc"
-	displayBlock="true"
-	xmlns="sap.m">
+<mvc:View
+    controllerName="nmshd.app.flows_desktop.app.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
 	<SplitApp id="appComponent">
 	</SplitApp>
 </mvc:View>

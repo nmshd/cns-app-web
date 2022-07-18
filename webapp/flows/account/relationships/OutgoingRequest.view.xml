@@ -1,17 +1,21 @@
-<mvc:View controllerName="nmshd.app.flows.account.relationships.OutgoingRequest"
-	xmlns:m="sap.m"
-	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:form="sap.ui.layout.form">
+<mvc:View
+    controllerName="nmshd.app.flows.account.relationships.OutgoingRequest"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+>
 
-	<semantic:DetailPage id="page"
-		navButtonPress="onNavButtonPress"
-		showNavButton="true"
-		title="{t>newRelationship.outgoingRequestTo} {name}"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="true"
+        title="{t>newRelationship.outgoingRequestTo} {name}"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 		<semantic:content>
 			<form:SimpleForm>
@@ -26,11 +30,13 @@
 		<semantic:customFooterContent>
 			<m:Toolbar>
 				<m:ToolbarSpacer />
-				<m:Button id="abortButton"
-					text="{t>newRelationship.revokeRelationship}"
-					press="onRevoke"
-					type="Reject"
-					icon="sap-icon://decline" />
+				<m:Button
+                    id="abortButton"
+                    text="{t>newRelationship.revokeRelationship}"
+                    press="onRevoke"
+                    type="Reject"
+                    icon="sap-icon://decline"
+                />
 			</m:Toolbar>
 		</semantic:customFooterContent>
 	</semantic:DetailPage>

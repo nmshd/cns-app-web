@@ -1,18 +1,22 @@
-<mvc:View controllerName="nmshd.app.flows.account.relationship.AttributesReceived"
-	xmlns:m="sap.m"
-	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:form="sap.ui.layout.form">
+<mvc:View
+    controllerName="nmshd.app.flows.account.relationship.AttributesReceived"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+>
 
-	<semantic:DetailPage id="page"
-		navButtonPress="onNavButtonPress"
-		showNavButton="{d>/system/phone}"
-		title="{t>relationship.received.attributes} {dvo>/name}"
-		showFooter="false"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="{d>/system/phone}"
+        title="{t>relationship.received.attributes} {dvo>/name}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 
 		<semantic:customHeaderContent>
@@ -20,12 +24,12 @@
 		</semantic:customHeaderContent>
 
 		<semantic:content>
-			<m:List id="receivedList"
-				headerText="{t>relationship.receivedData}"
-				items="{/items}">
+			<m:List id="receivedList" headerText="{t>relationship.receivedData}" items="{/items}">
 				<m:items>
-					<m:StandardListItem title="{path:'id'}"
-						description="{path:'value/@type', formatter:'.formatter.attributeName'} = {path:'value/value', formatter:'.formatter.attributeName'}" />
+					<m:StandardListItem
+                        title="{path:'id'}"
+                        description="{path:'value/@type', formatter:'.formatter.attributeName'} = {path:'value/value', formatter:'.formatter.attributeName'}"
+                    />
 				</m:items>
 
 			</m:List>

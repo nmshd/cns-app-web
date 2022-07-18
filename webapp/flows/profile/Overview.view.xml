@@ -1,31 +1,31 @@
-<mvc:View controllerName="nmshd.app.flows.profile.Overview"
-	xmlns:m="sap.m"
-	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:f="sap.ui.layout.form"
-	xmlns:l="sap.ui.layout"
-	xmlns:controls="nmshd.app.core.controls"
-	xmlns:attributeControls="nmshd.app.core.controls.attributes">
+<mvc:View
+    controllerName="nmshd.app.flows.profile.Overview"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:controls="nmshd.app.core.controls"
+    xmlns:attributeControls="nmshd.app.core.controls.attributes"
+>
 
-	<semantic:DetailPage id="page"
-		navButtonPress="onNavButtonPress"
-		title="{t>master.attribute}"
-		showFooter="false"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        title="{t>master.attribute}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 		<semantic:subHeader>
 		</semantic:subHeader>
 		<semantic:content>
-			<m:PullToRefresh id="pullToRefresh"
-				refresh="refresh"
-				visible="{=${d>/system/phone}}" />
+			<m:PullToRefresh id="pullToRefresh" refresh="refresh" visible="{=${d>/system/phone}}" />
 
 
-			<m:Panel headerText="{t>attribute.Person.person}"
-				id="personAttributes"
-				visible="{v>/isPerson}">
+			<m:Panel headerText="{t>attribute.Person.person}" id="personAttributes" visible="{v>/isPerson}">
 				<m:headerToolbar>
 					<m:Toolbar height="3rem">
 						<m:Title text="{t>attribute.Person.person}" />
@@ -40,22 +40,24 @@
 
 				<f:Form editable="false">
 					<f:layout>
-						<f:ResponsiveGridLayout labelSpanXL="4"
-							labelSpanL="4"
-							labelSpanM="6"
-							labelSpanS="6"
-							adjustLabelSpan="false"
-							emptySpanXL="0"
-							emptySpanL="0"
-							emptySpanM="0"
-							emptySpanS="0"
-							columnsXL="3"
-							columnsL="2"
-							columnsM="2"
-							singleContainerFullSize="false" />
+						<f:ResponsiveGridLayout
+                            labelSpanXL="4"
+                            labelSpanL="4"
+                            labelSpanM="6"
+                            labelSpanS="6"
+                            adjustLabelSpan="false"
+                            emptySpanXL="0"
+                            emptySpanL="0"
+                            emptySpanM="0"
+                            emptySpanS="0"
+                            columnsXL="3"
+                            columnsL="2"
+                            columnsM="2"
+                            singleContainerFullSize="false"
+                        />
 					</f:layout>
 					<f:formContainers>
-						<f:FormContainer >
+						<f:FormContainer>
 							<f:formElements>
 								<f:FormElement label="{t>attribute.Person.givenName}">
 									<f:fields>
@@ -118,15 +120,12 @@
 				</f:Form>
 			</m:Panel>
 
-			<m:Panel headerText="{t>attribute.moreAttributes}"
-				class="sapUiNoContentPadding">
+			<m:Panel headerText="{t>attribute.moreAttributes}" class="sapUiNoContentPadding">
 				<m:headerToolbar>
 					<m:Toolbar height="3rem">
 						<m:Title text="{t>attribute.moreAttributes}" />
 						<m:ToolbarSpacer />
-						<m:Button text="{t>attribute.newAttribute}"
-							press="onNewAttribute"
-							icon="sap-icon://add" />
+						<m:Button text="{t>attribute.newAttribute}" press="onNewAttribute" icon="sap-icon://add" />
 					</m:Toolbar>
 				</m:headerToolbar>
 				<m:List items="{/items}">
@@ -136,31 +135,20 @@
 				</m:List>
 			</m:Panel>
 
-			<m:Panel headerText="{t>files}"
-				class="sapUiNoContentPadding">
+			<m:Panel headerText="{t>files}" class="sapUiNoContentPadding">
 				<m:headerToolbar>
 					<m:Toolbar height="3rem">
 						<m:Title text="{t>files}" />
 						<m:ToolbarSpacer />
-						<m:Button text="{t>files.new}"
-							id="uploadFile"
-							press="toUpload"
-							icon="sap-icon://add" />
+						<m:Button text="{t>files.new}" id="uploadFile" press="toUpload" icon="sap-icon://add" />
 					</m:Toolbar>
 				</m:headerToolbar>
-				<m:List id="list"
-					items="{files>/items}"
-					noDataText="{t>files.noDataText}"
-					itemPress="onFileItemPress">
+				<m:List id="list" items="{files>/items}" noDataText="{t>files.noDataText}" itemPress="onFileItemPress">
 					<m:items>
-						<m:ObjectListItem title="{files>title}"
-							type="Navigation"
-							icon="{files>icon}">
+						<m:ObjectListItem title="{files>title}" type="Navigation" icon="{files>icon}">
 							<m:attributes>
 								<m:ObjectAttribute text="{path:'files>createdAt',formatter:'.formatter.toRelativeDate'}" />
-								<m:ObjectAttribute text="{t>files.view}"
-									active="true"
-									press="openFile" />
+								<m:ObjectAttribute text="{t>files.view}" active="true" press="openFile" />
 							</m:attributes>
 						</m:ObjectListItem>
 					</m:items>
