@@ -1,49 +1,54 @@
-<mvc:View controllerName="nmshd.app.flows.account.relationship.Inbox"
-	xmlns:m="sap.m"
-	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:form="sap.ui.layout.form"
-	xmlns:l="sap.ui.layout"
-	xmlns:controls="nmshd.app.core.controls">
+<mvc:View
+    controllerName="nmshd.app.flows.account.relationship.Inbox"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:controls="nmshd.app.core.controls"
+>
 
-	<semantic:DetailPage id="page"
-		navButtonPress="onNavButtonPress"
-		showNavButton="{d>/system/phone}"
-		title="{t>inbox.title}"
-		showFooter="false"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="{d>/system/phone}"
+        title="{t>inbox.title}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 
 		<semantic:customHeaderContent>
-			<m:Button text="{= ${d>/system/phone} ? '' : ${t>inbox.refresh}}"
-				icon="sap-icon://refresh"
-				visible="{= !${d>/system/phone}}"
-				press="refresh" />
-			<m:Button text="{= ${d>/system/phone} ? '' : ${t>inbox.newMessage}}"
-				icon="sap-icon://add"
-				press="toNewMessage" />
+			<m:Button
+                text="{= ${d>/system/phone} ? '' : ${t>inbox.refresh}}"
+                icon="sap-icon://refresh"
+                visible="{= !${d>/system/phone}}"
+                press="refresh"
+            />
+			<m:Button text="{= ${d>/system/phone} ? '' : ${t>inbox.newMessage}}" icon="sap-icon://add" press="toNewMessage" />
 		</semantic:customHeaderContent>
 
 		<semantic:content>
-			<m:PullToRefresh id="pullToRefresh"
-				refresh="refresh"
-				visible="{=${d>/system/phone}}" />
+			<m:PullToRefresh id="pullToRefresh" refresh="refresh" visible="{=${d>/system/phone}}" />
 
 			<l:VerticalLayout width="100%">
-				<m:List id="messageList"
-					noDataText="{t>relationship.inbox.messages.noDataText}"
-					items="{path:'/items', sorter: { path: 'createdAt', group: false, descending: true}}">
+				<m:List
+                    id="messageList"
+                    noDataText="{t>relationship.inbox.messages.noDataText}"
+                    items="{path:'/items', sorter: { path: 'createdAt', group: false, descending: true}}"
+                >
 					<m:items>
 
-						<controls:MessageRenderer type="Navigation"
-							subject="{path:'name', formatter:'.formatter.toTranslated'}"
-							time="{path:'createdAt',formatter:'.formatter.toRelativeDate'}"
-							press="openMessage">
-							<m:FormattedText htmlText="{body}"
-								class="sapUiTinyMarginTopBottom" visible="{=!!${body}}" />
+						<controls:MessageRenderer
+                            type="Navigation"
+                            subject="{path:'name', formatter:'.formatter.toTranslated'}"
+                            time="{path:'createdAt',formatter:'.formatter.toRelativeDate'}"
+                            press="openMessage"
+                        >
+							<m:FormattedText htmlText="{body}" class="sapUiTinyMarginTopBottom" visible="{=!!${body}}" />
 						</controls:MessageRenderer>
 					</m:items>
 				</m:List>

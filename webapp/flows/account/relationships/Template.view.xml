@@ -1,41 +1,48 @@
-<mvc:View controllerName="nmshd.app.flows.account.relationships.Template"
-	xmlns:m="sap.m"
-	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:f="sap.ui.layout.form"
-	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-	xmlns:requests="nmshd.app.core.controls.requests">
+<mvc:View
+    controllerName="nmshd.app.flows.account.relationships.Template"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:requests="nmshd.app.core.controls.requests"
+>
 
-	<semantic:DetailPage id="page"
-		navButtonPress="onNavButtonPress"
-		showNavButton="true"
-		title="{t>newRelationship.newRelationship}"
-		showFooter="true"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="true"
+        title="{t>newRelationship.newRelationship}"
+        showFooter="true"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 		<semantic:content>
-			<m:MessageStrip id="message"
-				class="sapUiTinyMargin" visible="false" />
+			<m:MessageStrip id="message" class="sapUiTinyMargin" visible="false" />
 			<requests:RequestRenderer id="request" binding="{/onNewRelationship}" change="onChange">
 			</requests:RequestRenderer>
 		</semantic:content>
 		<semantic:customFooterContent>
 			<m:Toolbar>
 				<m:ToolbarSpacer />
-				<m:Button id="acceptButton"
-					text="{t>newRelationship.acceptRelationship}"
-					press="onNewLink"
-					type="Emphasized"
-					icon="sap-icon://accept"
-					enabled="{v>/submitEnabled}" />
-				<m:Button id="abortButton"
-					text="{t>newRelationship.abortRelationship}"
-					press="onAbort"
-					type="Reject"
-					icon="sap-icon://decline" />
+				<m:Button
+                    id="acceptButton"
+                    text="{t>newRelationship.acceptRelationship}"
+                    press="onNewLink"
+                    type="Emphasized"
+                    icon="sap-icon://accept"
+                    enabled="{v>/submitEnabled}"
+                />
+				<m:Button
+                    id="abortButton"
+                    text="{t>newRelationship.abortRelationship}"
+                    press="onAbort"
+                    type="Reject"
+                    icon="sap-icon://decline"
+                />
 			</m:Toolbar>
 		</semantic:customFooterContent>
 	</semantic:DetailPage>

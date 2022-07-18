@@ -1,31 +1,36 @@
-<core:FragmentDefinition xmlns:m="sap.m"
+<core:FragmentDefinition
+    xmlns:m="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:controls="nmshd.app.core.controls"
     xmlns:form="sap.ui.layout.form"
-    xmlns:f="sap.ui.layout.form">
+    xmlns:f="sap.ui.layout.form"
+>
     <m:CustomListItem>
         <m:VBox class="sapUiSmallMargin">
             <m:Title text="{path:'name',formatter:'.formatter.toTranslated'}" />
             <m:List items="{path:'changes',templateShareable:false}">
-                <m:CustomListItem >
-                    <m:VBox visible="{=!!${oldAttribute/bestMatch}}"
-                        class="sapUiTinyMarginBottom">
-                        <m:Text text="{parts:[{path:'t>messages.attributeChange.overwrite1'}, {path: 'oldAttribute/bestMatch/value'}, {path: 'newAttribute/name'}, {path: 'newAttribute/value'}], formatter:'jQuery.sap.formatMessage'}" />
-                        <m:Text text="{parts:[{path:'t>messages.attributeChange.overwrite2'}, {path: 'newAttribute/name'}, {path: 'newAttribute/value'}], formatter:'jQuery.sap.formatMessage'}" />
+                <m:CustomListItem>
+                    <m:VBox visible="{=!!${oldAttribute/bestMatch}}" class="sapUiTinyMarginBottom">
+                        <m:Text
+                            text="{parts:[{path:'t>messages.attributeChange.overwrite1'}, {path: 'oldAttribute/bestMatch/value'}, {path: 'newAttribute/name'}, {path: 'newAttribute/value'}], formatter:'jQuery.sap.formatMessage'}"
+                        />
+                        <m:Text
+                            text="{parts:[{path:'t>messages.attributeChange.overwrite2'}, {path: 'newAttribute/name'}, {path: 'newAttribute/value'}], formatter:'jQuery.sap.formatMessage'}"
+                        />
                     </m:VBox>
-                    <m:VBox visible="{=!${oldAttribute/bestMatch}}"
-                        class="sapUiTinyMarginBottom">
+                    <m:VBox visible="{=!${oldAttribute/bestMatch}}" class="sapUiTinyMarginBottom">
                         <m:Text text="{t>messages.attributeChange.newAttribute}" />
                     </m:VBox>
                 </m:CustomListItem>
             </m:List>
-            <m:HBox justifyContent="End"
-                class="sapUiTinyMarginTop">
-                <m:Button text="{t>messages.attributeChange.button}"
+            <m:HBox justifyContent="End" class="sapUiTinyMarginTop">
+                <m:Button
+                    text="{t>messages.attributeChange.button}"
                     icon="sap-icon://save"
                     enabled="{=!${processed}}"
                     type="Accept"
-                    press=".acceptRequest" />
+                    press=".acceptRequest"
+                />
             </m:HBox>
         </m:VBox>
     </m:CustomListItem>

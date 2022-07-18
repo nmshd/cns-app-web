@@ -1,20 +1,22 @@
-<mvc:View controllerName="nmshd.app.flows.accounts.Scan"
+<mvc:View
+    controllerName="nmshd.app.flows.accounts.Scan"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
-    displayBlock="true">
-    <semantic:DetailPage id="page"
+    displayBlock="true"
+>
+    <semantic:DetailPage
+        id="page"
         navButtonPress="onNavButtonPress"
         showNavButton="true"
         title="{t>scan.qr}"
         showFooter="false"
         busy="{v>/busy}"
-        busyIndicatorDelay="{v>/delay}">
+        busyIndicatorDelay="{v>/delay}"
+    >
 
         <semantic:content>
-            <VBox alignItems="Center"
-                justifyContent="Center"
-                height="100%">
+            <VBox alignItems="Center" justifyContent="Center" height="100%">
 
             </VBox>
         </semantic:content>

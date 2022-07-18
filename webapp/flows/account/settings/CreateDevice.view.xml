@@ -1,22 +1,26 @@
-<mvc:View controllerName="nmshd.app.flows.account.settings.CreateDevice"
-	xmlns:m="sap.m"
-	xmlns:layout="sap.ui.layout"
-	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:form="sap.ui.layout.form"
-	xmlns:tnt="sap.tnt"
-	xmlns="sap.uxap"
-	xmlns:l="sap.ui.layout"
-	xmlns:u="sap.ui.unified">
-	<semantic:DetailPage id="page"
-		navButtonPress="onNavButtonPress"
-		showNavButton="true"
-		title="{t>settings.createDevice.title}"
-		showFooter="false"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+<mvc:View
+    controllerName="nmshd.app.flows.account.settings.CreateDevice"
+    xmlns:m="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"
+    xmlns="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified"
+>
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="true"
+        title="{t>settings.createDevice.title}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 
 		<semantic:customHeaderContent>
@@ -24,40 +28,35 @@
 		</semantic:customHeaderContent>
 
 		<semantic:content>
-			<m:MessageStrip text="{t>settings.createDevice.warning}"
-				type="Warning"
-				showIcon="true"
-				class="sapUiSmallMargin" />
+			<m:MessageStrip text="{t>settings.createDevice.warning}" type="Warning" showIcon="true" class="sapUiSmallMargin" />
 
 
 			<form:SimpleForm editable="true">
 				<m:Label text="{t>settings.createDevice.name}" />
-				<m:Input enabled="true"
-					id="name"
-					value="{/name}" />
+				<m:Input enabled="true" id="name" value="{/name}" />
 				<m:Label text="{t>settings.createDevice.description}" />
-				<m:Input enabled="true"
-					id="description"
-					value="{/description}" />
+				<m:Input enabled="true" id="description" value="{/description}" />
 
 				<m:Label text="{t>settings.createDevice.deviceAuthorization}" />
-				<m:CheckBox id="isAdmin"
-					enabled="false"
-					selected="true"
-					text="{t>settings.createDevice.deviceAuthorizationDescription}" />
+				<m:CheckBox
+                    id="isAdmin"
+                    enabled="false"
+                    selected="true"
+                    text="{t>settings.createDevice.deviceAuthorizationDescription}"
+                />
 
 
 			</form:SimpleForm>
-			<m:HBox alignItems="Center"
-				renderType="Bare"
-				class="sapUiSmallMargin sapUiMediumMarginBottom">
+			<m:HBox alignItems="Center" renderType="Bare" class="sapUiSmallMargin sapUiMediumMarginBottom">
 				<m:ToolbarSpacer />
 
-				<m:Button text="{t>settings.createDevice.button}"
-					enabled="{v>/submitAvailable}"
-					icon="sap-icon://accept"
-					type="Emphasized"
-					press="onCreateDevice" />
+				<m:Button
+                    text="{t>settings.createDevice.button}"
+                    enabled="{v>/submitAvailable}"
+                    icon="sap-icon://accept"
+                    type="Emphasized"
+                    press="onCreateDevice"
+                />
 
 			</m:HBox>
 		</semantic:content>

@@ -1,22 +1,26 @@
-<mvc:View controllerName="nmshd.app.flows.account.Settings"
-	xmlns:m="sap.m"
-	xmlns:layout="sap.ui.layout"
-	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:form="sap.ui.layout.form"
-	xmlns:tnt="sap.tnt"
-	xmlns="sap.uxap"
-	xmlns:l="sap.ui.layout"
-	xmlns:u="sap.ui.unified">
-	<semantic:DetailPage id="page"
-		navButtonPress="onNavButtonPress"
-		showNavButton="{d>/system/phone}"
-		title="{t>settings.profileFor} {v>/accountName}"
-		showFooter="false"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+<mvc:View
+    controllerName="nmshd.app.flows.account.Settings"
+    xmlns:m="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"
+    xmlns="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified"
+>
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="{d>/system/phone}"
+        title="{t>settings.profileFor} {v>/accountName}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 
 		<semantic:customHeaderContent>
@@ -27,16 +31,11 @@
 
 			<form:SimpleForm editable="true">
 				<m:Label text="{t>settings.address}" />
-				<m:Input editable="false"
-					value="{v>/address}" />
+				<m:Input editable="false" value="{v>/address}" />
 				<m:Label text="{t>attribute.Thing.name}" />
 				<m:HBox>
-					<m:Input id="accountName"
-						value="{v>/accountName}" />
-					<m:Button text="{t>settings.rename}"
-						id="rename"
-						press="storeAccountName"
-						class="sapUiTinyMarginBegin" />
+					<m:Input id="accountName" value="{v>/accountName}" />
+					<m:Button text="{t>settings.rename}" id="rename" press="storeAccountName" class="sapUiTinyMarginBegin" />
 				</m:HBox>
 
 
@@ -45,21 +44,15 @@
 			
 
 
-			<m:List items="{v>/devices}"
-				headerText="{t>settings.devices.header}"
-				itemPress="onDevicePress"
-				class="sapUiNoMargin">
+			<m:List items="{v>/devices}" headerText="{t>settings.devices.header}" itemPress="onDevicePress" class="sapUiNoMargin">
 				<m:headerToolbar>
 					<m:OverflowToolbar>
 						<m:Title text="{t>settings.devices.title}" />
 						<m:ToolbarSpacer />
-						<m:Button icon="sap-icon://add"
-							text="{t>settings.devices.button}"
-							press="onCreateDevice" />
+						<m:Button icon="sap-icon://add" text="{t>settings.devices.button}" press="onCreateDevice" />
 					</m:OverflowToolbar>
 				</m:headerToolbar>
-				<m:StandardListItem title="{v>name}"
-					type="Navigation" />
+				<m:StandardListItem title="{v>name}" type="Navigation" />
 			</m:List>
 		</semantic:content>
 	</semantic:DetailPage>
