@@ -86,6 +86,14 @@
 							<m:Text text="{parts:[{path:'t>relationship.home.navigation.receivedDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}" />
 						</m:VBox>
 					</m:CustomListItem>
+					<m:CustomListItem type="Navigation"
+						class="listBox"
+						press="onRequests">
+						<m:VBox class="sapUiSmallMarginTopBottom">
+							<m:Title text="{t>relationship.home.navigation.requests}" />
+							<m:Text text="{parts:[{path:'t>relationship.home.navigation.requestsDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}" />
+						</m:VBox>
+					</m:CustomListItem>
 				</m:List>
 			</l:VerticalLayout>
 

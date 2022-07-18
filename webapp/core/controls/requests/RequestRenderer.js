@@ -32,7 +32,7 @@ sap.ui.define(
                             factory: (sId, oContext) => {
                                 const item = oContext.getObject()
                                 let renderer
-                                if (item["@type"] === "RequestItemGroup") {
+                                if (item.type === "RequestItemGroupDVO") {
                                     renderer = new RequestItemGroupRenderer({
                                         group: { path: oContext.getPath() }
                                     }).attachChange((oEvent) => that.fireChange(oEvent))

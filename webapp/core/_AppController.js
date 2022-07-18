@@ -92,7 +92,7 @@ sap.ui.define(
             /**
              * Navigates to the given target with given object's properties
              *
-             * @param target The target route name
+             * @param routeName The target route name
              * @param object The parameter object for the given route
              * @param phoneTarget Whether or not another route target should be shown if running on a phone.
              * This is sometimes required if you want to override UI5 standard behavior and e.g. show the master

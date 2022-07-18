@@ -11,7 +11,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 return
             }
 
-            const relationshipResult = await runtime.appServices.relationships.getRelationship({
+            const relationshipResult = await runtime.currentSession.appServices.relationships.getRelationship({
                 id: id
             })
             if (relationshipResult.isError) {
@@ -41,7 +41,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 return
             }
 
-            const relationshipResult = await runtime.appServices.relationships.getRelationshipByAddress({
+            const relationshipResult = await runtime.currentSession.appServices.relationships.getRelationshipByAddress({
                 address: address
             })
             if (relationshipResult.isError) {
@@ -63,13 +63,13 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
         },
 
         async getRelationships() {
-            const syncResult = await runtime.transportServices.account.syncEverything()
+            const syncResult = await runtime.currentSession.transportServices.account.syncEverything()
             if (syncResult.isError) {
                 App.error(syncResult.error)
                 return
             }
 
-            const relationshipsResult = await runtime.appServices.relationships.getRelationships({})
+            const relationshipsResult = await runtime.currentSession.appServices.relationships.getRelationships({})
             if (relationshipsResult.isError) {
                 App.error(relationshipsResult.error)
                 return
@@ -106,10 +106,11 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 return
             }
 
-            const acceptResult = await runtime.appServices.relationships.acceptRelationshipCreationChange(
-                relationshipId,
-                content
-            )
+            const acceptResult =
+                await runtime.currentSession.appServices.relationships.acceptRelationshipCreationChange(
+                    relationshipId,
+                    content
+                )
             if (acceptResult.isError) {
                 App.error(acceptResult.error)
                 return
@@ -138,10 +139,11 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 return
             }
 
-            const acceptResult = await runtime.appServices.relationships.rejectRelationshipCreationChange(
-                relationshipId,
-                content
-            )
+            const acceptResult =
+                await runtime.currentSession.appServices.relationships.rejectRelationshipCreationChange(
+                    relationshipId,
+                    content
+                )
             if (acceptResult.isError) {
                 App.error(acceptResult.error)
                 return
@@ -170,10 +172,11 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 return
             }
 
-            const revokeResult = await runtime.appServices.relationships.revokeRelationshipCreationChange(
-                relationshipId,
-                content
-            )
+            const revokeResult =
+                await runtime.currentSession.appServices.relationships.revokeRelationshipCreationChange(
+                    relationshipId,
+                    content
+                )
             if (revokeResult.isError) {
                 App.error(revokeResult.error)
                 return

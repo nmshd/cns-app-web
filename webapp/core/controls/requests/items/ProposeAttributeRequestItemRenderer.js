@@ -11,12 +11,13 @@ sap.ui.define(
     (Control, Text, Label, Button, Select, ValueRenderer, Formatter) => {
         "use strict"
 
-        return Control.extend("nmshd.app.core.controls.requests.items.ReadAttributeRequestItemRenderer", {
+        return Control.extend("nmshd.app.core.controls.requests.items.ProposeAttributeRequestItemRenderer", {
             metadata: {
                 aggregations: {
                     _label: { type: "sap.m.Label", multiple: false, visibility: "hidden" },
                     _editControl: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" },
-                    _text: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" },
+                    _text: { type: "sap.m.Text", multiple: false, visibility: "hidden" },
+                    _proposedAttribute: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" },
                     _button: { type: "sap.m.Button", multiple: false, visibility: "hidden" }
                 },
                 properties: {
@@ -33,8 +34,8 @@ sap.ui.define(
                 const that = this
                 this.setAggregation(
                     "_label",
-                    new Label({ text: { path: "name", formatter: Formatter.toTranslated, enabled: "{isDecidable}" } })
-                        .addStyleClass("readAttributeRequestItemRendererLabel")
+                    new Label({ text: { path: "name", formatter: Formatter.toTranslated } })
+                        .addStyleClass("proposeAttributeRequestItemRendererLabel")
                         .bindElement("query")
                 )
 
@@ -42,29 +43,35 @@ sap.ui.define(
                     "_button",
                     new Button({
                         text: "Ändern",
-                        visible: "{= ${results/length} > 0 && ${item>/isDecidable}}",
+                        visible: "{item>/isDecidable}",
                         enabled: "{item>/isDecidable}"
                     })
-                        .addStyleClass("readAttributeRequestItemRendererButton")
+
+                        .addStyleClass("proposeAttributeRequestItemRendererButton")
                         .bindElement("query")
                 )
-
                 this.setAggregation(
                     "_editControl",
                     new ValueRenderer({
-                        visible: "{= (${results} === undefined || ${results/length} === 0) && ${item>/isDecidable}}",
-                        editable: "{item>/isDecidable}"
+                        visible: false // "{= ${results/length} === 0}"
                     })
                         .attachChange((oEvent) => that.fireChange(oEvent))
-                        .addStyleClass("readAttributeRequestItemRendererEditControl")
+                        .addStyleClass("proposeAttributeRequestItemRendererEditControl")
                         .bindElement("query")
                 )
                 this.setAggregation(
+                    "_proposedAttribute",
+                    new ValueRenderer()
+                        .addStyleClass("proposeAttributeRequestItemRendererProposedAttribute")
+                        .bindElement("attribute")
+                )
+                this.setAggregation(
                     "_text",
-                    new ValueRenderer({
-                        visible: "{= ${results/length} > 0}"
+                    new Text({
+                        text: "{results/0/value/value}",
+                        visible: false
                     })
-                        .addStyleClass("readAttributeRequestItemRendererFoundAttribute")
+                        .addStyleClass("proposeAttributeRequestItemRendererFoundAttribute")
                         .bindElement("query")
                 )
             },
@@ -83,6 +90,17 @@ sap.ui.define(
                 return editControl.getEditedValue()
             },
 
+            getProposedValue() {
+                const proposedAttribute = this.getAggregation("_proposedAttribute")
+                if (!proposedAttribute) return undefined
+                if (!proposedAttribute.getVisible()) return undefined
+                const attribute = proposedAttribute.getBindingContext().getObject()
+                if (attribute) {
+                    return attribute.content
+                }
+                return undefined
+            },
+
             getContext() {
                 const context = {}
                 const editedValue = this.getEditedValue()
@@ -96,17 +114,17 @@ sap.ui.define(
                 const responseParams = {}
                 const editedValue = this.getEditedValue()
                 if (editedValue) {
-                    responseParams.newAttribute = editedValue
+                    responseParams.value = editedValue
                     return responseParams
                 }
 
                 const selectedAttribute = this.getSelectedAttribute()
                 if (selectedAttribute) {
-                    responseParams.existingAttributeId = selectedAttribute.id
-                    return responseParams
+                    responseParams.attributeId = selectedAttribute.id
+                } else {
+                    responseParams.attribute = this.getProposedValue()
                 }
-
-                return undefined
+                return responseParams
             },
 
             renderer(oRM, oControl) {
@@ -129,6 +147,11 @@ sap.ui.define(
                 const editControl = oControl.getAggregation("_editControl")
                 if (editControl) {
                     oRM.renderControl(editControl)
+                }
+
+                const proposedAttribute = oControl.getAggregation("_proposedAttribute")
+                if (proposedAttribute) {
+                    oRM.renderControl(proposedAttribute)
                 }
 
                 const buttonControl = oControl.getAggregation("_button")

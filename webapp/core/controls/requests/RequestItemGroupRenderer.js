@@ -49,6 +49,7 @@ sap.ui.define(
                     new CheckBox({
                         text: "",
                         editable: "{=!${mustBeAccepted}}",
+                        visible: "{= ${isDecidable}}",
                         selected: "{mustBeAccepted}"
                     }).attachSelect((oEvent) => that.fireChange(oEvent))
                 )

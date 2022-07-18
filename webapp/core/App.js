@@ -1,10 +1,10 @@
 /**
  * @typedef { import('@nmshd/runtime').RelationshipDVO} RelationshipDVO
  * @typedef { import('@nmshd/runtime').RelationshipChangeDTO} RelationshipChangeDTO
+ * @typedef { import('@nmshd/runtime').RelationshipTemplateDTO} RelationshipTemplateDTO
  * @typedef { import('@nmshd/runtime').RelationshipTemplateDVO} RelationshipTemplateDVO
  * @typedef { import('@nmshd/runtime').MessageDVO} MessageDVO
  * @typedef { import('@nmshd/runtime').MailDVO} MailDVO
- * @typedef { import('@nmshd/runtime').RequestMailDVO} RequestMailDVO
  * @typedef { import('@nmshd/runtime').IdentityDVO} IdentityDVO
  * @typedef { import('@nmshd/runtime').TokenDTO} TokenDTO
  * @typedef { import('@nmshd/app-runtime').LocalAccountDTO} LocalAccountDTO
@@ -447,26 +447,25 @@ sap.ui.define(
                 if (content.substr(0, 11) === "nmshd://qr#") {
                     content = content.substr(11)
                 }
-                const token = await this.account(accountId).tokens.loadPeerTokenByTruncated(content)
-                appLogger.trace("Token", token)
 
-                if (token.cache.content) {
-                    const template = await this.account(accountId).relationshipTemplates.loadPeerRelationshipTemplate(
-                        token.cache.content.templateId,
-                        token.cache.content.secretKey
-                    )
+                const templateResult =
+                    await runtime.currentSession.transportServices.relationshipTemplates.loadPeerRelationshipTemplate({
+                        reference: content
+                    })
+                if (!templateResult.isSuccess) {
+                    return App.error(templateResult.error)
+                }
 
-                    try {
-                        await App.navAndReplaceHistory(-1, [
-                            "account.template",
-                            {
-                                accountId: accountId,
-                                relationshipId: template.id.toString()
-                            }
-                        ])
-                    } catch (e) {
-                        appLogger.log("Navigation is already in progress", e)
-                    }
+                try {
+                    await App.navAndReplaceHistory(-1, [
+                        "account.template",
+                        {
+                            accountId: accountId,
+                            relationshipId: templateResult.value.id
+                        }
+                    ])
+                } catch (e) {
+                    appLogger.log("Navigation is already in progress", e)
                 }
             },
 

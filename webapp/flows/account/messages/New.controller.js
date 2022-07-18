@@ -149,7 +149,7 @@ sap.ui.define(
                 try {
                     const peer = App.relationship(this.relationshipId).id
                     const sentMessageResult = await this.load(
-                        runtime.transportServices.messages.sendMessage({
+                        runtime.currentSession.transportServices.messages.sendMessage({
                             content: {
                                 "@type": "Mail",
                                 to: [peer],

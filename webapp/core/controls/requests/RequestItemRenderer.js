@@ -3,9 +3,20 @@ sap.ui.define(
         "sap/m/ListItemBase",
         "sap/m/CheckBox",
         "sap/m/Text",
-        "nmshd/app/core/controls/requests/items/ReadAttributeRequestItemRenderer"
+        "nmshd/app/core/controls/requests/items/ReadAttributeRequestItemRenderer",
+        "nmshd/app/core/controls/requests/items/CreateAttributeRequestItemRenderer",
+        "nmshd/app/core/controls/requests/items/ProposeAttributeRequestItemRenderer",
+        "sap/ui/model/json/JSONModel"
     ],
-    (ListItemBase, CheckBox, Text, ReadAttributeRequestItemRenderer) => {
+    (
+        ListItemBase,
+        CheckBox,
+        Text,
+        ReadAttributeRequestItemRenderer,
+        CreateAttributeRequestItemRenderer,
+        ProposeAttributeRequestItemRenderer,
+        JSONModel
+    ) => {
         "use strict"
 
         return ListItemBase.extend("nmshd.app.core.controls.requests.RequestItemRenderer", {
@@ -34,16 +45,25 @@ sap.ui.define(
 
             init(e) {
                 const that = this
+                const model = new JSONModel({
+                    isChecked: false
+                })
+                this.model = model
+                this.setModel(model, "requestItemRenderer")
                 this.setAggregation(
                     "_checkbox",
                     new CheckBox({
                         text: "",
                         editable: "{=!${mustBeAccepted}}",
-                        selected: "{mustBeAccepted}"
-                    }).attachSelect((oEvent) => that.fireChange(oEvent))
+                        visible: "{= ${isDecidable}}",
+                        selected: "{= ${mustBeAccepted} || ${requestItemRenderer>/isChecked}}"
+                    })
+                        .attachSelect((oEvent) => that.fireChange(oEvent))
+                        .setModel(model, "requestItemRenderer")
                 )
                 this.setAggregation("_title", new Text({ text: "{title}", visible: "{=!!${title}}" }))
                 this.setAggregation("_description", new Text({ text: "{description}", visible: "{=!!${description}}" }))
+                this.updateInternalControl()
             },
 
             getSelected() {
@@ -58,7 +78,13 @@ sap.ui.define(
                     return { accept: false }
                 }
                 const accept = this.getSelected()
+                if (!accept) {
+                    return { accept: false }
+                }
                 const params = control.getResponseParams()
+                if (!params) {
+                    return { accept: false }
+                }
                 return { accept: accept, ...params }
             },
 
@@ -72,24 +98,56 @@ sap.ui.define(
                 return context
             },
 
+            updateCheckbox(oEvent) {
+                const control = this.getAggregation("_control")
+                const checkbox = this.getAggregation("_checkbox")
+                const value = control.getEditedValue()
+                const item = this.getItem()
+                if (value || (item && item.mustBeAccepted)) {
+                    this.model.setProperty("/isChecked", true)
+                } else {
+                    this.model.setProperty("/isChecked", false)
+                }
+            },
+
             updateInternalControl() {
                 const that = this
                 // TODO: Make this update smart, e.g. we do not need to create the control new
                 // if we have the same value, valuetype or control class
                 const item = this.getItem()
                 let control
-                switch (item["@type"]) {
-                    case "ReadAttributeRequestItem":
-                        control = new ReadAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange((oEvent) =>
+                switch (item.type) {
+                    case "ReadAttributeRequestItemDVO":
+                    case "DecidableReadAttributeRequestItemDVO":
+                        control = new ReadAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange((oEvent) => {
+                            that.updateCheckbox(oEvent)
                             that.fireChange(oEvent)
+                        })
+                        break
+                    case "CreateAttributeRequestItemDVO":
+                    case "DecidableCreateAttributeRequestItemDVO":
+                        control = new CreateAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
+                            (oEvent) => {
+                                that.updateCheckbox(oEvent)
+                                that.fireChange(oEvent)
+                            }
                         )
                         break
-                    default:
-                        control = new Text({ text: "{value}" })
+                    case "ProposeAttributeRequestItemDVO":
+                    case "DecidableProposeAttributeRequestItemDVO":
+                        control = new ProposeAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
+                            (oEvent) => {
+                                that.updateCheckbox(oEvent)
+                                that.fireChange(oEvent)
+                            }
+                        )
                         break
                 }
+                if (!control) return
+                control.setModel(new JSONModel(item), "item")
 
                 this.setAggregation("_control", control)
+                this.updateCheckbox()
             },
 
             setItem(value) {

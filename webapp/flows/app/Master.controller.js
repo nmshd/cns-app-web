@@ -9,7 +9,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
 
         tapIncrease() {
             this.taps++
-            console.log("Taps", this.taps)
             if (this.taps > 5) {
                 this.navTo("app.debug")
             }

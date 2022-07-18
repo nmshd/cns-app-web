@@ -39,7 +39,7 @@
 }
 
 .sap-phone :not(.sapMBtnDisabled) .sapMBtnBack > .sapMBtnIcon,
-.sap-phone :not(.sapMBtnDisabled) .sapMBtnTransparent > .sapMBtnIcon,
+.sap-phone .sapMHeader :not(.sapMBtnDisabled) .sapMBtnTransparent > .sapMBtnIcon,
 .sap-phone :not(.sapMBtnDisabled) .sapMBtnGhost > .sapMBtnIcon {
     color: #ffffff;
 }

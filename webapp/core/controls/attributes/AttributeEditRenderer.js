@@ -1,6 +1,6 @@
 sap.ui.define(
-    ["sap/m/ListItemBase", "sap/m/Label", "nmshd/app/core/controls/attributes/ValueEditRenderer"],
-    (ListItemBase, Label, ValueEditRenderer) => {
+    ["sap/m/ListItemBase", "sap/m/Label", "nmshd/app/core/controls/attributes/ValueRenderer"],
+    (ListItemBase, Label, ValueRenderer) => {
         "use strict"
 
         return ListItemBase.extend("nmshd.app.core.controls.attributes.AttributeEditRenderer", {
@@ -17,7 +17,7 @@ sap.ui.define(
 
             init(e) {
                 this.setAggregation("_label", new Label({ text: "{name}" }))
-                this.setAggregation("_editControl", new ValueEditRenderer({ value: "{value}" }))
+                this.setAggregation("_editControl", new ValueRenderer({ value: "{value}" }))
             },
 
             renderer(oRM, oControl) {
