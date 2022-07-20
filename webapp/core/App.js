@@ -447,8 +447,6 @@ sap.ui.define(
                 const prefix = content.substr(0, 11)
                 if (prefix === "nmshd://qr#" || prefix === "nmshd://tr#") {
                     content = content.substr(11)
-                } else {
-                    return App.error("It seems you've scanned a QR-Code which is not Enmeshed compatible.")
                 }
 
                 const templateResult =
