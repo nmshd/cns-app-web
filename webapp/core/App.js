@@ -444,8 +444,11 @@ sap.ui.define(
             async parseQR(content, accountId) {
                 content = content.trim()
                 appLogger.trace("QR Code", content)
-                if (content.substr(0, 11) === "nmshd://qr#") {
+                const prefix = content.substr(0, 11)
+                if (prefix === "nmshd://qr#" || prefix === "nmshd://tr#") {
                     content = content.substr(11)
+                } else {
+                    return App.error("It seems you've scanned a QR-Code which is not Enmeshed compatible.")
                 }
 
                 const templateResult =
@@ -473,41 +476,39 @@ sap.ui.define(
                 try {
                     truncatedReference = truncatedReference.trim()
                     appLogger.trace("QR Code", truncatedReference)
-                    if (truncatedReference.substr(0, 11) === "nmshd://qr#") {
+                    const prefix = truncatedReference.substr(0, 11)
+                    if (prefix === "nmshd://qr#" || prefix === "nmshd://tr#") {
                         truncatedReference = truncatedReference.substr(11)
+                    } else {
+                        return App.error("It seems you've scanned a QR-Code which is not Enmeshed compatible.")
                     }
                     const tokenResult = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference({
                         reference: truncatedReference
                     })
                     if (!tokenResult || tokenResult.isError || !tokenResult.value) {
-                    } else {
-                        const tokenDTO = tokenResult.value
-                        const content = tokenDTO.content
+                        return App.error(tokenResult.error)
+                    }
+                    const tokenDTO = tokenResult.value
+                    const content = tokenDTO.content
 
-                        switch (content["@type"]) {
-                            default:
-                                App.navTo("accounts.select", "accounts.onboardwrongcode", {}, {})
-                                break
-                            case "TokenContentDeviceSharedSecret":
-                                App.navTo(
-                                    "accounts.select",
-                                    "accounts.processdevicetoken",
-                                    {},
-                                    { token: tokenDTO, sharedSecret: content.sharedSecret }
-                                )
-                                break
-                            case "recovery":
-                                App.navTo("accounts.select", "accounts.processrecoverytoken", {}, {})
-                                break
-                            case "TokenContentRelationshipTemplate":
-                                App.navTo(
-                                    "accounts.select",
-                                    "accounts.processrelationshiptoken",
-                                    {},
-                                    { token: tokenDTO }
-                                )
-                                break
-                        }
+                    switch (content["@type"]) {
+                        default:
+                            App.navTo("accounts.select", "accounts.onboardwrongcode", {}, {})
+                            break
+                        case "TokenContentDeviceSharedSecret":
+                            App.navTo(
+                                "accounts.select",
+                                "accounts.processdevicetoken",
+                                {},
+                                { token: tokenDTO, sharedSecret: content.sharedSecret }
+                            )
+                            break
+                        case "recovery":
+                            App.navTo("accounts.select", "accounts.processrecoverytoken", {}, {})
+                            break
+                        case "TokenContentRelationshipTemplate":
+                            App.navTo("accounts.select", "accounts.processrelationshiptoken", {}, { token: tokenDTO })
+                            break
                     }
                 } catch (e) {
                     appLogger.error(e)
