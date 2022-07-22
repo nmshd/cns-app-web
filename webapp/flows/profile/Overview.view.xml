@@ -109,7 +109,7 @@
 										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/Nationality}" />
 									</f:fields>
 								</f:FormElement>
-								<f:FormElement label="{t>attribute.Person.communicationLanguage}">
+								<f:FormElement label="{t>dvo.attribute.name.CommunicationLanguage}">
 									<f:fields>
 										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/CommunicationLanguage}" />
 									</f:fields>
