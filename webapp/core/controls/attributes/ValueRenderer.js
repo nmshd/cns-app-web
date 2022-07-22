@@ -439,13 +439,13 @@ sap.ui.define(
                 let translationNamespace = ""
                 switch (this.renderHints.dataType) {
                     case "Sex":
-                        translationNamespace = "i18n://attributes.values.Sex."
+                        translationNamespace = "i18n://attributes.values.sex."
                         break
                     case "Country":
-                        translationNamespace = "i18n://attributes.values.Country."
+                        translationNamespace = "i18n://attributes.values.countries."
                         break
                     case "Language":
-                        translationNamespace = "i18n://attributes.values.Language."
+                        translationNamespace = "i18n://attributes.values.languages."
                         break
                 }
 
