@@ -167,7 +167,8 @@ sap.ui.define(
                                     template: new ListItem({
                                         key: "{key}",
                                         text: { path: "displayName", formatter: Formatter.toTranslated }
-                                    })
+                                    }),
+                                    length: 300
                                 }
                             }).attachChange((oEvent) => that.fireChange(oEvent))
                         } else {
@@ -440,7 +441,7 @@ sap.ui.define(
                     case "Sex":
                         translationNamespace = "i18n://attributes.values.sex."
                         break
-                    case "Nationality":
+                    case "Country":
                         translationNamespace = "i18n://attributes.values.countries."
                         break
                     case "Language":
