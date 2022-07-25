@@ -477,9 +477,8 @@ sap.ui.define(
                     const prefix = truncatedReference.substr(0, 11)
                     if (prefix === "nmshd://qr#" || prefix === "nmshd://tr#") {
                         truncatedReference = truncatedReference.substr(11)
-                    } else {
-                        return App.error("It seems you've scanned a QR-Code which is not Enmeshed compatible.")
                     }
+
                     const tokenResult = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference({
                         reference: truncatedReference
                     })
