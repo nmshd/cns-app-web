@@ -185,19 +185,6 @@ sap.ui.define(
 
                     if (identity.relationship.status === "Active") {
                         try {
-                            if (template.content && template.content.ifRelationshipExists) {
-                                if (template.content.ifRelationshipExists.action === "message") {
-                                    const content = template.content.ifRelationshipExists.content
-                                    if (content) {
-                                        await this.load(
-                                            this.account().messages.sendMessage({
-                                                recipients: [template.createdBy],
-                                                content: content
-                                            })
-                                        )
-                                    }
-                                }
-                            }
                             App.navTo("account.relationships", "account.relationship.home", {
                                 accountId: this.accountId,
                                 relationshipId: identity.relationship.id
