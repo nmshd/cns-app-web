@@ -158,13 +158,62 @@ sap.ui.define(
                 this.viewProp("/submitEnabled", false)
                 this.viewProp("/requestRunning", false)
 
-                if (this.template) {
+                const templateIsValid = await this.checkTemplate()
+                if (templateIsValid) {
                     this.refreshWithData(this.template.getData())
-                } else {
+                    await this.checkCanAccept()
+                }
+            },
+
+            async checkTemplate() {
+                if (!this.template || !this.template.getData()) {
                     sap.ui.getCore().getEventBus().publish("template", "error", { message: "Keine Daten verfügbar." })
                     this.navBack("account.relationships")
+                    return false
                 }
-                await this.checkCanAccept()
+                const template = this.template.getData()
+                if (runtime.currentAccount.id === template.createdBy) {
+                    this.setMessage(this.resource("relationships.template.selfRelationshipError"), "Error")
+                    this.viewProp("/error", true)
+                    return false
+                }
+                const relationshipModel = await App.RelationshipUtil.getRelationshipByAddress(template.createdBy.id)
+                this.relationshipIdentityDVO = relationshipModel.getData()
+
+                if (relationshipModel) {
+                    const identity = relationshipModel.getData()
+
+                    if (identity.relationship.status === "Active") {
+                        try {
+                            App.navTo("account.relationships", "account.relationship.home", {
+                                accountId: this.accountId,
+                                relationshipId: identity.relationship.id
+                            })
+                        } catch (e) {
+                            this.setMessage(this.resource("relationships.template.unavailableError"), "Error")
+                            this.viewProp("/error", true)
+                        }
+                        return false
+                    } else if (
+                        identity.relationship.status === "Pending" &&
+                        identity.relationship.direction === "Outgoing"
+                    ) {
+                        App.navTo("account.relationships", "account.outgoingrequest", {
+                            accountId: this.accountId,
+                            relationshipId: identity.relationship.id
+                        })
+                        return false
+                    } else if (
+                        identity.relationship.status === "Pending" &&
+                        identity.relationship.direction === "Incoming"
+                    ) {
+                        App.navTo("account.relationships", "account.incomingrequest", {
+                            accountId: this.accountId,
+                            relationshipId: identity.relationship.id
+                        })
+                        return false
+                    }
+                }
             },
 
             refreshWithData(data) {
@@ -187,30 +236,11 @@ sap.ui.define(
                     const acceptResult = await runtime.currentSession.consumptionServices.incomingRequests.accept(
                         responseParams
                     )
+                    if (acceptResult.isError) return App.error(acceptResult.error)
 
-                    if (acceptResult.isSuccess) {
-                        App.navTo("account.home", "account.relationships", {
-                            accountId: this.accountId
-                        })
-                    } else {
-                        console.error("Cannot Accept", acceptResult.error)
-                    }
-
-                    // TODO: Remove this once it is clear, how to get the template's identity from the connector
-                    // shareData["identity"] = App.account(this.accountId).identity.identity.toJSON()
-
-                    /*
-                    const relationshipResult =
-                        await runtime.currentSession.appServices.relationships.createRelationship({
-                            templateId: this.relationship.getProperty("/id"),
-                            content: shareData
-                        })
-                    if (relationshipResult.isError) {
-                        App.error(relationshipResult.error)
-                        this.viewProp("/requestRunning", false)
-                        return
-                    }
-                    */
+                    App.navTo("account.home", "account.relationships", {
+                        accountId: this.accountId
+                    })
                 } catch (e) {
                     App.error(e)
                 } finally {
