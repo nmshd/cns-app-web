@@ -55,8 +55,9 @@ sap.ui.define(
                     this.byId("pullToRefresh").hide()
                 }
                 this.setMessage()
-                const attributeResult = await runtime.currentSession.consumptionServices.attributes.getValidAttributes({
-                    query: { shareInfo: { peer: "!" }, content: { owner: runtime.currentAccount.address } }
+                const attributeResult = await runtime.currentSession.consumptionServices.attributes.getAttributes({
+                    onlyValid: true,
+                    query: { "shareInfo.peer": "!", "content.owner": runtime.currentAccount.address }
                 })
                 if (attributeResult.isError) {
                     App.error(attributeResult.error)

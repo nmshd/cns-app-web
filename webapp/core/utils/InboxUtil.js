@@ -29,6 +29,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                     requests.push(await runtime.currentSession.expander.expandLocalRequestDTO(request))
                 }
 
+                // @ts-ignore
                 const model = new JSONModel({ items: requests.concat(messages) })
                 return model
             } catch (e) {
@@ -71,6 +72,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                     requests.push(await runtime.currentSession.expander.expandLocalRequestDTO(request))
                 }
 
+                // @ts-ignore
                 const model = new JSONModel({ items: requests.concat(messages) })
                 return model
             } catch (e) {
