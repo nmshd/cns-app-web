@@ -43,15 +43,10 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 }
                 */
 
-            const ownIdentity = await runtime.currentSession.transportServices.account.getIdentityInfo()
-            if (ownIdentity.isError) {
-                App.error(ownIdentity.error)
-                return
-            }
-
             const messagesResult = await runtime.currentSession.transportServices.messages.getMessages({
                 query: {
-                    "recipients.address": ownIdentity.value.address
+                    "recipients.address": runtime.currentAccount.address,
+                    "content.@type": "Mail"
                 }
             })
             if (messagesResult.isError) {
