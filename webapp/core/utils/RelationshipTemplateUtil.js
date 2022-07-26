@@ -28,10 +28,13 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 const model = new JSONModel(templateDVO)
                 return model
             } catch (e) {
-                App.error({
-                    code: "error.app.jsonModel",
-                    message: "Error while creating JSONMOdel."
-                })
+                App.error(
+                    {
+                        code: "error.app.jsonModel",
+                        message: "Error while creating JSONMOdel."
+                    },
+                    e
+                )
                 return
             }
         },
@@ -53,10 +56,13 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 const model = new JSONModel({ items: relationshipTemplatesResult.value })
                 return model
             } catch (e) {
-                App.error({
-                    code: "error.app.jsonModel",
-                    message: "Error while creating JSONMOdel."
-                })
+                App.error(
+                    {
+                        code: "error.app.jsonModel",
+                        message: "Error while creating JSONMOdel."
+                    },
+                    e
+                )
                 return
             }
         }

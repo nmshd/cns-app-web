@@ -20,6 +20,7 @@ sap.ui.define(
         "nmshd/app/core/utils/RelationshipUtil",
         "nmshd/app/core/utils/RelationshipTemplateUtil",
         "nmshd/app/core/utils/MessageUtil",
+        "nmshd/app/core/utils/InboxUtil",
         "nmshd/app/core/utils/FileUtil",
         "sap/base/security/URLWhitelist",
         "nmshd/app/core/UIBridge"
@@ -33,6 +34,7 @@ sap.ui.define(
         RelationshipUtil,
         RelationshipTemplateUtil,
         MessageUtil,
+        InboxUtil,
         FileUtil,
         URLWhitelist,
         UIBridge
@@ -356,8 +358,9 @@ sap.ui.define(
                 }
             },
 
-            error(error) {
+            error(error, rootCause) {
                 if (error) {
+                    if (rootCause) appLogger.error(rootCause)
                     appLogger.error(error)
                     this.navTo("accounts.select", "app.error", {
                         "?query": { code: error.code }
@@ -368,8 +371,9 @@ sap.ui.define(
                 }
             },
 
-            fatal(error) {
+            fatal(error, rootCause) {
                 if (error) {
+                    if (rootCause) appLogger.error(rootCause)
                     appLogger.error("FATAL", error)
                     this.navTo("app.master", "app.fatal", {
                         "?query": { code: error.code }
@@ -682,6 +686,7 @@ sap.ui.define(
                 this.RelationshipUtil = new RelationshipUtil(this)
                 this.RelationshipTemplateUtil = new RelationshipTemplateUtil(this)
                 this.MessageUtil = new MessageUtil(this)
+                this.InboxUtil = new InboxUtil(this)
                 this.FileUtil = new FileUtil(this)
 
                 appLogger.trace("Transport initialized")
