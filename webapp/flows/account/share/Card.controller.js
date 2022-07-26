@@ -53,7 +53,7 @@ sap.ui.define(
                 const shareValueTypes = shareData.onNewRelationship.items[0].items
 
                 const attributeResult = await runtime.currentSession.consumptionServices.attributes.getAttributes({
-                    query: { shareInfo: { peer: "!" }, owner: runtime.currentAccount.address }
+                    query: { "shareInfo.peer": "!", "content.owner": runtime.currentAccount.address }
                 })
                 if (attributeResult.isError) {
                     App.error(attributeResult.error)
