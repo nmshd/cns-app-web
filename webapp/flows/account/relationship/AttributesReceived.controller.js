@@ -16,9 +16,10 @@ sap.ui.define(
                     return
                 }
 
-                const receivedItemsResult = await runtime.currentSession.consumptionServices.attributes.getAttributes({
-                    query: { shareInfo: { peer: this.relationshipIdentityDVO.id, sourceAttribute: "!" } }
-                })
+                const receivedItemsResult =
+                    await runtime.currentSession.consumptionServices.attributes.getPeerAttributes({
+                        peer: this.relationshipIdentityDVO.id
+                    })
 
                 if (receivedItemsResult.isError) {
                     App.error(receivedItemsResult.error)
