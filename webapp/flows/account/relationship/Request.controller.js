@@ -136,7 +136,7 @@ sap.ui.define(
                 }
             },
 
-            async onAccept() {
+            async onAcceptRequest() {
                 this.viewProp("/acceptEnabled", false)
                 this.viewProp("/rejectEnabled", false)
                 this.viewProp("/requestRunning", true)
