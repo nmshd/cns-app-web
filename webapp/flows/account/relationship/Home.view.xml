@@ -53,7 +53,7 @@
                             type="Navigation"
                             subject="{path:'name', formatter:'.formatter.toTranslated'}"
                             time="{path:'createdAt',formatter:'.formatter.toRelativeDate'}"
-                            press="openMessage"
+                            press="openItem"
                         >
 							<m:FormattedText htmlText="{body}" class="sapUiTinyMarginTopBottom" visible="{=!!${body}}" />
 						</controls:MessageRenderer>

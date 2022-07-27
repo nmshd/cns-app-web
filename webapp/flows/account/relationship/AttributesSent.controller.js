@@ -16,12 +16,10 @@ sap.ui.define(
                     return
                 }
 
-                const sentItemsResult = await runtime.currentSession.consumptionServices.attributes.getAttributes({
-                    query: {
-                        shareInfo: { peer: this.relationshipIdentityDVO.id },
-                        content: { owner: runtime.currentAccount.address }
-                    }
-                })
+                const sentItemsResult =
+                    await runtime.currentSession.consumptionServices.attributes.getSharedToPeerAttributes({
+                        peer: this.relationshipIdentityDVO.id
+                    })
 
                 if (sentItemsResult.isError) {
                     App.error(sentItemsResult.error)

@@ -44,6 +44,11 @@ declare global {
         App: any
         QRCode: any
         appLogger: _tsLogger.ILogger
+        navigator: Navigator
+    }
+
+    interface Navigator {
+        splashscreen: any
     }
 
     interface JQueryStatic {

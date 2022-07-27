@@ -35,9 +35,9 @@ sap.ui.define(
             async refresh() {
                 this.byId("pullToRefresh").hide()
 
-                const messages = await App.MessageUtil.getReceivedMessages()
-                if (!messages) return
-                this.setModel(messages)
+                const items = await App.InboxUtil.getInbox()
+                if (!items) return
+                this.setModel(items)
             },
 
             onScan() {
@@ -59,25 +59,42 @@ sap.ui.define(
                     time: Formatter.toRelativeDate(message.createdAt),
                     icon: "sap-icon://log"
                 }).attachPress(this.onItemPress.bind(this))
-                renderer.addContent(new FormattedText({ htmlText: message.body }))
+                if (message.body) {
+                    renderer.addContent(new FormattedText({ htmlText: message.body }))
+                }
 
                 return renderer
             },
 
             onItemPress(oEvent) {
                 const oItem = oEvent.getParameter("listItem") || oEvent.getSource()
-                const oProperty = oItem.getBindingContext().getProperty()
+                const item = oItem.getBindingContext().getProperty()
 
-                if (oProperty.isOwn) {
-                    this.navTo("account.relationship.message", {
-                        relationshipId: oProperty.recipients[0].relationship.id,
-                        messageId: oProperty.id
-                    })
-                } else {
-                    this.navTo("account.relationship.message", {
-                        relationshipId: oProperty.createdBy.relationship.id,
-                        messageId: oProperty.id
-                    })
+                if (item.id) {
+                    const prefix = item.id.substr(0, 3)
+                    switch (prefix) {
+                        case "id1":
+                            break
+                        case "MSG":
+                            if (item.isOwn) {
+                                this.navTo("account.relationship.message", {
+                                    relationshipId: item.recipients[0].relationship.id,
+                                    messageId: item.id
+                                })
+                            } else {
+                                this.navTo("account.relationship.message", {
+                                    relationshipId: item.createdBy.relationship.id,
+                                    messageId: item.id
+                                })
+                            }
+                            break
+                        case "REQ":
+                            this.navTo("account.relationship.request", {
+                                relationshipId: item.createdBy.relationship.id,
+                                requestId: item.id
+                            })
+                            break
+                    }
                 }
             }
         })

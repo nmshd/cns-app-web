@@ -23,10 +23,13 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 const model = new JSONModel(message)
                 return model
             } catch (e) {
-                App.error({
-                    code: "error.app.jsonModel",
-                    message: "Error while creating JSONMOdel."
-                })
+                App.error(
+                    {
+                        code: "error.app.jsonModel",
+                        message: "Error while creating JSONMOdel."
+                    },
+                    e
+                )
                 return
             }
         },
@@ -40,15 +43,10 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 }
                 */
 
-            const ownIdentity = await runtime.currentSession.transportServices.account.getIdentityInfo()
-            if (ownIdentity.isError) {
-                App.error(ownIdentity.error)
-                return
-            }
-
             const messagesResult = await runtime.currentSession.transportServices.messages.getMessages({
                 query: {
-                    "recipients.address": ownIdentity.value.address
+                    "recipients.address": runtime.currentAccount.address,
+                    "content.@type": "Mail"
                 }
             })
             if (messagesResult.isError) {
@@ -60,10 +58,13 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 const model = new JSONModel({ items: messages })
                 return model
             } catch (e) {
-                App.error({
-                    code: "error.app.jsonModel",
-                    message: "Error while creating JSONMOdel."
-                })
+                App.error(
+                    {
+                        code: "error.app.jsonModel",
+                        message: "Error while creating JSONMOdel."
+                    },
+                    e
+                )
                 return
             }
         },
@@ -79,7 +80,8 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
 
             const messagesResult = await runtime.currentSession.transportServices.messages.getMessages({
                 query: {
-                    relationshipIds: relationshipId
+                    relationshipIds: relationshipId,
+                    "content.@type": "Mail"
                 }
             })
             if (messagesResult.isError) {
@@ -91,10 +93,13 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 const model = new JSONModel({ items: messages })
                 return model
             } catch (e) {
-                App.error({
-                    code: "error.app.jsonModel",
-                    message: "Error while creating JSONMOdel."
-                })
+                App.error(
+                    {
+                        code: "error.app.jsonModel",
+                        message: "Error while creating JSONMOdel."
+                    },
+                    e
+                )
                 return
             }
         }
