@@ -460,6 +460,7 @@ sap.ui.define(
                         text: {
                             parts: [{ path: "valueType" }, { path: binding }],
                             formatter: (valueType, value) => {
+                                if (!value) return ""
                                 return Formatter.toTranslated(`${translationNamespace}${value}`)
                             }
                         }
