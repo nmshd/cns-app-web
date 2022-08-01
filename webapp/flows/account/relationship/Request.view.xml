@@ -42,7 +42,7 @@
 				<m:Text text="{path:'createdAt',formatter:'.formatter.toAbsoluteDate'}" />
 			</form:SimpleForm>
 
-			<requests:RequestRenderer id="request" binding="{}" change="onChange">
+			<requests:RequestRenderer id="request" binding="{}" change="onChange" class="sapUiSmallMargin">
 			</requests:RequestRenderer>
 
 		</semantic:content>
