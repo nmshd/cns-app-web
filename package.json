@@ -1,6 +1,6 @@
 {
     "name": "@nmshd/app-web",
-    "version": "2.0.0-beta.3",
+    "version": "2.0.0-beta.4",
     "description": "The web sources for the Enmeshed App",
     "repository": "github:nmshd/cns-app-web",
     "license": "MIT",
@@ -21,7 +21,7 @@
         "@js-soft/native-cordova": "1.2.1",
         "@js-soft/native-electron": "1.2.1",
         "@js-soft/native-web": "1.2.1",
-        "@nmshd/app-runtime": "2.0.0-beta.6",
+        "@nmshd/app-runtime": "2.0.0-beta.7",
         "bson": "^4.6.5",
         "pako": "^2.0.4"
     },

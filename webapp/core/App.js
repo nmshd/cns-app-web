@@ -758,8 +758,9 @@ sap.ui.define(
                 Event.publish("App", "ready")
 
                 // Apply language stored in config
-                if (bootstrapper.nativeConfigAccess.config.language) {
-                    sap.ui.getCore().getConfiguration().setLanguage(bootstrapper.nativeConfigAccess.config.language)
+                const language = bootstrapper.nativeEnvironment.configAccess.get("language")
+                if (language.isSuccess && language.value) {
+                    sap.ui.getCore().getConfiguration().setLanguage(language.value)
                 }
 
                 runtime.registerUIBridge(UIBridge)
