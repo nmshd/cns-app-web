@@ -56,7 +56,7 @@ sap.ui.define(
                                     secretKey: this.templatetoken.secretKey
                                 }
                             )
-                        if (!templateResult || templateResult.isError || !templateResult.value) {
+                        if (templateResult.isError) {
                             App.error(templateResult.error)
                         } else {
                             this.template = templateResult.value

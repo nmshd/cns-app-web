@@ -486,9 +486,10 @@ sap.ui.define(
                     const tokenResult = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference({
                         reference: truncatedReference
                     })
-                    if (!tokenResult || tokenResult.isError || !tokenResult.value) {
+                    if (tokenResult.isError) {
                         return App.error(tokenResult.error)
                     }
+
                     const tokenDTO = tokenResult.value
                     const content = tokenDTO.content
 
