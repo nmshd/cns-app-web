@@ -200,10 +200,10 @@ sap.ui.define(
 
                 if (this.createViewModel && typeof this.createViewModel === "function") {
                     let viewModel = this.createViewModel()
-                    if (viewModel instanceof Model) {
-                    } else {
+                    if (!(viewModel instanceof Model)) {
                         viewModel = new JSONModel(viewModel)
                     }
+
                     viewModel.setDefaultBindingMode("OneWay")
                     viewModel.setProperty("/route", route)
                     this.setModel(viewModel, "v")
@@ -217,10 +217,10 @@ sap.ui.define(
             resetItemModel() {
                 if (this.createItemModel && typeof this.createItemModel === "function") {
                     let itemModel = this.createItemModel()
-                    if (itemModel instanceof Model) {
-                    } else {
+                    if (!(itemModel instanceof Model)) {
                         itemModel = new JSONModel(itemModel)
                     }
+
                     this.setModel(itemModel)
                 } else {
                     this.setModel(new JSONModel({}))

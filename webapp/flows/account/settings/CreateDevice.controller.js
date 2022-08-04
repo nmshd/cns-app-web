@@ -28,8 +28,7 @@ sap.ui.define(
                     isAdmin: isAdmin
                 })
                 await runtime.currentSession.transportServices.account.syncDatawallet()
-                if (!createdDeviceResult || createdDeviceResult.isError || !createdDeviceResult.value) {
-                } else {
+                if (createdDeviceResult.isSuccess) {
                     await App.navAndReplaceHistory(-1, [
                         "account.settings.device",
                         {
