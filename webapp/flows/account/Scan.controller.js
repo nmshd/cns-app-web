@@ -34,7 +34,7 @@ sap.ui.define(
                 }
 
                 try {
-                    await this.load(App.parseQR(scanResult.value, this.accountId))
+                    await this.load(this.handleQRContent(scanResult.value))
                 } catch (e) {
                     this.addError({
                         sUserFriendlyMsg: this.resource("scanController.retryError")
@@ -42,6 +42,54 @@ sap.ui.define(
                     // QR Code parsing errors might occur
                     appLogger.error(e)
                     this.refresh()
+                }
+            },
+
+            async handleQRContent(truncatedReference) {
+                truncatedReference = truncatedReference.trim()
+                appLogger.trace("QR Code", truncatedReference)
+
+                const prefix = truncatedReference.substr(0, 11)
+                if (prefix === "nmshd://qr#" || prefix === "nmshd://tr#") {
+                    truncatedReference = truncatedReference.substr(11)
+                }
+
+                const result = await runtime.currentSession.transportServices.account.loadItemFromTruncatedReference({
+                    reference: truncatedReference
+                })
+                if (result.isError) return App.error(result.error)
+
+                switch (result.value.type) {
+                    case "File":
+                        this.navTo("account.files.detail", { id: result.value.value.id })
+                        break
+                    case "RelationshipTemplate":
+                        await this.handleRelationshipTemplate(result.value.value)
+                        break
+                    case "Token":
+                    case "DeviceOnboardingInfo":
+                        // error (this cant be handled while logged in)
+                        this.addError({
+                            sUserFriendlyMsg: this.resource("scanController.retryError")
+                        })
+                        break
+                }
+            },
+
+            /**
+             * @param {RelationshipTemplateDTO} relationshipTemplateDTO
+             */
+            async handleRelationshipTemplate(relationshipTemplateDTO) {
+                try {
+                    await App.navAndReplaceHistory(-1, [
+                        "account.template",
+                        {
+                            accountId: this.accountId,
+                            relationshipId: relationshipTemplateDTO.id
+                        }
+                    ])
+                } catch (e) {
+                    appLogger.log("Navigation is already in progress", e)
                 }
             },
 
