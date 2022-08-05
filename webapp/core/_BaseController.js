@@ -561,16 +561,7 @@ sap.ui.define(
              */
             load(promise) {
                 this.loadInc()
-                const that = this
-                return promise
-                    .then((value) => {
-                        that.loadDec()
-                        return value
-                    })
-                    .catch((e) => {
-                        that.loadDec()
-                        throw e
-                    })
+                return promise.finally(() => this.loadDec())
             },
 
             /**
