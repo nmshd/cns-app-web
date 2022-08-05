@@ -91,7 +91,7 @@ sap.ui.define(
                 this.viewProp("/submitAvailable", false)
                 App.navTo("account.home", "account.template", {
                     accountId: this.accountId,
-                    relationshipId: this.template.id
+                    templateId: this.template.id
                 })
             },
 
