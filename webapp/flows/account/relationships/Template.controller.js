@@ -177,42 +177,42 @@ sap.ui.define(
                     this.viewProp("/error", true)
                     return false
                 }
+
                 const relationshipModel = await App.RelationshipUtil.getRelationshipByAddress(template.createdBy.id)
-                this.relationshipIdentityDVO = relationshipModel.getData()
+                if (!relationshipModel) return
 
-                if (relationshipModel) {
-                    const identity = relationshipModel.getData()
+                const identity = relationshipModel.getData()
+                this.relationshipIdentityDVO = identity
 
-                    if (identity.relationship.status === "Active") {
-                        try {
-                            App.navTo("account.relationships", "account.relationship.home", {
-                                accountId: this.accountId,
-                                relationshipId: identity.relationship.id
-                            })
-                        } catch (e) {
-                            this.setMessage(this.resource("relationships.template.unavailableError"), "Error")
-                            this.viewProp("/error", true)
-                        }
-                        return false
-                    } else if (
-                        identity.relationship.status === "Pending" &&
-                        identity.relationship.direction === "Outgoing"
-                    ) {
-                        App.navTo("account.relationships", "account.outgoingrequest", {
+                if (identity.relationship.status === "Active") {
+                    try {
+                        App.navTo("account.relationships", "account.relationship.home", {
                             accountId: this.accountId,
                             relationshipId: identity.relationship.id
                         })
-                        return false
-                    } else if (
-                        identity.relationship.status === "Pending" &&
-                        identity.relationship.direction === "Incoming"
-                    ) {
-                        App.navTo("account.relationships", "account.incomingrequest", {
-                            accountId: this.accountId,
-                            relationshipId: identity.relationship.id
-                        })
-                        return false
+                    } catch (e) {
+                        this.setMessage(this.resource("relationships.template.unavailableError"), "Error")
+                        this.viewProp("/error", true)
                     }
+                    return false
+                } else if (
+                    identity.relationship.status === "Pending" &&
+                    identity.relationship.direction === "Outgoing"
+                ) {
+                    App.navTo("account.relationships", "account.outgoingrequest", {
+                        accountId: this.accountId,
+                        relationshipId: identity.relationship.id
+                    })
+                    return false
+                } else if (
+                    identity.relationship.status === "Pending" &&
+                    identity.relationship.direction === "Incoming"
+                ) {
+                    App.navTo("account.relationships", "account.incomingrequest", {
+                        accountId: this.accountId,
+                        relationshipId: identity.relationship.id
+                    })
+                    return false
                 }
             },
 
