@@ -80,7 +80,7 @@ sap.ui.define(
                 this.clear()
                 await this.super("onRouteMatched", oEvent, true)
 
-                this.templateId = this.viewProp("/route/relationshipId")
+                this.templateId = this.viewProp("/route/templateId")
                 const template = await App.RelationshipTemplateUtil.getRelationshipTemplate(this.templateId)
                 if (!template) {
                     return

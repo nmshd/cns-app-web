@@ -77,15 +77,15 @@ sap.ui.define(
             },
 
             /**
-             * @param {RelationshipTemplateDTO} relationshipTemplateDTO
+             * @param {RelationshipTemplateDTO} templateDTO
              */
-            async handleRelationshipTemplate(relationshipTemplateDTO) {
+            async handleRelationshipTemplate(templateDTO) {
                 try {
                     await App.navAndReplaceHistory(-1, [
                         "account.template",
                         {
                             accountId: this.accountId,
-                            relationshipId: relationshipTemplateDTO.id
+                            templateId: templateDTO.id
                         }
                     ])
                 } catch (e) {
