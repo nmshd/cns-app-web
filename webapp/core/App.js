@@ -511,7 +511,7 @@ sap.ui.define(
                             "accounts.select",
                             "accounts.processrelationshiptoken",
                             {},
-                            { templateId: reference.id, secretKey: reference.key }
+                            { templateId: reference.id.toString(), secretKey: reference.key.toBase64() }
                         )
 
                         break
@@ -542,11 +542,12 @@ sap.ui.define(
                                 break
 
                             case "TokenContentRelationshipTemplate":
+                                const parsed = NMSHDTransport.TokenContentRelationshipTemplate.from(content)
                                 App.navTo(
                                     "accounts.select",
                                     "accounts.processrelationshiptoken",
                                     {},
-                                    { templateId: content.templateId, secretKey: content.secretKey }
+                                    { templateId: parsed.templateId.toString(), secretKey: parsed.secretKey.toBase64() }
                                 )
                                 break
 
