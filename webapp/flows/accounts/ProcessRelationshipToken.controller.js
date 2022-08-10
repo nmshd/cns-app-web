@@ -45,13 +45,15 @@ sap.ui.define(
                         await runtime.currentSession.transportServices.account.disableAutoSync()
                         this.accountId = this.localAccount.id
 
+                        const id = this.info.templateId.toString()
                         const secretKey = NMSHDCrypto.CoreBuffer.fromUtf8(
                             JSON.stringify(this.info.secretKey)
                         ).toBase64URL()
+
                         const templateResult =
                             await runtime.currentSession.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
                                 {
-                                    id: this.info.templateId,
+                                    id,
                                     secretKey
                                 }
                             )
