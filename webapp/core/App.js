@@ -449,7 +449,7 @@ sap.ui.define(
              * @param {string} qrContent
              * @returns {string}
              */
-            qrContentToTrunctatedReference(qrContent) {
+            qrContentToTruncatedReference(qrContent) {
                 let truncatedReference = qrContent.trim()
                 appLogger.trace("QR Code", truncatedReference)
 
@@ -465,8 +465,8 @@ sap.ui.define(
              * @param {string} qrContent
              * @returns {Promise<void>}
              */
-            async handleQRContentAsCurrentSession(qrContent) {
-                const truncatedReference = this.qrContentToTrunctatedReference(qrContent)
+            async handleQRContentAsWithCurrentSession(qrContent) {
+                const truncatedReference = this.qrContentToTruncatedReference(qrContent)
                 const result = await runtime.currentSession.transportServices.account.loadItemFromTruncatedReference({
                     reference: truncatedReference
                 })
@@ -500,7 +500,7 @@ sap.ui.define(
              * @returns {Promise<void>}
              */
             async handleQRContentAnonymously(qrContent) {
-                const truncatedReference = this.qrContentToTrunctatedReference(qrContent)
+                const truncatedReference = this.qrContentToTruncatedReference(qrContent)
 
                 switch (truncatedReference.substring(0, 4)) {
                     // Base64 for RLT
