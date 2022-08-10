@@ -465,7 +465,7 @@ sap.ui.define(
              * @param {string} qrContent
              * @returns {Promise<void>}
              */
-            async handleQRContentAsWithCurrentSession(qrContent) {
+            async handleQRContentWithCurrentSession(qrContent) {
                 const truncatedReference = this.qrContentToTruncatedReference(qrContent)
                 const result = await runtime.currentSession.transportServices.account.loadItemFromTruncatedReference({
                     reference: truncatedReference
