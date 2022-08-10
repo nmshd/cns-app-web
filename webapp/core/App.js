@@ -445,6 +445,124 @@ sap.ui.define(
                 this.navTo("account.master", "account.scan", { accountId: accountId }, null)
             },
 
+            /**
+             * @param {string} qrContent
+             * @returns {string}
+             */
+            qrContentToTruncatedReference(qrContent) {
+                let truncatedReference = qrContent.trim()
+                appLogger.trace("QR Code", truncatedReference)
+
+                const prefix = truncatedReference.substring(0, 11)
+                if (prefix.startsWith("nmshd://qr#") || prefix === "nmshd://tr#") {
+                    truncatedReference = truncatedReference.substring(11)
+                }
+
+                return truncatedReference
+            },
+
+            /**
+             * @param {string} qrContent
+             * @returns {Promise<void>}
+             */
+            async handleQRContentWithCurrentSession(qrContent) {
+                const truncatedReference = this.qrContentToTruncatedReference(qrContent)
+                const result = await runtime.currentSession.transportServices.account.loadItemFromTruncatedReference({
+                    reference: truncatedReference
+                })
+                if (result.isError) return this.error(result.error)
+
+                switch (result.value.type) {
+                    case "File":
+                        this.navTo("account.files.detail", { id: result.value.value.id })
+                        break
+                    case "RelationshipTemplate":
+                        await this.navAndReplaceHistory(-1, [
+                            "account.template",
+                            {
+                                accountId: this.accountId,
+                                templateId: result.value.value.id
+                            }
+                        ]).catch((e) => appLogger.log("Navigation is already in progress", e))
+                        break
+                    case "Token":
+                    case "DeviceOnboardingInfo":
+                        // error (this cant be handled while logged in)
+                        this.addError({
+                            sUserFriendlyMsg: this.resource("scanController.retryError")
+                        })
+                        break
+                }
+            },
+
+            /**
+             * @param {string} qrContent
+             * @returns {Promise<void>}
+             */
+            async handleQRContentAnonymously(qrContent) {
+                const truncatedReference = this.qrContentToTruncatedReference(qrContent)
+
+                switch (truncatedReference.substring(0, 4)) {
+                    // Base64 for RLT
+                    case "UkxU": {
+                        const reference = NMSHDTransport.RelationshipTemplateReference.fromTruncated(truncatedReference)
+
+                        App.navTo(
+                            "accounts.select",
+                            "accounts.processrelationshiptoken",
+                            {},
+                            { templateId: reference.id, secretKey: reference.key }
+                        )
+
+                        break
+                    }
+
+                    // Base64 for TOK
+                    case "VE9L": {
+                        const tokenResult = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference({
+                            reference: truncatedReference
+                        })
+                        if (tokenResult.isError) return App.error(tokenResult.error)
+
+                        const tokenDTO = tokenResult.value
+                        const content = tokenDTO.content
+
+                        switch (content["@type"]) {
+                            case "TokenContentDeviceSharedSecret":
+                                App.navTo(
+                                    "accounts.select",
+                                    "accounts.processdevicetoken",
+                                    {},
+                                    { token: tokenDTO, sharedSecret: content.sharedSecret }
+                                )
+                                break
+
+                            case "recovery":
+                                App.navTo("accounts.select", "accounts.processrecoverytoken", {}, {})
+                                break
+
+                            case "TokenContentRelationshipTemplate":
+                                App.navTo(
+                                    "accounts.select",
+                                    "accounts.processrelationshiptoken",
+                                    {},
+                                    { templateId: content.templateId, secretKey: content.secretKey }
+                                )
+                                break
+
+                            default:
+                                App.navTo("accounts.select", "accounts.onboardwrongcode", {}, {})
+                                break
+                        }
+                        break
+                    }
+
+                    default:
+                        App.navTo("accounts.select", "accounts.onboardwrongcode", {}, {})
+                        break
+                }
+            },
+
             async tryNTimes(fn, tries, sleepBetween) {
                 for (let i = 0; i < tries; i++) {
                     if (fn()) {
