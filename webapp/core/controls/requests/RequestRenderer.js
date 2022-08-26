@@ -52,6 +52,14 @@ sap.ui.define(
             setValidationItems(validationItems) {
                 this.setProperty("validationItems", validationItems, true)
                 const listItems = this.getAggregation("_list").getItems()
+
+                if (!validationItems || validationItems.isSuccess) {
+                    for (const listItem of listItems) {
+                        listItem.setValidationItem(null)
+                    }
+                    return
+                }
+
                 if (validationItems.length > 0 && validationItems.length !== listItems.length) {
                     throw new Error("Length mismatch between errors and listItems.")
                 }

@@ -123,6 +123,7 @@ sap.ui.define(
                     if (canAcceptResult.value.isSuccess) {
                         this.byId("acceptButton").setEnabled(true)
                         this.setMessage()
+                        this.byId("request").setValidationItems()
                         return
                     }
                     this.byId("acceptButton").setEnabled(false)
