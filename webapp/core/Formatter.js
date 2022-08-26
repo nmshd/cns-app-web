@@ -7,8 +7,7 @@ sap.ui.define(["nmshd/app/core/App"], (App) => {
                 return ""
             }
 
-            if (sValue instanceof Date) {
-            } else {
+            if (!(sValue instanceof Date)) {
                 sValue = new Date(sValue)
             }
         } catch (e) {

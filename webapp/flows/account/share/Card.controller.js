@@ -103,18 +103,6 @@ sap.ui.define(
                         return templateResult.error
                     }
 
-                    const tokenResult =
-                        await runtime.currentSession.transportServices.relationshipTemplates.createTokenForOwnTemplate({
-                            templateId: templateResult.value.id,
-                            expiresAt: expiry,
-                            ephemeral: true
-                        })
-
-                    if (tokenResult.isError) {
-                        App.error(tokenResult.error)
-                        return tokenResult.error
-                    }
-
                     const expandedRequest = await runtime.currentSession.expander.expandRequest(
                         shareData.onNewRelationship
                     )
@@ -124,7 +112,7 @@ sap.ui.define(
                         onNewRelationship: expandedRequest
                     })
 
-                    return tokenResult.value.truncatedReference
+                    return templateResult.value.truncatedReference
                 } catch (e) {
                     App.error(e)
                     return e

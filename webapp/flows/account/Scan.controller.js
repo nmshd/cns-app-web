@@ -23,23 +23,25 @@ sap.ui.define(
 
             async runScanner() {
                 const scanResult = await runtime.nativeEnvironment.scannerAccess.scan()
-                if (!scanResult || scanResult.isError || !scanResult.value) {
+                if (scanResult.isError) {
                     this.addError({
                         quick: true,
                         sUserFriendlyMsg: this.resource("account.scan.aborted")
                     })
                     this.navBack("account.relationships")
-                } else {
-                    try {
-                        await this.load(App.parseQR(scanResult.value, this.accountId))
-                    } catch (e) {
-                        this.addError({
-                            sUserFriendlyMsg: this.resource("scanController.retryError")
-                        })
-                        // QR Code parsing errors might occur
-                        appLogger.error(e)
-                        this.refresh()
-                    }
+
+                    return
+                }
+
+                try {
+                    await this.load(App.handleQRContentWithCurrentSession(scanResult.value))
+                } catch (e) {
+                    this.addError({
+                        sUserFriendlyMsg: this.resource("scanController.retryError")
+                    })
+                    // QR Code parsing errors might occur
+                    appLogger.error(e)
+                    this.refresh()
                 }
             },
 

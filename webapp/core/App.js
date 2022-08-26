@@ -445,74 +445,122 @@ sap.ui.define(
                 this.navTo("account.master", "account.scan", { accountId: accountId }, null)
             },
 
-            async parseQR(content, accountId) {
-                content = content.trim()
-                appLogger.trace("QR Code", content)
-                const prefix = content.substr(0, 11)
-                if (prefix === "nmshd://qr#" || prefix === "nmshd://tr#") {
-                    content = content.substr(11)
+            /**
+             * @param {string} qrContent
+             * @returns {string}
+             */
+            qrContentToTruncatedReference(qrContent) {
+                let truncatedReference = qrContent.trim()
+                appLogger.trace("QR Code", truncatedReference)
+
+                const prefix = truncatedReference.substring(0, 11)
+                if (prefix.startsWith("nmshd://qr#") || prefix === "nmshd://tr#") {
+                    truncatedReference = truncatedReference.substring(11)
                 }
 
-                const templateResult =
-                    await runtime.currentSession.transportServices.relationshipTemplates.loadPeerRelationshipTemplate({
-                        reference: content
-                    })
-                if (!templateResult.isSuccess) {
-                    return App.error(templateResult.error)
-                }
+                return truncatedReference
+            },
 
-                try {
-                    await App.navAndReplaceHistory(-1, [
-                        "account.template",
-                        {
-                            accountId: accountId,
-                            relationshipId: templateResult.value.id
-                        }
-                    ])
-                } catch (e) {
-                    appLogger.log("Navigation is already in progress", e)
+            /**
+             * @param {string} qrContent
+             * @returns {Promise<void>}
+             */
+            async handleQRContentWithCurrentSession(qrContent) {
+                const truncatedReference = this.qrContentToTruncatedReference(qrContent)
+                const result = await runtime.currentSession.transportServices.account.loadItemFromTruncatedReference({
+                    reference: truncatedReference
+                })
+                if (result.isError) return this.error(result.error)
+
+                switch (result.value.type) {
+                    case "File":
+                        this.navTo("account.files.detail", { id: result.value.value.id })
+                        break
+                    case "RelationshipTemplate":
+                        await this.navAndReplaceHistory(-1, [
+                            "account.template",
+                            {
+                                accountId: this.accountId,
+                                templateId: result.value.value.id
+                            }
+                        ]).catch((e) => appLogger.log("Navigation is already in progress", e))
+                        break
+                    case "Token":
+                    case "DeviceOnboardingInfo":
+                        // error (this cant be handled while logged in)
+                        this.addError({
+                            sUserFriendlyMsg: this.resource("scanController.retryError")
+                        })
+                        break
                 }
             },
 
-            async parseQRAccounts(truncatedReference) {
-                try {
-                    truncatedReference = truncatedReference.trim()
-                    appLogger.trace("QR Code", truncatedReference)
-                    const prefix = truncatedReference.substr(0, 11)
-                    if (prefix === "nmshd://qr#" || prefix === "nmshd://tr#") {
-                        truncatedReference = truncatedReference.substr(11)
+            /**
+             * @param {string} qrContent
+             * @returns {Promise<void>}
+             */
+            async handleQRContentAnonymously(qrContent) {
+                const truncatedReference = this.qrContentToTruncatedReference(qrContent)
+
+                switch (truncatedReference.substring(0, 4)) {
+                    // Base64 for RLT
+                    case "UkxU": {
+                        const reference = NMSHDTransport.RelationshipTemplateReference.fromTruncated(truncatedReference)
+
+                        App.navTo(
+                            "accounts.select",
+                            "accounts.processrelationshiptoken",
+                            {},
+                            { templateId: reference.id.toString(), secretKey: reference.key.toBase64() }
+                        )
+
+                        break
                     }
 
-                    const tokenResult = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference({
-                        reference: truncatedReference
-                    })
-                    if (!tokenResult || tokenResult.isError || !tokenResult.value) {
-                        return App.error(tokenResult.error)
-                    }
-                    const tokenDTO = tokenResult.value
-                    const content = tokenDTO.content
+                    // Base64 for TOK
+                    case "VE9L": {
+                        const tokenResult = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference({
+                            reference: truncatedReference
+                        })
+                        if (tokenResult.isError) return App.error(tokenResult.error)
 
-                    switch (content["@type"]) {
-                        default:
-                            App.navTo("accounts.select", "accounts.onboardwrongcode", {}, {})
-                            break
-                        case "TokenContentDeviceSharedSecret":
-                            App.navTo(
-                                "accounts.select",
-                                "accounts.processdevicetoken",
-                                {},
-                                { token: tokenDTO, sharedSecret: content.sharedSecret }
-                            )
-                            break
-                        case "recovery":
-                            App.navTo("accounts.select", "accounts.processrecoverytoken", {}, {})
-                            break
-                        case "TokenContentRelationshipTemplate":
-                            App.navTo("accounts.select", "accounts.processrelationshiptoken", {}, { token: tokenDTO })
-                            break
+                        const tokenDTO = tokenResult.value
+                        const content = tokenDTO.content
+
+                        switch (content["@type"]) {
+                            case "TokenContentDeviceSharedSecret":
+                                App.navTo(
+                                    "accounts.select",
+                                    "accounts.processdevicetoken",
+                                    {},
+                                    { token: tokenDTO, sharedSecret: content.sharedSecret }
+                                )
+                                break
+
+                            case "recovery":
+                                App.navTo("accounts.select", "accounts.processrecoverytoken", {}, {})
+                                break
+
+                            case "TokenContentRelationshipTemplate":
+                                const parsed = NMSHDTransport.TokenContentRelationshipTemplate.from(content)
+                                App.navTo(
+                                    "accounts.select",
+                                    "accounts.processrelationshiptoken",
+                                    {},
+                                    { templateId: parsed.templateId.toString(), secretKey: parsed.secretKey.toBase64() }
+                                )
+                                break
+
+                            default:
+                                App.navTo("accounts.select", "accounts.onboardwrongcode", {}, {})
+                                break
+                        }
+                        break
                     }
-                } catch (e) {
-                    appLogger.error(e)
+
+                    default:
+                        App.navTo("accounts.select", "accounts.onboardwrongcode", {}, {})
+                        break
                 }
             },
 
@@ -758,8 +806,9 @@ sap.ui.define(
                 Event.publish("App", "ready")
 
                 // Apply language stored in config
-                if (bootstrapper.nativeConfigAccess.config.language) {
-                    sap.ui.getCore().getConfiguration().setLanguage(bootstrapper.nativeConfigAccess.config.language)
+                const language = bootstrapper.nativeEnvironment.configAccess.get("language")
+                if (language.isSuccess && language.value) {
+                    sap.ui.getCore().getConfiguration().setLanguage(language.value)
                 }
 
                 runtime.registerUIBridge(UIBridge)

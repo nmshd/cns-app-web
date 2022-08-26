@@ -23,15 +23,17 @@ sap.ui.define(
 
             async runScanner() {
                 const scanResult = await runtime.nativeEnvironment.scannerAccess.scan()
-                if (!scanResult || scanResult.isError || !scanResult.value) {
+                if (scanResult.isError) {
                     this.addError({
                         quick: true,
                         sUserFriendlyMsg: this.resource("account.scan.aborted")
                     })
                     this.navBack("accounts.onboardoverview")
-                } else {
-                    await this.load(App.parseQRAccounts(scanResult.value))
+
+                    return
                 }
+
+                await this.load(App.handleQRContentAnonymously(scanResult.value))
             },
 
             onNavButtonPress() {

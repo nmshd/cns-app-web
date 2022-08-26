@@ -45,18 +45,14 @@ sap.ui.define(
                         await runtime.currentSession.transportServices.account.disableAutoSync()
                         this.accountId = this.localAccount.id
 
-                        this.templatetoken = this.info.token.content
-                        this.templatetoken.secretKey = NMSHDCrypto.CoreBuffer.fromUtf8(
-                            JSON.stringify(this.templatetoken.secretKey)
-                        ).toBase64URL()
                         const templateResult =
                             await runtime.currentSession.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
                                 {
-                                    id: this.templatetoken.templateId,
-                                    secretKey: this.templatetoken.secretKey
+                                    id: this.info.templateId,
+                                    secretKey: this.info.secretKey
                                 }
                             )
-                        if (!templateResult || templateResult.isError || !templateResult.value) {
+                        if (templateResult.isError) {
                             App.error(templateResult.error)
                         } else {
                             this.template = templateResult.value
@@ -92,7 +88,7 @@ sap.ui.define(
                 this.viewProp("/submitAvailable", false)
                 App.navTo("account.home", "account.template", {
                     accountId: this.accountId,
-                    relationshipId: this.template.id
+                    templateId: this.template.id
                 })
             },
 
