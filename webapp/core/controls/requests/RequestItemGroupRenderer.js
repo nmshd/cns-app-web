@@ -57,23 +57,23 @@ sap.ui.define(
                 this.setAggregation("_title", new Text({ text: "{title}", visible: "{=!!${title}}" }))
                 this.setAggregation("_description", new Text({ text: "{description}", visible: "{=!!${description}}" }))
             },
-            setValidationItem(validationItem) {
-                this.setProperty("validationItem", validationItem, true)
+            setValidationItem(validationItems) {
+                this.setProperty("validationItem", validationItems, true)
                 const listItems = this.getAggregation("_list").getItems()
 
-                if (!validationItem || validationItem.isSuccess) {
+                if (!validationItems || validationItems.isSuccess) {
                     for (const listItem of listItems) {
                         listItem.setValidationItem(null)
                     }
                     return
                 }
 
-                if (validationItem.items.length !== listItems.length) {
+                if (validationItems.items.length !== listItems.length) {
                     throw new Error("Length mismatch between errors and listItems.")
                 }
 
                 for (let i = 0; i < listItems.length; i++) {
-                    const item = validationItem.items[i]
+                    const item = validationItems.items[i]
                     const listItem = listItems[i]
                     listItem.setValidationItem(item)
                 }
