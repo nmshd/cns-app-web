@@ -13,7 +13,9 @@ sap.ui.define(
                 aggregations: {
                     _list: { singularName: "list", multiple: false, visibility: "hidden" }
                 },
-                properties: {},
+                properties: {
+                    validationItems: { defaultValue: null }
+                },
                 publicMethods: [],
                 events: {
                     change: { allowPreventDefault: true }
@@ -46,6 +48,19 @@ sap.ui.define(
                         }
                     })
                 )
+            },
+            setValidationItems(validationItems) {
+                this.setProperty("validationItems", validationItems, true)
+                const listItems = this.getAggregation("_list").getItems()
+                if (validationItems.length > 0 && validationItems.length !== listItems.length) {
+                    throw new Error("Length mismatch between errors and listItems.")
+                }
+
+                for (let i = 0; i < listItems.length; i++) {
+                    const validationItem = validationItems[i]
+                    const listItem = listItems[i]
+                    listItem.setValidationItem(validationItem)
+                }
             },
 
             getSelected() {

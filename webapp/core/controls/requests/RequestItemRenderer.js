@@ -6,7 +6,11 @@ sap.ui.define(
         "nmshd/app/core/controls/requests/items/ReadAttributeRequestItemRenderer",
         "nmshd/app/core/controls/requests/items/CreateAttributeRequestItemRenderer",
         "nmshd/app/core/controls/requests/items/ProposeAttributeRequestItemRenderer",
-        "sap/ui/model/json/JSONModel"
+        "sap/ui/model/json/JSONModel",
+        "nmshd/app/core/controls/requests/items/ReadAttributeResponseItemRenderer",
+        "nmshd/app/core/controls/requests/items/CreateAttributeResponseItemRenderer",
+        "nmshd/app/core/controls/requests/items/ProposeAttributeResponseItemRenderer",
+        "sap/m/MessageStrip"
     ],
     (
         ListItemBase,
@@ -15,7 +19,11 @@ sap.ui.define(
         ReadAttributeRequestItemRenderer,
         CreateAttributeRequestItemRenderer,
         ProposeAttributeRequestItemRenderer,
-        JSONModel
+        JSONModel,
+        ReadAttributeResponseItemRenderer,
+        CreateAttributeResponseItemRenderer,
+        ProposeAttributeResponseItemRenderer,
+        MessageStrip
     ) => {
         "use strict"
 
@@ -23,13 +31,16 @@ sap.ui.define(
             metadata: {
                 aggregations: {
                     content: { singularName: "content" },
+                    _error: { multiple: false, visibility: "hidden" },
                     _title: { type: "sap.m.Text", multiple: false, visibility: "hidden" },
                     _description: { type: "sap.m.Text", multiple: false, visibility: "hidden" },
                     _control: { multiple: false, visibility: "hidden" },
                     _checkbox: { type: "sap.m.CheckBox", multiple: false, visibility: "hidden" }
                 },
                 properties: {
-                    item: { type: "object", defaultValue: {} }
+                    item: { type: "object", defaultValue: {} },
+                    validationItem: { defaultValue: null },
+                    error: { type: "string", defaultValue: "" }
                 },
                 publicMethods: [],
                 events: {
@@ -42,6 +53,25 @@ sap.ui.define(
             _activeHandling: function () {},
 
             isAttributeRequestItem(item) {},
+
+            setValidationItem(validationItem) {
+                this.setProperty("validationItem", validationItem, true)
+
+                if (!validationItem || validationItem.isSuccess) {
+                    this.setError()
+                    return
+                }
+
+                this.setError(validationItem.code)
+            },
+
+            setError(value) {
+                this.setProperty("error", value, false)
+                const control = this.getAggregation("_error")
+                if (!control) return
+                control.setVisible(!!value)
+                control.setText(value)
+            },
 
             init(e) {
                 const that = this
@@ -61,6 +91,7 @@ sap.ui.define(
                         .attachSelect((oEvent) => that.fireChange(oEvent))
                         .setModel(model, "requestItemRenderer")
                 )
+                this.setAggregation("_error", new MessageStrip({ type: "Error", visible: false, showIcon: true }))
                 this.setAggregation("_title", new Text({ text: "{title}", visible: "{=!!${title}}" }))
                 this.setAggregation("_description", new Text({ text: "{description}", visible: "{=!!${description}}" }))
                 this.updateInternalControl()
@@ -100,7 +131,10 @@ sap.ui.define(
 
             updateCheckbox(oEvent) {
                 const control = this.getAggregation("_control")
-                const checkbox = this.getAggregation("_checkbox")
+                if (control && !control.getEditedValue) {
+                    this.model.setProperty("/isChecked", false)
+                    return
+                }
                 const value = control.getEditedValue()
                 const item = this.getItem()
                 if (value || (item && item.mustBeAccepted)) {
@@ -116,33 +150,69 @@ sap.ui.define(
                 // if we have the same value, valuetype or control class
                 const item = this.getItem()
                 let control
-                switch (item.type) {
-                    case "ReadAttributeRequestItemDVO":
-                    case "DecidableReadAttributeRequestItemDVO":
-                        control = new ReadAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange((oEvent) => {
-                            that.updateCheckbox(oEvent)
-                            that.fireChange(oEvent)
-                        })
-                        break
-                    case "CreateAttributeRequestItemDVO":
-                    case "DecidableCreateAttributeRequestItemDVO":
-                        control = new CreateAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
-                            (oEvent) => {
-                                that.updateCheckbox(oEvent)
-                                that.fireChange(oEvent)
-                            }
-                        )
-                        break
-                    case "ProposeAttributeRequestItemDVO":
-                    case "DecidableProposeAttributeRequestItemDVO":
-                        control = new ProposeAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
-                            (oEvent) => {
-                                that.updateCheckbox(oEvent)
-                                that.fireChange(oEvent)
-                            }
-                        )
-                        break
+
+                if (item.response) {
+                    switch (item.type) {
+                        case "ReadAttributeRequestItemDVO":
+                        case "DecidableReadAttributeRequestItemDVO":
+                            control = new ReadAttributeResponseItemRenderer({ requestItem: "{}" }).attachChange(
+                                (oEvent) => {
+                                    that.updateCheckbox(oEvent)
+                                    that.fireChange(oEvent)
+                                }
+                            )
+                            break
+                        case "CreateAttributeRequestItemDVO":
+                        case "DecidableCreateAttributeRequestItemDVO":
+                            control = new CreateAttributeResponseItemRenderer({ requestItem: "{}" }).attachChange(
+                                (oEvent) => {
+                                    that.updateCheckbox(oEvent)
+                                    that.fireChange(oEvent)
+                                }
+                            )
+                            break
+                        case "ProposeAttributeRequestItemDVO":
+                        case "DecidableProposeAttributeRequestItemDVO":
+                            control = new ProposeAttributeResponseItemRenderer({ requestItem: "{}" }).attachChange(
+                                (oEvent) => {
+                                    that.updateCheckbox(oEvent)
+                                    that.fireChange(oEvent)
+                                }
+                            )
+                            break
+                    }
+                } else {
+                    switch (item.type) {
+                        case "ReadAttributeRequestItemDVO":
+                        case "DecidableReadAttributeRequestItemDVO":
+                            control = new ReadAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
+                                (oEvent) => {
+                                    that.updateCheckbox(oEvent)
+                                    that.fireChange(oEvent)
+                                }
+                            )
+                            break
+                        case "CreateAttributeRequestItemDVO":
+                        case "DecidableCreateAttributeRequestItemDVO":
+                            control = new CreateAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
+                                (oEvent) => {
+                                    that.updateCheckbox(oEvent)
+                                    that.fireChange(oEvent)
+                                }
+                            )
+                            break
+                        case "ProposeAttributeRequestItemDVO":
+                        case "DecidableProposeAttributeRequestItemDVO":
+                            control = new ProposeAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
+                                (oEvent) => {
+                                    that.updateCheckbox(oEvent)
+                                    that.fireChange(oEvent)
+                                }
+                            )
+                            break
+                    }
                 }
+
                 if (!control) return
                 control.setModel(new JSONModel(item), "item")
 
@@ -163,6 +233,9 @@ sap.ui.define(
                 oRM.write("<div")
                 oRM.writeControlData(oControl)
                 oRM.addClass("requestItemRenderer")
+                if (oControl.getError()) {
+                    oRM.addClass("requestItemRendererError")
+                }
                 oRM.writeClasses()
                 oRM.write(">")
 
@@ -184,6 +257,10 @@ sap.ui.define(
                     oRM.renderControl(descriptionControl)
                     oRM.write("</div>")
                 }
+                oRM.write("</div>")
+
+                oRM.write('<div class="requestItemRendererErrorContainer">')
+                oRM.renderControl(oControl.getAggregation("_error"))
                 oRM.write("</div>")
 
                 const itemControl = oControl.getAggregation("_control")
