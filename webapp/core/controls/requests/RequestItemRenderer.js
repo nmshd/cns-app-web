@@ -10,7 +10,8 @@ sap.ui.define(
         "nmshd/app/core/controls/requests/items/ReadAttributeResponseItemRenderer",
         "nmshd/app/core/controls/requests/items/CreateAttributeResponseItemRenderer",
         "nmshd/app/core/controls/requests/items/ProposeAttributeResponseItemRenderer",
-        "sap/m/MessageStrip"
+        "sap/m/MessageStrip",
+        "nmshd/app/core/Formatter"
     ],
     (
         ListItemBase,
@@ -23,7 +24,8 @@ sap.ui.define(
         ReadAttributeResponseItemRenderer,
         CreateAttributeResponseItemRenderer,
         ProposeAttributeResponseItemRenderer,
-        MessageStrip
+        MessageStrip,
+        Formatter
     ) => {
         "use strict"
 
@@ -62,7 +64,7 @@ sap.ui.define(
                     return
                 }
 
-                this.setError(validationItem.code)
+                this.setError(`i18n://${validationItem.code}`)
             },
 
             setError(value) {
@@ -70,7 +72,7 @@ sap.ui.define(
                 const control = this.getAggregation("_error")
                 if (!control) return
                 control.setVisible(!!value)
-                control.setText(value)
+                control.setText(Formatter.toTranslated(value))
             },
 
             init(e) {
