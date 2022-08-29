@@ -11,7 +11,7 @@ sap.ui.define(
     (Control, Text, Label, Button, Select, ValueRenderer, Formatter) => {
         "use strict"
 
-        return Control.extend("nmshd.app.core.controls.requests.items.CreateAttributeRequestItemRenderer", {
+        return Control.extend("nmshd.app.core.controls.requests.items.CreateRelationshipAttributeRequestItemRenderer", {
             metadata: {
                 aggregations: {
                     _label: { type: "sap.m.Label", multiple: false, visibility: "hidden" },
@@ -33,13 +33,13 @@ sap.ui.define(
                 this.setAggregation(
                     "_label",
                     new Label({ text: { path: "name", formatter: Formatter.toTranslated } })
-                        .addStyleClass("createAttributeRequestItemRendererLabel")
+                        .addStyleClass("createRelationshipAttributeRequestItemRendererLabel")
                         .bindElement("attribute")
                 )
                 this.setAggregation(
                     "_valueRenderer",
                     new ValueRenderer({})
-                        .addStyleClass("createAttributeRequestItemRendererFoundAttribute")
+                        .addStyleClass("createRelationshipAttributeRequestItemRendererFoundAttribute")
                         .bindElement("attribute")
                 )
             },
@@ -71,7 +71,7 @@ sap.ui.define(
             renderer(oRM, oControl) {
                 oRM.write("<div")
                 oRM.writeControlData(oControl)
-                oRM.addClass("createAttributeRequestItemRenderer")
+                oRM.addClass("createRelationshipAttributeRequestItemRenderer")
                 oRM.writeClasses()
                 oRM.write(">")
 

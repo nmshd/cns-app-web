@@ -4,11 +4,13 @@ sap.ui.define(
         "sap/m/CheckBox",
         "sap/m/Text",
         "nmshd/app/core/controls/requests/items/ReadAttributeRequestItemRenderer",
-        "nmshd/app/core/controls/requests/items/CreateAttributeRequestItemRenderer",
+        "nmshd/app/core/controls/requests/items/CreateRelationshipAttributeRequestItemRenderer",
+        "nmshd/app/core/controls/requests/items/ShareAttributeRequestItemRenderer",
         "nmshd/app/core/controls/requests/items/ProposeAttributeRequestItemRenderer",
         "sap/ui/model/json/JSONModel",
         "nmshd/app/core/controls/requests/items/ReadAttributeResponseItemRenderer",
-        "nmshd/app/core/controls/requests/items/CreateAttributeResponseItemRenderer",
+        "nmshd/app/core/controls/requests/items/CreateRelationshipAttributeResponseItemRenderer",
+        "nmshd/app/core/controls/requests/items/ShareAttributeResponseItemRenderer",
         "nmshd/app/core/controls/requests/items/ProposeAttributeResponseItemRenderer",
         "sap/m/MessageStrip",
         "nmshd/app/core/Formatter"
@@ -18,11 +20,13 @@ sap.ui.define(
         CheckBox,
         Text,
         ReadAttributeRequestItemRenderer,
-        CreateAttributeRequestItemRenderer,
+        CreateRelationshipAttributeRequestItemRenderer,
+        ShareAttributeRequestItemRenderer,
         ProposeAttributeRequestItemRenderer,
         JSONModel,
         ReadAttributeResponseItemRenderer,
-        CreateAttributeResponseItemRenderer,
+        CreateRelationshipAttributeResponseItemRenderer,
+        ShareAttributeResponseItemRenderer,
         ProposeAttributeResponseItemRenderer,
         MessageStrip,
         Formatter
@@ -164,9 +168,18 @@ sap.ui.define(
                                 }
                             )
                             break
-                        case "CreateAttributeRequestItemDVO":
-                        case "DecidableCreateAttributeRequestItemDVO":
-                            control = new CreateAttributeResponseItemRenderer({ requestItem: "{}" }).attachChange(
+                        case "CreateRelationshipAttributeRequestItemDVO":
+                        case "DecidableCreateRelationshipAttributeRequestItemDVO":
+                            control = new CreateRelationshipAttributeResponseItemRenderer({
+                                requestItem: "{}"
+                            }).attachChange((oEvent) => {
+                                that.updateCheckbox(oEvent)
+                                that.fireChange(oEvent)
+                            })
+                            break
+                        case "ShareAttributeRequestItemDVO":
+                        case "DecidableShareAttributeRequestItemDVO":
+                            control = new ShareAttributeResponseItemRenderer({ requestItem: "{}" }).attachChange(
                                 (oEvent) => {
                                     that.updateCheckbox(oEvent)
                                     that.fireChange(oEvent)
@@ -182,6 +195,11 @@ sap.ui.define(
                                 }
                             )
                             break
+                        default:
+                            if (item.type) {
+                                console.warn(`Unknown RequestItem.type encountered: ${item.type}`)
+                            }
+                            break
                     }
                 } else {
                     switch (item.type) {
@@ -194,9 +212,18 @@ sap.ui.define(
                                 }
                             )
                             break
-                        case "CreateAttributeRequestItemDVO":
-                        case "DecidableCreateAttributeRequestItemDVO":
-                            control = new CreateAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
+                        case "CreateRelationshipAttributeRequestItemDVO":
+                        case "DecidableCreateRelationshipAttributeRequestItemDVO":
+                            control = new CreateRelationshipAttributeRequestItemRenderer({
+                                requestItem: "{}"
+                            }).attachChange((oEvent) => {
+                                that.updateCheckbox(oEvent)
+                                that.fireChange(oEvent)
+                            })
+                            break
+                        case "ShareAttributeRequestItemDVO":
+                        case "DecidableShareAttributeRequestItemDVO":
+                            control = new ShareAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
                                 (oEvent) => {
                                     that.updateCheckbox(oEvent)
                                     that.fireChange(oEvent)
@@ -211,6 +238,11 @@ sap.ui.define(
                                     that.fireChange(oEvent)
                                 }
                             )
+                            break
+                        default:
+                            if (item.type) {
+                                console.warn(`Unknown RequestItem.type encountered: ${item.type}`)
+                            }
                             break
                     }
                 }
