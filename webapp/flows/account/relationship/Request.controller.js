@@ -126,9 +126,7 @@ sap.ui.define(
                 const expandedRequest = await runtime.currentSession.expander.expandLocalRequestDTO(request)
                 this.request = expandedRequest
 
-                console.log(this.request)
                 const mergedRequest = this.mergeRequestWithResponse(this.request)
-                console.log(mergedRequest)
 
                 const model = new JSONModel(mergedRequest)
                 model.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay)

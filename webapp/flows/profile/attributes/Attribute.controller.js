@@ -55,7 +55,6 @@ sap.ui.define(
                     ]
                 }
 
-                console.log(this.expandedAttribute)
                 const attributeModel = new JSONModel(this.expandedAttribute)
                 this.model = attributeModel
                 this.setModel(attributeModel)
@@ -76,7 +75,6 @@ sap.ui.define(
                 const attributeModel = new JSONModel(expandedAttribute)
                 this.sourceModel = attributeModel
                 this.setModel(attributeModel, "source")
-                console.log(this.sourceAttribute)
                 return this.sourceAttribute
             },
 
