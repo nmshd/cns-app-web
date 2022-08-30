@@ -155,6 +155,7 @@ sap.ui.define(
                 // TODO: Make this update smart, e.g. we do not need to create the control new
                 // if we have the same value, valuetype or control class
                 const item = this.getItem()
+                if (!item.type) return
                 let control
 
                 if (item.response) {
@@ -196,9 +197,7 @@ sap.ui.define(
                             )
                             break
                         default:
-                            if (item.type) {
-                                console.warn(`Unknown RequestItem.type encountered: ${item.type}`)
-                            }
+                            console.warn(`Unknown RequestItem.type encountered: ${item.type}`)
                             break
                     }
                 } else {
@@ -240,9 +239,7 @@ sap.ui.define(
                             )
                             break
                         default:
-                            if (item.type) {
-                                console.warn(`Unknown RequestItem.type encountered: ${item.type}`)
-                            }
+                            console.warn(`Unknown RequestItem.type encountered: ${item.type}`)
                             break
                     }
                 }
