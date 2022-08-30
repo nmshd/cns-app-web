@@ -123,13 +123,16 @@ sap.ui.define(
                     if (canAcceptResult.value.isSuccess) {
                         this.byId("acceptButton").setEnabled(true)
                         this.setMessage()
+                        this.byId("request").setValidationItems()
                         return
                     }
                     this.byId("acceptButton").setEnabled(false)
-                    this.setMessage(canAcceptResult.value.items, "Error")
+                    this.byId("request").setValidationItems(canAcceptResult.value.items)
+                    this.setMessage("There are errorneous items which block the request.", "Error")
                     console.warn("Cannot Accept", canAcceptResult.value.items)
                 } else {
                     this.byId("acceptButton").setEnabled(false)
+                    this.byId("request").setValidationItems([])
                     this.setMessage(canAcceptResult.error, "Error")
                     console.warn("Cannot Accept", canAcceptResult.error)
                 }
@@ -188,7 +191,7 @@ sap.ui.define(
                     try {
                         App.navTo("account.relationships", "account.relationship.home", {
                             accountId: this.accountId,
-                            relationshipId: identity.relationship.id
+                            relationshipId: this.relationshipIdentityDVO.relationship.id
                         })
                     } catch (e) {
                         this.setMessage(this.resource("relationships.template.unavailableError"), "Error")

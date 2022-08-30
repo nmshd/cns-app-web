@@ -32,7 +32,12 @@ sap.ui.define(
                         visible: this.getShowLabel()
                     })
                 )
-                this.setAggregation("_value", new ValueRenderer({ value: "{value}" }))
+                this.setAggregation(
+                    "_value",
+                    new ValueRenderer({
+                        editable: false
+                    })
+                )
                 this.setAggregation(
                     "_button",
                     new Button({

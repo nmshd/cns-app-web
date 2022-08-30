@@ -126,7 +126,9 @@ sap.ui.define(
                 const expandedRequest = await runtime.currentSession.expander.expandLocalRequestDTO(request)
                 this.request = expandedRequest
 
-                const model = new JSONModel(expandedRequest)
+                const mergedRequest = this.mergeRequestWithResponse(this.request)
+
+                const model = new JSONModel(mergedRequest)
                 model.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay)
                 this.setModel(model)
 
@@ -134,6 +136,32 @@ sap.ui.define(
                     this.viewProp("/editable", true)
                     this.onChange()
                 }
+            },
+            mergeRequestWithResponse(request) {
+                if (!request.response) return request
+                request.items = this.mergeRequestsWithResponses(request.items, request.response.content.items)
+                return request
+            },
+
+            mergeRequestsWithResponses(requestItems, responseItems) {
+                if (!requestItems || !responseItems || requestItems.length !== responseItems.length)
+                    throw new Error("request and response items must match")
+
+                const mergedRequestItems = []
+                for (let i = 0; i < requestItems.length; i++) {
+                    const requestItem = requestItems[i]
+                    const responseItem = responseItems[i]
+                    mergedRequestItems.push(this.mergeRequestItemWithResponseItem(requestItem, responseItem))
+                }
+                return mergedRequestItems
+            },
+            mergeRequestItemWithResponseItem(requestItem, responseItem) {
+                if (requestItem.items) {
+                    requestItem.items = this.mergeRequestsWithResponses(requestItem.items, responseItem.items)
+                    return requestItem
+                }
+                requestItem.response = responseItem
+                return requestItem
             },
 
             async onAcceptRequest() {
