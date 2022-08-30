@@ -44,7 +44,7 @@ sap.ui.define(
                     _checkbox: { type: "sap.m.CheckBox", multiple: false, visibility: "hidden" }
                 },
                 properties: {
-                    item: { type: "object", defaultValue: {} },
+                    item: { type: "object", defaultValue: null },
                     validationItem: { defaultValue: null },
                     error: { type: "string", defaultValue: "" }
                 },
@@ -155,7 +155,7 @@ sap.ui.define(
                 // TODO: Make this update smart, e.g. we do not need to create the control new
                 // if we have the same value, valuetype or control class
                 const item = this.getItem()
-                if (!item.type) return
+                if (!item) return
                 let control
 
                 if (item.response) {
