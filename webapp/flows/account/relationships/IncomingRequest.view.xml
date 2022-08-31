@@ -32,7 +32,7 @@
 				<m:ToolbarSpacer />
 				<m:Button
                     id="acceptButton"
-                    text="{t>newRelationship.acceptRelationship}"
+                    text="{t>newRelationship.addContact}"
                     press="onAccept"
                     type="Emphasized"
                     icon="sap-icon://accept"
@@ -40,7 +40,7 @@
                 />
 				<m:Button
                     id="abortButton"
-                    text="{t>newRelationship.rejectRelationship}"
+                    text="{t>newRelationship.abortContact}"
                     press="onReject"
                     type="Reject"
                     icon="sap-icon://decline"
