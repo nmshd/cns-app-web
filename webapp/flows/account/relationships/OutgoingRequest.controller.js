@@ -25,11 +25,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
             this.identity = null
         },
 
-        async onRevoke() {
-            await App.RelationshipUtil.revokeRelationshipCreationChange(this.relationshipId)
-            this.navBack("account.relationships")
-        },
-
         onNavButtonPress(oEvent) {
             this.navBack("account.relationships")
         }
