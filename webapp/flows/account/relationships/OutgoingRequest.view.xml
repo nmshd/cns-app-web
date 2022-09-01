@@ -30,13 +30,6 @@
 		<semantic:customFooterContent>
 			<m:Toolbar>
 				<m:ToolbarSpacer />
-				<m:Button
-                    id="abortButton"
-                    text="{t>newRelationship.revokeRelationship}"
-                    press="onRevoke"
-                    type="Reject"
-                    icon="sap-icon://decline"
-                />
 			</m:Toolbar>
 		</semantic:customFooterContent>
 	</semantic:DetailPage>

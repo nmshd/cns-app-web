@@ -99,7 +99,7 @@ sap.ui.define(
                 if (themeInfo) {
                     this.viewProp("/theme", themeInfo)
                     App.appController.viewProp("/theme", themeInfo)
-                    App.appController.setTitle("Kontaktanfrage stellen")
+                    App.appController.setTitle(this.resource("relationships.template.request"))
                 }
 
                 this.refresh()
