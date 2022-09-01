@@ -266,10 +266,6 @@ sap.ui.define(
                 this.navBack()
             },
 
-            onCancel() {
-                this.navBack()
-            },
-
             async onReject() {
                 this.viewProp("/submitEnabled", false)
                 this.viewProp("/requestRunning", true)
