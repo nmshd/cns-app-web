@@ -114,6 +114,14 @@ sap.ui.define(
                 return { items: itemResponses, accept: accept }
             },
 
+            getRejectResponseParams() {
+                const itemResponses = []
+                for (const item of this.getAggregation("_list").getItems()) {
+                    itemResponses.push({ accept: false })
+                }
+                return { items: itemResponses, accept: false }
+            },
+
             renderer(oRM, oControl) {
                 oRM.write("<div")
                 oRM.writeControlData(oControl)
