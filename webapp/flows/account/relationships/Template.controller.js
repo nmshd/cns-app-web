@@ -67,6 +67,11 @@ sap.ui.define(
                 return value
             },
 
+            getRejectResponseParams() {
+                const value = this.byId("request").getRejectResponseParams()
+                return value
+            },
+
             getContext() {
                 const context = this.byId("request").getContext()
                 return context
@@ -88,6 +93,7 @@ sap.ui.define(
                 this.request = template.getData().onNewRelationship
                 this.setModel(template)
                 this.template = template
+
                 const themeInfo = await App.themeInfoForTemplate(this.template.getProperty("/"))
 
                 if (themeInfo) {
@@ -229,7 +235,7 @@ sap.ui.define(
                 }
             },
 
-            async onNewLink() {
+            async onAccept() {
                 this.viewProp("/submitEnabled", false)
                 this.viewProp("/requestRunning", true)
                 await runtime.currentSession.transportServices.account.disableAutoSync()
@@ -260,8 +266,29 @@ sap.ui.define(
                 this.navBack()
             },
 
-            onAbort() {
+            onCancel() {
                 this.navBack()
+            },
+
+            async onReject() {
+                this.viewProp("/submitEnabled", false)
+                this.viewProp("/requestRunning", true)
+                await runtime.currentSession.transportServices.account.disableAutoSync()
+                try {
+                    const rejectResult = await runtime.currentSession.consumptionServices.incomingRequests.reject(
+                        this.getRejectResponseParams()
+                    )
+                    if (rejectResult.isError) return App.error(rejectResult.error)
+
+                    App.navTo("account.home", "account.relationships", {
+                        accountId: this.accountId
+                    })
+                } catch (e) {
+                    App.error(e)
+                } finally {
+                    this.viewProp("/requestRunning", false)
+                    runtime.currentSession.transportServices.account.enableAutoSync()
+                }
             }
         })
     }

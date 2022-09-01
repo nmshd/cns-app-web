@@ -26,24 +26,27 @@
 			</requests:RequestRenderer>
 		</semantic:content>
 		<semantic:customFooterContent>
-			<m:Toolbar>
+			<m:OverflowToolbar>
 				<m:ToolbarSpacer />
 				<m:Button
                     id="acceptButton"
                     text="{t>newRelationship.acceptRelationship}"
-                    press="onNewLink"
+                    press="onAccept"
                     type="Emphasized"
                     icon="sap-icon://accept"
                     enabled="{v>/submitEnabled}"
                 />
-				<m:Button
-                    id="abortButton"
-                    text="{t>newRelationship.abortRelationship}"
-                    press="onAbort"
+                <m:Button
+                    id="rejectButton"
+                    text="{t>newRelationship.rejectRelationshipRequest}"
+                    press="onReject"
                     type="Reject"
-                    icon="sap-icon://decline"
+                    icon="sap-icon://delete"
+                    enabled="{onNewRelationship}"
                 />
-			</m:Toolbar>
+				<m:Button id="cancelButton" text="{t>newRelationship.cancelRelationship}" press="onCancel" icon="sap-icon://decline" />
+                
+			</m:OverflowToolbar>
 		</semantic:customFooterContent>
 	</semantic:DetailPage>
 
