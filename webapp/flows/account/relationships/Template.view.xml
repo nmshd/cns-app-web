@@ -30,7 +30,7 @@
 				<m:ToolbarSpacer />
 				<m:Button
                     id="acceptButton"
-                    text="{t>newRelationship.acceptRelationship}"
+                    text="{t>newRelationship.addContact}"
                     press="onAccept"
                     type="Emphasized"
                     icon="sap-icon://accept"
@@ -38,13 +38,12 @@
                 />
                 <m:Button
                     id="rejectButton"
-                    text="{t>newRelationship.rejectRelationshipRequest}"
+                    text="{t>newRelationship.rejectContact}"
                     press="onReject"
                     type="Reject"
                     icon="sap-icon://delete"
                     enabled="{onNewRelationship}"
                 />
-				<m:Button id="cancelButton" text="{t>newRelationship.cancelRelationship}" press="onCancel" icon="sap-icon://decline" />
                 
 			</m:OverflowToolbar>
 		</semantic:customFooterContent>
