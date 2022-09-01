@@ -42,7 +42,6 @@
                     press="onReject"
                     type="Reject"
                     icon="sap-icon://delete"
-                    enabled="{onNewRelationship}"
                 />
                 
 			</m:OverflowToolbar>
