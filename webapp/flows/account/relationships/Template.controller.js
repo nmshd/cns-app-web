@@ -223,6 +223,7 @@ sap.ui.define(
                     })
                     return false
                 }
+                return true
             },
 
             refreshWithData(data) {
