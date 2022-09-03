@@ -60,7 +60,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
 
             const requestResult = await runtime.currentSession.consumptionServices.incomingRequests.getRequests({
                 query: {
-                    peer: relationship.address
+                    peer: relationship.id
                 }
             })
             if (requestResult.isError) {
