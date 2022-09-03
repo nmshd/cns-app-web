@@ -26,7 +26,10 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 const messages = await runtime.currentSession.expander.expandMessageDTOs(messagesResult.value)
                 const requests = []
                 for (const request of requestResult.value) {
-                    requests.push(await runtime.currentSession.expander.expandLocalRequestDTO(request))
+                    const requestDVO = await runtime.currentSession.expander.expandLocalRequestDTO(request)
+                    if (requestDVO.createdBy.hasRelationship) {
+                        requests.push(requestDVO)
+                    }
                 }
 
                 // @ts-ignore

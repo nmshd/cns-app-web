@@ -480,7 +480,7 @@ sap.ui.define(
                         await this.navAndReplaceHistory(-1, [
                             "account.template",
                             {
-                                accountId: this.accountId,
+                                accountId: runtime.currentAccount.id,
                                 templateId: result.value.value.id
                             }
                         ]).catch((e) => appLogger.log("Navigation is already in progress", e))

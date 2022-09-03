@@ -93,6 +93,22 @@ sap.ui.define(
                 return decideParams
             },
 
+            getRejectResponseParams() {
+                const context = this.getBindingContext().getObject()
+
+                const itemResponses = []
+                for (const item of this.getAggregation("_list").getItems()) {
+                    itemResponses.push(
+                        item.getRejectResponseParams ? item.getRejectResponseParams() : { accept: false }
+                    )
+                }
+                const decideParams = {
+                    requestId: context.id,
+                    items: itemResponses
+                }
+                return decideParams
+            },
+
             getContext() {
                 let context = this.getBindingContext().getObject()
                 const items = []

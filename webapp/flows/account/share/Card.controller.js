@@ -76,7 +76,7 @@ sap.ui.define(
                     const attribute = this.map[shareValueType.valueType]
                     if (!attribute) continue
                     const requestItem = {
-                        "@type": "CreateAttributeRequestItem",
+                        "@type": "ShareAttributeRequestItem",
                         mustBeAccepted: true,
                         attribute: attribute.content,
                         sourceAttributeId: attribute.id
@@ -91,10 +91,7 @@ sap.ui.define(
                     const templateResult =
                         await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
                             {
-                                content: {
-                                    attributes: shareData.attributes,
-                                    request: shareData.request
-                                },
+                                content: shareData,
                                 expiresAt: expiry
                             }
                         )
