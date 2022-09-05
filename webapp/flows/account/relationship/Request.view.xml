@@ -37,7 +37,7 @@
                 <m:Label text="{t>relationship.request.statusText}" />
 				<m:Text text="{path:'statusText',formatter:'.formatter.toTranslated'}" />
                 <m:Label text="{t>relationship.request.createdBy}" />
-				<m:Text text="{createdBy/name}" />
+				<m:Text text="{path:'createdBy/name',formatter:'.formatter.toTranslated'}" />
 				<m:Label text="{t>relationship.request.createdAt}" />
 				<m:Text text="{path:'createdAt',formatter:'.formatter.toAbsoluteDate'}" />
 			</form:SimpleForm>

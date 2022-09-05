@@ -151,6 +151,9 @@ sap.ui.define(
                 for (let i = 0; i < requestItems.length; i++) {
                     const requestItem = requestItems[i]
                     const responseItem = responseItems[i]
+                    if (requestItem["@type"] === "ShareAttributeRequestItem") {
+                        requestItem.attribute.id = responseItem.attributeId
+                    }
                     mergedRequestItems.push(this.mergeRequestItemWithResponseItem(requestItem, responseItem))
                 }
                 return mergedRequestItems

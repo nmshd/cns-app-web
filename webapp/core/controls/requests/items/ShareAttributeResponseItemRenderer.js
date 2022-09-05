@@ -42,7 +42,7 @@ sap.ui.define(
                         showLabel: false
                     })
                         .addStyleClass("shareAttributeResponseItemRendererFoundAttribute")
-                        .bindElement("response/attribute")
+                        .bindElement("attribute")
                 )
             },
 
