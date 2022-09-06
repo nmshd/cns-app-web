@@ -236,3 +236,28 @@ body .messageList header {
 .attributeRenderer {
     display: flex;
 }
+
+.attributeRendererLabel {
+    padding-top: 2px;
+    padding-right: 5px;
+}
+
+.attributeRendererLabel::after {
+    content: ":";
+    color: #6a6d70;
+    font-size: 0.875rem;
+    font-family: "72fallback", "72", "72full", Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    display: inline-block;
+    white-space: nowrap;
+    cursor: text;
+    overflow: hidden;
+}
+
+.attributeRendererButton .sapMBtn,
+.attributeRendererButton .sapMBtn .sapMBtnInner {
+    padding: 0px;
+    line-height: 1em !important;
+    width: 1em !important;
+    height: 1em !important;
+}
