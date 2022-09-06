@@ -25,7 +25,7 @@
 			<m:PullToRefresh id="pullToRefresh" refresh="refresh" visible="{=${d>/system/phone}}" />
 
 
-			<m:Panel headerText="{t>attribute.Person.person}" id="personAttributes" visible="{v>/isPerson}">
+			<m:Panel headerText="{t>attribute.Person.person}" id="personAttributes" visible="false">
 				<m:headerToolbar>
 					<m:Toolbar height="3rem">
 						<m:Title text="{t>attribute.Person.person}" />
@@ -128,7 +128,7 @@
 						<m:Button text="{t>attribute.newAttribute}" press="onNewAttribute" icon="sap-icon://add" />
 					</m:Toolbar>
 				</m:headerToolbar>
-				<m:List items="{/items}">
+				<m:List items="{/items}" class="sapUiSmallMargin">
 					<m:items>
 						<attributeControls:AttributeRenderer showLabel="true" />
 					</m:items>
