@@ -1,6 +1,6 @@
 {
     "name": "@nmshd/app-web",
-    "version": "1.0.13",
+    "version": "1.0.14",
     "description": "The web sources for the Enmeshed App",
     "repository": "github:nmshd/cns-app-web",
     "license": "MIT",
@@ -26,9 +26,9 @@
         "pako": "^2.0.4"
     },
     "devDependencies": {
-        "@js-soft/license-check": "^1.0.4",
+        "@js-soft/license-check": "^1.0.5",
         "@types/jquery": "^3.5.14",
-        "@ui5/cli": "^2.14.9",
+        "@ui5/cli": "^2.14.11",
         "cross-env": "^7.0.3",
         "eslint": "^8.16.0",
         "eslint-config-prettier": "^8.5.0",
