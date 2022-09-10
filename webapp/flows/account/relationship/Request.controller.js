@@ -26,6 +26,11 @@ sap.ui.define(
                 return value
             },
 
+            getRejectResponseParams() {
+                const value = this.byId("request").getRejectResponseParams()
+                return value
+            },
+
             async onRouteMatched(oEvent) {
                 this.clear()
                 await RelationshipController.prototype.onRouteMatched.apply(this, [oEvent, true])
@@ -47,7 +52,7 @@ sap.ui.define(
                         return
                     }
                     this.byId("acceptButton").setEnabled(false)
-                    this.setMessage(canAcceptResult.value.items, "Error")
+                    this.setMessage(canAcceptResult.value.items[0].message, "Error")
                     console.warn("Cannot Accept", canAcceptResult.value.items)
                 } else {
                     this.byId("acceptButton").setEnabled(false)
@@ -58,8 +63,8 @@ sap.ui.define(
 
             async checkCanReject() {
                 if (!this.relationshipIdentityDVO || !this.request) return
-                const responseParams = this.getResponseParams()
-                const canRejectResult = await runtime.currentSession.consumptionServices.incomingRequests.canAccept(
+                const responseParams = this.getRejectResponseParams()
+                const canRejectResult = await runtime.currentSession.consumptionServices.incomingRequests.canReject(
                     responseParams
                 )
                 if (canRejectResult.isSuccess) {
@@ -69,7 +74,7 @@ sap.ui.define(
                         return
                     }
                     this.byId("rejectButton").setEnabled(false)
-                    this.setMessage(canRejectResult.value.items, "Error")
+                    this.setMessage(canRejectResult.value.items[0].message, "Error")
                     console.warn("Cannot Reject", canRejectResult.value.items)
                 } else {
                     this.byId("rejectButton").setEnabled(false)
@@ -197,7 +202,7 @@ sap.ui.define(
                 this.viewProp("/requestRunning", true)
                 await runtime.currentSession.transportServices.account.disableAutoSync()
                 try {
-                    const responseParams = this.getResponseParams()
+                    const responseParams = this.getRejectResponseParams()
 
                     const rejectResult = await runtime.currentSession.consumptionServices.incomingRequests.reject(
                         responseParams
