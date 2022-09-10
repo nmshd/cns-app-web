@@ -256,8 +256,18 @@ body .messageList header {
 
 .attributeRendererButton .sapMBtn,
 .attributeRendererButton .sapMBtn .sapMBtnInner {
+    margin-top: -0.15em;
+    margin-left: 0.2em;
     padding: 0px;
+    line-height: normal !important;
+    height: auto !important;
+    min-width: auto !important;
+    width: auto !important;
+}
+.attributeRendererButton .sapMBtn .sapMBtnIcon {
+    padding: 4px 1px;
     line-height: 1em !important;
+    min-width: 0.5em !important;
     width: 1em !important;
     height: 1em !important;
 }
