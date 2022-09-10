@@ -534,15 +534,8 @@ sap.ui.define(
                         if (!value) return undefined
                         break
                 }
-                const returnValue = {
-                    "@type": "IdentityAttribute",
-                    value: {
-                        "@type": this._valueType,
-                        value: value
-                    },
-                    owner: runtime.currentAccount.address
-                }
-                return returnValue
+
+                return value
             },
 
             setValueType(valueType) {
