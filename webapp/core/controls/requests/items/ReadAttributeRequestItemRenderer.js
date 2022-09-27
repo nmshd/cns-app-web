@@ -121,7 +121,7 @@ sap.ui.define(
                 const attribute = {
                     "@type": "IdentityAttribute",
                     value: {
-                        "@type": this._valueType,
+                        "@type": query.valueType,
                         value: value
                     },
                     owner: runtime.currentAccount.address
