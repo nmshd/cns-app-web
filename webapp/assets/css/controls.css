@@ -290,3 +290,72 @@ body .messageList header {
 .requestItemRendererErrorContainer .sapMMsgStrip {
     border-style: none !important;
 }
+
+html body .QRScanner-container {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: calc(50% - 300px);
+    z-index: 999999999;
+    display: block;
+    background-color: rgb(240, 240, 240);
+    box-shadow: rgb(0 0 0) 0px 0px 10px;
+    width: unset;
+    height: 600px;
+    margin: unset;
+    padding: unset;
+}
+
+html body .QRScanner-container > canvas {
+    position: absolute;
+    left: calc(50% - 320px);
+    width: 640px;
+}
+
+html body #qr-scanner-input-container {
+    position: absolute;
+    bottom: -110px;
+    display: flex;
+    flex-direction: column;
+    margin-left: unset;
+    margin-right: unset;
+    left: 0px;
+    right: 0px;
+    width: unset;
+    padding: 4px 10px;
+    box-shadow: rgb(0 0 0) 0px 0px 10px;
+}
+html body #qr-scanner-input-container > label {
+    left: 0px;
+    right: 0px;
+    line-height: 1.5rem;
+}
+html body #qr-scanner-input-container > label > input {
+    width: calc(100% - 0.5rem);
+    height: 1.5rem;
+}
+html body #qr-scanner-input-container > input {
+    margin-top: 0.5rem;
+    line-height: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 635px) {
+    html body .QRScanner-container {
+        position: fixed;
+        inset: 0px;
+        width: 640px;
+        height: 710px;
+        z-index: 999999999;
+        margin: auto;
+        display: block;
+        background-color: rgb(240, 240, 240);
+        box-shadow: rgb(0 0 0) 0px 0px 10px;
+    }
+
+    html body #qr-scanner-input-container {
+        bottom: 0px;
+        box-shadow: unset;
+    }
+}
