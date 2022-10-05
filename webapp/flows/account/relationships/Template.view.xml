@@ -22,7 +22,7 @@
 
 		<semantic:content>
 			<m:MessageStrip id="message" class="sapUiTinyMargin" visible="false" />
-			<requests:RequestRenderer id="request" binding="{/onNewRelationship}" change="onChange" class="sapUiSmallMargin">
+			<requests:RequestRenderer id="request" binding="{/request}" change="onChange" class="sapUiSmallMargin">
 			</requests:RequestRenderer>
 		</semantic:content>
 		<semantic:customFooterContent>

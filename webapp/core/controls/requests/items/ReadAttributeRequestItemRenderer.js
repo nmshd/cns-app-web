@@ -80,7 +80,53 @@ sap.ui.define(
                 const editControl = this.getAggregation("_editControl")
                 if (!editControl) return undefined
                 if (!editControl.getVisible()) return undefined
-                return editControl.getEditedValue()
+                const editedValue = editControl.getEditedValue()
+                if (!editedValue) return undefined
+                return this.createAttributeWithValue(editedValue)
+            },
+
+            createAttributeWithValue(value) {
+                const item = this.getBindingContext().getObject()
+                let owner = runtime.currentAccount.address
+                const query = item.query
+
+                if (query.type === "ProcessedThirdPartyRelationshipAttributeQueryDVO") {
+                    console.warn("A ThirdPartyRelationshipAttribute was requested but is not available.")
+                    return undefined
+                }
+                if (query.type === "ProcessedRelationshipAttributeQueryDVO") {
+                    let confidentiality = query.attributeCreationHints.confidentiality
+                    if (!confidentiality) {
+                        console.warn(
+                            "The confidentiality of the requested RelationshipAttribute was not set. Defaulting to private."
+                        )
+                        confidentiality = "private"
+                    }
+
+                    const attribute = {
+                        "@type": "RelationshipAttribute",
+                        value: {
+                            "@type": query.valueType,
+                            value: value,
+                            title: query.name
+                        },
+                        key: query.key,
+                        owner,
+                        confidentiality,
+                        isTechnical: !!query.attributeCreationHints.isTechnical
+                    }
+                    return attribute
+                }
+
+                const attribute = {
+                    "@type": "IdentityAttribute",
+                    value: {
+                        "@type": query.valueType,
+                        value: value
+                    },
+                    owner: runtime.currentAccount.address
+                }
+                return attribute
             },
 
             getContext() {

@@ -11,7 +11,7 @@ sap.ui.define(
     (Control, Text, Label, Button, Select, ValueRenderer, Formatter) => {
         "use strict"
 
-        return Control.extend("nmshd.app.core.controls.requests.items.CreateRelationshipAttributeRequestItemRenderer", {
+        return Control.extend("nmshd.app.core.controls.requests.items.CreateAttributeRequestItemRenderer", {
             metadata: {
                 aggregations: {
                     _label: { type: "sap.m.Label", multiple: false, visibility: "hidden" },
@@ -33,13 +33,13 @@ sap.ui.define(
                 this.setAggregation(
                     "_label",
                     new Label({ text: { path: "name", formatter: Formatter.toTranslated } })
-                        .addStyleClass("createRelationshipAttributeRequestItemRendererLabel")
+                        .addStyleClass("createAttributeRequestItemRendererLabel")
                         .bindElement("attribute")
                 )
                 this.setAggregation(
                     "_valueRenderer",
                     new ValueRenderer({})
-                        .addStyleClass("createRelationshipAttributeRequestItemRendererFoundAttribute")
+                        .addStyleClass("createAttributeRequestItemRendererFoundAttribute")
                         .bindElement("attribute")
                 )
             },
@@ -55,7 +55,16 @@ sap.ui.define(
                 const valueRenderer = this.getAggregation("_valueRenderer")
                 if (!valueRenderer) return undefined
                 if (!valueRenderer.getVisible()) return undefined
-                return valueRenderer.getEditedValue()
+                const editedValue = valueRenderer.getEditedValue()
+                if (!editedValue) return undefined
+                return this.createAttributeWithValue(editedValue)
+            },
+
+            createAttributeWithValue(value) {
+                const item = this.getBindingContext().getObject()
+                let owner = runtime.currentAccount.address
+
+                return item.attribute.content
             },
 
             getContext() {
@@ -71,7 +80,7 @@ sap.ui.define(
             renderer(oRM, oControl) {
                 oRM.write("<div")
                 oRM.writeControlData(oControl)
-                oRM.addClass("createRelationshipAttributeRequestItemRenderer")
+                oRM.addClass("createAttributeRequestItemRenderer")
                 oRM.writeClasses()
                 oRM.write(">")
 

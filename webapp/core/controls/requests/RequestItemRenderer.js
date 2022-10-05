@@ -3,13 +3,18 @@ sap.ui.define(
         "sap/m/ListItemBase",
         "sap/m/CheckBox",
         "sap/m/Text",
+
+        "nmshd/app/core/controls/requests/items/AuthenticationRequestItemRenderer",
+        "nmshd/app/core/controls/requests/items/ConsentRequestItemRenderer",
         "nmshd/app/core/controls/requests/items/ReadAttributeRequestItemRenderer",
-        "nmshd/app/core/controls/requests/items/CreateRelationshipAttributeRequestItemRenderer",
+        "nmshd/app/core/controls/requests/items/CreateAttributeRequestItemRenderer",
         "nmshd/app/core/controls/requests/items/ShareAttributeRequestItemRenderer",
         "nmshd/app/core/controls/requests/items/ProposeAttributeRequestItemRenderer",
         "sap/ui/model/json/JSONModel",
+        "nmshd/app/core/controls/requests/items/AuthenticationResponseItemRenderer",
+        "nmshd/app/core/controls/requests/items/ConsentResponseItemRenderer",
         "nmshd/app/core/controls/requests/items/ReadAttributeResponseItemRenderer",
-        "nmshd/app/core/controls/requests/items/CreateRelationshipAttributeResponseItemRenderer",
+        "nmshd/app/core/controls/requests/items/CreateAttributeResponseItemRenderer",
         "nmshd/app/core/controls/requests/items/ShareAttributeResponseItemRenderer",
         "nmshd/app/core/controls/requests/items/ProposeAttributeResponseItemRenderer",
         "sap/m/MessageStrip",
@@ -19,13 +24,17 @@ sap.ui.define(
         ListItemBase,
         CheckBox,
         Text,
+        AuthenticationRequestItemRenderer,
+        ConsentRequestItemRenderer,
         ReadAttributeRequestItemRenderer,
-        CreateRelationshipAttributeRequestItemRenderer,
+        CreateAttributeRequestItemRenderer,
         ShareAttributeRequestItemRenderer,
         ProposeAttributeRequestItemRenderer,
         JSONModel,
+        AuthenticationResponseItemRenderer,
+        ConsentResponseItemRenderer,
         ReadAttributeResponseItemRenderer,
-        CreateRelationshipAttributeResponseItemRenderer,
+        CreateAttributeResponseItemRenderer,
         ShareAttributeResponseItemRenderer,
         ProposeAttributeResponseItemRenderer,
         MessageStrip,
@@ -98,8 +107,20 @@ sap.ui.define(
                         .setModel(model, "requestItemRenderer")
                 )
                 this.setAggregation("_error", new MessageStrip({ type: "Error", visible: false, showIcon: true }))
-                this.setAggregation("_title", new Text({ text: "{title}", visible: "{=!!${title}}" }))
-                this.setAggregation("_description", new Text({ text: "{description}", visible: "{=!!${description}}" }))
+                this.setAggregation(
+                    "_title",
+                    new Text({
+                        text: { text: { path: "title", formatter: Formatter.toTranslated } },
+                        visible: "{=!!${title}}"
+                    })
+                )
+                this.setAggregation(
+                    "_description",
+                    new Text({
+                        text: { path: "description", formatter: Formatter.toTranslated },
+                        visible: "{=!!${description}}"
+                    })
+                )
                 this.updateInternalControl()
             },
 
@@ -160,6 +181,22 @@ sap.ui.define(
 
                 if (item.response) {
                     switch (item.type) {
+                        case "AuthenticationRequestItemDVO":
+                        case "DecidableAuthenticationRequestItemDVO":
+                            control = new AuthenticationResponseItemRenderer({ requestItem: "{}" }).attachChange(
+                                (oEvent) => {
+                                    that.updateCheckbox(oEvent)
+                                    that.fireChange(oEvent)
+                                }
+                            )
+                            break
+                        case "ConsentRequestItemDVO":
+                        case "DecidableConsentRequestItemDVO":
+                            control = new ConsentResponseItemRenderer({ requestItem: "{}" }).attachChange((oEvent) => {
+                                that.updateCheckbox(oEvent)
+                                that.fireChange(oEvent)
+                            })
+                            break
                         case "ReadAttributeRequestItemDVO":
                         case "DecidableReadAttributeRequestItemDVO":
                             control = new ReadAttributeResponseItemRenderer({ requestItem: "{}" }).attachChange(
@@ -169,9 +206,9 @@ sap.ui.define(
                                 }
                             )
                             break
-                        case "CreateRelationshipAttributeRequestItemDVO":
-                        case "DecidableCreateRelationshipAttributeRequestItemDVO":
-                            control = new CreateRelationshipAttributeResponseItemRenderer({
+                        case "CreateAttributeRequestItemDVO":
+                        case "DecidableCreateAttributeRequestItemDVO":
+                            control = new CreateAttributeResponseItemRenderer({
                                 requestItem: "{}"
                             }).attachChange((oEvent) => {
                                 that.updateCheckbox(oEvent)
@@ -202,6 +239,22 @@ sap.ui.define(
                     }
                 } else {
                     switch (item.type) {
+                        case "AuthenticationRequestItemDVO":
+                        case "DecidableAuthenticationRequestItemDVO":
+                            control = new AuthenticationRequestItemRenderer({ requestItem: "{}" }).attachChange(
+                                (oEvent) => {
+                                    that.updateCheckbox(oEvent)
+                                    that.fireChange(oEvent)
+                                }
+                            )
+                            break
+                        case "ConsentRequestItemDVO":
+                        case "DecidableConsentRequestItemDVO":
+                            control = new ConsentRequestItemRenderer({ requestItem: "{}" }).attachChange((oEvent) => {
+                                that.updateCheckbox(oEvent)
+                                that.fireChange(oEvent)
+                            })
+                            break
                         case "ReadAttributeRequestItemDVO":
                         case "DecidableReadAttributeRequestItemDVO":
                             control = new ReadAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
@@ -211,9 +264,9 @@ sap.ui.define(
                                 }
                             )
                             break
-                        case "CreateRelationshipAttributeRequestItemDVO":
-                        case "DecidableCreateRelationshipAttributeRequestItemDVO":
-                            control = new CreateRelationshipAttributeRequestItemRenderer({
+                        case "CreateAttributeRequestItemDVO":
+                        case "DecidableCreateAttributeRequestItemDVO":
+                            control = new CreateAttributeRequestItemRenderer({
                                 requestItem: "{}"
                             }).attachChange((oEvent) => {
                                 that.updateCheckbox(oEvent)
