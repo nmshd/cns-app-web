@@ -32,15 +32,9 @@ sap.ui.define(
                 const that = this
                 this.setAggregation(
                     "_label",
-                    new Label({ text: { path: "name", formatter: Formatter.toTranslated } })
-                        .addStyleClass("authenticationRequestItemRendererLabel")
-                        .bindElement("attribute")
-                )
-                this.setAggregation(
-                    "_valueRenderer",
-                    new ValueRenderer({})
-                        .addStyleClass("authenticationRequestItemRendererFoundAttribute")
-                        .bindElement("attribute")
+                    new Label({ text: { path: "name", formatter: Formatter.toTranslated } }).addStyleClass(
+                        "authenticationRequestItemRendererLabel"
+                    )
                 )
             },
 
@@ -78,11 +72,6 @@ sap.ui.define(
                 const labelControl = oControl.getAggregation("_label")
                 if (labelControl) {
                     oRM.renderControl(labelControl)
-                }
-
-                const foundAttribute = oControl.getAggregation("_valueRenderer")
-                if (foundAttribute) {
-                    oRM.renderControl(foundAttribute)
                 }
 
                 const buttonControl = oControl.getAggregation("_button")

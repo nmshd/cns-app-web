@@ -32,17 +32,15 @@ sap.ui.define(
                 const that = this
                 this.setAggregation(
                     "_label",
-                    new Label({ text: { path: "name", formatter: Formatter.toTranslated } })
-                        .addStyleClass("consentResponseItemRendererLabel")
-                        .bindElement("attribute")
+                    new Label({ text: { path: "consent", formatter: Formatter.toTranslated } }).addStyleClass(
+                        "consentResponseItemRendererLabel"
+                    )
                 )
                 this.setAggregation(
                     "_valueRenderer",
                     new AttributeRenderer({
                         showLabel: false
-                    })
-                        .addStyleClass("consentResponseItemRendererFoundAttribute")
-                        .bindElement("response/attribute")
+                    }).addStyleClass("consentResponseItemRendererFoundAttribute")
                 )
             },
 
