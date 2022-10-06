@@ -22,7 +22,7 @@
 
 
 		<semantic:customHeaderContent>
-
+			
 		</semantic:customHeaderContent>
 
 		<semantic:subHeader>
@@ -80,7 +80,14 @@
 
 			
 
-			<m:Panel headerText="Root Attribute" visible="{=${type} === 'RepositoryAttributeDVO'}">
+			<m:Panel visible="{=${type} === 'RepositoryAttributeDVO'}">
+				<m:headerToolbar>
+					<m:Toolbar>
+						<m:Title text="Root Attribute" />
+						<m:ToolbarSpacer />
+						<m:Button text="{t>attributes.action.shareAttribute}" icon="sap-icon://share-2" press="toShareAttribute" />
+					</m:Toolbar>
+				</m:headerToolbar>
 				<m:Text text="This root attribute is stored in your attribute repository and can be shared to various contacts." />
 				
 				<form:SimpleForm class="sapUiNoContentPadding">
