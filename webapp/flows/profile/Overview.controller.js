@@ -190,7 +190,14 @@ sap.ui.define(
                     }
                     this.viewProp("/submitAvailable", false)
                     const createResult = await runtime.currentSession.consumptionServices.attributes.createAttribute({
-                        content: oValue
+                        content: {
+                            "@type": "IdentityAttribute",
+                            value: {
+                                "@type": oName,
+                                value: oValue
+                            },
+                            owner: runtime.currentAccount.address
+                        }
                     })
                     if (createResult.isError) {
                         App.error(createResult.error)
