@@ -65,12 +65,21 @@
                 >
 					<m:StandardListItem title="{peers>name}" />
 				</m:List>
-				<m:VBox class="sapUiSmallMarginTop" visible="false">
-					<m:Label text="Optional text to send with the attribute:" />
-					<m:TextArea id="text" width="100%" />
-				</m:VBox>
+				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTop" visible="{=${peers>/items/length} > 0}">
+					<m:Label text="Optional title to send with the attribute:" />
+					<m:Input id="title" width="100%" />
+					<m:Label text="Optional description to send with the attribute:" />
+					<m:TextArea id="description" width="100%" />
+					
+				</form:SimpleForm>
 
-				<m:Button text="Share" press="shareAttribute" enabled="{v>/submitEnabled}" icon="sap-icon://share-2" />
+				<m:Button
+                    text="Share"
+                    press="shareAttribute"
+                    enabled="{v>/submitEnabled}"
+                    icon="sap-icon://share-2"
+                    visible="{=${peers>/items/length} > 0}"
+                />
 			</m:Panel>
 		</semantic:content>
 	</semantic:DetailPage>

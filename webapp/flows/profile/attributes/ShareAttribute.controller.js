@@ -112,17 +112,36 @@ sap.ui.define(
                 this.viewProp("/submitEnabled", false)
                 const list = this.byId("possiblePeers")
                 const selectedPeers = list.getSelectedItems()
+                const title = this.byId("title").getValue()
+                const description = this.byId("description").getValue()
                 if (selectedPeers.length === 0) return
+                const promises = []
                 for (const selectedPeer of selectedPeers) {
-                    const id = selectedPeer.getBindingContext("peers").getProperty("id")
-                    console.log(`Share attribute ${this.attributeId} to peer ${id}.`)
+                    const peer = selectedPeer.getBindingContext("peers").getProperty("id")
+                    appLogger.log(`Sharing attribute ${this.attributeId} to peer ${peer}.`)
+                    promises.push(
+                        runtime.currentSession.consumptionServices.attributes.shareAttribute({
+                            attributeId: this.attributeId,
+                            peer: peer,
+                            requestTitle: title,
+                            requestDescription: description
+                        })
+                    )
                 }
+                const results = await Promise.all(promises)
+                const errorneousResult = results.find((result) => result.isError)
+                if (errorneousResult) {
+                    return App.error(errorneousResult.error)
+                }
+                this.clear()
                 this.refresh()
                 this.viewProp("/submitEnabled", true)
             },
 
             clear() {
                 this.super("clear")
+                this.byId("title").setValue("")
+                this.byId("description").setValue("")
                 this.attribute = null
                 this.expandedAttribute = null
                 this.model = null
