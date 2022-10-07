@@ -21,7 +21,7 @@
         "@js-soft/native-cordova": "1.2.1",
         "@js-soft/native-electron": "1.2.1",
         "@js-soft/native-web": "1.2.1",
-        "@nmshd/app-runtime": "2.0.0-beta.13",
+        "@nmshd/app-runtime": "2.0.0-beta.15",
         "bson": "^4.7.0",
         "pako": "^2.0.4"
     },
@@ -31,7 +31,7 @@
         "@types/jquery": "^3.5.14",
         "@ui5/cli": "^2.14.11",
         "cross-env": "^7.0.3",
-        "eslint": "^8.23.0",
+        "eslint": "^8.24.0",
         "eslint-config-prettier": "^8.5.0",
         "fs-extra": "^10.1.0",
         "prettier": "^2.7.1",
