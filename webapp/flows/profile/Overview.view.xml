@@ -24,7 +24,6 @@
 		<semantic:content>
 			<m:PullToRefresh id="pullToRefresh" refresh="refresh" visible="{=${d>/system/phone}}" />
 
-
 			<m:Panel headerText="{t>attribute.Person.person}" id="personAttributes" visible="false">
 				<m:headerToolbar>
 					<m:Toolbar height="3rem">

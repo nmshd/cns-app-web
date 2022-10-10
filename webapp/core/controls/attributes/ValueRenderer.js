@@ -17,7 +17,10 @@ sap.ui.define(
         "sap/m/DateRangeSelection",
         "sap/m/TimePicker",
         "sap/ui/core/CustomData",
-        "sap/m/Text"
+        "sap/m/Text",
+        "sap/m/Label",
+        "sap/ui/layout/form/SimpleForm",
+        "sap/m/Title"
     ],
     (
         Control,
@@ -37,7 +40,10 @@ sap.ui.define(
         DateRangeSelection,
         TimePicker,
         CustomData,
-        Text
+        Text,
+        Label,
+        SimpleForm,
+        Title
     ) => {
         "use strict"
 
@@ -48,7 +54,8 @@ sap.ui.define(
                 },
                 properties: {
                     valueType: { type: "string" },
-                    editable: { type: "boolean" }
+                    editable: { type: "boolean" },
+                    updateDisabled: { type: "boolean" }
                 },
                 publicMethods: [],
                 events: {
@@ -58,13 +65,18 @@ sap.ui.define(
             },
 
             init(e) {
-                this.attachModelContextChange(this.modelContextChangeListener)
+                if (!this.getUpdateDisabled()) {
+                    this.attachModelContextChange(this.modelContextChangeListener)
+                }
             },
             modelContextChangeListener(oEvent) {
+                if (this.getUpdateDisabled()) return
+
                 const context = oEvent.getSource().getBindingContext()
                 if (!context) {
                     this.renderHints = undefined
                     this.valueHints = undefined
+                    this.removeAggregation("_control")
                     return
                 }
                 const object = context.getObject()
@@ -75,6 +87,7 @@ sap.ui.define(
                 if (!object) {
                     this.renderHints = undefined
                     this.valueHints = undefined
+                    this.removeAggregation("_control")
                     return
                 }
                 this.renderHints = object.renderHints
@@ -85,8 +98,16 @@ sap.ui.define(
                 if (!this.valueHints) {
                     this.valueHints = undefined
                 }
-
-                this.updateControls()
+                appLogger.log("Control invalidated through model " + oEvent.getSource().getId())
+                this.invalidateControl()
+            },
+            invalidateControl() {
+                if (this._invalidated) return
+                this._invalidated = true
+                setTimeout(() => {
+                    this.updateControls()
+                    this._invalidated = false
+                }, 0)
             },
             updateControls() {
                 if (!this.getValueType() && !this.renderHints) {
@@ -118,11 +139,15 @@ sap.ui.define(
                     if (model) model.setProperty("/valueHints", this.valueHints)
                 }
 
-                let valueType = this.object.valueType ? this.object.valueType : this.getValueType()
-                if (!valueType) {
+                let valueType = this.object ? this.object.valueType : undefined
+                valueType = valueType ? valueType : this.getValueType()
+
+                if (!valueType && this.object && this.object.content && this.object.content.value) {
                     valueType = this.object.content.value["@type"]
                 }
+                if (!valueType) valueType = "Unknown"
                 this._valueType = valueType
+                this.valueRenderers = {}
                 if (this.getEditable()) {
                     this.createEditableControl()
                 } else {
@@ -411,6 +436,28 @@ sap.ui.define(
                 }
                 return control
             },
+            createEditableObjectControl() {
+                const that = this
+                if (this._valueType === "Unknown") return
+                const children = [new Title({ text: `{t>attributes.values.${this._valueType}._title}` })]
+                const valueRenderers = {}
+                for (const property in this.renderHints.propertyHints) {
+                    const label = new Label({ text: `{t>attributes.values.${this._valueType}.${property}.label}` })
+                    children.push(label)
+                    const valueRenderer = new this.constructor({
+                        editable: true,
+                        valueType: "GivenName",
+                        updateDisabled: true
+                    })
+                    children.push(valueRenderer)
+                    valueRenderers[property] = valueRenderer
+                }
+                this.valueRenderers = valueRenderers
+                const control = new SimpleForm({ content: children, editable: true })
+                control.addStyleClass("sapUiNoContentPadding")
+
+                return control
+            },
             createEditableControl() {
                 this.removeAggregation("_control")
                 let control
@@ -427,10 +474,33 @@ sap.ui.define(
                     case "Float":
                         control = this.createEditableFloatControl()
                         break
+                    case "Object":
+                        control = this.createEditableObjectControl()
+                        break
                 }
                 if (control) {
                     this.setAggregation("_control", control)
                 }
+                return control
+            },
+            createReadonlyObjectControl() {
+                const children = []
+                for (const property in this.renderHints.propertyHints) {
+                    const binding = "value/" + property
+                    if (!this.getBindingContext()) continue
+                    const value = this.getBindingContext().getProperty(binding)
+                    if (value) {
+                        const label = new Label({ text: `{t>attributes.values.${this._valueType}.${property}.label}` })
+                        children.push(label)
+                        const valueRenderer = new Text({
+                            text: { path: binding }
+                        })
+                        children.push(valueRenderer)
+                    }
+                }
+                const control = new SimpleForm({ content: children, editable: false })
+                control.addStyleClass("sapUiNoContentPadding")
+
                 return control
             },
             createReadonlyControl() {
@@ -466,7 +536,11 @@ sap.ui.define(
                         }
                     })
                 } else {
-                    control = new Text({ text: { path: binding } })
+                    if (this.renderHints.technicalType === "Object") {
+                        control = this.createReadonlyObjectControl()
+                    } else {
+                        control = new Text({ text: { path: binding } })
+                    }
                 }
 
                 if (control) {
@@ -504,6 +578,13 @@ sap.ui.define(
                         break
                     case "sap.m.Text":
                         value = control.getText()
+                        break
+                    case "sap.ui.layout.form.SimpleForm":
+                        const temporaryValue = {}
+                        for (const property in this.valueRenderers) {
+                            temporaryValue[property] = this.valueRenderers[property].getEditedValue()
+                        }
+                        value = temporaryValue
                         break
                 }
                 switch (this.renderHints.dataType) {
