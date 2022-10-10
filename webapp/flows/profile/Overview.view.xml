@@ -134,7 +134,7 @@
 				</m:List>
 			</m:Panel>
 
-			<m:Panel headerText="{t>files}" class="sapUiNoContentPadding">
+			<m:Panel headerText="{t>files}" class="sapUiNoContentPadding" visible="false">
 				<m:headerToolbar>
 					<m:Toolbar height="3rem">
 						<m:Title text="{t>files}" />
