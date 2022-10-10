@@ -34,12 +34,6 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
         },
 
         async getFiles() {
-            const syncResult = await runtime.currentSession.transportServices.account.syncDatawallet()
-            if (syncResult.isError) {
-                App.error(syncResult.error)
-                return
-            }
-
             const relationshipsResult = await runtime.currentSession.transportServices.files.getFiles({})
             if (relationshipsResult.isError) {
                 App.error(relationshipsResult.error)

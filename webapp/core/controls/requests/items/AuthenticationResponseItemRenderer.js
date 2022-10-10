@@ -32,17 +32,15 @@ sap.ui.define(
                 const that = this
                 this.setAggregation(
                     "_label",
-                    new Label({ text: { path: "name", formatter: Formatter.toTranslated } })
-                        .addStyleClass("authenticationResponseItemRendererLabel")
-                        .bindElement("attribute")
+                    new Label({ text: { path: "name", formatter: Formatter.toTranslated } }).addStyleClass(
+                        "authenticationResponseItemRendererLabel"
+                    )
                 )
                 this.setAggregation(
                     "_valueRenderer",
                     new AttributeRenderer({
                         showLabel: false
-                    })
-                        .addStyleClass("authenticationResponseItemRendererFoundAttribute")
-                        .bindElement("response/attribute")
+                    }).addStyleClass("authenticationResponseItemRendererFoundAttribute")
                 )
             },
 

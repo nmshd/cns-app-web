@@ -324,6 +324,12 @@
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
+                    "pattern": "accounts/{accountId}/attributes/{attributeId}/share",
+                    "name": "account.attributes.share",
+                    "target": ["account.attributes.detail", "account.attributes.share"],
+                    "parent": "nmshd.app.Component:generic"
+                },
+                {
                     "pattern": "accounts/{accountId}/attributes/{attributeId}/delete",
                     "name": "account.attributes.detail.delete",
                     "target": ["account.master", "account.attributes.detail.delete"],
@@ -683,6 +689,12 @@
                     "viewId": "account-attributes-overview-edit",
                     "controlAggregation": "detailPages",
                     "viewLevel": 502
+                },
+                "account.attributes.share": {
+                    "viewName": "flows.profile.attributes.ShareAttribute",
+                    "viewId": "account-attributes-share",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 515
                 },
                 "account.attributes.detail": {
                     "viewName": "flows.profile.attributes.Attribute",

@@ -233,6 +233,24 @@ sap.ui.define(
                                 }
                             )
                             break
+                        case "RequestItemDVO":
+                            console.warn(`Not implemented RequestItem.type encountered: ${item.type}`)
+                            if (item["@type"] === "ConsentRequestItem") {
+                                control = new ConsentResponseItemRenderer({ requestItem: "{}" }).attachChange(
+                                    (oEvent) => {
+                                        that.updateCheckbox(oEvent)
+                                        that.fireChange(oEvent)
+                                    }
+                                )
+                            } else if (item["@type"] === "AuthenticationRequestItem") {
+                                control = new AuthenticationResponseItemRenderer({ requestItem: "{}" }).attachChange(
+                                    (oEvent) => {
+                                        that.updateCheckbox(oEvent)
+                                        that.fireChange(oEvent)
+                                    }
+                                )
+                            }
+                            break
                         default:
                             console.warn(`Unknown RequestItem.type encountered: ${item.type}`)
                             break
@@ -290,6 +308,24 @@ sap.ui.define(
                                     that.fireChange(oEvent)
                                 }
                             )
+                            break
+                        case "RequestItemDVO":
+                            console.warn(`Not implemented RequestItem.type encountered: ${item.type}`)
+                            if (item["@type"] === "ConsentRequestItem") {
+                                control = new ConsentRequestItemRenderer({ requestItem: "{}" }).attachChange(
+                                    (oEvent) => {
+                                        that.updateCheckbox(oEvent)
+                                        that.fireChange(oEvent)
+                                    }
+                                )
+                            } else if (item["@type"] === "AuthenticationRequestItem") {
+                                control = new AuthenticationRequestItemRenderer({ requestItem: "{}" }).attachChange(
+                                    (oEvent) => {
+                                        that.updateCheckbox(oEvent)
+                                        that.fireChange(oEvent)
+                                    }
+                                )
+                            }
                             break
                         default:
                             console.warn(`Unknown RequestItem.type encountered: ${item.type}`)
