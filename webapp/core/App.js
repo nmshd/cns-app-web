@@ -22,7 +22,9 @@ sap.ui.define(
         "nmshd/app/core/utils/MessageUtil",
         "nmshd/app/core/utils/FileUtil",
         "sap/base/security/URLWhitelist",
-        "nmshd/app/core/UIBridge"
+        "nmshd/app/core/UIBridge",
+        "sap/m/MessageBox",
+        "sap/m/FormattedText"
     ],
     (
         Event,
@@ -35,7 +37,9 @@ sap.ui.define(
         MessageUtil,
         FileUtil,
         URLWhitelist,
-        UIBridge
+        UIBridge,
+        MessageBox,
+        FormattedText
     ) => {
         "use strict"
 
@@ -799,6 +803,22 @@ sap.ui.define(
                     that.prop("/tmpObject", data.object)
                     that.navTo("accounts", data.redirect, data.navigationObject, data.object)
                 })
+
+                const htmlText = new FormattedText({
+                    htmlText:
+                        'Careful: This version of Enmeshed (Version 1) is only supported up to 26th November 2022.<br />Enmeshed Version 2 will not be compatible, thus there will be data loss.<br /><br />For more information, please see <a href="https://enmeshed.eu/blog/road-to-enmeshed-v2">our blog post</a>.'
+                })
+                setTimeout(
+                    () =>
+                        MessageBox.show(htmlText, {
+                            icon: MessageBox.Icon.WARNING,
+                            title: "Upcoming Version 2.0",
+                            actions: [MessageBox.Action.OK],
+                            emphasizedAction: MessageBox.Action.OK,
+                            onClose: function (oAction) {}
+                        }),
+                    1000
+                )
             },
 
             registerAppController(controller) {
