@@ -448,7 +448,7 @@ sap.ui.define(
                         editable: true,
                         valueType: "GivenName",
                         updateDisabled: true
-                    })
+                    }).attachChange((oEvent) => that.fireChange(oEvent))
                     children.push(valueRenderer)
                     valueRenderers[property] = valueRenderer
                 }
@@ -486,7 +486,10 @@ sap.ui.define(
             createReadonlyObjectControl() {
                 const children = []
                 for (const property in this.renderHints.propertyHints) {
-                    const binding = "value/" + property
+                    let binding = "value/" + property
+                    if (this.object && this.object.results && this.object.results.length > 0) {
+                        binding = "results/0/value/" + property
+                    }
                     if (!this.getBindingContext()) continue
                     const value = this.getBindingContext().getProperty(binding)
                     if (value) {
