@@ -75,42 +75,13 @@ sap.ui.define(
                 this.map = map
 
                 const model = new JSONModel({ items: expandedAttributes, map: map })
+                model.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay)
                 this.setModel(model)
-                this.prop("/AllAttributes", [
-                    { key: "GivenName", text: this.resource("dvo.attribute.name.GivenName") },
-                    { key: "Surname", text: this.resource("dvo.attribute.name.Surname") },
-                    { key: "BirthName", text: this.resource("dvo.attribute.name.BirthName") },
-                    { key: "DisplayName", text: this.resource("dvo.attribute.name.DisplayName") },
-                    { key: "HonorificPrefix", text: this.resource("dvo.attribute.name.HonorificPrefix") },
-                    { key: "HonorificSuffix", text: this.resource("dvo.attribute.name.HonorificSuffix") },
-                    { key: "Pseudonym", text: this.resource("dvo.attribute.name.Pseudonym") },
-                    { key: "Salutation", text: this.resource("dvo.attribute.name.Salutation") },
-                    { key: "Age", text: this.resource("dvo.attribute.name.Age") },
-                    { key: "Citizenship", text: this.resource("dvo.attribute.name.Citizenship") },
-                    { key: "Nationality", text: this.resource("dvo.attribute.name.Nationality") },
-                    { key: "Sex", text: this.resource("dvo.attribute.name.Sex") },
-                    { key: "BirthDate", text: this.resource("dvo.attribute.name.BirthDate") },
-                    { key: "BirthDay", text: this.resource("dvo.attribute.name.BirthDay") },
-                    { key: "BirthMonth", text: this.resource("dvo.attribute.name.BirthMonth") },
-                    { key: "BirthYear", text: this.resource("dvo.attribute.name.BirthYear") },
-                    { key: "BirthPlace", text: this.resource("dvo.attribute.name.BirthPlace") },
-                    { key: "BirthCity", text: this.resource("dvo.attribute.name.BirthCity") },
-                    { key: "BirthState", text: this.resource("dvo.attribute.name.BirthState") },
-                    { key: "BirthCountry", text: this.resource("dvo.attribute.name.BirthCountry") },
-                    {
-                        key: "CommunicationLanguage",
-                        text: this.resource("dvo.attribute.name.CommunicationLanguage")
-                    },
-                    { key: "EMailAddress", text: this.resource("dvo.attribute.name.EMailAddress") },
-                    { key: "Fax", text: this.resource("dvo.attribute.name.Fax") },
-                    { key: "Phone", text: this.resource("dvo.attribute.name.Phone") },
-                    { key: "Website", text: this.resource("dvo.attribute.name.Website") },
-                    { key: "City", text: this.resource("dvo.attribute.name.City") },
-                    { key: "Country", text: this.resource("dvo.attribute.name.Country") },
-                    { key: "Street", text: this.resource("dvo.attribute.name.Street") },
-                    { key: "HouseNumber", text: this.resource("dvo.attribute.name.HouseNumber") },
-                    { key: "ZipCode", text: this.resource("dvo.attribute.name.ZipCode") }
-                ])
+                const editableAttributes = NMSHDContent.AttributeValues.Identity.Editable.TYPE_NAMES.map((value) => ({
+                    key: value,
+                    text: this.resource(`dvo.attribute.name.${value}`)
+                }))
+                this.prop("/AllAttributes", editableAttributes)
 
                 this.files = await App.FileUtil.getFiles()
                 this.files.refresh()
@@ -165,6 +136,7 @@ sap.ui.define(
                 const selectedValueType = this.byId("allName").getSelectedKey()
                 const valueEditRenderer = this.byId("allValue")
                 valueEditRenderer.setValueType(selectedValueType)
+                this.byId("allInfo").setVisible(false)
             },
 
             async onAllSave() {
@@ -189,18 +161,26 @@ sap.ui.define(
                         oName = oOriginalName
                     }
                     this.viewProp("/submitAvailable", false)
+                    let attributeValue = {
+                        "@type": oName,
+                        value: oValue
+                    }
+                    if (typeof oValue === "object") {
+                        attributeValue = {
+                            "@type": oName,
+                            ...oValue
+                        }
+                    }
                     const createResult = await runtime.currentSession.consumptionServices.attributes.createAttribute({
                         content: {
                             "@type": "IdentityAttribute",
-                            value: {
-                                "@type": oName,
-                                value: oValue
-                            },
+                            value: attributeValue,
                             owner: runtime.currentAccount.address
                         }
                     })
                     if (createResult.isError) {
-                        App.error(createResult.error)
+                        this.byId("allInfo").setText(createResult.error.message).setVisible(true)
+                        this.viewProp("/submitAvailable", true)
                         return
                     }
                     this.onPopupClose()

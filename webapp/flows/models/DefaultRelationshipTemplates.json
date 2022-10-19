@@ -6,7 +6,7 @@
         "key": "share.template",
         "icon": "sap-icon://home",
         "template": {
-            "@type": "RelationshipTemplateBody",
+            "@type": "RelationshipTemplateContent",
             "title": "{t>relationshipTemplate.private.template.title}",
             "onNewRelationship": {
                 "@type": "Request",

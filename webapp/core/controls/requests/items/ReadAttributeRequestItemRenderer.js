@@ -118,12 +118,19 @@ sap.ui.define(
                     return attribute
                 }
 
+                let attributeValue = {
+                    "@type": query.valueType,
+                    value: value
+                }
+                if (query.renderHints.technicalType === "Object") {
+                    attributeValue = {
+                        "@type": query.valueType,
+                        ...value
+                    }
+                }
                 const attribute = {
                     "@type": "IdentityAttribute",
-                    value: {
-                        "@type": query.valueType,
-                        value: value
-                    },
+                    value: attributeValue,
                     owner: runtime.currentAccount.address
                 }
                 return attribute

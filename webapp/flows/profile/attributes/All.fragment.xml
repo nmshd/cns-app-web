@@ -7,6 +7,7 @@
     xmlns:attributesControl="nmshd.app.core.controls.attributes"
 >
     <m:Dialog title="{t>attribute.newAttribute}" stretch="true" id="AllFragmentDialog">
+        <m:MessageStrip id="allInfo" visible="false" />
         <form:SimpleForm editable="true">
             <m:Label text="{t>attribute}" />
             <m:Select
