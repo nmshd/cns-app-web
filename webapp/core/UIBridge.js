@@ -8,7 +8,7 @@ sap.ui.define(
             /**
              * @param {LocalAccountDTO} account
              * @param {IdentityDVO} relationship
-             * @param {MessageDVO|MailDVO|RequestMailDVO} message
+             * @param {MessageDVO|MailDVO} message
              */
             async showMessage(account, relationship, message) {
                 return new Promise((resolve, reject) => {
@@ -91,7 +91,7 @@ sap.ui.define(
             },
             /**
              * @param {LocalAccountDTO} account
-             * @param {RelationshipTemplateDVO} relationshipTemplate
+             * @param {RelationshipTemplateDTO} relationshipTemplate
              */
             showRelationshipTemplate(account, relationshipTemplate) {
                 return new Promise((resolve) => {
@@ -115,8 +115,8 @@ sap.ui.define(
                 })
             },
             /**
-             * @param {IdentityDVO} identity
-             * @param {LocalAccountDTO=} account
+             * @param {any} error
+             * @param {LocalAccountDTO} account
              */
             showError(error, account) {
                 return new Promise((resolve) => {
@@ -126,7 +126,7 @@ sap.ui.define(
             },
             requestAccountSelection(possibleAccounts, title, description) {
                 return new Promise((resolve) => {
-                    resolve(possibleAccounts[0])
+                    resolve(undefined)
                 })
             }
         }

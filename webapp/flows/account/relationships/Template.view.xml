@@ -1,303 +1,50 @@
-<mvc:View controllerName="nmshd.app.flows.account.relationships.Template"
-	xmlns="sap.m"
-	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:f="sap.ui.layout.form"
-	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+<mvc:View
+    controllerName="nmshd.app.flows.account.relationships.Template"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:requests="nmshd.app.core.controls.requests"
+>
 
-	<semantic:DetailPage id="page"
-		navButtonPress="onNavButtonPress"
-		showNavButton="true"
-		title="{t>newRelationship.newRelationship}"
-		showFooter="true"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
-
-
-		<semantic:customHeaderContent>
-
-		</semantic:customHeaderContent>
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="true"
+        title="{t>newRelationship.newRelationship}"
+        showFooter="true"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 		<semantic:content>
-			<f:Form visible="{v>/showAttributes}">
-				<f:title>
-					<core:Title text="{t>newRelationship.received}"
-						level="H6" />
-				</f:title>
-				<f:layout>
-					<f:ResponsiveGridLayout breakpointM="600"
-						labelSpanXL="4"
-						labelSpanL="4"
-						labelSpanM="4"
-						labelSpanS="12"
-						emptySpanXL="0"
-						emptySpanL="0"
-						emptySpanM="0"
-						emptySpanS="0"
-						columnsXL="2"
-						columnsL="1"
-						columnsM="1"
-						singleContainerFullSize="false"
-						backgroundDesign="Solid" />
-				</f:layout>
-				<f:formContainers>
-					<f:FormContainer formElements="{path: '/template/attributes', factory: '.receivedAttributesFactory'}" />
-				</f:formContainers>
-			</f:Form>
-			<MessageStrip id="message"
-				class="sapUiTinyMargin" />
-			<f:Form visible="{v>/showRequired}"
-				editable="true"
-				class="noContentPadding">
-				<f:title>
-					<core:Title text="{t>newRelationship.required}"
-						level="H6" />
-				</f:title>
-				<f:layout>
-					<f:ResponsiveGridLayout breakpointM="600"
-						labelSpanXL="4"
-						labelSpanL="4"
-						labelSpanM="4"
-						labelSpanS="12"
-						emptySpanXL="0"
-						emptySpanL="0"
-						emptySpanM="0"
-						emptySpanS="0"
-						columnsXL="2"
-						columnsL="1"
-						columnsM="1"
-						singleContainerFullSize="false"
-						backgroundDesign="Solid" />
-				</f:layout>
-				<f:formContainers>
-					<f:FormContainer formElements="{path: '/template/request/required', factory: '.requiredAttributesFactory'}" />
-				</f:formContainers>
-			</f:Form>
-
-			<f:Form visible="{v>/showOptional}"
-				editable="true"
-				id="optionalForm">
-				<f:title>
-					<core:Title text="{t>newRelationship.optional}"
-						level="H6" />
-				</f:title>
-				<f:layout>
-					<f:ResponsiveGridLayout breakpointM="600"
-						labelSpanXL="4"
-						labelSpanL="4"
-						labelSpanM="4"
-						labelSpanS="12"
-						emptySpanXL="0"
-						emptySpanL="0"
-						emptySpanM="0"
-						emptySpanS="0"
-						columnsXL="2"
-						columnsL="1"
-						columnsM="1"
-						singleContainerFullSize="false"
-						backgroundDesign="Solid" />
-				</f:layout>
-				<f:formContainers>
-					<f:FormContainer formElements="{path: '/template/request/optional', factory: '.optionalAttributesFactory'}" />
-				</f:formContainers>
-			</f:Form>
-			<f:Form visible="{v>/showFiles}"
-				editable="true">
-				<f:title>
-					<core:Title text="{t>newRelationship.files}"
-						level="H6" />
-				</f:title>
-				<f:layout>
-					<f:ResponsiveGridLayout breakpointM="600"
-						labelSpanXL="4"
-						labelSpanL="4"
-						labelSpanM="4"
-						labelSpanS="12"
-						emptySpanXL="0"
-						emptySpanL="0"
-						emptySpanM="0"
-						emptySpanS="0"
-						columnsXL="2"
-						columnsL="1"
-						columnsM="1"
-						singleContainerFullSize="false"
-						backgroundDesign="Solid" />
-				</f:layout>
-				<f:formContainers>
-					<f:FormContainer formElements="{path: '/template/request/files', factory: '.filesAttributesFactory'}" />
-				</f:formContainers>
-			</f:Form>
-			<f:Form visible="{v>/showQuestions}"
-				editable="true">
-				<f:title>
-					<core:Title text="{t>newRelationship.questions}"
-						level="H6" />
-				</f:title>
-				<f:layout>
-					<f:ResponsiveGridLayout breakpointM="600"
-						labelSpanXL="4"
-						labelSpanL="4"
-						labelSpanM="4"
-						labelSpanS="12"
-						emptySpanXL="0"
-						emptySpanL="0"
-						emptySpanM="0"
-						emptySpanS="0"
-						columnsXL="2"
-						columnsL="1"
-						columnsM="1"
-						singleContainerFullSize="false"
-						backgroundDesign="Solid" />
-				</f:layout>
-				<f:formContainers>
-					<f:FormContainer formElements="{path: '/template/request/questions', factory: '.questionsAttributesFactory'}" />
-				</f:formContainers>
-			</f:Form>
-			<f:Form visible="{v>/showCreate}"
-				editable="true">
-				<f:title>
-					<core:Title text="{t>newRelationship.create}"
-						level="H6" />
-				</f:title>
-				<f:layout>
-					<f:ResponsiveGridLayout breakpointM="600"
-						labelSpanXL="4"
-						labelSpanL="4"
-						labelSpanM="4"
-						labelSpanS="12"
-						emptySpanXL="0"
-						emptySpanL="0"
-						emptySpanM="0"
-						emptySpanS="0"
-						columnsXL="2"
-						columnsL="1"
-						columnsM="1"
-						singleContainerFullSize="false"
-						backgroundDesign="Solid" />
-				</f:layout>
-				<f:formContainers>
-					<f:FormContainer formElements="{path: '/template/request/create', factory: '.createAttributesFactory'}" />
-				</f:formContainers>
-			</f:Form>
-			<f:Form visible="{v>/showThirdParty}">
-				<f:title>
-					<core:Title text="{t>newRelationship.thirdparty}"
-						level="H6" />
-				</f:title>
-				<f:layout>
-					<f:ResponsiveGridLayout breakpointM="600"
-						labelSpanXL="4"
-						labelSpanL="4"
-						labelSpanM="4"
-						labelSpanS="12"
-						emptySpanXL="0"
-						emptySpanL="0"
-						emptySpanM="0"
-						emptySpanS="0"
-						columnsXL="2"
-						columnsL="1"
-						columnsM="1"
-						singleContainerFullSize="false"
-						backgroundDesign="Solid" />
-				</f:layout>
-				<f:formContainers>
-					<f:FormContainer formElements="{path: '/template/request/thirdParties', factory: '.thirdPartiesAttributesFactory'}" />
-				</f:formContainers>
-			</f:Form>
-			<f:Form visible="{v>/showDataUse}">
-				<f:title>
-					<core:Title text="{t>newRelationship.dataUse}"
-						level="H6" />
-				</f:title>
-				<f:layout>
-					<f:ResponsiveGridLayout breakpointM="600"
-						labelSpanXL="4"
-						labelSpanL="4"
-						labelSpanM="4"
-						labelSpanS="12"
-						emptySpanXL="0"
-						emptySpanL="0"
-						emptySpanM="0"
-						emptySpanS="0"
-						columnsXL="2"
-						columnsL="1"
-						columnsM="1"
-						singleContainerFullSize="false"
-						backgroundDesign="Solid" />
-				</f:layout>
-				<f:formContainers>
-					<f:FormContainer formElements="{path: '/template/request/dataUse', factory: '.dataUseAttributesFactory'}" />
-				</f:formContainers>
-			</f:Form>
-			<f:Form visible="{v>/showAuthorizations}"
-				id="authorizationForm">
-				<f:title>
-					<core:Title text="{t>newRelationship.authorization}"
-						level="H6" />
-				</f:title>
-				<f:layout>
-					<f:ResponsiveGridLayout breakpointM="600"
-						labelSpanXL="4"
-						labelSpanL="4"
-						labelSpanM="4"
-						labelSpanS="12"
-						emptySpanXL="0"
-						emptySpanL="0"
-						emptySpanM="0"
-						emptySpanS="0"
-						columnsXL="2"
-						columnsL="1"
-						columnsM="1"
-						singleContainerFullSize="false"
-						backgroundDesign="Solid" />
-				</f:layout>
-				<f:formContainers>
-					<f:FormContainer formElements="{path: '/template/request/authorizations', factory: '.authorizationAttributesFactory'}" />
-				</f:formContainers>
-			</f:Form>
-			<f:Form visible="{v>/showPrivacy}">
-				<f:title>
-					<core:Title text="{t>newRelationship.privacy}"
-						level="H6" />
-				</f:title>
-				<f:layout>
-					<f:ResponsiveGridLayout breakpointM="600"
-						labelSpanXL="4"
-						labelSpanL="4"
-						labelSpanM="4"
-						labelSpanS="12"
-						emptySpanXL="0"
-						emptySpanL="0"
-						emptySpanM="0"
-						emptySpanS="0"
-						columnsXL="2"
-						columnsL="1"
-						columnsM="1"
-						singleContainerFullSize="false"
-						backgroundDesign="Solid" />
-				</f:layout>
-				<f:formContainers>
-					<f:FormContainer formElements="{path: '/template/privacy', factory: '.privacyFactory'}" />
-				</f:formContainers>
-			</f:Form>
+			<m:MessageStrip id="message" class="sapUiTinyMargin" visible="false" />
+			<requests:RequestRenderer id="request" binding="{/request}" change="onChange" class="sapUiSmallMargin">
+			</requests:RequestRenderer>
 		</semantic:content>
 		<semantic:customFooterContent>
-			<Toolbar>
-				<ToolbarSpacer />
-				<Button id="acceptButton"
-					text="{t>newRelationship.acceptRelationship}"
-					press="onNewLink"
-					type="Emphasized"
-					icon="sap-icon://accept"
-					enabled="{v>/submitEnabled}" />
-				<Button id="abortButton"
-					text="{t>newRelationship.abortRelationship}"
-					press="onAbort"
-					type="Reject"
-					icon="sap-icon://decline" />
-			</Toolbar>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer />
+				<m:Button
+                    id="acceptButton"
+                    text="{t>newRelationship.addContact}"
+                    press="onAccept"
+                    type="Emphasized"
+                    icon="sap-icon://accept"
+                    enabled="{v>/submitEnabled}"
+                />
+                <m:Button
+                    id="rejectButton"
+                    text="{t>newRelationship.rejectContact}"
+                    press="onReject"
+                    type="Reject"
+                    icon="sap-icon://delete"
+                />
+                
+			</m:OverflowToolbar>
 		</semantic:customFooterContent>
 	</semantic:DetailPage>
 

@@ -11,22 +11,25 @@ sap.ui.define(
             routeName: "account.relationship.attributesSent",
 
             async refresh() {
-                if (!this.relationshipId) return
+                if (!this.relationshipId || !this.relationshipIdentityDVO) {
+                    App.error("Error while fetching relationship")
+                    return
+                }
 
-                const sentItemsResult = await runtime.consumptionServices.sharedItems.getSharedItems({
-                    query: {
-                        sharedWith: this.identity.id
-                    }
-                })
+                const sentItemsResult =
+                    await runtime.currentSession.consumptionServices.attributes.getSharedToPeerAttributes({
+                        peer: this.relationshipIdentityDVO.id
+                    })
 
                 if (sentItemsResult.isError) {
                     App.error(sentItemsResult.error)
                     return
                 }
+                const sentItems = await runtime.currentSession.expander.expandLocalAttributeDTOs(sentItemsResult.value)
 
                 this.setModel(
                     new JSONModel({
-                        items: sentItemsResult.value
+                        items: sentItems
                     })
                 )
             }

@@ -20,20 +20,40 @@ sap.ui.define(
             },
 
             async refresh() {
+                if (!this.relationshipId || !this.relationshipIdentityDVO) {
+                    App.error("Error while fetching relationship")
+                    return
+                }
+
                 this.byId("pullToRefresh").hide()
 
-                const messages = await App.MessageUtil.getMessagesByRelationship(this.relationshipId)
-                if (!messages) return
-                this.setModel(messages)
+                const items = await App.InboxUtil.getInboxForRelationship(this.relationshipIdentityDVO)
+                if (!items) return
+                this.setModel(items)
             },
 
-            openMessage(oEvent) {
+            openItem(oEvent) {
                 const oItem = oEvent.getParameter("listItem") || oEvent.getSource()
                 const item = oItem.getBindingContext().getProperty()
-                this.navTo("account.relationship.message", {
-                    relationshipId: this.relationshipId,
-                    messageId: item.id.toString()
-                })
+                if (item.id) {
+                    const prefix = item.id.substr(0, 3)
+                    switch (prefix) {
+                        case "id1":
+                            break
+                        case "MSG":
+                            this.navTo("account.relationship.message", {
+                                relationshipId: this.relationshipId,
+                                messageId: item.id
+                            })
+                            break
+                        case "REQ":
+                            this.navTo("account.relationship.request", {
+                                relationshipId: this.relationshipId,
+                                requestId: item.id
+                            })
+                            break
+                    }
+                }
             },
 
             toNewMessage() {

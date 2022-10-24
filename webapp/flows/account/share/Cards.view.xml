@@ -1,59 +1,52 @@
-<mvc:View controllerName="nmshd.app.flows.account.share.Cards"
-	xmlns:m="sap.m"
-	xmlns:layout="sap.ui.layout"
-	xmlns:core="sap.ui.core"
-	xmlns:grid="sap.ui.layout.cssgrid"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:form="sap.ui.layout.form"
-	xmlns:f="sap.f"
-	xmlns:controls="nmshd.app.core.controls"
-	xmlns:u="sap.ui.unified">
-	<semantic:DetailPage id="page"
-		navButtonPress="onNavButtonPress"
-		title="{t>master.share}"
-		showFooter="false"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+<mvc:View
+    controllerName="nmshd.app.flows.account.share.Cards"
+    xmlns:m="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:f="sap.f"
+    xmlns:controls="nmshd.app.core.controls"
+    xmlns:u="sap.ui.unified"
+>
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        title="{t>master.share}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 
 		<semantic:customHeaderContent>
-			<m:Button text="{t>relationship.refresh}"
-				icon="sap-icon://refresh"
-				press="refresh"
-				visible="{= !${d>/system/phone}}" />
+			<m:Button text="{t>relationship.refresh}" icon="sap-icon://refresh" press="refresh" visible="{= !${d>/system/phone}}" />
 		</semantic:customHeaderContent>
 
 
 
 		<semantic:content>
-			<f:GridList items="{/templates}"
-				noDataText=" ">
+			<f:GridList items="{/templates}" noDataText=" ">
 				<f:customLayout>
 					<grid:GridBoxLayout boxesPerRowConfig="XL7 L4 M2 S1" />
 				</f:customLayout>
-				<controls:BoxItemRenderer type="Active"
-					press="onItemPress">
+				<controls:BoxItemRenderer type="Active" press="onItemPress">
 					<m:VBox>
 						<m:VBox justifyContent="SpaceBetween">
 							<m:layoutData>
-								<m:FlexItemData growFactor="1"
-									shrinkFactor="0" />
+								<m:FlexItemData growFactor="1" shrinkFactor="0" />
 							</m:layoutData>
 							<m:VBox class="sapUiSmallMargin">
 								<m:HBox>
-									<core:Icon src="{icon}"
-										size="2.625rem"
-										color="Default"
-										class="sapUiTinyMarginBottom sapUiSmallMarginEnd" />
-									<m:Title text="{title}"
-										wrapping="true" />
+									<core:Icon src="{icon}" size="2.625rem" color="Default" class="sapUiTinyMarginBottom sapUiSmallMarginEnd" />
+									<m:Title text="{title}" wrapping="true" />
 
 								</m:HBox>
 
-								<m:Text text="{description}"
-									wrapping="true" />
+								<m:Text text="{description}" wrapping="true" />
 							</m:VBox>
 						</m:VBox>
 					</m:VBox>

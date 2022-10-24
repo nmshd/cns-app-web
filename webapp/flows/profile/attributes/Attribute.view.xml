@@ -1,0 +1,144 @@
+<mvc:View
+    controllerName="nmshd.app.flows.profile.attributes.Attribute"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:controls="nmshd.app.core.controls"
+    xmlns:attributeControls="nmshd.app.core.controls.attributes"
+>
+
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="true"
+        title="{t>file}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
+
+
+		<semantic:customHeaderContent>
+			
+		</semantic:customHeaderContent>
+
+		<semantic:subHeader>
+		</semantic:subHeader>
+
+		<semantic:content>
+			<m:Panel headerText="{t>attribute.title.categorization}">
+				<m:Text
+                    text="{parts:[{path:'t>attribute.info.identityAttributeOwn'},{path:'name',formatter:'.formatter.toTranslated'}], formatter:'jQuery.sap.formatMessage'}"
+                    visible="{= ${content/@type} === 'IdentityAttribute' &amp;&amp; ${type} !== 'PeerAttributeDVO'}"
+                />
+				<m:Text
+                    text="{parts:[{path:'t>attribute.info.identityAttributePeer'},{path:'name',formatter:'.formatter.toTranslated'},{path:'peer>/name'}], formatter:'jQuery.sap.formatMessage'}"
+                    visible="{= ${content/@type} === 'IdentityAttribute' &amp;&amp; ${type} === 'PeerAttributeDVO'}"
+                />
+				<m:Text text="{path:'description',formatter:'.formatter.toTranslated'}" class="sapUiSmallMarginTop" />
+				
+				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTopBottom">
+					<m:Label text="{t>attribute.type}" />
+					<m:Text text="{content/@type}" />
+					<m:Label text="{t>attribute.valueType}" />
+					<m:Text text="{path:'name',formatter:'.formatter.toTranslated'}" />
+					<m:Label text="{t>attribute.value}" />
+					<attributeControls:ValueRenderer binding="{}" />
+					
+				</form:SimpleForm>
+			</m:Panel>
+
+			<m:Panel headerText="Shared Attribute" visible="{=${type} === 'SharedToPeerAttributeDVO'}">
+				<m:Text
+                    text="This attribute has been shared to one of your contacts. You and your contact '{peer>/name}' share the same details found here."
+                />
+				
+				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTopBottom">
+					<m:Label text="{t>attribute.sharedId}" />
+					<m:Text text="{id}" />
+					<m:Label text="{t>attribute.sharedAt}" />
+					<m:Text text="{path:'createdAt',formatter:'.formatter.toAbsoluteDate'}" />
+					<m:Label text="{t>attribute.sharedWith}" />
+					<m:Text text="{peer>/name}" />
+				</form:SimpleForm>
+
+
+				<m:Text text="This shared attribute is based on the following root attribute out of your own data:" />
+				<m:List
+                    items="{items}"
+                    noDataText="{t>attribute.sharedWithNobody}"
+                    class="sapUiNoContentPadding"
+                    itemPress="onItemPress"
+                    visible="{=${items/length} > 0}"
+                >
+					<m:StandardListItem title="{id}" description="{path:'date', formatter:'.formatter.toAbsoluteDate'}" type="Navigation" />
+				</m:List>
+			</m:Panel>
+
+			
+
+			<m:Panel visible="{=${type} === 'RepositoryAttributeDVO'}">
+				<m:headerToolbar>
+					<m:Toolbar>
+						<m:Title text="Root Attribute" />
+						<m:ToolbarSpacer />
+						<m:Button text="{t>attributes.action.shareAttribute}" icon="sap-icon://share-2" press="toShareAttribute" />
+					</m:Toolbar>
+				</m:headerToolbar>
+				<m:Text text="This root attribute is stored in your attribute repository and can be shared to various contacts." />
+				
+				<form:SimpleForm class="sapUiNoContentPadding">
+					<m:Label text="{t>attribute.ownId}" />
+					<m:Text text="{id}" />
+					<m:Label text="{t>attribute.createdAt}" />
+					<m:Text text="{path:'createdAt',formatter:'.formatter.toAbsoluteDate'}" />
+					<m:Label text="{t>attribute.valueType}" />
+					<m:Text text="{path:'name',formatter:'.formatter.toTranslated'}" />
+					<m:Label text="{t>attribute.value}" />
+					<attributeControls:ValueRenderer binding="{}" />
+					
+				</form:SimpleForm>
+
+				<m:Text text="This own attribute is shared with the following contacts:" visible="{=${sharedWith/length} > 0}" />
+				<m:Text
+                    text="This own attribute is so far not shared to any of your contacts. You can share it with the button below."
+                    visible="{=${sharedWith/length} === 0}"
+                />
+				<m:List
+                    items="{items}"
+                    noDataText="{t>attribute.sharedWithNobody}"
+                    class="sapUiNoContentPadding"
+                    itemPress="onItemPress"
+                    visible="{=${items/length} > 0}"
+                >
+					<m:StandardListItem
+                        title="{peer/name}"
+                        description="{path:'date', formatter:'.formatter.toAbsoluteDate'}"
+                        type="Navigation"
+                    />
+				</m:List>
+			</m:Panel>
+
+			<m:Panel headerText="Peer Attribute" visible="{=${type} === 'PeerAttributeDVO'}">
+				<m:Text
+                    text="This attribute has been received by one of your contacts. You and your contact '{peer>/name}' share the same details found here."
+                />
+				
+				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTopBottom">
+					<m:Label text="{t>attribute.sharedId}" />
+					<m:Text text="{id}" />
+					<m:Label text="{t>attribute.receivedAt}" />
+					<m:Text text="{path:'createdAt',formatter:'.formatter.toAbsoluteDate'}" />
+					<m:Label text="{t>attribute.sharedBy}" />
+					<m:Text text="{peer>/name}" />
+				</form:SimpleForm>
+			</m:Panel>
+
+			
+			
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

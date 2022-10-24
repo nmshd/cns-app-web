@@ -191,3 +191,102 @@ body .messageList header {
     font-weight: bold;
     margin-bottom: 0.2rem;
 }
+
+/* ====================================== */
+
+.requestItemGroupRenderer {
+    margin-top: 1rem;
+}
+
+.requestItemGroupRenderer,
+.requestItemRenderer {
+    display: flex;
+    width: 100%;
+    flex-flow: row;
+}
+
+.readAttributeRequestItemRenderer {
+    flex-flow: column;
+}
+
+.readAttributeRequestItemRenderer {
+    align-items: center;
+    justify-content: stretch;
+}
+
+.requestItemRendererChildContainer {
+    flex-grow: 1;
+}
+
+.readAttributeRequestItemRendererLabel {
+    min-width: 8rem;
+}
+
+.readAttributeRequestItemRendererFoundAttribute,
+.readAttributeRequestItemRendererEditControl {
+    width: 100%;
+}
+
+.readAttributeRequestItemRendererButton {
+    align-self: flex-end;
+}
+
+.requestItemRenderer {
+    border-top: 1px solid #eeeeee;
+}
+
+.attributeRenderer {
+    display: flex;
+}
+
+.attributeRendererLabel {
+    padding-top: 2px;
+    padding-right: 5px;
+}
+
+.attributeRendererLabel::after {
+    content: ":";
+    color: #6a6d70;
+    font-size: 0.875rem;
+    font-family: "72fallback", "72", "72full", Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    display: inline-block;
+    white-space: nowrap;
+    cursor: text;
+    overflow: hidden;
+}
+
+.attributeRendererButton .sapMBtn,
+.attributeRendererButton .sapMBtn .sapMBtnInner {
+    margin-top: -0.15em;
+    margin-left: 0.2em;
+    padding: 0px;
+    line-height: normal !important;
+    height: auto !important;
+    min-width: auto !important;
+    width: auto !important;
+}
+.attributeRendererButton .sapMBtn .sapMBtnIcon {
+    padding: 4px 1px;
+    line-height: 1em !important;
+    min-width: 0.5em !important;
+    width: 1em !important;
+    height: 1em !important;
+}
+
+.requestItemRendererTitle {
+    font-weight: bold;
+    margin-bottom: 0.125rem;
+    margin-top: 0.6rem;
+}
+.requestItemRendererDescription {
+    margin-bottom: 0.6rem;
+}
+
+.requestItemRendererErrorContainer {
+    margin-bottom: 0.4rem;
+}
+
+.requestItemRendererErrorContainer .sapMMsgStrip {
+    border-style: none !important;
+}

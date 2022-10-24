@@ -22,14 +22,13 @@ sap.ui.define(
 
             async createDevice(name, description, isAdmin) {
                 this.viewProp("/submitAvailable", false)
-                const createdDeviceResult = await runtime.transportServices.devices.createDevice({
+                const createdDeviceResult = await runtime.currentSession.transportServices.devices.createDevice({
                     name: name,
                     description: description,
                     isAdmin: isAdmin
                 })
-                await runtime.transportServices.account.syncDatawallet()
-                if (!createdDeviceResult || createdDeviceResult.isError || !createdDeviceResult.value) {
-                } else {
+                await runtime.currentSession.transportServices.account.syncDatawallet()
+                if (createdDeviceResult.isSuccess) {
                     await App.navAndReplaceHistory(-1, [
                         "account.settings.device",
                         {

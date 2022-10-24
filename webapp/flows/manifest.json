@@ -224,7 +224,7 @@
                     "parent": "nmshd.app.Component:phone"
                 },
                 {
-                    "pattern": "accounts/{accountId}/template/{relationshipId}",
+                    "pattern": "accounts/{accountId}/template/{templateId}",
                     "name": "account.template",
                     "target": ["account.master", "account.template"],
                     "parent": "nmshd.app.Component:phone"

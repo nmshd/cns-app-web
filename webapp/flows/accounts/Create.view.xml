@@ -1,17 +1,21 @@
-<mvc:View controllerName="nmshd.app.flows.accounts.Create"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:form="sap.ui.layout.form"
-	xmlns:l="sap.ui.layout"
-	xmlns:controls="nmshd.app.core.controls">
-	<semantic:DetailPage id="wizardContentPage"
-		navButtonPress="onNavButtonPress"
-		showNavButton="{d>/system/phone}"
-		title="{t>accounts.create.title}"
-		showFooter="false"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+<mvc:View
+    controllerName="nmshd.app.flows.accounts.Create"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:controls="nmshd.app.core.controls"
+>
+	<semantic:DetailPage
+        id="wizardContentPage"
+        navButtonPress="onNavButtonPress"
+        showNavButton="{d>/system/phone}"
+        title="{t>accounts.create.title}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 
 		<semantic:customHeaderContent>
@@ -24,47 +28,32 @@
 		</semantic:subHeader>
 
 		<semantic:content>
-			<VBox visible="{=${v>/creation}}"
-				class="sapUiResponsiveMargin">
+			<VBox visible="{=${v>/creation}}" class="sapUiResponsiveMargin">
 				<controls:Container class="sapUiTinyMargin">
-					<Text text="{t>create.doAccept}"
-						class="inlineText" />
-					<Link press="toPrivacy"
-						text="{t>create.privacy}"
-						class="sapUiTinyMarginStart inlineText" />
-					<Text text="{t>create.continue}"
-						class="inlineText" />
+					<Text text="{t>create.doAccept}" class="inlineText" />
+					<Link press="toPrivacy" text="{t>create.privacy}" class="sapUiTinyMarginStart inlineText" />
+					<Text text="{t>create.continue}" class="inlineText" />
 				</controls:Container>
 
-				<HBox alignItems="Center"
-					renderType="Bare"
-					class="sapUiTinyMargin">
+				<HBox alignItems="Center" renderType="Bare" class="sapUiTinyMargin">
 					<ToolbarSpacer />
-					<Button text="{t>create.continueButton}"
-						icon="sap-icon://accept"
-						type="Emphasized"
-						press="submit" />
+					<Button text="{t>create.continueButton}" icon="sap-icon://accept" type="Emphasized" press="submit" />
 				</HBox>
 			</VBox>
-			<VBox visible="{=${v>/creationCompleted}}"
-				class="sapUiResponsiveMargin">
+			<VBox visible="{=${v>/creationCompleted}}" class="sapUiResponsiveMargin">
 				<controls:Container>
-					<Text text="{t>create.created}"
-						class="sapUiTinyMargin" />
+					<Text text="{t>create.created}" class="sapUiTinyMargin" />
 				</controls:Container>
-				<HBox alignItems="Center"
-					renderType="Bare"
-					class="sapUiTinyMargin">
+				<HBox alignItems="Center" renderType="Bare" class="sapUiTinyMargin">
 					<ToolbarSpacer />
-					<Button icon="sap-icon://bar-code"
-						text="{t>create.scan}"
-						press="qrcode"
-						class="sapUiTinyMargin" />
-					<Button icon="sap-icon://paper-plane"
-						type="Emphasized"
-						text="{t>create.continueButton}"
-						press="start"
-						class="sapUiTinyMargin" />
+					<Button icon="sap-icon://bar-code" text="{t>create.scan}" press="qrcode" class="sapUiTinyMargin" />
+					<Button
+                        icon="sap-icon://paper-plane"
+                        type="Emphasized"
+                        text="{t>create.continueButton}"
+                        press="start"
+                        class="sapUiTinyMargin"
+                    />
 
 				</HBox>
 			</VBox>

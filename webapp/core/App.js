@@ -1,10 +1,10 @@
 /**
  * @typedef { import('@nmshd/runtime').RelationshipDVO} RelationshipDVO
  * @typedef { import('@nmshd/runtime').RelationshipChangeDTO} RelationshipChangeDTO
+ * @typedef { import('@nmshd/runtime').RelationshipTemplateDTO} RelationshipTemplateDTO
  * @typedef { import('@nmshd/runtime').RelationshipTemplateDVO} RelationshipTemplateDVO
  * @typedef { import('@nmshd/runtime').MessageDVO} MessageDVO
  * @typedef { import('@nmshd/runtime').MailDVO} MailDVO
- * @typedef { import('@nmshd/runtime').RequestMailDVO} RequestMailDVO
  * @typedef { import('@nmshd/runtime').IdentityDVO} IdentityDVO
  * @typedef { import('@nmshd/runtime').TokenDTO} TokenDTO
  * @typedef { import('@nmshd/app-runtime').LocalAccountDTO} LocalAccountDTO
@@ -20,11 +20,10 @@ sap.ui.define(
         "nmshd/app/core/utils/RelationshipUtil",
         "nmshd/app/core/utils/RelationshipTemplateUtil",
         "nmshd/app/core/utils/MessageUtil",
+        "nmshd/app/core/utils/InboxUtil",
         "nmshd/app/core/utils/FileUtil",
         "sap/base/security/URLWhitelist",
-        "nmshd/app/core/UIBridge",
-        "sap/m/MessageBox",
-        "sap/m/FormattedText"
+        "nmshd/app/core/UIBridge"
     ],
     (
         Event,
@@ -35,11 +34,10 @@ sap.ui.define(
         RelationshipUtil,
         RelationshipTemplateUtil,
         MessageUtil,
+        InboxUtil,
         FileUtil,
         URLWhitelist,
-        UIBridge,
-        MessageBox,
-        FormattedText
+        UIBridge
     ) => {
         "use strict"
 
@@ -360,8 +358,9 @@ sap.ui.define(
                 }
             },
 
-            error(error) {
+            error(error, rootCause) {
                 if (error) {
+                    if (rootCause) appLogger.error(rootCause)
                     appLogger.error(error)
                     this.navTo("accounts.select", "app.error", {
                         "?query": { code: error.code }
@@ -372,8 +371,9 @@ sap.ui.define(
                 }
             },
 
-            fatal(error) {
+            fatal(error, rootCause) {
                 if (error) {
+                    if (rootCause) appLogger.error(rootCause)
                     appLogger.error("FATAL", error)
                     this.navTo("app.master", "app.fatal", {
                         "?query": { code: error.code }
@@ -445,54 +445,89 @@ sap.ui.define(
                 this.navTo("account.master", "account.scan", { accountId: accountId }, null)
             },
 
-            async parseQR(content, accountId) {
-                content = content.trim()
-                appLogger.trace("QR Code", content)
-                if (content.substr(0, 11) === "nmshd://qr#") {
-                    content = content.substr(11)
+            /**
+             * @param {string} qrContent
+             * @returns {string}
+             */
+            qrContentToTruncatedReference(qrContent) {
+                let truncatedReference = qrContent.trim()
+                appLogger.trace("QR Code", truncatedReference)
+
+                const prefix = truncatedReference.substring(0, 11)
+                if (prefix.startsWith("nmshd://qr#") || prefix === "nmshd://tr#") {
+                    truncatedReference = truncatedReference.substring(11)
                 }
-                const token = await this.account(accountId).tokens.loadPeerTokenByTruncated(content)
-                appLogger.trace("Token", token)
 
-                if (token.cache.content) {
-                    const template = await this.account(accountId).relationshipTemplates.loadPeerRelationshipTemplate(
-                        token.cache.content.templateId,
-                        token.cache.content.secretKey
-                    )
+                return truncatedReference
+            },
 
-                    try {
-                        await App.navAndReplaceHistory(-1, [
+            /**
+             * @param {string} qrContent
+             * @returns {Promise<void>}
+             */
+            async handleQRContentWithCurrentSession(qrContent) {
+                const truncatedReference = this.qrContentToTruncatedReference(qrContent)
+                const result = await runtime.currentSession.transportServices.account.loadItemFromTruncatedReference({
+                    reference: truncatedReference
+                })
+                if (result.isError) return this.error(result.error)
+
+                switch (result.value.type) {
+                    case "File":
+                        this.navTo("account.files.detail", { id: result.value.value.id })
+                        break
+                    case "RelationshipTemplate":
+                        await this.navAndReplaceHistory(-1, [
                             "account.template",
                             {
-                                accountId: accountId,
-                                relationshipId: template.id.toString()
+                                accountId: runtime.currentAccount.id,
+                                templateId: result.value.value.id
                             }
-                        ])
-                    } catch (e) {
-                        appLogger.log("Navigation is already in progress", e)
-                    }
+                        ]).catch((e) => appLogger.log("Navigation is already in progress", e))
+                        break
+                    case "Token":
+                    case "DeviceOnboardingInfo":
+                        // error (this cant be handled while logged in)
+                        this.addError({
+                            sUserFriendlyMsg: this.resource("scanController.retryError")
+                        })
+                        break
                 }
             },
 
-            async parseQRAccounts(truncatedReference) {
-                try {
-                    truncatedReference = truncatedReference.trim()
-                    appLogger.trace("QR Code", truncatedReference)
-                    if (truncatedReference.substr(0, 11) === "nmshd://qr#") {
-                        truncatedReference = truncatedReference.substr(11)
+            /**
+             * @param {string} qrContent
+             * @returns {Promise<void>}
+             */
+            async handleQRContentAnonymously(qrContent) {
+                const truncatedReference = this.qrContentToTruncatedReference(qrContent)
+
+                switch (truncatedReference.substring(0, 4)) {
+                    // Base64 for RLT
+                    case "UkxU": {
+                        const reference = NMSHDTransport.RelationshipTemplateReference.fromTruncated(truncatedReference)
+
+                        App.navTo(
+                            "accounts.select",
+                            "accounts.processrelationshiptoken",
+                            {},
+                            { templateId: reference.id.toString(), secretKey: reference.key.toBase64() }
+                        )
+
+                        break
                     }
-                    const tokenResult = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference({
-                        reference: truncatedReference
-                    })
-                    if (!tokenResult || tokenResult.isError || !tokenResult.value) {
-                    } else {
+
+                    // Base64 for TOK
+                    case "VE9L": {
+                        const tokenResult = await runtime.anonymousServices.tokens.loadPeerTokenByTruncatedReference({
+                            reference: truncatedReference
+                        })
+                        if (tokenResult.isError) return App.error(tokenResult.error)
+
                         const tokenDTO = tokenResult.value
                         const content = tokenDTO.content
 
                         switch (content["@type"]) {
-                            default:
-                                App.navTo("accounts.select", "accounts.onboardwrongcode", {}, {})
-                                break
                             case "TokenContentDeviceSharedSecret":
                                 App.navTo(
                                     "accounts.select",
@@ -501,21 +536,31 @@ sap.ui.define(
                                     { token: tokenDTO, sharedSecret: content.sharedSecret }
                                 )
                                 break
+
                             case "recovery":
                                 App.navTo("accounts.select", "accounts.processrecoverytoken", {}, {})
                                 break
+
                             case "TokenContentRelationshipTemplate":
+                                const parsed = NMSHDTransport.TokenContentRelationshipTemplate.from(content)
                                 App.navTo(
                                     "accounts.select",
                                     "accounts.processrelationshiptoken",
                                     {},
-                                    { token: tokenDTO }
+                                    { templateId: parsed.templateId.toString(), secretKey: parsed.secretKey.toBase64() }
                                 )
                                 break
+
+                            default:
+                                App.navTo("accounts.select", "accounts.onboardwrongcode", {}, {})
+                                break
                         }
+                        break
                     }
-                } catch (e) {
-                    appLogger.error(e)
+
+                    default:
+                        App.navTo("accounts.select", "accounts.onboardwrongcode", {}, {})
+                        break
                 }
             },
 
@@ -689,6 +734,7 @@ sap.ui.define(
                 this.RelationshipUtil = new RelationshipUtil(this)
                 this.RelationshipTemplateUtil = new RelationshipTemplateUtil(this)
                 this.MessageUtil = new MessageUtil(this)
+                this.InboxUtil = new InboxUtil(this)
                 this.FileUtil = new FileUtil(this)
 
                 appLogger.trace("Transport initialized")
@@ -760,8 +806,9 @@ sap.ui.define(
                 Event.publish("App", "ready")
 
                 // Apply language stored in config
-                if (bootstrapper.nativeConfigAccess.config.language) {
-                    sap.ui.getCore().getConfiguration().setLanguage(bootstrapper.nativeConfigAccess.config.language)
+                const language = bootstrapper.nativeEnvironment.configAccess.get("language")
+                if (language.isSuccess && language.value) {
+                    sap.ui.getCore().getConfiguration().setLanguage(language.value)
                 }
 
                 runtime.registerUIBridge(UIBridge)
@@ -803,22 +850,6 @@ sap.ui.define(
                     that.prop("/tmpObject", data.object)
                     that.navTo("accounts", data.redirect, data.navigationObject, data.object)
                 })
-
-                const htmlText = new FormattedText({
-                    htmlText:
-                        'Careful: This version of Enmeshed (Version 1) is only supported up to 26th November 2022.<br />Enmeshed Version 2 will not be compatible, thus there will be data loss.<br /><br />For more information, please see <a href="https://enmeshed.eu/blog/road-to-enmeshed-v2">our blog post</a>.'
-                })
-                setTimeout(
-                    () =>
-                        MessageBox.show(htmlText, {
-                            icon: MessageBox.Icon.WARNING,
-                            title: "Upcoming Version 2.0",
-                            actions: [MessageBox.Action.OK],
-                            emphasizedAction: MessageBox.Action.OK,
-                            onClose: function (oAction) {}
-                        }),
-                    1000
-                )
             },
 
             registerAppController(controller) {

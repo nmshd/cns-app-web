@@ -11,7 +11,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 return
             }
 
-            const relationshipResult = await runtime.transportServices.files.getFile({
+            const relationshipResult = await runtime.currentSession.transportServices.files.getFile({
                 id: id
             })
             if (relationshipResult.isError) {
@@ -22,22 +22,19 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 const model = new JSONModel(relationshipResult.value)
                 return model
             } catch (e) {
-                App.error({
-                    code: "error.app.jsonModel",
-                    message: "Error while creating JSONMOdel."
-                })
+                App.error(
+                    {
+                        code: "error.app.jsonModel",
+                        message: "Error while creating JSONMOdel."
+                    },
+                    e
+                )
                 return
             }
         },
 
         async getFiles() {
-            const syncResult = await runtime.transportServices.account.syncDatawallet()
-            if (syncResult.isError) {
-                App.error(syncResult.error)
-                return
-            }
-
-            const relationshipsResult = await runtime.transportServices.files.getFiles({})
+            const relationshipsResult = await runtime.currentSession.transportServices.files.getFiles({})
             if (relationshipsResult.isError) {
                 App.error(relationshipsResult.error)
                 return
@@ -46,16 +43,19 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 const model = new JSONModel({ items: relationshipsResult.value })
                 return model
             } catch (e) {
-                App.error({
-                    code: "error.app.jsonModel",
-                    message: "Error while creating JSONMOdel."
-                })
+                App.error(
+                    {
+                        code: "error.app.jsonModel",
+                        message: "Error while creating JSONMOdel."
+                    },
+                    e
+                )
                 return
             }
         },
 
         async openFile(file) {
-            const downloadResult = await runtime.transportServices.files.downloadFile({
+            const downloadResult = await runtime.currentSession.transportServices.files.downloadFile({
                 id: file.id
             })
 
@@ -80,7 +80,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
         },
 
         async uploadFile(file, title) {
-            const uploadResult = await runtime.transportServices.files.uploadOwnFile({
+            const uploadResult = await runtime.currentSession.transportServices.files.uploadOwnFile({
                 content: new Uint8Array(file.data),
                 expiresAt: NMSHDTransport.CoreDate.utc().add({ years: 2 }).toISOString(),
                 filename: file.name,

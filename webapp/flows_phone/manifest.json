@@ -324,6 +324,12 @@
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
+                    "pattern": "accounts/{accountId}/attributes/{attributeId}/share",
+                    "name": "account.attributes.share",
+                    "target": ["account.attributes.detail", "account.attributes.share"],
+                    "parent": "nmshd.app.Component:generic"
+                },
+                {
                     "pattern": "accounts/{accountId}/attributes/{attributeId}/delete",
                     "name": "account.attributes.detail.delete",
                     "target": ["account.master", "account.attributes.detail.delete"],
@@ -336,7 +342,7 @@
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
-                    "pattern": "accounts/{accountId}/template/{relationshipId}",
+                    "pattern": "accounts/{accountId}/template/{templateId}",
                     "name": "account.template",
                     "target": ["account.master", "account.template"],
                     "parent": "nmshd.app.Component:generic"
@@ -428,6 +434,18 @@
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/attributesReceived",
                     "name": "account.relationship.attributesReceived",
                     "target": ["account.relationship.master", "account.relationship.attributesReceived"],
+                    "parent": "nmshd.app.Component:generic"
+                },
+                {
+                    "pattern": "accounts/{accountId}/relationships/{relationshipId}/requests",
+                    "name": "account.relationship.requests",
+                    "target": ["account.relationship.master", "account.relationship.requests"],
+                    "parent": "nmshd.app.Component:generic"
+                },
+                {
+                    "pattern": "accounts/{accountId}/relationships/{relationshipId}/requests/{requestId}",
+                    "name": "account.relationship.request",
+                    "target": ["account.relationship.requests", "account.relationship.request"],
                     "parent": "nmshd.app.Component:generic"
                 },
 
@@ -672,6 +690,12 @@
                     "controlAggregation": "detailPages",
                     "viewLevel": 502
                 },
+                "account.attributes.share": {
+                    "viewName": "flows.profile.attributes.ShareAttribute",
+                    "viewId": "account-attributes-share",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 515
+                },
                 "account.attributes.detail": {
                     "viewName": "flows.profile.attributes.Attribute",
                     "viewId": "account-attributes-detail",
@@ -788,6 +812,20 @@
                     "viewId": "account-relationship-attributesReceived",
                     "controlAggregation": "detailPages",
                     "viewLevel": 253
+                },
+
+                "account.relationship.requests": {
+                    "viewName": "flows.account.relationship.Requests",
+                    "viewId": "account-relationship-requests",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 260
+                },
+
+                "account.relationship.request": {
+                    "viewName": "flows.account.relationship.Request",
+                    "viewId": "account-relationship-request",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 270
                 },
 
                 "account.files": {

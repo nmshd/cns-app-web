@@ -1,18 +1,22 @@
-<mvc:View controllerName="nmshd.app.flows.accounts.ProcessDeviceToken"
-	xmlns="sap.m"
-	xmlns:m="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:form="sap.ui.layout.form"
-	xmlns:l="sap.ui.layout"
-	xmlns:controls="nmshd.app.core.controls">
-	<semantic:DetailPage id="wizardContentPage"
-		navButtonPress="onNavButtonPress"
-		showNavButton="true"
-		title="{t>processDeviceToken.title}"
-		showFooter="false"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+<mvc:View
+    controllerName="nmshd.app.flows.accounts.ProcessDeviceToken"
+    xmlns="sap.m"
+    xmlns:m="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:controls="nmshd.app.core.controls"
+>
+	<semantic:DetailPage
+        id="wizardContentPage"
+        navButtonPress="onNavButtonPress"
+        showNavButton="true"
+        title="{t>processDeviceToken.title}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 
 		<semantic:customHeaderContent>
@@ -26,32 +30,22 @@
 
 		<semantic:content>
 
-			<m:Text text="{t>processDeviceToken.connectTitle}"
-				class="sapUiSmallMargin" />
+			<m:Text text="{t>processDeviceToken.connectTitle}" class="sapUiSmallMargin" />
 			<form:SimpleForm editable="true">
 				<m:Label text="{t>processDeviceToken.identity}" />
-				<m:Input editable="false"
-					value="{/address}" />
+				<m:Input editable="false" value="{/address}" />
 
 				<m:Label text="{t>processDeviceToken.deviceName}" />
-				<m:Input editable="false"
-					value="{/name}" />
+				<m:Input editable="false" value="{/name}" />
 				<m:Label text="{t>processDeviceToken.description}" />
-				<m:Input editable="false"
-					value="{/description}" />
+				<m:Input editable="false" value="{/description}" />
 				<m:Label text="{t>processDeviceToken.deviceID}" />
-				<m:Input editable="false"
-					value="{/id}" />
+				<m:Input editable="false" value="{/id}" />
 
 			</form:SimpleForm>
-			<HBox alignItems="Center"
-				renderType="Bare"
-				class="sapUiSmallMargin sapUiMediumMarginBottom">
+			<HBox alignItems="Center" renderType="Bare" class="sapUiSmallMargin sapUiMediumMarginBottom">
 				<ToolbarSpacer />
-				<m:Button text="{t>processDeviceToken.connectButton}"
-					icon="sap-icon://accept"
-					type="Emphasized"
-					press="onSubmit" />
+				<m:Button text="{t>processDeviceToken.connectButton}" icon="sap-icon://accept" type="Emphasized" press="onSubmit" />
 
 			</HBox>
 		</semantic:content>

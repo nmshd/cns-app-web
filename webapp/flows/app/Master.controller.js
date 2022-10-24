@@ -9,7 +9,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
 
         tapIncrease() {
             this.taps++
-            console.log("Taps", this.taps)
             if (this.taps > 5) {
                 this.navTo("app.debug")
             }
@@ -25,11 +24,12 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
         },
 
         onRouteMatched(oEvent) {
-            const autoLanguage = sap.ui.getCore().getConfiguration().getLanguage()?.substring(0, 2)
+            let autoLanguage = sap.ui.getCore().getConfiguration().getLanguage()
+            if (autoLanguage) autoLanguage = autoLanguage.substring(0, 2)
             if (autoLanguage) {
                 this.byId("language").setSelectedKey(autoLanguage)
             }
-            let language = bootstrapper.nativeConfigAccess.get("language")
+            let language = bootstrapper.nativeEnvironment.configAccess.get("language")
             if (language.isSuccess && language.value) {
                 this.byId("language").setSelectedKey(language.value)
             }
@@ -56,8 +56,8 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
         async changeLanguage() {
             const newLanguage = this.byId("language").getSelectedItem().mProperties.key
             sap.ui.getCore().getConfiguration().setLanguage(newLanguage)
-            bootstrapper.nativeConfigAccess.set("language", newLanguage)
-            bootstrapper.nativeConfigAccess.save()
+            bootstrapper.nativeEnvironment.configAccess.set("language", newLanguage)
+            bootstrapper.nativeEnvironment.configAccess.save()
             App.appController.setTitle(this.resource("app.masterController.title"))
         }
     })

@@ -1,42 +1,55 @@
-<mvc:View controllerName="nmshd.app.flows.account.relationships.IncomingRequest"
-	xmlns:m="sap.m"
-	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:form="sap.ui.layout.form">
+<mvc:View
+    controllerName="nmshd.app.flows.account.relationships.IncomingRequest"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:requests="nmshd.app.core.controls.requests"
+>
 
-	<semantic:DetailPage id="page"
-		navButtonPress="onNavButtonPress"
-		showNavButton="true"
-		title="{t>newRelationship.incomingRequestFrom} {name}"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="true"
+        title="{t>newRelationship.incomingRequestFrom} {name}"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 		<semantic:content>
 			<form:SimpleForm>
 				<m:Label text="{t>relationship.request.incoming.received}" />
-				<m:Text text="{path:'/relationship/date',formatter:'.formatter.toRelativeDate'}" />
+				<m:Text text="{path:'rel>/relationship/date',formatter:'.formatter.toRelativeDate'}" />
 				<m:Label text="{t>relationship.request.incoming.name}" />
-				<m:Text text="{name}" />
+				<m:Text text="{rel>/name}" />
 				<m:Label text="{t>relationship.request.incoming.address}" />
-				<m:Text text="{/id}" />
+				<m:Text text="{rel>/id}" />
 			</form:SimpleForm>
+            <m:Panel headerText="{t>relationship.request.incoming.content}">
+                <requests:RequestRenderer id="request" binding="{}" change="onChange" visible="{=!!${/items}}">
+                </requests:RequestRenderer>
+            </m:Panel>
 		</semantic:content>
 		<semantic:customFooterContent>
 			<m:Toolbar>
 				<m:ToolbarSpacer />
-				<m:Button id="acceptButton"
-					text="{t>newRelationship.acceptRelationship}"
-					press="onAccept"
-					type="Emphasized"
-					icon="sap-icon://accept"
-					enabled="{v>/error}" />
-				<m:Button id="abortButton"
-					text="{t>newRelationship.rejectRelationship}"
-					press="onReject"
-					type="Reject"
-					icon="sap-icon://decline" />
+				<m:Button
+                    id="acceptButton"
+                    text="{t>newRelationship.acceptRelationship}"
+                    press="onAccept"
+                    type="Emphasized"
+                    icon="sap-icon://accept"
+                    enabled="{v>/error}"
+                />
+				<m:Button
+                    id="abortButton"
+                    text="{t>newRelationship.rejectRelationship}"
+                    press="onReject"
+                    type="Reject"
+                    icon="sap-icon://decline"
+                />
 			</m:Toolbar>
 		</semantic:customFooterContent>
 	</semantic:DetailPage>

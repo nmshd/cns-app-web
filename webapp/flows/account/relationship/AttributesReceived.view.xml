@@ -1,18 +1,24 @@
-<mvc:View controllerName="nmshd.app.flows.account.relationship.AttributesReceived"
-	xmlns:m="sap.m"
-	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:form="sap.ui.layout.form">
+<mvc:View
+    controllerName="nmshd.app.flows.account.relationship.AttributesReceived"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:controls="nmshd.app.core.controls"
+    xmlns:attributeControls="nmshd.app.core.controls.attributes"
+>
 
-	<semantic:DetailPage id="page"
-		navButtonPress="onNavButtonPress"
-		showNavButton="{d>/system/phone}"
-		title="{t>relationship.received.attributes} {dvo>/name}"
-		showFooter="false"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="{d>/system/phone}"
+        title="{t>relationship.received.attributes} {dvo>/name}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 
 		<semantic:customHeaderContent>
@@ -20,15 +26,18 @@
 		</semantic:customHeaderContent>
 
 		<semantic:content>
-			<m:List id="receivedList"
-				headerText="{t>relationship.receivedData}"
-				items="{/items}">
-				<m:items>
-					<m:StandardListItem title="{path:'content/value', formatter:'.formatter.value'}"
-						description="{path:'content/name', formatter:'.formatter.attributeName'}" />
-				</m:items>
+			<m:Panel headerText="{t>relationship.sentData}" class="sapUiSmallContentPadding">
+                <m:List
+                    id="sentList"
+                    class="sapUiSmallContentPadding"
+                    noDataText="{t>relationship.noSentData}"
+                    items="{/items}"
+                    itemPress="onItemPress"
+                >
+                    <attributeControls:AttributeRenderer showLabel="true" />
 
-			</m:List>
+                </m:List>
+            </m:Panel>
 
 		</semantic:content>
 	</semantic:DetailPage>

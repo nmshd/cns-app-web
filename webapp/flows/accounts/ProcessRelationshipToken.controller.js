@@ -42,19 +42,18 @@ sap.ui.define(
                     try {
                         this.localAccount = oAccounts
                         await App.selectAccount(this.localAccount.id, "")
-                        await runtime.transportServices.account.disableAutoSync()
+                        await runtime.currentSession.transportServices.account.disableAutoSync()
                         this.accountId = this.localAccount.id
 
-                        this.templatetoken = this.info.token.content
-                        this.templatetoken.secretKey = NMSHDCrypto.CoreBuffer.fromUtf8(
-                            JSON.stringify(this.templatetoken.secretKey)
-                        ).toBase64URL()
                         const templateResult =
-                            await runtime.transportServices.relationshipTemplates.loadPeerRelationshipTemplate({
-                                id: this.templatetoken.templateId,
-                                secretKey: this.templatetoken.secretKey
-                            })
-                        if (!templateResult || templateResult.isError || !templateResult.value) {
+                            await runtime.currentSession.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
+                                {
+                                    id: this.info.templateId,
+                                    secretKey: this.info.secretKey
+                                }
+                            )
+                        if (templateResult.isError) {
+                            App.error(templateResult.error)
                         } else {
                             this.template = templateResult.value
                         }
@@ -62,8 +61,8 @@ sap.ui.define(
                         App.error(e)
                         return
                     } finally {
-                        if (runtime.transportServices) {
-                            runtime.transportServices.account.enableAutoSync()
+                        if (runtime.currentSession.transportServices) {
+                            runtime.currentSession.transportServices.account.enableAutoSync()
                         }
                     }
 
@@ -89,7 +88,7 @@ sap.ui.define(
                 this.viewProp("/submitAvailable", false)
                 App.navTo("account.home", "account.template", {
                     accountId: this.accountId,
-                    relationshipId: this.template.id
+                    templateId: this.template.id
                 })
             },
 

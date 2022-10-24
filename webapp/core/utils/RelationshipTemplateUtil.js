@@ -12,34 +12,42 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
             }
 
             const relationshipTemplateResult =
-                await runtime.transportServices.relationshipTemplates.getRelationshipTemplate({
+                await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplate({
                     id: id
                 })
             if (relationshipTemplateResult.isError) {
                 App.error(relationshipTemplateResult.error)
                 return
             }
+
+            const templateDVO = await runtime.currentSession.expander.expandRelationshipTemplateDTO(
+                relationshipTemplateResult.value
+            )
+
             try {
-                const model = new JSONModel(relationshipTemplateResult.value)
+                const model = new JSONModel(templateDVO)
                 return model
             } catch (e) {
-                App.error({
-                    code: "error.app.jsonModel",
-                    message: "Error while creating JSONMOdel."
-                })
+                App.error(
+                    {
+                        code: "error.app.jsonModel",
+                        message: "Error while creating JSONMOdel."
+                    },
+                    e
+                )
                 return
             }
         },
 
         async getRelationshipTemplates() {
-            const syncResult = await runtime.transportServices.account.syncEverything()
+            const syncResult = await runtime.currentSession.transportServices.account.syncEverything()
             if (syncResult.isError) {
                 App.error(syncResult.error)
                 return
             }
 
             const relationshipTemplatesResult =
-                await runtime.transportServices.relationshipTemplates.getRelationshipTemplates({})
+                await runtime.currentSession.transportServices.relationshipTemplates.getRelationshipTemplates({})
             if (relationshipTemplatesResult.isError) {
                 App.error(relationshipTemplatesResult.error)
                 return
@@ -48,10 +56,13 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
                 const model = new JSONModel({ items: relationshipTemplatesResult.value })
                 return model
             } catch (e) {
-                App.error({
-                    code: "error.app.jsonModel",
-                    message: "Error while creating JSONMOdel."
-                })
+                App.error(
+                    {
+                        code: "error.app.jsonModel",
+                        message: "Error while creating JSONMOdel."
+                    },
+                    e
+                )
                 return
             }
         }

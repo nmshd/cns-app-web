@@ -40,65 +40,76 @@ sap.ui.define(
 
             async onInitialized(oEvent) {
                 this.loadModel()
+
+                this.model = new JSONModel({
+                    onNewRelationship: undefined
+                })
+                this.setModel(this.model)
             },
 
             async createContent(item) {
-                const shareData = { identity: null, attributes: [] }
+                const shareData = item.template
                 if (!item || !item.template) return
-                const attributes = item.template.attributes
+                const shareValueTypes = shareData.onNewRelationship.items[0].items
 
-                const attributeMapResult = await runtime.consumptionServices.attributes.getAttributesByNames({})
-                let attributeMap
-                if (!attributeMapResult || attributeMapResult.isError || !attributeMapResult.value) {
-                    appLogger.error(attributeMapResult.error)
-                    return attributeMapResult.error
-                } else {
-                    attributeMap = attributeMapResult.value
+                const attributeResult = await runtime.currentSession.consumptionServices.attributes.getAttributes({
+                    query: { "shareInfo.peer": "!", "content.owner": runtime.currentAccount.address }
+                })
+                if (attributeResult.isError) {
+                    App.error(attributeResult.error)
+                    return
                 }
+                const expandedAttributes = await runtime.currentSession.expander.expandLocalAttributeDTOs(
+                    attributeResult.value
+                )
+                this.expandedAttributes = expandedAttributes
 
-                if (item.template.attributeContent) {
-                    shareData.attributes = item.template.attributeContent
-                } else {
-                    for (let i = 0; i < attributes.length; i++) {
-                        const attr = attributes[i]
-                        const attributeValue = attributeMap[attr.attribute]
-                        if (!attributeValue) continue
-                        shareData.attributes.push(attributeValue.content)
+                const map = {}
+                for (const attribute of expandedAttributes) {
+                    map[attribute.value["@type"]] = attribute
+                }
+                this.map = map
+
+                const createRequestItems = []
+
+                for (const shareValueType of shareValueTypes) {
+                    const attribute = this.map[shareValueType.valueType]
+                    if (!attribute) continue
+                    const requestItem = {
+                        "@type": "ShareAttributeRequestItem",
+                        mustBeAccepted: true,
+                        attribute: attribute.content,
+                        sourceAttributeId: attribute.id
                     }
+                    createRequestItems.push(requestItem)
                 }
-                if (item.template.request) {
-                    shareData.request = item.template.request
-                }
+
+                shareData.onNewRelationship.items[0].items = createRequestItems
 
                 try {
                     const expiry = NMSHDTransport.CoreDate.utc().add({ hour: 1 }).toISOString()
                     const templateResult =
-                        await runtime.transportServices.relationshipTemplates.createOwnRelationshipTemplate({
-                            content: {
-                                attributes: shareData.attributes,
-                                request: shareData.request
-                            },
-                            expiresAt: expiry
-                        })
+                        await runtime.currentSession.transportServices.relationshipTemplates.createOwnRelationshipTemplate(
+                            {
+                                content: shareData,
+                                expiresAt: expiry
+                            }
+                        )
                     if (templateResult.isError) {
                         App.error(templateResult.error)
                         return templateResult.error
                     }
 
-                    const tokenResult = await runtime.transportServices.relationshipTemplates.createTokenForOwnTemplate(
-                        {
-                            templateId: templateResult.value.id,
-                            expiresAt: expiry,
-                            ephemeral: true
-                        }
+                    const expandedRequest = await runtime.currentSession.expander.expandRequest(
+                        shareData.onNewRelationship
                     )
 
-                    if (tokenResult.isError) {
-                        App.error(tokenResult.error)
-                        return tokenResult.error
-                    } else {
-                        return tokenResult.value.truncatedReference
-                    }
+                    this.model.setData({
+                        ...item.template,
+                        onNewRelationship: expandedRequest
+                    })
+
+                    return templateResult.value.truncatedReference
                 } catch (e) {
                     App.error(e)
                     return e
@@ -149,6 +160,7 @@ sap.ui.define(
 
             clear() {
                 this.super("clear")
+                this.model.setData({})
             },
 
             onNavButtonPress() {

@@ -4,7 +4,7 @@ sap.ui.define(
         "use strict"
 
         return AccountController.extend("nmshd.app.flows.account.relationship.Relationship", {
-            async onRouteMatched(oEvent) {
+            async onRouteMatched(oEvent, doNotRefresh) {
                 await AccountController.prototype.onRouteMatched.apply(this, [oEvent, true])
 
                 this.relationshipId = oEvent.getParameter("arguments").relationshipId
@@ -17,7 +17,10 @@ sap.ui.define(
                 }
 
                 const acc = await this.account()
-                if (!acc) return
+                if (!acc) {
+                    App.error("Error while fetching current account")
+                    return
+                }
 
                 if (
                     (this.accountId && this.account() && !App.relationship()) ||
@@ -26,22 +29,26 @@ sap.ui.define(
                     await App.selectRelationship(this.relationshipId, this.accountId)
                 }
 
-                const relationship = await App.RelationshipUtil.getRelationship(this.relationshipId)
-                if (!relationship) return
-                this.setModel(relationship, "dvo")
-                this.identity = relationship.getData()
+                const relationshipIdentityDVO = await App.RelationshipUtil.getRelationship(this.relationshipId)
+                if (!relationshipIdentityDVO) {
+                    return
+                }
+                this.setModel(relationshipIdentityDVO, "dvo")
+                this.relationshipIdentityDVO = relationshipIdentityDVO.getData()
 
                 /*
-                const themeInfo = await App.themeInfoForRelationship(this.relationship)
+                const themeInfo = await App.themeInfoForRelationship(this.relationshipIdentityDVO)
 
                 if (themeInfo) {
                     this.viewProp("/theme", themeInfo)
                     App.appController.viewProp("/theme", themeInfo)
                 }
                 */
-                App.appController.setTitle(this.identity.name)
+                App.appController.setTitle(this.relationshipIdentityDVO.name)
 
-                this.refresh()
+                if (!doNotRefresh) {
+                    this.refresh()
+                }
             },
 
             async onRouteExit(oEvent) {

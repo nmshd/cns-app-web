@@ -1,18 +1,22 @@
-<mvc:View controllerName="nmshd.app.flows.app.Privacy"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:form="sap.ui.layout.form"
-	xmlns:l="sap.ui.layout"
-	xmlns:f="sap.f"
-	xmlns:c="nmshd.app.core.controls">
-	<semantic:DetailPage id="wizardContentPage"
-		navButtonPress="onNavButtonPress"
-		showNavButton="{d>/system/phone}"
-		title="{t>privacy.title}"
-		showFooter="false"
-		busy="{v>/busy}"
-		busyIndicatorDelay="{v>/delay}">
+<mvc:View
+    controllerName="nmshd.app.flows.app.Privacy"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:c="nmshd.app.core.controls"
+>
+	<semantic:DetailPage
+        id="wizardContentPage"
+        navButtonPress="onNavButtonPress"
+        showNavButton="{d>/system/phone}"
+        title="{t>privacy.title}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
 
 
 		<semantic:customHeaderContent>
@@ -27,11 +31,9 @@
 
 
 						<f:snappedContent>
-							<HBox alignItems="Center"
-								justifyContent="SpaceBetween">
+							<HBox alignItems="Center" justifyContent="SpaceBetween">
 								<Text text="{v>/privacyVersion}" />
-								<Text text="{path:'v>/privacyChanged', formatter:'.formatter.toLocaleDate'}"
-									class="sapUiSmallMarginStart" />
+								<Text text="{path:'v>/privacyChanged', formatter:'.formatter.toLocaleDate'}" class="sapUiSmallMarginStart" />
 							</HBox>
 						</f:snappedContent>
 						<f:expandedContent>

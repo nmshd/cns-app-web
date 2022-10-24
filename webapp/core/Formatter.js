@@ -7,8 +7,7 @@ sap.ui.define(["nmshd/app/core/App"], (App) => {
                 return ""
             }
 
-            if (sValue instanceof Date) {
-            } else {
+            if (!(sValue instanceof Date)) {
                 sValue = new Date(sValue)
             }
         } catch (e) {
@@ -49,6 +48,23 @@ sap.ui.define(["nmshd/app/core/App"], (App) => {
         }
     }
 
+    const toTranslated = (sValue, fallback) => {
+        if (!sValue) {
+            return ""
+        }
+        if (sValue.startsWith("i18n://")) {
+            sValue = sValue.substring(7)
+        } else {
+            return sValue
+        }
+        const translated = App.component.getModel("t").getProperty(sValue)
+        if (translated === sValue && fallback) {
+            return fallback
+        } else {
+            return translated
+        }
+    }
+
     return {
         /**
          * Rounds the currency value to 2 digits
@@ -78,20 +94,7 @@ sap.ui.define(["nmshd/app/core/App"], (App) => {
         },
 
         toTranslated(sValue, fallback) {
-            if (!sValue) {
-                return ""
-            }
-            if (sValue.startsWith("i18n://")) {
-                sValue = sValue.substring(7)
-            } else {
-                return sValue
-            }
-            const translated = App.component.getModel("t").getProperty(sValue)
-            if (translated === sValue && fallback) {
-                return fallback
-            } else {
-                return translated
-            }
+            return toTranslated(sValue, fallback)
         },
 
         toGender(sValue) {
@@ -216,10 +219,8 @@ sap.ui.define(["nmshd/app/core/App"], (App) => {
             return fromResource("", sValue)
         },
         attributeName(sValue) {
-            const lookupName = `attribute.${sValue}`
             const resource = fromResource("attribute.", sValue)
-
-            return resource == lookupName ? sValue : resource
+            return toTranslated(sValue, resource)
         },
         value(sValue) {
             if (sValue === "" || sValue === undefined || sValue === null) {
