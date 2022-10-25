@@ -363,7 +363,7 @@ sap.ui.define(
                     if (rootCause) appLogger.error(rootCause)
                     appLogger.error(error)
                     this.navTo("accounts.select", "app.error", {
-                        "?query": { code: error.code }
+                        "?query": { code: error.code ? error.code : error }
                     })
                 } else {
                     appLogger.error("ERROR", "Received unknown App.error call without any parameters.")
