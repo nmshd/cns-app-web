@@ -207,7 +207,9 @@ sap.ui.define(
             onRouteMatched(oEvent) {
                 const routeName = oEvent.getParameter("name")
                 this.routeName = routeName
-                appLogger.log("Selected RouteName", routeName)
+                if (appLogger) {
+                    appLogger.log("Selected RouteName", routeName)
+                }
                 if (routeName && routeName.startsWith("account.")) {
                     this.viewProp("/showAccountNavigation", true)
                     this.selectButton(routeName)

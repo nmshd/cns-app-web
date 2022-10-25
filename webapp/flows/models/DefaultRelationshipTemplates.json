@@ -67,7 +67,7 @@
         "key": "share.template",
         "icon": "sap-icon://family-protection",
         "template": {
-            "@type": "RelationshipTemplateBody",
+            "@type": "RelationshipTemplateContent",
             "title": "{t>relationshipTemplate.friends.template.title}",
             "onNewRelationship": {
                 "@type": "Request",
