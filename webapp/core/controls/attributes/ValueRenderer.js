@@ -123,7 +123,7 @@ sap.ui.define(
                         return
                     }
                     // @ts-ignore
-                    valueTypeClass = TSServal.Serializable.getModule(valueType)
+                    valueTypeClass = TSServal.Serializable.getModule(valueType, 1)
                     if (!valueTypeClass) {
                         App.error(`Rendering information for valueType ${valueType} could not be found.`)
                         return
