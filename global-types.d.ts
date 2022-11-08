@@ -1,4 +1,5 @@
 import * as _JSSNative from "@js-soft/native-web"
+import * as _TSServal from "@js-soft/ts-serval"
 import * as _NMSHDAppRuntime from "@nmshd/app-runtime"
 import * as _NMSHDContent from "@nmshd/content"
 import * as _NMSHDCrypto from "@nmshd/crypto"
@@ -11,6 +12,7 @@ declare global {
     const NMSHDAppRuntime: typeof _NMSHDAppRuntime
     const NMSHDContent: typeof _NMSHDContent
     const JSSNative: typeof _JSSNative
+    const TSServal: typeof _TSServal
 
     const runtime: _NMSHDAppRuntime.AppRuntime
     const bootstrapper: _JSSNative.INativeBootstrapper
@@ -38,6 +40,7 @@ declare global {
         NMSHDAppRuntime: typeof _NMSHDAppRuntime
         NMSHDContent: typeof _NMSHDContent
         JSSNative: typeof _JSSNative
+        TSServal: typeof _TSServal
         runtime: _NMSHDAppRuntime.AppRuntime
         bootstrapper: _JSSNative.INativeBootstrapper
         _bootstrapPromise: Promise
