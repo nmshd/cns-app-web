@@ -203,10 +203,14 @@ sap.ui.define(
                                 }
                             }).attachChange((oEvent) => that.fireChange(oEvent))
                         } else {
-                            control = new RatingIndicator({
-                                maxValue: Math.min(this.valueHints.max, 10),
-                                visualMode: "Full"
-                            })
+                            if (this.renderHints.dataType === "FileReference") {
+                                control = new Text({ text: "Work in progress" })
+                            } else {
+                                control = new RatingIndicator({
+                                    maxValue: Math.min(this.valueHints.max, 10),
+                                    visualMode: "Full"
+                                })
+                            }
                         }
                         break
                 }
