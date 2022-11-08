@@ -53,6 +53,7 @@ sap.ui.define(
                     _control: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" }
                 },
                 properties: {
+                    propertyName: { type: "string" },
                     valueType: { type: "string" },
                     editable: { type: "boolean" },
                     updateDisabled: { type: "boolean" }
@@ -157,6 +158,8 @@ sap.ui.define(
             createEditableSelectControl() {
                 const that = this
                 let control
+                const propertyName = this.getPropertyName()
+                const valueHints = this.valueHints
                 switch (this.renderHints.dataType) {
                     case "Day":
                         break
@@ -184,11 +187,14 @@ sap.ui.define(
                     case "DateTimePeriod":
                         break
                     default:
-                        if (this.valueHints.values) {
+                        if (valueHints.values) {
                             control = new Select({
                                 forceSelection: false,
                                 items: {
-                                    path: "valueHints/values",
+                                    path: propertyName
+                                        ? `valueHints/propertyHints/${propertyName}/values`
+                                        : "valueHints/values",
+
                                     template: new ListItem({
                                         key: "{key}",
                                         text: { path: "displayName", formatter: Formatter.toTranslated }
@@ -204,24 +210,43 @@ sap.ui.define(
                         }
                         break
                 }
+
                 return control
             },
             createEditableStringControl() {
                 const that = this
                 let control
+                const propertyName = this.getPropertyName()
+                const valueHints = this.valueHints
                 switch (this.renderHints.editType) {
                     case "InputLike":
-                        control = new Input().attachLiveChange((oEvent) => that.fireChange(oEvent))
+                        let type = sap.m.InputType.Text
+                        if (this.renderHints.dataType === "PhoneNumber") {
+                            type = sap.m.InputType.Tel
+                        } else if (this.renderHints.dataType === "EMailAddress") {
+                            type = sap.m.InputType.Email
+                        } else if (this.renderHints.dataType === "URL") {
+                            type = sap.m.InputType.Url
+                        }
+                        control = new Input({ type: type, maxLength: this.valueHints.maxLength }).attachLiveChange(
+                            (oEvent) => that.fireChange(oEvent)
+                        )
                         break
                     case "ButtonLike":
-                        if (this.valueHints.values) {
-                            const buttons = this.valueHints.values.map((item, index) => {
+                        if (valueHints.values) {
+                            const buttons = valueHints.values.map((item, index) => {
+                                let path = `valueHints/values/${index}/displayName`
+                                let key = `{valueHints/values/${index}/key}`
+                                if (propertyName) {
+                                    path = `valueHints/propertyHints/${propertyName}/values/${index}/displayName`
+                                    key = `{valueHints/propertyHints/${propertyName}/values/${index}/key}`
+                                }
                                 return new RadioButton({
                                     text: {
-                                        path: `valueHints/values/${index}/displayName`,
+                                        path: path,
                                         formatter: Formatter.toTranslated
                                     },
-                                    customData: [new CustomData({ key: `{valueHints/values/${index}/key}` })]
+                                    customData: [new CustomData({ key: key })]
                                 })
                             })
                             control = new RadioButtonGroup({
@@ -231,7 +256,7 @@ sap.ui.define(
                             appLogger.warn(
                                 `Invalid rendering combination found for ${this._valueType}.`,
                                 this.renderHints,
-                                this.valueHints
+                                valueHints
                             )
                             break
                         }
@@ -240,12 +265,18 @@ sap.ui.define(
                         control = this.createEditableSelectControl()
                         break
                     case "SliderLike":
-                        if (this.valueHints.values) {
-                            const items = this.valueHints.values.map((item, index) => {
+                        if (valueHints.values) {
+                            const items = valueHints.values.map((item, index) => {
+                                let path = `valueHints/values/${index}/displayName`
+                                let key = `{valueHints/values/${index}/key}`
+                                if (propertyName) {
+                                    path = `valueHints/propertyHints/${propertyName}/values/${index}/displayName`
+                                    key = `{valueHints/propertyHints/${propertyName}/values/${index}/key}`
+                                }
                                 return new SegmentedButtonItem({
-                                    key: `{valueHints/values/${index}/key}`,
+                                    key: key,
                                     text: {
-                                        path: `valueHints/values/${index}/displayName`,
+                                        path: path,
                                         formatter: Formatter.toTranslated
                                     }
                                 })
@@ -257,7 +288,7 @@ sap.ui.define(
                             appLogger.warn(
                                 `Invalid rendering combination found for ${this._valueType}.`,
                                 this.renderHints,
-                                this.valueHints
+                                valueHints
                             )
                         }
                         break
@@ -267,19 +298,30 @@ sap.ui.define(
             createEditableIntegerControl() {
                 const that = this
                 let control
+                const propertyName = this.getPropertyName()
+                const valueHints = this.valueHints
                 switch (this.renderHints.editType) {
                     case "InputLike":
-                        control = new Input().attachLiveChange((oEvent) => that.fireChange(oEvent))
+                        control = new Input({
+                            type: sap.m.InputType.Number,
+                            maxLength: this.valueHints.maxLength
+                        }).attachLiveChange((oEvent) => that.fireChange(oEvent))
                         break
                     case "ButtonLike":
-                        if (this.valueHints.values) {
-                            const buttons = this.valueHints.values.map((item, index) => {
+                        if (valueHints.values) {
+                            const buttons = valueHints.values.map((item, index) => {
+                                let path = `valueHints/values/${index}/displayName`
+                                let key = `{valueHints/values/${index}/key}`
+                                if (propertyName) {
+                                    path = `valueHints/propertyHints/${propertyName}/values/${index}/displayName`
+                                    key = `{valueHints/propertyHints/${propertyName}/values/${index}/key}`
+                                }
                                 return new RadioButton({
                                     text: {
-                                        path: `valueHints/values/${index}/displayName`,
+                                        path: path,
                                         formatter: Formatter.toTranslated
                                     },
-                                    customData: [new CustomData({ key: `{valueHints/values/${index}/key}` })]
+                                    customData: [new CustomData({ key: key })]
                                 })
                             })
                             control = new RadioButtonGroup({
@@ -287,8 +329,8 @@ sap.ui.define(
                             }).attachSelect((oEvent) => that.fireChange(oEvent))
                         } else {
                             control = new StepInput({
-                                min: this.valueHints.min,
-                                max: this.valueHints.max
+                                min: valueHints.min,
+                                max: valueHints.max
                             }).attachChange((oEvent) => that.fireChange(oEvent))
                         }
                         break
@@ -297,12 +339,18 @@ sap.ui.define(
 
                         break
                     case "SliderLike":
-                        if (this.valueHints.values) {
-                            const items = this.valueHints.values.map((item, index) => {
+                        if (valueHints.values) {
+                            const items = valueHints.values.map((item, index) => {
+                                let path = `valueHints/values/${index}/displayName`
+                                let key = `{valueHints/values/${index}/key}`
+                                if (propertyName) {
+                                    path = `valueHints/propertyHints/${propertyName}/values/${index}/displayName`
+                                    key = `{valueHints/propertyHints/${propertyName}/values/${index}/key}`
+                                }
                                 return new SegmentedButtonItem({
-                                    key: `{valueHints/values/${index}/key}`,
+                                    key: key,
                                     text: {
-                                        path: `valueHints/values/${index}/displayName`,
+                                        path: path,
                                         formatter: Formatter.toTranslated
                                     }
                                 })
@@ -314,7 +362,7 @@ sap.ui.define(
                             appLogger.warn(
                                 `Invalid rendering combination found for ${this._valueType}.`,
                                 this.renderHints,
-                                this.valueHints
+                                valueHints
                             )
                         }
                         break
@@ -324,19 +372,29 @@ sap.ui.define(
             createEditableFloatControl() {
                 const that = this
                 let control
+                const propertyName = this.getPropertyName()
+                const valueHints = this.valueHints
                 switch (this.renderHints.editType) {
                     case "InputLike":
-                        control = new Input().attachLiveChange((oEvent) => that.fireChange(oEvent))
+                        control = new Input({
+                            maxLength: this.valueHints.maxLength
+                        }).attachLiveChange((oEvent) => that.fireChange(oEvent))
                         break
                     case "ButtonLike":
-                        if (this.valueHints.values) {
-                            const buttons = this.valueHints.values.map((item, index) => {
+                        if (valueHints.values) {
+                            const buttons = valueHints.values.map((item, index) => {
+                                let path = `valueHints/values/${index}/displayName`
+                                let key = `{valueHints/values/${index}/key}`
+                                if (propertyName) {
+                                    path = `valueHints/propertyHints/${propertyName}/values/${index}/displayName`
+                                    key = `{valueHints/propertyHints/${propertyName}/values/${index}/key}`
+                                }
                                 return new RadioButton({
                                     text: {
-                                        path: `valueHints/values/${index}/displayName`,
+                                        path: path,
                                         formatter: Formatter.toTranslated
                                     },
-                                    customData: [new CustomData({ key: `{valueHints/values/${index}/key}` })]
+                                    customData: [new CustomData({ key: key })]
                                 })
                             })
                             control = new RadioButtonGroup({
@@ -344,8 +402,8 @@ sap.ui.define(
                             }).attachSelect((oEvent) => that.fireChange(oEvent))
                         } else {
                             control = new StepInput({
-                                min: this.valueHints.min,
-                                max: this.valueHints.max,
+                                min: valueHints.min,
+                                max: valueHints.max,
                                 displayValuePrecision: 2,
                                 step: 0.1
                             }).attachChange((oEvent) => that.fireChange(oEvent))
@@ -356,12 +414,18 @@ sap.ui.define(
                         control = this.createEditableSelectControl()
                         break
                     case "SliderLike":
-                        if (this.valueHints.values) {
-                            const items = this.valueHints.values.map((item, index) => {
+                        if (valueHints.values) {
+                            const items = valueHints.values.map((item, index) => {
+                                let path = `valueHints/values/${index}/displayName`
+                                let key = `{valueHints/values/${index}/key}`
+                                if (propertyName) {
+                                    path = `valueHints/propertyHints/${propertyName}/values/${index}/displayName`
+                                    key = `{valueHints/propertyHints/${propertyName}/values/${index}/key}`
+                                }
                                 return new SegmentedButtonItem({
-                                    key: `{valueHints/values/${index}/key}`,
+                                    key: key,
                                     text: {
-                                        path: `valueHints/values/${index}/displayName`,
+                                        path: path,
                                         formatter: Formatter.toTranslated
                                     }
                                 })
@@ -373,7 +437,7 @@ sap.ui.define(
                             appLogger.warn(
                                 `Invalid rendering combination found for ${this._valueType}.`,
                                 this.renderHints,
-                                this.valueHints
+                                valueHints
                             )
                         }
                         break
@@ -383,18 +447,26 @@ sap.ui.define(
             createEditableBooleanControl() {
                 const that = this
                 let control
+                const propertyName = this.getPropertyName()
+                const valueHints = this.valueHints
                 switch (this.renderHints.editType) {
                     case "InputLike":
                         break
                     case "ButtonLike":
-                        if (this.valueHints.values) {
-                            const buttons = this.valueHints.values.map((item, index) => {
+                        if (valueHints.values) {
+                            const buttons = valueHints.values.map((item, index) => {
+                                let path = `valueHints/values/${index}/displayName`
+                                let key = `{valueHints/values/${index}/key}`
+                                if (propertyName) {
+                                    path = `valueHints/propertyHints/${propertyName}/values/${index}/displayName`
+                                    key = `{valueHints/propertyHints/${propertyName}/values/${index}/key}`
+                                }
                                 return new RadioButton({
                                     text: {
-                                        path: `valueHints/values/${index}/displayName`,
+                                        path: path,
                                         formatter: Formatter.toTranslated
                                     },
-                                    customData: [new CustomData({ key: `{valueHints/values/${index}/key}` })]
+                                    customData: [new CustomData({ key: key })]
                                 })
                             })
                             control = new RadioButtonGroup({
@@ -404,7 +476,7 @@ sap.ui.define(
                             appLogger.warn(
                                 `Invalid rendering combination found for ${this._valueType}.`,
                                 this.renderHints,
-                                this.valueHints
+                                valueHints
                             )
                         }
                         break
@@ -412,12 +484,18 @@ sap.ui.define(
                         control = this.createEditableSelectControl()
                         break
                     case "SliderLike":
-                        if (this.valueHints.values) {
-                            const items = this.valueHints.values.map((item, index) => {
+                        if (valueHints.values) {
+                            const items = valueHints.values.map((item, index) => {
+                                let path = `valueHints/values/${index}/displayName`
+                                let key = `{valueHints/values/${index}/key}`
+                                if (propertyName) {
+                                    path = `valueHints/propertyHints/${propertyName}/values/${index}/displayName`
+                                    key = `{valueHints/propertyHints/${propertyName}/values/${index}/key}`
+                                }
                                 return new SegmentedButtonItem({
-                                    key: `{valueHints/values/${index}/key}`,
+                                    key: key,
                                     text: {
-                                        path: `valueHints/values/${index}/displayName`,
+                                        path: path,
                                         formatter: Formatter.toTranslated
                                     }
                                 })
@@ -429,7 +507,7 @@ sap.ui.define(
                             appLogger.warn(
                                 `Invalid rendering combination found for ${this._valueType}.`,
                                 this.renderHints,
-                                this.valueHints
+                                valueHints
                             )
                         }
                         break
@@ -439,22 +517,39 @@ sap.ui.define(
             createEditableObjectControl() {
                 const that = this
                 if (this._valueType === "Unknown") return
-                const children = [new Title({ text: `{t>attributes.values.${this._valueType}._title}` })]
-                const valueRenderers = {}
-                for (const property in this.renderHints.propertyHints) {
-                    const label = new Label({ text: `{t>attributes.values.${this._valueType}.${property}.label}` })
-                    children.push(label)
-                    const valueRenderer = new this.constructor({
-                        editable: true,
-                        valueType: "GivenName",
-                        updateDisabled: true
-                    }).attachChange((oEvent) => that.fireChange(oEvent))
-                    children.push(valueRenderer)
-                    valueRenderers[property] = valueRenderer
+                let control
+                if (this._valueType === "BirthDate") {
+                    control = new DatePicker({}).attachChange((oEvent) => that.fireChange(oEvent))
+                } else {
+                    const children = [new Title({ text: `{t>attributes.values.${this._valueType}._title}` })]
+                    const valueRenderers = {}
+                    for (const property in this.renderHints.propertyHints) {
+                        let propertyValueType = TSServal.Serializable.getModule(this._valueType, 1)
+                            .getPropertyMap()
+                            .get(property).type
+                        if (propertyValueType === "String") {
+                            propertyValueType = "ProprietaryString"
+                        } else if (propertyValueType === "Number") {
+                            propertyValueType = "ProprietaryFloat"
+                        } else if (propertyValueType === "Boolean") {
+                            propertyValueType = "ProprietaryBoolean"
+                        }
+                        console.log(property, ":", propertyValueType)
+                        const label = new Label({ text: `{t>attributes.values.${this._valueType}.${property}.label}` })
+                        children.push(label)
+                        const valueRenderer = new this.constructor({
+                            editable: true,
+                            propertyName: property,
+                            valueType: propertyValueType,
+                            updateDisabled: true
+                        }).attachChange((oEvent) => that.fireChange(oEvent))
+                        children.push(valueRenderer)
+                        valueRenderers[property] = valueRenderer
+                    }
+                    this.valueRenderers = valueRenderers
+                    control = new SimpleForm({ content: children, editable: true })
+                    control.addStyleClass("sapUiNoContentPadding")
                 }
-                this.valueRenderers = valueRenderers
-                const control = new SimpleForm({ content: children, editable: true })
-                control.addStyleClass("sapUiNoContentPadding")
 
                 return control
             },
@@ -486,18 +581,44 @@ sap.ui.define(
             createReadonlyObjectControl() {
                 const children = []
                 for (const property in this.renderHints.propertyHints) {
+                    let translationNamespace = ""
+                    switch (this.renderHints.propertyHints[property].dataType) {
+                        case "Sex":
+                            translationNamespace = "i18n://attributes.values.sex."
+                            break
+                        case "Country":
+                            translationNamespace = "i18n://attributes.values.countries."
+                            break
+                        case "Language":
+                            translationNamespace = "i18n://attributes.values.languages."
+                            break
+                    }
+
                     let binding = "value/" + property
                     if (this.object && this.object.results && this.object.results.length > 0) {
                         binding = "results/0/value/" + property
                     }
+                    // valueHints/propertyHints/${propertyName}/values/${index}/displayName
                     if (!this.getBindingContext()) continue
                     const value = this.getBindingContext().getProperty(binding)
                     if (value) {
                         const label = new Label({ text: `{t>attributes.values.${this._valueType}.${property}.label}` })
                         children.push(label)
-                        const valueRenderer = new Text({
-                            text: { path: binding }
-                        })
+                        let valueRenderer
+                        if (translationNamespace) {
+                            const formatter = Formatter.toTranslated
+                            valueRenderer = new Text({
+                                text: {
+                                    parts: [{ path: "valueType" }, { path: binding }],
+                                    formatter: (valueType, value) => {
+                                        if (!value) return ""
+                                        return Formatter.toTranslated(`${translationNamespace}${value}`)
+                                    }
+                                }
+                            })
+                        } else {
+                            valueRenderer = new Text({ text: { path: binding } })
+                        }
                         children.push(valueRenderer)
                     }
                 }
@@ -562,6 +683,17 @@ sap.ui.define(
                 const control = this.getAggregation("_control")
                 if (!control) return
                 let value
+
+                if (this._valueType === "BirthDate") {
+                    const date = control.getDateValue()
+                    const value = {
+                        day: date.getDate(),
+                        month: date.getMonth() + 1,
+                        year: date.getFullYear()
+                    }
+                    return value
+                }
+
                 const controlName = control.getMetadata().getName()
                 switch (controlName) {
                     case "sap.m.RadioButtonGroup":
