@@ -188,7 +188,7 @@ sap.ui.define(
                 }
 
                 const relationshipModel = await App.RelationshipUtil.getRelationshipByAddress(template.createdBy.id)
-                if (!relationshipModel) return
+                if (!relationshipModel) return true
 
                 const identity = relationshipModel.getData()
                 this.relationshipIdentityDVO = identity
