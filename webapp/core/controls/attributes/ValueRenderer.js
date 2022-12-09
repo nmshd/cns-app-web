@@ -91,14 +91,15 @@ sap.ui.define(
                     this.removeAggregation("_control")
                     return
                 }
-                this.renderHints = object.renderHints
-                this.valueHints = object.valueHints
-                if (!this.renderHints) {
-                    this.renderHints = undefined
+
+                if (object.renderHints && object.valueHints) {
+                    this.renderHints = object.renderHints
+                    this.valueHints = object.valueHints
+                } else if (object.results && object.results.length > 0) {
+                    this.renderHints = object.results[0].renderHints
+                    this.valueHints = object.results[0].valueHints
                 }
-                if (!this.valueHints) {
-                    this.valueHints = undefined
-                }
+
                 appLogger.log("Control invalidated through model " + oEvent.getSource().getId())
                 this.invalidateControl()
             },

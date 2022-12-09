@@ -110,7 +110,7 @@ sap.ui.define(
                 this.setAggregation(
                     "_title",
                     new Text({
-                        text: { text: { path: "title", formatter: Formatter.toTranslated } },
+                        text: { path: "title", formatter: Formatter.toTranslated },
                         visible: "{=!!${title}}"
                     })
                 )
