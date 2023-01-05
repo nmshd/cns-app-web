@@ -18,7 +18,8 @@ sap.ui.define(
 
                 const receivedItemsResult =
                     await runtime.currentSession.consumptionServices.attributes.getPeerAttributes({
-                        peer: this.relationshipIdentityDVO.id
+                        peer: this.relationshipIdentityDVO.id,
+                        hideTechnical: true
                     })
 
                 if (receivedItemsResult.isError) {
