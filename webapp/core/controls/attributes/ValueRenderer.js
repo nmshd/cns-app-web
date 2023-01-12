@@ -233,7 +233,7 @@ sap.ui.define(
                         } else if (this.renderHints.dataType === "URL") {
                             type = sap.m.InputType.Url
                         }
-                        control = new Input({ type: type, maxLength: this.valueHints.maxLength }).attachLiveChange(
+                        control = new Input({ type: type, maxLength: this.valueHints.maxLength }).attachChange(
                             (oEvent) => that.fireChange(oEvent)
                         )
                         break
