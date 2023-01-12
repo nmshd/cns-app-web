@@ -175,7 +175,9 @@ sap.ui.define(
                         control = new TimePicker({}).attachChange((oEvent) => that.fireChange(oEvent))
                         break
                     case "Date":
-                        control = new DatePicker({}).attachChange((oEvent) => that.fireChange(oEvent))
+                        control = new DatePicker({ displayFormat: "YYYY-MM-dd" }).attachChange((oEvent) =>
+                            that.fireChange(oEvent)
+                        )
                         break
                     case "DateTime":
                         control = new DateTimePicker({}).attachChange((oEvent) => that.fireChange(oEvent))
@@ -524,7 +526,9 @@ sap.ui.define(
                 if (this._valueType === "Unknown") return
                 let control
                 if (this._valueType === "BirthDate") {
-                    control = new DatePicker({}).attachChange((oEvent) => that.fireChange(oEvent))
+                    control = new DatePicker({ displayFormat: "YYYY-MM-dd" }).attachChange((oEvent) =>
+                        that.fireChange(oEvent)
+                    )
                 } else {
                     const children = [new Title({ text: `{t>attributes.values.${this._valueType}._title}` })]
                     const valueRenderers = {}
@@ -691,6 +695,7 @@ sap.ui.define(
 
                 if (this._valueType === "BirthDate") {
                     const date = control.getDateValue()
+                    if (!date) return
                     const value = {
                         day: date.getDate(),
                         month: date.getMonth() + 1,
