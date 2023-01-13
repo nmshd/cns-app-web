@@ -5,4 +5,4 @@ npm ci
 npm run lint:prettier
 npm run lint:eslint
 npx license-check --ignoreLicenses "(MIT OR GPL-3.0-or-later)"
-npx better-npm-audit audit --exclude 1084953,1080920
+npx better-npm-audit audit --exclude 1080920,1085410
