@@ -20,6 +20,8 @@
             >
                 <core:Item key="{key}" text="{text}" />
             </m:Select>
+            <m:Label text="{t>attribute.description}" />
+            <m:Text id="allDescription" />
             <m:Label text="{t>attribute.value}" />
             <attributesControl:ValueRenderer id="allValue" editable="true" />
         </form:SimpleForm>

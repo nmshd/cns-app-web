@@ -134,6 +134,8 @@ sap.ui.define(
             },
             allAttributesChanges() {
                 const selectedValueType = this.byId("allName").getSelectedKey()
+                const valueDescriptionText = this.byId("allDescription")
+                valueDescriptionText.setText(this.resource(`dvo.attribute.description.${selectedValueType}`))
                 const valueEditRenderer = this.byId("allValue")
                 valueEditRenderer.setValueType(selectedValueType)
                 this.byId("allInfo").setVisible(false)
