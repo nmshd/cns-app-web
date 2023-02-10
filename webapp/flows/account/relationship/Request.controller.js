@@ -217,8 +217,9 @@ sap.ui.define(
                     runtime.currentSession.transportServices.account.enableAutoSync()
                 }
             },
+
             onNavButtonPress() {
-                this.navBack("account.relationships.requests")
+                this.navBack()
             }
         })
     }
