@@ -445,7 +445,7 @@
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/requests/{requestId}",
                     "name": "account.relationship.request",
-                    "target": ["account.relationship.requests", "account.relationship.request"],
+                    "target": ["account.relationship.master", "account.relationship.request"],
                     "parent": "nmshd.app.Component:generic"
                 },
 
