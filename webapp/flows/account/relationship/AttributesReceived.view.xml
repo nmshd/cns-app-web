@@ -26,11 +26,11 @@
 		</semantic:customHeaderContent>
 
 		<semantic:content>
-			<m:Panel headerText="{t>relationship.sentData}" class="sapUiSmallContentPadding">
+			<m:Panel headerText="{t>relationship.receivedData}" class="sapUiSmallContentPadding">
                 <m:List
                     id="sentList"
                     class="sapUiSmallContentPadding"
-                    noDataText="{t>relationship.noSentData}"
+                    noDataText="{t>relationship.noReceivedData}"
                     items="{/items}"
                     itemPress="onItemPress"
                 >
