@@ -86,6 +86,7 @@ sap.ui.define(
                 this.files = await App.FileUtil.getFiles()
                 this.files.refresh()
                 this.setModel(this.files, "files")
+                this.allAttributesChanges()
             },
 
             clear() {
