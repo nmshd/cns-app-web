@@ -57,7 +57,8 @@ sap.ui.define(
                 this.setMessage()
                 const attributeResult = await runtime.currentSession.consumptionServices.attributes.getAttributes({
                     onlyValid: true,
-                    query: { "shareInfo.peer": "!", "content.owner": runtime.currentAccount.address }
+                    query: { "shareInfo.peer": "!", "content.owner": runtime.currentAccount.address },
+                    hideTechnical: true
                 })
                 if (attributeResult.isError) {
                     App.error(attributeResult.error)
