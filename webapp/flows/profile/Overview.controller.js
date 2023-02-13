@@ -135,7 +135,9 @@ sap.ui.define(
                 this.navBack("account.attributes")
             },
             allAttributesChanges() {
-                const selectedValueType = this.byId("allName").getSelectedKey()
+                const control = this.byId("allName")
+                if (!control) return
+                const selectedValueType = control.getSelectedKey()
                 const valueDescriptionText = this.byId("allDescription")
                 valueDescriptionText.setText(this.resource(`dvo.attribute.description.${selectedValueType}`))
                 const valueEditRenderer = this.byId("allValue")
