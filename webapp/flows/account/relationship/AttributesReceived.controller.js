@@ -18,8 +18,7 @@ sap.ui.define(
 
                 const receivedItemsResult =
                     await runtime.currentSession.consumptionServices.attributes.getPeerAttributes({
-                        peer: this.relationshipIdentityDVO.id,
-                        hideTechnical: true
+                        peer: this.relationshipIdentityDVO.id
                     })
 
                 if (receivedItemsResult.isError) {
@@ -30,9 +29,37 @@ sap.ui.define(
                     receivedItemsResult.value
                 )
 
+                const nonTechnical = []
+                const technical = [
+                    {
+                        type: "SharedToPeerAttributeDVO",
+                        name: "i18n://dvo.attribute.name.EnmeshedAddress",
+                        value: { value: this.relationshipIdentityDVO.id },
+                        valueHints: {},
+                        renderHints: {
+                            "@type": "RenderHints",
+                            editType: "InputLike",
+                            technicalType: "String"
+                        },
+                        tags: [],
+                        valueType: "EnmeshedAddress"
+                    }
+                ]
+                for (const receivedItem of receivedItems) {
+                    if (
+                        receivedItem.content["@type"] === "RelationshipAttribute" &&
+                        receivedItem.content.isTechnical === true
+                    ) {
+                        technical.push(receivedItem)
+                    } else {
+                        nonTechnical.push(receivedItem)
+                    }
+                }
+
                 this.setModel(
                     new JSONModel({
-                        items: receivedItems
+                        items: nonTechnical,
+                        technical: technical
                     })
                 )
             }

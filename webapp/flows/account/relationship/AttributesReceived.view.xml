@@ -39,6 +39,24 @@
                 </m:List>
             </m:Panel>
 
+            <m:Panel
+                headerText="{t>relationship.receivedDataTechnical}"
+                class="sapUiSmallContentPadding"
+                expandable="true"
+                expanded="false"
+            >
+                <m:List
+                    id="technicalList"
+                    class="sapUiSmallContentPadding"
+                    noDataText="{t>relationship.noReceivedData}"
+                    items="{/technical}"
+                    itemPress="onItemPress"
+                >
+                    <attributeControls:AttributeRenderer showLabel="true" />
+
+                </m:List>
+            </m:Panel>
+
 		</semantic:content>
 	</semantic:DetailPage>
 
