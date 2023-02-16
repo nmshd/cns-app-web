@@ -30,7 +30,11 @@
 		<semantic:content>
 			<m:VBox class="sapUiTinyMargin">
 				<m:Text text="{t>error.text}" />
-				<m:Text text="{v>/code}" visible="{=!!${v>/code}}" class="sapUiSmallMargin" />
+				<m:Text
+                    text="{path:'v>/code',formatter:'.formatter.toForcedTranslated'}"
+                    visible="{=!!${v>/code}}"
+                    class="sapUiSmallMarginTop"
+                />
 			</m:VBox>
 		</semantic:content>
 	</semantic:DetailPage>
