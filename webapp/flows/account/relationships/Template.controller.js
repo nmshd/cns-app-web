@@ -51,7 +51,7 @@ sap.ui.define(
     ) => {
         "use strict"
 
-        return AccountController.extend("nmshd.app.flows.account.relationships.Template2", {
+        return AccountController.extend("nmshd.app.flows.account.relationships.Template", {
             formatter: Formatter,
             routePattern: new RegExp("^account.template"),
             createViewModel() {

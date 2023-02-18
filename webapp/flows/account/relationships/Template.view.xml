@@ -6,7 +6,6 @@
     xmlns:semantic="sap.m.semantic"
     xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:f="sap.ui.layout.form"
-    xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
     xmlns:requests="nmshd.app.core.controls.requests"
 >
 
