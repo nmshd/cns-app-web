@@ -34,7 +34,7 @@ sap.ui.define(
                 }
 
                 try {
-                    await this.load(App.handleQRContentWithCurrentSession(scanResult.value))
+                    await this.load(runtime.stringProcessor.processURL(scanResult.value, runtime.currentAccount))
                 } catch (e) {
                     this.addError({
                         sUserFriendlyMsg: this.resource("scanController.retryError")
