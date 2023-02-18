@@ -27,11 +27,6 @@ sap.ui.define(
                 try {
                     this.loadInc()
                     this.info = App.prop("/redirect")
-                    if (!this.info) {
-                        this.navBack("accounts.select")
-                        return
-                    }
-                    App.prop("/redirect", null)
                     const accounts = await runtime.accountServices.getAccounts()
                     const accountname =
                         this.resource("accounts.processRelationshipToken.profile") + (accounts.length + 1)
@@ -39,31 +34,28 @@ sap.ui.define(
                         NMSHDTransport.Realm.Prod,
                         accountname
                     )
-                    try {
-                        this.localAccount = oAccounts
-                        await App.selectAccount(this.localAccount.id, "")
-                        await runtime.currentSession.transportServices.account.disableAutoSync()
-                        this.accountId = this.localAccount.id
+                    this.localAccount = oAccounts
+                    await App.selectAccount(this.localAccount.id, "")
 
-                        const templateResult =
-                            await runtime.currentSession.transportServices.relationshipTemplates.loadPeerRelationshipTemplate(
-                                {
-                                    id: this.info.templateId,
-                                    secretKey: this.info.secretKey
-                                }
-                            )
-                        if (templateResult.isError) {
-                            App.error(templateResult.error)
-                        } else {
-                            this.template = templateResult.value
+                    if (App.accountSelectionCallback) {
+                        App.accountSelectionCallback(this.localAccount)
+                    }
+                    if (this.info) {
+                        // this.navBack("accounts.select")
+                        App.prop("/redirect", null)
+                        try {
+                            await runtime.currentSession.transportServices.account.disableAutoSync()
+                            this.accountId = this.localAccount.id
+                            this.requestId = this.info.requestId
+                        } catch (e) {
+                            App.error(e)
+                            return
+                        } finally {
+                            if (runtime.currentSession.transportServices) {
+                                runtime.currentSession.transportServices.account.enableAutoSync()
+                            }
                         }
-                    } catch (e) {
-                        App.error(e)
                         return
-                    } finally {
-                        if (runtime.currentSession.transportServices) {
-                            runtime.currentSession.transportServices.account.enableAutoSync()
-                        }
                     }
 
                     this.model = new JSONModel({})
@@ -86,9 +78,9 @@ sap.ui.define(
 
             async onSubmit() {
                 this.viewProp("/submitAvailable", false)
-                App.navTo("account.home", "account.template", {
+                App.navTo("account.home", "account.relationships.request", {
                     accountId: this.accountId,
-                    templateId: this.template.id
+                    requestId: this.requestId
                 })
             },
 
