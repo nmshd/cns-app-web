@@ -342,6 +342,12 @@
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
+                    "pattern": "accounts/{accountId}/requests/{requestId}",
+                    "name": "account.relationships.request",
+                    "target": ["account.master", "account.relationships.request"],
+                    "parent": "nmshd.app.Component:generic"
+                },
+                {
                     "pattern": "accounts/{accountId}/template/{templateId}",
                     "name": "account.template",
                     "target": ["account.master", "account.template"],
@@ -719,6 +725,12 @@
                     "viewId": "account-relationships",
                     "controlAggregation": "detailPages",
                     "viewLevel": 200
+                },
+                "account.relationships.request": {
+                    "viewName": "flows.account.relationships.Request",
+                    "viewId": "account-relationships-request",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 204
                 },
                 "account.template": {
                     "viewName": "flows.account.relationships.Template",
