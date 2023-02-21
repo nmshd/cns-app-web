@@ -27,7 +27,7 @@ sap.ui.define(
                     return
                 }
                 App.prop("/redirect", undefined)
-                const secret = this.info.sharedSecret
+                const secret = this.info.deviceOnboardingInfo
                 this.model = new JSONModel({
                     id: secret.id,
                     address: secret.identity.address,
@@ -47,7 +47,7 @@ sap.ui.define(
 
             async onSubmit() {
                 try {
-                    const secret = this.info.sharedSecret
+                    const secret = this.info.deviceOnboardingInfo
                     appLogger.trace(`Onboarding device ${secret.id} for identity ${secret.identity.address}...`)
                     const localAccount = await runtime.accountServices.onboardAccount(secret)
                     appLogger.trace(`Device onboarded. Logging in...`)

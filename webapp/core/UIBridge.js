@@ -80,7 +80,7 @@ sap.ui.define(
                         "accounts.select",
                         "accounts.processdevicetoken",
                         {},
-                        { sharedSecret: deviceOnboardingInfo }
+                        { deviceOnboardingInfo: deviceOnboardingInfo }
                     )
                     resolve(undefined)
                 })
