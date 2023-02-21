@@ -28,6 +28,7 @@ sap.ui.define(
 
                 const sentItems = await runtime.currentSession.expander.expandLocalAttributeDTOs(sentItemsResult.value)
                 const nonTechnical = []
+                /** @type any[] */
                 const technical = [
                     {
                         type: "SharedToPeerAttributeDVO",

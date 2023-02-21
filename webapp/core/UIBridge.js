@@ -1,3 +1,7 @@
+/**
+ * @typedef { import('@nmshd/runtime').DeviceOnboardingInfoDTO} DeviceOnboardingInfoDTO
+ * @typedef { import('@nmshd/runtime').FileDVO} FileDVO
+ */
 sap.ui.define(
     [],
     /** @returns {IUIBridge} */
@@ -68,11 +72,17 @@ sap.ui.define(
                 })
             },
             /**
-             * @param {DeviceSharedSecret} sharedSecret
+             * @param {DeviceOnboardingInfoDTO} deviceOnboardingInfo
              */
-            showDeviceOnboarding(sharedSecret) {
+            showDeviceOnboarding(deviceOnboardingInfo) {
                 return new Promise((resolve) => {
-                    App.navTo("accounts.select", "accounts.processdevicetoken", {}, { sharedSecret: sharedSecret })
+                    App.navTo(
+                        "accounts.select",
+                        "accounts.processdevicetoken",
+                        {},
+                        { sharedSecret: deviceOnboardingInfo }
+                    )
+                    resolve(undefined)
                 })
             },
 

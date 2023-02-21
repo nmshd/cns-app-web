@@ -30,6 +30,7 @@ sap.ui.define(
                 )
 
                 const nonTechnical = []
+                /** @type any[] */
                 const technical = [
                     {
                         type: "SharedToPeerAttributeDVO",
