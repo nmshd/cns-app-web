@@ -36,28 +36,16 @@ sap.ui.define(
                     )
                     this.localAccount = oAccounts
                     await App.selectAccount(this.localAccount.id, "")
+                    this.accountId = this.localAccount.id
 
                     if (App.accountSelectionCallback) {
                         App.accountSelectionCallback(this.localAccount)
                     }
-                    if (this.info) {
-                        // this.navBack("accounts.select")
-                        App.prop("/redirect", null)
-                        try {
-                            await runtime.currentSession.transportServices.account.disableAutoSync()
-                            this.accountId = this.localAccount.id
-                            this.requestId = this.info.requestId
-                        } catch (e) {
-                            App.error(e)
-                            return
-                        } finally {
-                            if (runtime.currentSession.transportServices) {
-                                runtime.currentSession.transportServices.account.enableAutoSync()
-                            }
-                        }
+                    if (!this.info) {
                         return
                     }
-
+                    App.prop("/redirect", null)
+                    this.requestId = this.info.requestId
                     this.model = new JSONModel({})
                     this.setModel(this.model)
                     this.viewProp("/submitAvailable", true)
