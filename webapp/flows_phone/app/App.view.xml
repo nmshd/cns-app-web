@@ -52,6 +52,7 @@
             icon="sap-icon://business-card"
             pressed="{v>/selectShare}"
             press="toCards"
+            visible="false"
         />
 
 		<m:ToggleButton

@@ -87,6 +87,7 @@ sap.ui.define(
                 this.files = await App.FileUtil.getFiles()
                 this.files.refresh()
                 this.setModel(this.files, "files")
+                this.allAttributesChanges()
             },
 
             clear() {
@@ -134,7 +135,11 @@ sap.ui.define(
                 this.navBack("account.attributes")
             },
             allAttributesChanges() {
-                const selectedValueType = this.byId("allName").getSelectedKey()
+                const control = this.byId("allName")
+                if (!control) return
+                const selectedValueType = control.getSelectedKey()
+                const valueDescriptionText = this.byId("allDescription")
+                valueDescriptionText.setText(this.resource(`dvo.attribute.description.${selectedValueType}`))
                 const valueEditRenderer = this.byId("allValue")
                 valueEditRenderer.setValueType(selectedValueType)
                 this.byId("allInfo").setVisible(false)
@@ -215,6 +220,7 @@ sap.ui.define(
                 }
                 this.setMessage()
                 this.viewProp("/submitAvailable", true)
+                this.allAttributesChanges()
             },
 
             onPopupClose() {

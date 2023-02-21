@@ -49,7 +49,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
         async getInboxForRelationship(relationship) {
             const messagesResult = await runtime.currentSession.transportServices.messages.getMessages({
                 query: {
-                    relationshipIds: relationship.id,
+                    participant: relationship.id,
                     "content.@type": "Mail"
                 }
             })

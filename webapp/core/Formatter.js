@@ -48,13 +48,13 @@ sap.ui.define(["nmshd/app/core/App"], (App) => {
         }
     }
 
-    const toTranslated = (sValue, fallback) => {
+    const toTranslated = (sValue, fallback, forceTranslation) => {
         if (!sValue) {
             return ""
         }
         if (sValue.startsWith("i18n://")) {
             sValue = sValue.substring(7)
-        } else {
+        } else if (!forceTranslation) {
             return sValue
         }
         const translated = App.component.getModel("t").getProperty(sValue)
@@ -95,6 +95,9 @@ sap.ui.define(["nmshd/app/core/App"], (App) => {
 
         toTranslated(sValue, fallback) {
             return toTranslated(sValue, fallback)
+        },
+        toForcedTranslated(sValue, fallback) {
+            return toTranslated(sValue, fallback, true)
         },
 
         toGender(sValue) {

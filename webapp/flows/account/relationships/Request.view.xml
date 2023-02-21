@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="nmshd.app.flows.account.relationships.Template"
+    controllerName="nmshd.app.flows.account.relationships.Request"
     xmlns:m="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
@@ -21,7 +21,7 @@
 
 		<semantic:content>
 			<m:MessageStrip id="message" class="sapUiTinyMargin" visible="false" />
-			<requests:RequestRenderer id="request" binding="{/request}" change="onChange" class="sapUiSmallMargin">
+			<requests:RequestRenderer id="request" binding="{}" change="onChange" class="sapUiSmallMargin">
 			</requests:RequestRenderer>
 		</semantic:content>
 		<semantic:customFooterContent>

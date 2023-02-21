@@ -1,0 +1,41 @@
+<core:FragmentDefinition
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:controls="nmshd.app.core.controls"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:attributesControl="nmshd.app.core.controls.attributes"
+>
+    <m:Dialog title="{t>accountSelection.title}" stretch="true" id="AccountSelectionFragmentDialog">
+        <m:VBox class="sapUiSmallMargin">
+            <m:Text text="{t>accountSelection.description}" />
+            <m:Title text="{v>/accountSelectionTitle}" />
+            <m:Text text="{v>/accountSelectionDescription}" />
+        </m:VBox>
+        <m:List
+            items="{v>/accountSelectionAccounts}"
+            itemPress="onAccountSelectionPress"
+            id="AccountsList"
+            noDataText="{t>select.noDataText}"
+        >
+			<m:StandardListItem title="{v>name}" icon="{v>icon}" type="Navigation" />
+		</m:List>
+
+        <m:endButton>
+            <m:Button
+                text="{t>select.newProfileButton}"
+                id="accountsCreateAccount"
+                icon="sap-icon://add"
+                press="onAccountSelectionCreate"
+            />
+        </m:endButton>
+        <m:beginButton>
+            <m:Button
+                text="{t>form.cancel}"
+                type="Reject"
+                enabled="{v>/submitAvailable}"
+                press=".onAccountSelectionClose"
+            />
+        </m:beginButton>
+    </m:Dialog>
+</core:FragmentDefinition>

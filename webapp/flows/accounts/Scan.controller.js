@@ -33,7 +33,12 @@ sap.ui.define(
                     return
                 }
 
-                await this.load(App.handleQRContentAnonymously(scanResult.value))
+                App.enforceAccountCreation = true
+                const processingResult = await this.load(runtime.stringProcessor.processURL(scanResult.value))
+                App.enforceAccountCreation = false
+                if (processingResult.isError) {
+                    return App.error(processingResult.error)
+                }
             },
 
             onNavButtonPress() {

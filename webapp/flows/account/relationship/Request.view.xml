@@ -12,7 +12,7 @@
 	<semantic:DetailPage
         id="page"
         navButtonPress="onNavButtonPress"
-        showNavButton="{d>/system/phone}"
+        showNavButton="true"
         title="{t>relationship.transmitted.attributes} {dvo>/name}"
         showFooter="{v>/editable}"
         busy="{v>/busy}"
