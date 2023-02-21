@@ -36,6 +36,7 @@ sap.ui.define(
                     createdAt: secret.createdAt
                 })
                 this.setModel(this.model)
+                this.loadDec()
             },
 
             clear() {
@@ -47,15 +48,6 @@ sap.ui.define(
             async onSubmit() {
                 try {
                     const secret = this.info.sharedSecret
-                    secret.secretBaseKey = NMSHDCrypto.CoreBuffer.fromUtf8(
-                        JSON.stringify(secret.secretBaseKey)
-                    ).toBase64URL()
-                    secret.synchronizationKey = NMSHDCrypto.CoreBuffer.fromUtf8(
-                        JSON.stringify(secret.synchronizationKey)
-                    ).toBase64URL()
-
-                    secret.identityPrivateKey = JSON.stringify(secret.identityPrivateKey)
-                    secret.identity.publicKey = JSON.stringify(secret.identity.publicKey)
                     appLogger.trace(`Onboarding device ${secret.id} for identity ${secret.identity.address}...`)
                     const localAccount = await runtime.accountServices.onboardAccount(secret)
                     appLogger.trace(`Device onboarded. Logging in...`)
