@@ -216,7 +216,7 @@ body .messageList header {
 }
 
 .requestItemRendererChildContainer {
-    flex-grow: 1;
+    width: calc(100% - 3rem);
 }
 
 .readAttributeRequestItemRendererLabel {
@@ -225,7 +225,6 @@ body .messageList header {
 
 .readAttributeRequestItemRendererFoundAttribute,
 .readAttributeRequestItemRendererEditControl {
-    width: 100%;
 }
 
 .readAttributeRequestItemRendererButton {
