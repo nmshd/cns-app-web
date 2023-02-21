@@ -72,8 +72,7 @@ sap.ui.define(
              */
             showDeviceOnboarding(sharedSecret) {
                 return new Promise((resolve) => {
-                    //TODO
-                    resolve(undefined)
+                    App.navTo("accounts.select", "accounts.processdevicetoken", {}, { sharedSecret: sharedSecret })
                 })
             },
 
