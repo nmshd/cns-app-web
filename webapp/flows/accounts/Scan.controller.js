@@ -34,8 +34,11 @@ sap.ui.define(
                 }
 
                 App.enforceAccountCreation = true
-                await this.load(runtime.stringProcessor.processURL(scanResult.value))
+                const processingResult = await this.load(runtime.stringProcessor.processURL(scanResult.value))
                 App.enforceAccountCreation = false
+                if (processingResult.isError) {
+                    return App.error(processingResult.error)
+                }
             },
 
             onNavButtonPress() {

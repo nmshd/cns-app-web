@@ -34,7 +34,12 @@ sap.ui.define(
                 }
 
                 try {
-                    await this.load(runtime.stringProcessor.processURL(scanResult.value, runtime.currentAccount))
+                    const processingResult = await this.load(
+                        runtime.stringProcessor.processURL(scanResult.value, runtime.currentAccount)
+                    )
+                    if (processingResult.isError) {
+                        return App.error(processingResult.error)
+                    }
                 } catch (e) {
                     this.addError({
                         sUserFriendlyMsg: this.resource("scanController.retryError")
