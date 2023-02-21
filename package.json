@@ -47,6 +47,7 @@
         "dependencies": [
             "ui5-middleware-livereload",
             "ui5-middleware-simpleproxy",
+            "@nmshd/runtime",
             "@nmshd/app-runtime",
             "@js-soft/native-cordova",
             "@js-soft/native-web",
