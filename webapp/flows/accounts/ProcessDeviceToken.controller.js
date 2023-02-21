@@ -7,7 +7,8 @@ sap.ui.define(
             createViewModel() {
                 return {
                     busy: false,
-                    delay: 0
+                    delay: 0,
+                    submitEnabled: false
                 }
             },
 
@@ -36,17 +37,20 @@ sap.ui.define(
                     createdAt: secret.createdAt
                 })
                 this.setModel(this.model)
-                this.loadDec()
+                this.viewProp("/submitEnabled", true)
             },
 
             clear() {
                 this.setModel(new JSONModel({}))
+                this.viewProp("/submitEnabled", false)
                 delete this.model
                 delete this.info
             },
 
             async onSubmit() {
                 try {
+                    this.viewProp("/submitEnabled", false)
+                    this.loadInc()
                     const secret = this.info.deviceOnboardingInfo
                     appLogger.trace(`Onboarding device ${secret.id} for identity ${secret.identity.address}...`)
                     const localAccount = await runtime.accountServices.onboardAccount(secret)
@@ -60,6 +64,7 @@ sap.ui.define(
                     App.error(e)
                 } finally {
                     this.clear()
+                    this.loadDec()
                 }
             },
 
