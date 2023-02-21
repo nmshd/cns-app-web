@@ -353,6 +353,11 @@ sap.ui.define(
                 oRM.write("<div")
                 oRM.writeControlData(oControl)
                 oRM.addClass("requestItemRenderer")
+                if (oControl.getModel().getProperty("/isDecidable")) {
+                    oRM.addClass("requestItemRendererDecidable")
+                } else {
+                    oRM.addClass("requestItemRendererDecided")
+                }
                 if (oControl.getError()) {
                     oRM.addClass("requestItemRendererError")
                 }
