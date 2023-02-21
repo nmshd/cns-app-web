@@ -220,6 +220,7 @@ sap.ui.define(
                 }
                 this.setMessage()
                 this.viewProp("/submitAvailable", true)
+                this.allAttributesChanges()
             },
 
             onPopupClose() {
