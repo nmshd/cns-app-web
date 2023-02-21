@@ -43,7 +43,7 @@ sap.ui.define(
                     "_button",
                     new Button({
                         text: "Ändern",
-                        visible: "false",
+                        visible: false,
                         enabled: "{item>/isDecidable}"
                     })
 
