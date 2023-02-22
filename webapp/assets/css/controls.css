@@ -215,8 +215,14 @@ body .messageList header {
     justify-content: stretch;
 }
 
-.requestItemRendererChildContainer {
+.requestItemRendererChildContainer,
+.requestItemGroupRendererChildContainer {
     width: calc(100% - 3rem);
+}
+
+.requestItemRendererDecided .requestItemRendererChildContainer,
+.requestItemRendererDecided .requestItemGroupRendererChildContainer {
+    width: 100%;
 }
 
 .readAttributeRequestItemRendererLabel {

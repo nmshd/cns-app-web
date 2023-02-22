@@ -9,8 +9,6 @@
     <m:Dialog title="{t>accountSelection.title}" stretch="true" id="AccountSelectionFragmentDialog">
         <m:VBox class="sapUiSmallMargin">
             <m:Text text="{t>accountSelection.description}" />
-            <m:Title text="{v>/accountSelectionTitle}" />
-            <m:Text text="{v>/accountSelectionDescription}" />
         </m:VBox>
         <m:List
             items="{v>/accountSelectionAccounts}"
