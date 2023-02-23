@@ -109,10 +109,11 @@ sap.ui.define(
             },
             requestAccountSelection(possibleAccounts, title, description) {
                 return new Promise(async (resolve) => {
+                    //If we already have a running account selection, cancel it (i.e. undefined account)
                     if (App.accountSelectionCallback) {
-                        App.error("app.uibridge.concurrentAccountSelection")
-                        return
+                        App.accountSelectionCallback()
                     }
+
                     App.accountSelectionCallback = (account) => {
                         App.accountSelectionCallback = null
                         if (account) {
@@ -124,7 +125,9 @@ sap.ui.define(
                         }
                         resolve(NMSHDAppRuntime.UserfriendlyResult.ok(account))
                     }
+
                     if (possibleAccounts.length === 0 || App.enforceAccountCreation) {
+                        App.openByDeepLink = true // Within the account selection screen, do not automatically navigate to the profile's home screen (and possibly overwrite the upcoming uiBridge.showRequest() call)
                         await App.navTo("accounts.select", "accounts.processrelationshiptoken", {})
                         return
                     }
