@@ -13,32 +13,13 @@ sap.ui.define(
             },
 
             async onRouteMatched(oEvent) {
-                // We cannot initialize the fragments within onInitialized, as the framework
-                // is not awaiting onInitialized before calling onRouteMatched
-                if (!this.oChangeRequestRenderer) {
-                    this.oChangeRequestRenderer = await Fragment.load({
-                        id: this.getView().getId(),
-                        name: "nmshd.app.flows.account.messages.fragments.AttributesChangeRequest",
-                        controller: this
-                    })
-                    this.getView().addDependent(this.oChangeRequestRenderer)
-                }
-                if (!this.oShareRequestRenderer) {
-                    this.oShareRequestRenderer = await Fragment.load({
-                        id: this.getView().getId(),
-                        name: "nmshd.app.flows.account.messages.fragments.AttributesShareRequest",
-                        controller: this
-                    })
-                    this.getView().addDependent(this.oShareRequestRenderer)
-                }
-
                 this.clear()
                 this.messageId = oEvent.getParameter("arguments").messageId
 
                 await this.super("onRouteMatched", oEvent)
             },
             async refresh() {
-                if (!this.messageId || !this.oChangeRequestRenderer || !this.oShareRequestRenderer) return
+                if (!this.messageId) return
 
                 const message = await App.MessageUtil.getMessage(this.messageId)
                 if (!message) return
