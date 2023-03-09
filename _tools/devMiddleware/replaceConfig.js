@@ -11,11 +11,17 @@
  *                                        the projects dependencies
  * @param {object} parameters.middlewareUtil Specification version dependent interface to a
  *                                        [MiddlewareUtil]{@link module:@ui5/server.middleware.MiddlewareUtil} instance
- * @param {object} parameters.options Options
- * @param {string} [parameters.options.configuration] Custom server middleware configuration if given in ui5.yaml
  * @returns {function} Middleware function to use
  */
-module.exports = function ({ resources, middlewareUtil, options }) {
+module.exports = function ({ resources }) {
+    const notDefinedEnvironmentVariables = ["NMSHD_APP_CLIENTID", "NMSHD_APP_CLIENTSECRET"].filter(
+        (env) => !process.env[env]
+    )
+
+    if (notDefinedEnvironmentVariables.length > 0) {
+        throw new Error(`Missing environment variable(s): ${notDefinedEnvironmentVariables.join(", ")}}`)
+    }
+
     const package = require("../../package.json")
     return function (req, res, next) {
         if (!req.path.endsWith("config.json")) {
@@ -37,6 +43,10 @@ module.exports = function ({ resources, middlewareUtil, options }) {
                     const contentAsString = content.toString()
                     const contentAsJSON = JSON.parse(contentAsString)
                     contentAsJSON.version = package.version
+
+                    contentAsJSON.transport.platformClientId = globalThis.process.env.NMSHD_APP_CLIENTID
+                    contentAsJSON.transport.platformClientSecret = globalThis.process.env.NMSHD_APP_CLIENTSECRET
+
                     res.end(JSON.stringify(contentAsJSON, null, 4))
                 } catch (err) {
                     next(err)
