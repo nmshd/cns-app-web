@@ -75,6 +75,7 @@ sap.ui.define(
              * @param {DeviceOnboardingInfoDTO} deviceOnboardingInfo
              */
             showDeviceOnboarding(deviceOnboardingInfo) {
+                App.disableAutoAccountSelection = true
                 return new Promise((resolve) => {
                     App.navTo(
                         "accounts.select",
@@ -108,6 +109,7 @@ sap.ui.define(
                 })
             },
             requestAccountSelection(possibleAccounts, title, description) {
+                App.disableAutoAccountSelection = true // Within the account selection screen, do not automatically navigate to the profile's home screen (and possibly overwrite the upcoming uiBridge.showRequest() call)
                 return new Promise(async (resolve) => {
                     //If we already have a running account selection, cancel it (i.e. undefined account)
                     if (App.accountSelectionCallback) {
@@ -127,7 +129,6 @@ sap.ui.define(
                     }
 
                     if (possibleAccounts.length === 0 || App.enforceAccountCreation) {
-                        App.openByDeepLink = true // Within the account selection screen, do not automatically navigate to the profile's home screen (and possibly overwrite the upcoming uiBridge.showRequest() call)
                         await App.navTo("accounts.select", "accounts.processrelationshiptoken", {})
                         return
                     }
