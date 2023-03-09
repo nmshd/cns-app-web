@@ -9,6 +9,8 @@ This repository contains the UI source code for the Enmeshed App.
 
 You can find the documentation for Enmeshed on [enmeshed.eu](https://enmeshed.eu).
 
+To get started developing in this repository, see the [developer's guide](README_dev.md).
+
 ## Feedback
 
 Please file any bugs or feature requests by creating an [issue](https://github.com/nmshd/feedback/issues).

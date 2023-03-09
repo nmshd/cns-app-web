@@ -5,9 +5,7 @@
     "transport": {
         "baseUrl": "/svc",
         "logLevel": "warn",
-        "datawalletEnabled": true,
-        "platformClientId": "dev",
-        "platformClientSecret": "SY3nxukl6Xn8kGDk52EwBKXZMR9OR5"
+        "datawalletEnabled": true
     },
     "firebase": {
         "config": {
