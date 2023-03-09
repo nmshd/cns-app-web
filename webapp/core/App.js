@@ -585,7 +585,12 @@ sap.ui.define(
 
             async beforeUnloadListener(oEvent) {
                 try {
-                    await runtime.stop()
+                    if (
+                        window.bootstrapper &&
+                        window.bootstrapper.nativeEnvironment.platform === JSSNative.NativePlatform.Web
+                    ) {
+                        await runtime.stop()
+                    }
                 } catch (e) {
                     appLogger.error(e)
                 }
@@ -610,7 +615,12 @@ sap.ui.define(
             },
 
             async initializeTransport() {
-                window.addEventListener("beforeunload", this.beforeUnloadListener)
+                if (
+                    window.bootstrapper &&
+                    window.bootstrapper.nativeEnvironment.platform === JSSNative.NativePlatform.Web
+                ) {
+                    window.addEventListener("beforeunload", this.beforeUnloadListener)
+                }
 
                 this.RelationshipUtil = new RelationshipUtil(this)
                 this.RelationshipTemplateUtil = new RelationshipTemplateUtil(this)
