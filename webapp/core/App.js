@@ -653,7 +653,7 @@ sap.ui.define(
                 URLWhitelist.add("https")
 
                 if (location.hash) {
-                    this.openByDeepLink = true
+                    this.disableAutoAccountSelection = true
                 }
 
                 window.addEventListener(
