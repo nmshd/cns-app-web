@@ -81,14 +81,17 @@ sap.ui.define(
 
                 await this.super("onRouteMatched")
 
+                await this.autoNavIfPossible()
+            },
+
+            async autoNavIfPossible() {
+                if (App.disableAutoAccountSelection || this.redirectedOnStart || App.openByNotification) return
+
+                if (this.viewProp("/route/_name")) return
+
                 // routeName is undefined/empty if we start the app the first time or if no route is found -> redirect
-                if (
-                    !this.redirectedOnStart &&
-                    (!this.viewProp("/route/_name") || (!App.disableAutoAccountSelection && !App.openByNotification))
-                ) {
-                    this.redirectedOnStart = true
-                    await this.routeRedirect()
-                }
+                this.redirectedOnStart = true
+                await this.routeRedirect()
             },
 
             onInfo() {
