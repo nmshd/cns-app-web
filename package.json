@@ -18,7 +18,7 @@
         "versionBump": "node ./_tools/versionBump.js && npm i"
     },
     "dependencies": {
-        "@js-soft/native-cordova": "1.2.4",
+        "@js-soft/native-cordova": "1.2.5",
         "@js-soft/native-electron": "1.2.5",
         "@js-soft/native-web": "1.2.4",
         "@nmshd/app-runtime": "2.3.4",

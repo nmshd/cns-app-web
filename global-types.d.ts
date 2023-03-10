@@ -48,6 +48,7 @@ declare global {
         QRCode: any
         appLogger: _tsLogger.ILogger
         navigator: Navigator
+        openedByOpenUrlEvent: boolean | undefined
     }
 
     interface Navigator {

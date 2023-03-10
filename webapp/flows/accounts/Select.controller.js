@@ -85,7 +85,14 @@ sap.ui.define(
             },
 
             async autoNavIfPossible() {
-                if (App.disableAutoAccountSelection || this.redirectedOnStart || App.openByNotification) return
+                if (
+                    App.disableAutoAccountSelection ||
+                    this.redirectedOnStart ||
+                    App.openByNotification ||
+                    window.openedByOpenUrlEvent
+                ) {
+                    return
+                }
 
                 if (this.viewProp("/route/_name")) return
 
