@@ -18,19 +18,19 @@
         "versionBump": "node ./_tools/versionBump.js && npm i"
     },
     "dependencies": {
-        "@js-soft/native-cordova": "1.2.3",
-        "@js-soft/native-electron": "1.2.4",
-        "@js-soft/native-web": "1.2.3",
-        "@nmshd/app-runtime": "2.3.3",
-        "@nmshd/runtime": "2.4.4",
-        "bson": "^4.7.2",
+        "@js-soft/native-cordova": "1.2.4",
+        "@js-soft/native-electron": "1.2.5",
+        "@js-soft/native-web": "1.2.4",
+        "@nmshd/app-runtime": "2.3.4",
+        "@nmshd/runtime": "2.4.5",
+        "bson": "^5.0.1",
         "pako": "^2.1.0"
     },
     "devDependencies": {
         "@js-soft/license-check": "^1.0.6",
         "@prettier/plugin-xml": "^2.2.0",
         "@types/jquery": "^3.5.16",
-        "@ui5/cli": "^2.14.17",
+        "@ui5/cli": "^3.0.4",
         "cross-env": "^7.0.3",
         "eslint": "^8.35.0",
         "eslint-config-prettier": "^8.7.0",
