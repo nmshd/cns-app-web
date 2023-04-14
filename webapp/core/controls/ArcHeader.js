@@ -52,22 +52,7 @@ sap.ui.define(["sap/ui/core/Control"], (Control) => {
 
             oRM.write(`<header>
         <div class="arcContainer">
-            <svg class="arcBackground" data-name="Enmeshed Status Bogen" xmlns="http://www.w3.org/2000/svg" width="100%"
-                 height="140.001" viewBox="0 0 375 140.001" preserveAspectRatio="none">
-                <path id="Enmeshed_Bogen" data-name="Enmeshed Bogen"
-                      d="M233.6,344.224V227.511h375V344.48a758.5,758.5,0,0,1-187,23.031A758.336,758.336,0,0,1,233.6,344.224Z"
-                      transform="translate(-233.599 -227.511)" fill="#dddce5" /></svg>
 
-            <svg class="arcForeground" data-name="Enmeshed Bogen" xmlns="http://www.w3.org/2000/svg" width="100%"
-                 height="135"
-                 viewBox="0 0 375 135"  preserveAspectRatio="none">
-                <path id="Schnittmenge_3" data-name="Schnittmenge 3"
-                      d="M233.6,270.332V182.483h375v87.848c-107.8,62.869-267.2,62.869-375,0Z"
-                      transform="translate(-233.599 -182.483)" fill="#`)
-
-            oRM.writeEscaped(background)
-            oRM.write(`" />
-            </svg>
             
 
 
