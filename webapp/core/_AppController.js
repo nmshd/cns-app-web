@@ -19,15 +19,19 @@ sap.ui.define(
                 return f.call(this, ...argArray)
             },
             createViewModel() {
-                const identityThemeInfos = this.getOwnerComponent().getModel("IdentityThemeInfo")
+                const owner = this.getOwnerComponent()
+
                 let themeInfo = {
                     image: "",
                     fontColor: "#ffffff",
                     fontStyle: "light",
-                    backgroundColor: "#29235c"
+                    backgroundColor: "#275DAC"
                 }
-                if (identityThemeInfos) {
-                    themeInfo = identityThemeInfos.getProperty("/_default")
+                if (owner) {
+                    const identityThemeInfos = owner.getModel("IdentityThemeInfo")
+                    if (identityThemeInfos) {
+                        themeInfo = identityThemeInfos.getProperty("/_default")
+                    }
                 }
                 return {
                     busy: false,
