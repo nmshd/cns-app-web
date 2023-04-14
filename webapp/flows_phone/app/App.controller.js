@@ -15,7 +15,7 @@ sap.ui.define(
                         image: "",
                         fontColor: "#ffffff",
                         fontStyle: "light",
-                        backgroundColor: "#29235c"
+                        backgroundColor: "#275DAC"
                     },
                     leftIcon: "",
                     rightIcon: "",
@@ -39,7 +39,7 @@ sap.ui.define(
                 await App.isInitialized()
 
                 runtime.nativeEnvironment.eventBus.publish(
-                    new JSSNative.ThemeEvent("#29235c", JSSNative.ThemeTextStyle.Light)
+                    new JSSNative.ThemeEvent("#275DAC", JSSNative.ThemeTextStyle.Light)
                 )
             },
 
@@ -170,7 +170,11 @@ sap.ui.define(
                 }
             },
 
-            refreshHeader(routeName) {},
+            refreshHeader(routeName) {
+                this.setRight("sap-icon://settings", () => {
+                    App.openProfileMenu()
+                })
+            },
 
             onLoadInc(oEvent) {
                 this._contentLoadingCounter++
