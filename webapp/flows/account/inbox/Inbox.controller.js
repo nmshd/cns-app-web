@@ -22,9 +22,6 @@ sap.ui.define(
             },
 
             async onRouteMatched(oEvent) {
-                App.appController.setRight("sap-icon://settings", () => {
-                    this.onSettings()
-                })
                 await this.super("onRouteMatched", oEvent)
             },
 
