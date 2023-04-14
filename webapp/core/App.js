@@ -23,7 +23,8 @@ sap.ui.define(
         "nmshd/app/core/utils/InboxUtil",
         "nmshd/app/core/utils/FileUtil",
         "sap/base/security/URLWhitelist",
-        "nmshd/app/core/UIBridge"
+        "nmshd/app/core/UIBridge",
+        "sap/ui/core/Fragment"
     ],
     (
         Event,
@@ -37,7 +38,8 @@ sap.ui.define(
         InboxUtil,
         FileUtil,
         URLWhitelist,
-        UIBridge
+        UIBridge,
+        Fragment
     ) => {
         "use strict"
 
@@ -55,6 +57,169 @@ sap.ui.define(
         let _relationship = null
 
         return {
+            changeLanguage(oEvent) {
+                const newLanguage = oEvent.getSource().getSelectedItem().mProperties.key
+                sap.ui.getCore().getConfiguration().setLanguage(newLanguage)
+                bootstrapper.nativeEnvironment.configAccess.set("language", newLanguage)
+                bootstrapper.nativeEnvironment.configAccess.save()
+            },
+            onProfileMenuItemPress(oEvent) {
+                const key = oEvent.getParameter("listItem").data("key")
+                switch (key) {
+                    case "app.switchProfile":
+                        break
+                    case "account.settings":
+                        this.openAccountSettingsPopup()
+                        break
+                    case "app.privacy":
+                        this.openPrivacyPopup()
+                        break
+                    case "app.legal":
+                        this.openLegalPopup()
+                        break
+                    case "app.imprint":
+                        this.openImprintPopup()
+                        break
+                }
+            },
+            async setAppViewModel(control) {
+                if (!control || !control.setModel) return
+
+                const localAccount = await App.localAccountController().getAccount(this.localAccount().id)
+                const name = localAccount.name || "Enmeshed"
+
+                let viewModel = new JSONModel({
+                    appVersion: runtime.nativeEnvironment.configAccess.get("version").value,
+                    runtimeVersion: NMSHDAppRuntime.buildInformation.version,
+                    profileName: name
+                })
+
+                viewModel.setDefaultBindingMode("OneWay")
+                control.setModel(viewModel, "v")
+            },
+            setGlobalModels(control) {
+                if (!control || !control.setModel) return
+                const deviceModel = new JSONModel(Device)
+                deviceModel.setDefaultBindingMode("OneWay")
+                control.setModel(deviceModel, "d")
+
+                const resourceModel = this.component.getModel("t")
+                control.setModel(resourceModel, "t")
+            },
+            async openPrivacyPopup() {
+                if (!this.privacyPopup) {
+                    this.privacyPopup = await Fragment.load({
+                        id: "privacyPopup",
+                        name: "nmshd.app.flows.app.PrivacyPopup",
+                        controller: this
+                    })
+                    await this.setAppViewModel(this.privacyPopup)
+                    this.setGlobalModels(this.privacyPopup)
+                }
+                this.privacyPopup.open()
+                this.privacyPopupOpen = true
+                document.addEventListener("click", this.checkDocumentClick.bind(this))
+            },
+            async openLegalPopup() {
+                if (!this.legalPopup) {
+                    this.legalPopup = await Fragment.load({
+                        id: "legalPopup",
+                        name: "nmshd.app.flows.app.LegalPopup",
+                        controller: this
+                    })
+                    await this.setAppViewModel(this.legalPopup)
+                    this.setGlobalModels(this.legalPopup)
+                }
+                this.legalPopup.open()
+                this.legalPopupOpen = true
+                document.addEventListener("click", this.checkDocumentClick.bind(this))
+            },
+            async openImprintPopup() {
+                if (!this.imprintPopup) {
+                    this.imprintPopup = await Fragment.load({
+                        id: "imprintPopup",
+                        name: "nmshd.app.flows.app.ImprintPopup",
+                        controller: this
+                    })
+                    await this.setAppViewModel(this.imprintPopup)
+                    this.setGlobalModels(this.imprintPopup)
+                }
+                this.imprintPopup.open()
+                this.imprintPopupOpen = true
+                document.addEventListener("click", this.checkDocumentClick.bind(this))
+            },
+            async openProfileMenu() {
+                if (!this.profileMenu) {
+                    this.profileMenu = await Fragment.load({
+                        id: "profileMenu",
+                        name: "nmshd.app.flows.ProfileMenu",
+                        controller: this
+                    })
+                    await this.setAppViewModel(this.profileMenu)
+                    this.setGlobalModels(this.profileMenu)
+                }
+                this.profileMenu.open()
+                this.profileMenuOpen = true
+                document.addEventListener("click", this.checkDocumentClick.bind(this))
+            },
+            async openAccountSettingsPopup() {
+                if (!this.accountSettings) {
+                    this.accountSettings = await Fragment.load({
+                        id: "accountSettings",
+                        name: "nmshd.app.flows.account.AccountSettingsPopup",
+                        controller: this
+                    })
+                    await this.setAppViewModel(this.accountSettings)
+                    this.setGlobalModels(this.accountSettings)
+                }
+                this.accountSettings.open()
+                this.accountSettingsOpen = true
+                document.addEventListener("click", this.checkDocumentClick.bind(this))
+            },
+            checkDocumentClick(oEvent) {
+                if (oEvent.target.id === "sap-ui-blocklayer-popup") {
+                    this.closeProfileMenu()
+                    this.closePrivacyPopup()
+                    document.removeEventListener("click", this.checkDocumentClick)
+                }
+            },
+            closePrivacyPopup() {
+                if (this.privacyPopup) {
+                    this.privacyPopup.close()
+                }
+                this.privacyPopupOpen = false
+            },
+            closeLegalPopup() {
+                if (this.legalPopup) {
+                    this.legalPopup.close()
+                }
+                this.legalPopupOpen = false
+            },
+            closeImprintPopup() {
+                if (this.imprintPopup) {
+                    this.imprintPopup.close()
+                }
+                this.imprintPopupOpen = false
+            },
+            closeAccountSettingsPopup() {
+                if (this.accountSettings) {
+                    this.accountSettings.close()
+                }
+                this.accountSettingsOpen = false
+            },
+            closeProfileMenu() {
+                if (this.profileMenu) {
+                    this.profileMenu.close()
+                }
+                this.profileMenuOpen = false
+            },
+            async toggleProfileMenu() {
+                if (this.profileMenuOpen) {
+                    this.closeProfileMenu()
+                } else {
+                    this.openProfileMenu()
+                }
+            },
             deleteLogs() {
                 const loggers = [
                     "Account",
@@ -427,7 +592,7 @@ sap.ui.define(
                     image: "",
                     fontColor: "#ffffff",
                     fontStyle: "light",
-                    backgroundColor: "#29235c"
+                    backgroundColor: "#275DAC"
                 }
             },
 

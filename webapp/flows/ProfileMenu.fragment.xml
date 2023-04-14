@@ -1,0 +1,66 @@
+<core:FragmentDefinition
+    height="100%"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+    xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+    <m:Dialog
+        showHeader="false"
+        stretch="true"
+        horizontalScrolling="false"
+        verticalScrolling="false"
+        class="profileMenu"
+    >
+        <m:Title text="{v>/profileName}" />
+
+        <m:List itemPress="onProfileMenuItemPress" id="AccountNavigation">
+            <m:StandardListItem
+                title="{t>master.switchProfile}"
+                icon="sap-icon://shield"
+                type="Navigation"
+                data:key="app.switchProfile"
+            />
+            <m:StandardListItem
+                title="{t>settings.title}"
+                icon="sap-icon://settings"
+                type="Navigation"
+                data:key="account.settings"
+            />
+			<m:StandardListItem title="{t>master.privacy}" icon="sap-icon://shield" type="Navigation" data:key="app.privacy" />
+			<m:StandardListItem title="{t>master.rights}" icon="sap-icon://compare" type="Navigation" data:key="app.legal" />
+			<m:StandardListItem
+                title="{t>master.imprint}"
+                icon="sap-icon://message-popup"
+                type="Navigation"
+                data:key="app.imprint"
+            />
+		</m:List>
+		<m:VBox>
+
+
+
+			<form:SimpleForm editable="true">
+					<m:Label text="{t>settings.language} (Language)" />
+					<m:VBox>
+						<m:Select id="language" change="changeLanguage">
+							<core:Item key="en" text="English" />
+							<core:Item key="de" text="Deutsch (German)" />
+							<core:Item key="uk" text="Yкраїнський (Ukrainian)" />
+						</m:Select>
+					</m:VBox>
+
+
+					<m:Label text="{t>account.appinfo.appversion}" />
+					<m:Text text="{v>/appVersion}" id="version" />
+
+					<m:Label text="{t>account.appinfo.runtimeVersion}" />
+					<m:Text text="{v>/runtimeVersion}" />
+			</form:SimpleForm>
+		</m:VBox>
+        
+
+    </m:Dialog>
+</core:FragmentDefinition>
