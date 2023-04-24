@@ -186,7 +186,7 @@ sap.ui.define(
 
                 const buttonControl = oControl.getAggregation("_button")
                 if (buttonControl) {
-                    oRM.renderControl(buttonControl)
+                    // oRM.renderControl(buttonControl)
                 }
 
                 oRM.write("</div>")

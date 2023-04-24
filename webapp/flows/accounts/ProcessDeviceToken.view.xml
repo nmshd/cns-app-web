@@ -45,7 +45,13 @@
 			</form:SimpleForm>
 			<HBox alignItems="Center" renderType="Bare" class="sapUiSmallMargin sapUiMediumMarginBottom">
 				<ToolbarSpacer />
-				<m:Button text="{t>processDeviceToken.connectButton}" icon="sap-icon://accept" type="Emphasized" press="onSubmit" />
+				<m:Button
+                    text="{t>processDeviceToken.connectButton}"
+                    icon="sap-icon://accept"
+                    type="Emphasized"
+                    press="onSubmit"
+                    enabled="{v>/submitEnabled}"
+                />
 
 			</HBox>
 		</semantic:content>

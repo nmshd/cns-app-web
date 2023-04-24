@@ -80,7 +80,7 @@ sap.ui.define(["nmshd/app/core/utils/ItemUtil", "sap/ui/model/json/JSONModel"], 
 
             const messagesResult = await runtime.currentSession.transportServices.messages.getMessages({
                 query: {
-                    relationshipIds: relationshipId,
+                    "recipient.relationshipId": relationshipId,
                     "content.@type": "Mail"
                 }
             })

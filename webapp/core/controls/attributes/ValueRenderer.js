@@ -175,7 +175,9 @@ sap.ui.define(
                         control = new TimePicker({}).attachChange((oEvent) => that.fireChange(oEvent))
                         break
                     case "Date":
-                        control = new DatePicker({}).attachChange((oEvent) => that.fireChange(oEvent))
+                        control = new DatePicker({ displayFormat: "YYYY-MM-dd" }).attachChange((oEvent) =>
+                            that.fireChange(oEvent)
+                        )
                         break
                     case "DateTime":
                         control = new DateTimePicker({}).attachChange((oEvent) => that.fireChange(oEvent))
@@ -233,9 +235,10 @@ sap.ui.define(
                         } else if (this.renderHints.dataType === "URL") {
                             type = sap.m.InputType.Url
                         }
-                        control = new Input({ type: type, maxLength: this.valueHints.maxLength }).attachLiveChange(
-                            (oEvent) => that.fireChange(oEvent)
-                        )
+                        control = new Input({
+                            type: type,
+                            maxLength: this.valueHints.maxLength ? this.valueHints.maxLength : 0
+                        }).attachChange((oEvent) => that.fireChange(oEvent))
                         break
                     case "ButtonLike":
                         if (valueHints.values) {
@@ -524,9 +527,12 @@ sap.ui.define(
                 if (this._valueType === "Unknown") return
                 let control
                 if (this._valueType === "BirthDate") {
-                    control = new DatePicker({}).attachChange((oEvent) => that.fireChange(oEvent))
+                    control = new DatePicker({ displayFormat: "YYYY-MM-dd" }).attachChange((oEvent) =>
+                        that.fireChange(oEvent)
+                    )
                 } else {
-                    const children = [new Title({ text: `{t>attributes.values.${this._valueType}._title}` })]
+                    const children = []
+                    // children.push(new Title({ text: `{t>attributes.values.${this._valueType}._title}` })
                     const valueRenderers = {}
                     for (const property in this.renderHints.propertyHints) {
                         let propertyValueType = TSServal.Serializable.getModule(this._valueType, 1)
@@ -539,7 +545,6 @@ sap.ui.define(
                         } else if (propertyValueType === "Boolean") {
                             propertyValueType = "ProprietaryBoolean"
                         }
-                        console.log(property, ":", propertyValueType)
                         const label = new Label({ text: `{t>attributes.values.${this._valueType}.${property}.label}` })
                         children.push(label)
                         const valueRenderer = new this.constructor({
@@ -552,7 +557,10 @@ sap.ui.define(
                         valueRenderers[property] = valueRenderer
                     }
                     this.valueRenderers = valueRenderers
-                    control = new SimpleForm({ content: children, editable: true })
+                    control = new SimpleForm({
+                        content: children,
+                        editable: true
+                    })
                     control.addStyleClass("sapUiNoContentPadding")
                 }
 
@@ -691,6 +699,7 @@ sap.ui.define(
 
                 if (this._valueType === "BirthDate") {
                     const date = control.getDateValue()
+                    if (!date) return
                     const value = {
                         day: date.getDate(),
                         month: date.getMonth() + 1,

@@ -7,7 +7,8 @@ sap.ui.define(
             createViewModel() {
                 return {
                     busy: false,
-                    delay: 0
+                    delay: 0,
+                    submitEnabled: false
                 }
             },
 
@@ -27,7 +28,7 @@ sap.ui.define(
                     return
                 }
                 App.prop("/redirect", undefined)
-                const secret = this.info.sharedSecret
+                const secret = this.info.deviceOnboardingInfo
                 this.model = new JSONModel({
                     id: secret.id,
                     address: secret.identity.address,
@@ -36,26 +37,21 @@ sap.ui.define(
                     createdAt: secret.createdAt
                 })
                 this.setModel(this.model)
+                this.viewProp("/submitEnabled", true)
             },
 
             clear() {
                 this.setModel(new JSONModel({}))
+                this.viewProp("/submitEnabled", false)
                 delete this.model
                 delete this.info
             },
 
             async onSubmit() {
                 try {
-                    const secret = this.info.sharedSecret
-                    secret.secretBaseKey = NMSHDCrypto.CoreBuffer.fromUtf8(
-                        JSON.stringify(secret.secretBaseKey)
-                    ).toBase64URL()
-                    secret.synchronizationKey = NMSHDCrypto.CoreBuffer.fromUtf8(
-                        JSON.stringify(secret.synchronizationKey)
-                    ).toBase64URL()
-
-                    secret.identityPrivateKey = JSON.stringify(secret.identityPrivateKey)
-                    secret.identity.publicKey = JSON.stringify(secret.identity.publicKey)
+                    this.viewProp("/submitEnabled", false)
+                    this.loadInc()
+                    const secret = this.info.deviceOnboardingInfo
                     appLogger.trace(`Onboarding device ${secret.id} for identity ${secret.identity.address}...`)
                     const localAccount = await runtime.accountServices.onboardAccount(secret)
                     appLogger.trace(`Device onboarded. Logging in...`)
@@ -68,6 +64,7 @@ sap.ui.define(
                     App.error(e)
                 } finally {
                     this.clear()
+                    this.loadDec()
                 }
             },
 

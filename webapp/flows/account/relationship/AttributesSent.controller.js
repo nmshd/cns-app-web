@@ -18,19 +18,47 @@ sap.ui.define(
 
                 const sentItemsResult =
                     await runtime.currentSession.consumptionServices.attributes.getSharedToPeerAttributes({
-                        peer: this.relationshipIdentityDVO.id,
-                        hideTechnical: true
+                        peer: this.relationshipIdentityDVO.id
                     })
 
                 if (sentItemsResult.isError) {
                     App.error(sentItemsResult.error)
                     return
                 }
+
                 const sentItems = await runtime.currentSession.expander.expandLocalAttributeDTOs(sentItemsResult.value)
+                const nonTechnical = []
+                /** @type any[] */
+                const technical = [
+                    {
+                        type: "SharedToPeerAttributeDVO",
+                        name: "i18n://dvo.attribute.name.EnmeshedAddress",
+                        value: { value: runtime.currentAccount.address },
+                        valueHints: {},
+                        renderHints: {
+                            "@type": "RenderHints",
+                            editType: "InputLike",
+                            technicalType: "String"
+                        },
+                        tags: [],
+                        valueType: "EnmeshedAddress"
+                    }
+                ]
+                for (const sentItem of sentItems) {
+                    if (
+                        sentItem.content["@type"] === "RelationshipAttribute" &&
+                        sentItem.content.isTechnical === true
+                    ) {
+                        technical.push(sentItem)
+                    } else {
+                        nonTechnical.push(sentItem)
+                    }
+                }
 
                 this.setModel(
                     new JSONModel({
-                        items: sentItems
+                        items: nonTechnical,
+                        technical: technical
                     })
                 )
             }

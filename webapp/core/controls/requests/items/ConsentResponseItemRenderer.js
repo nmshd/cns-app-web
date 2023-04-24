@@ -14,7 +14,7 @@ sap.ui.define(
         return Control.extend("nmshd.app.core.controls.requests.items.ConsentResponseItemRenderer", {
             metadata: {
                 aggregations: {
-                    _label: { type: "sap.m.Label", multiple: false, visibility: "hidden" },
+                    _label: { type: "sap.m.Text", multiple: false, visibility: "hidden" },
                     _valueRenderer: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" },
                     _button: { type: "sap.m.Button", multiple: false, visibility: "hidden" }
                 },
@@ -32,7 +32,7 @@ sap.ui.define(
                 const that = this
                 this.setAggregation(
                     "_label",
-                    new Label({ text: { path: "consent", formatter: Formatter.toTranslated } }).addStyleClass(
+                    new Text({ text: { path: "consent", formatter: Formatter.toTranslated } }).addStyleClass(
                         "consentResponseItemRendererLabel"
                     )
                 )

@@ -342,6 +342,12 @@
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
+                    "pattern": "accounts/{accountId}/requests/{requestId}",
+                    "name": "account.relationships.request",
+                    "target": ["account.master", "account.relationships.request"],
+                    "parent": "nmshd.app.Component:generic"
+                },
+                {
                     "pattern": "accounts/{accountId}/template/{templateId}",
                     "name": "account.template",
                     "target": ["account.master", "account.template"],
@@ -445,7 +451,7 @@
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/requests/{requestId}",
                     "name": "account.relationship.request",
-                    "target": ["account.relationship.requests", "account.relationship.request"],
+                    "target": ["account.relationship.master", "account.relationship.request"],
                     "parent": "nmshd.app.Component:generic"
                 },
 
@@ -518,6 +524,12 @@
                     "controlAggregation": "detailPages",
                     "viewLevel": 5
                 },
+                "app.debug": {
+                    "viewName": "flows.app.Debug",
+                    "viewId": "app-debug",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 999
+                },
                 "app.error": {
                     "viewName": "flows.app.Error",
                     "viewId": "app-error",
@@ -529,12 +541,6 @@
                     "viewId": "app-fatal",
                     "controlAggregation": "detailPages",
                     "viewLevel": 1000
-                },
-                "app.debug": {
-                    "viewName": "flows.app.Debug",
-                    "viewId": "app-debug",
-                    "controlAggregation": "detailPages",
-                    "viewLevel": 999
                 },
                 "app.eula": {
                     "viewName": "flows.app.EULA",
@@ -719,6 +725,12 @@
                     "viewId": "account-relationships",
                     "controlAggregation": "detailPages",
                     "viewLevel": 200
+                },
+                "account.relationships.request": {
+                    "viewName": "flows.account.relationships.Request",
+                    "viewId": "account-relationships-request",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 204
                 },
                 "account.template": {
                     "viewName": "flows.account.relationships.Template",

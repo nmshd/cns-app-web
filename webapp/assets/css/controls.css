@@ -65,10 +65,10 @@ html.sapUiMedia-Std-Tablet .boxItemRenderer:hover {
 }
 
 .personItemRendererInitials {
-    width: 3rem;
+    width: 4rem;
     height: 3rem;
     border-radius: 50%;
-    margin: 0.725rem 1.4rem;
+    margin: 0.2rem 0.2rem;
 }
 
 .personItemRendererInitialsText {
@@ -112,6 +112,7 @@ html.sapUiMedia-Std-Tablet .boxItemRenderer:hover {
     padding-left: 8px;
     justify-content: center;
     flex-grow: 1;
+    width: 100%;
 }
 
 .orgItemRenderer.sapMLIBActive,
@@ -214,8 +215,14 @@ body .messageList header {
     justify-content: stretch;
 }
 
-.requestItemRendererChildContainer {
-    flex-grow: 1;
+.requestItemRendererChildContainer,
+.requestItemGroupRendererChildContainer {
+    width: calc(100% - 3rem);
+}
+
+.requestItemRendererDecided .requestItemRendererChildContainer,
+.requestItemRendererDecided .requestItemGroupRendererChildContainer {
+    width: 100%;
 }
 
 .readAttributeRequestItemRendererLabel {
@@ -224,7 +231,6 @@ body .messageList header {
 
 .readAttributeRequestItemRendererFoundAttribute,
 .readAttributeRequestItemRendererEditControl {
-    width: 100%;
 }
 
 .readAttributeRequestItemRendererButton {
