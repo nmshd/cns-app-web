@@ -13,12 +13,24 @@
         stretch="true"
         horizontalScrolling="false"
         verticalScrolling="false"
-        class="appDialog"
+        class="appDialog appDialogFull"
     >
+        <m:customHeader>
+            <m:Bar>
+                <m:contentLeft>
+                    <m:Button icon="sap-icon://nav-back" text="" press="closeImprintPopup()" />
+                </m:contentLeft>
+                <m:contentMiddle>
+                    <m:Title text="{t>imprint.title}" class="sapMTitleMaxWidth" width="100%" />
+                </m:contentMiddle>
+            </m:Bar>
+        </m:customHeader>
 
         <mvc:XMLView viewName="nmshd.app.flows.app.Imprint" width="100%" height="100%" />
+        <!--
         <m:endButton>
             <m:Button text="Close" press="closeImprintPopup()" />
         </m:endButton>
+        -->
     </m:Dialog>
 </core:FragmentDefinition>

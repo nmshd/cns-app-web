@@ -2,6 +2,75 @@
     display: none;
 }
 
+.sap-phone .appDialog .sapMPage>.sapMPageHeader+section {
+    top: 0px;
+}
+
+
+.sap-phone .appDialog.appDialogFull>header>.sapMBar {
+    background-color: #3d86f0;
+}
+
+.sap-phone .appDialog.appDialogFull>header>.sapMBar .sapMBtn,
+.sap-phone .appDialog.appDialogFull>header>.sapMBar .sapMBtnIcon {
+    color: #ffffff;
+}
+
+.sap-phone .appDialog.appDialogFull>header>.sapMBar .sapMTitle {
+    color: #ffffff;
+}
+
+html.sap-phone body .sapMDialog.appDialog.appDialogFull.sapMDialogStretched {
+    top: 0px !important;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.sap-phone .sapMDialog.appDialog.appDialogFull header .sapMBarLeft,
+.sap-phone .sapMDialog.appDialog.appDialogFull header .sapMBarPH {
+    padding-left: 0rem;
+    padding-right: 0rem;
+}
+
+.sap-phone .sapMDialog.appDialog.appDialogFull {
+    transform: scale(1) translateZ(0px);
+    -webkit-transform: scale(1) translateZ(0px);
+    background-clip: padding-box;
+    min-height: 6rem;
+    outline: none;
+    overflow: hidden;
+    position: fixed !important;
+    -webkit-transition: opacity 0.15s, left 0.2s, top 0.2s;
+    transition: opacity 0.15s, left 0.2s, top 0.2s;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0 0.0625rem rgba(0, 0, 0, 0.42), 0 1.25rem 5rem 0 rgba(0, 0, 0, 0.3);
+}
+
+.sap-phone .sapMDialog.appDialog.appDialogFull:not(.sapMDialogHighPixelDensity) {
+    -webkit-filter: blur(0);
+    filter: blur(0);
+}
+
+.sap-phone .sapMDialog.appDialog.appDialogFull.sapMDialogOpen {
+    /*opacity: 1 !important;
+    animation: showDialog 0.25s ease-out;
+    */
+    animation: none !important;
+    display: block;
+}
+
+.sap-phone .sapMDialog.appDialog.appDialogFull:not(.sapMDialogOpen) {
+    /*opacity: 1 !important;
+    animation: hideDialog 0.25s ease-out;
+    */
+    animation: none !important;
+    display: none;
+}
+
+
+
+
+
 .sap-phone .sapMPageHeader.sapMIBar.sapMHeader-CTX {
     background-color: #3d86f0;
 }
@@ -16,6 +85,7 @@
 .sap-phone .sapMPageHeader .sapMTitle {
     color: #ffffff;
 }
+
 .light .sapUiIcon {
     color: #ffffff !important;
 }
@@ -23,9 +93,10 @@
 .dark .sapUiIcon {
     color: #333333 !important;
 }
-.sap-phone :not(.sapMBtnDisabled) .sapMBtnBack > .sapMBtnIcon,
-.sap-phone .sapMHeader :not(.sapMBtnDisabled) .sapMBtnTransparent > .sapMBtnIcon,
-.sap-phone :not(.sapMBtnDisabled) .sapMBtnGhost > .sapMBtnIcon {
+
+.sap-phone :not(.sapMBtnDisabled) .sapMBtnBack>.sapMBtnIcon,
+.sap-phone .sapMHeader :not(.sapMBtnDisabled) .sapMBtnTransparent>.sapMBtnIcon,
+.sap-phone :not(.sapMBtnDisabled) .sapMBtnGhost>.sapMBtnIcon {
     color: #ffffff;
 }
 
@@ -33,6 +104,7 @@
 .sap-phone .sapUiBody {
     background-color: #ffffff !important;
 }
+
 .sap-phone .sapUiGlobalBackgroundColor,
 .sap-phone .sapMShellGlobalInnerBackground,
 .sap-phone .sapMShell,
@@ -42,8 +114,8 @@
 .sap-phone .sapMShellGlobalInnerBackground,
 .sap-phone .sapUiComponentContainer .sapMIBar.sapMHeader-CTX,
 .sap-phone .sapMPage,
-.sap-phone .sapFDynamicPage .sapFDynamicPageContentWrapperStandard > .sapFDynamicPageContent,
-.sap-phone .sapFDynamicPage .sapFDynamicPageContentWrapperSolid > .sapFDynamicPageContent {
+.sap-phone .sapFDynamicPage .sapFDynamicPageContentWrapperStandard>.sapFDynamicPageContent,
+.sap-phone .sapFDynamicPage .sapFDynamicPageContentWrapperSolid>.sapFDynamicPageContent {
     background-color: transparent !important;
 }
 
@@ -85,7 +157,7 @@
     color: #ffffff;
 }
 
-.sap-phone .arcHeader > header {
+.sap-phone .arcHeader>header {
     position: absolute;
     height: 100%;
     left: 0;
@@ -107,7 +179,7 @@
     top: 1.5rem;
 }
 
-.sap-phone .logoContainer > img {
+.sap-phone .logoContainer>img {
     max-height: 40px;
     max-width: 80%;
 }
@@ -115,24 +187,25 @@
 .sap-phone .arcBackground {
     position: absolute;
 }
+
 .sap-phone .arcForeground {
     position: absolute;
 }
 
-.sap-phone .arcHeader .sapMBar-CTX:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive,
-.sap-phone .arcHeader :not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive {
+.sap-phone .arcHeader .sapMBar-CTX:not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive,
+.sap-phone .arcHeader :not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive {
     background-color: rgba(0, 0, 0, 0.2);
     border: 1px solid #333333;
     border-radius: 50%;
 }
 
-.sap-phone .appAccount .sapMPage > .sapMPageHeader + section,
-.sap-phone .appAccount .sapMPage > .sapMPageHeader + .sapMPageSubHeader + section {
+.sap-phone .appAccount .sapMPage>.sapMPageHeader+section,
+.sap-phone .appAccount .sapMPage>.sapMPageHeader+.sapMPageSubHeader+section {
     margin-bottom: 4.5rem;
 }
 
-.sap-phone .appAccounts .sapMPage > .sapMPageHeader + section,
-.sap-phone .appAccounts .sapMPage > .sapMPageHeader + .sapMPageSubHeader + section {
+.sap-phone .appAccounts .sapMPage>.sapMPageHeader+section,
+.sap-phone .appAccounts .sapMPage>.sapMPageHeader+.sapMPageSubHeader+section {
     top: 3rem;
     padding-top: 2.5rem;
 }
@@ -158,22 +231,25 @@
     font-size: 1.3rem;
     width: 2.2rem;
 }
+
 .sap-phone .arcSub .sapMBarLeft {
     height: 3.4rem;
     padding-left: 3rem;
 }
+
 .sap-phone .arcSub .sapMBarRight {
     height: 3.4rem;
     padding-right: 3rem;
 }
+
 .sap-phone .arcSub .sapMBtnIcon,
 .sap-phone .arcSub .sapUiIcon {
     font-size: 1.2rem;
     color: #333333;
 }
 
-.sap-phone .arcSub .sapMBar-CTX:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive,
-.sap-phone .arcSub :not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive {
+.sap-phone .arcSub .sapMBar-CTX:not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive,
+.sap-phone .arcSub :not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive {
     background-color: rgba(0, 0, 0, 0.6);
     border: none;
     height: 2.2rem;
@@ -189,6 +265,7 @@
     from {
         transform: rotate(0deg) translateX(3px) rotate(0deg);
     }
+
     to {
         transform: rotate(360deg) translateX(3px) rotate(-360deg);
     }

@@ -69,29 +69,55 @@ sap.ui.define(
                     case "app.switchProfile":
                         break
                     case "account.settings":
+                        this.closeProfileMenu()
                         this.openAccountSettingsPopup()
+                        
                         break
                     case "app.privacy":
+                        this.closeProfileMenu()
                         this.openPrivacyPopup()
+                        /*
+                        App.navTo("app.privacy")
+                        */
                         break
                     case "app.legal":
+                        this.closeProfileMenu()
                         this.openLegalPopup()
+                        /*
+                        App.navTo("app.legal")
+                        */
                         break
                     case "app.imprint":
+                        this.closeProfileMenu()
                         this.openImprintPopup()
+                        /*
+                        App.navTo("app.imprint")
+                        */
                         break
                 }
             },
             async setAppViewModel(control) {
                 if (!control || !control.setModel) return
 
-                const localAccount = await App.localAccountController().getAccount(this.localAccount().id)
+                const accountId = this.localAccount().id
+                const localAccount = await App.localAccountController().getAccount(accountId)
                 const name = localAccount.name || "Enmeshed"
+                const address = App.account().identity.address.toString()
 
-                let viewModel = new JSONModel({
+                const getDevicesResult = await runtime.currentSession.transportServices.devices.getDevices()
+                let devices = []
+                if (getDevicesResult.isSuccess) {
+                    devices = getDevicesResult.value
+                }
+
+                const viewModel = new JSONModel({
                     appVersion: runtime.nativeEnvironment.configAccess.get("version").value,
                     runtimeVersion: NMSHDAppRuntime.buildInformation.version,
-                    profileName: name
+                    profileName: name,
+                    accountName: name,
+                    accountId: accountId,
+                    address: address,
+                    devices: devices
                 })
 
                 viewModel.setDefaultBindingMode("OneWay")
