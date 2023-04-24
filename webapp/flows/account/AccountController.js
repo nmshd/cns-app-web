@@ -25,11 +25,13 @@ sap.ui.define(
                 const currentRouteName = oEvent.getParameter("arguments")._name
                 switch (currentRouteName) {
                     case "account.home":
+                    case "account.inbox":
                     case "account.cards":
                     case "account.relationships":
                     case "account.profile":
                     case "account.attributes":
-                        App.appController.setLeft("sap-icon://log", null)
+                        //App.appController.setLeft("sap-icon://menu2", null)
+                        App.appController.setLeft(null)
                         break
                     default:
                         App.appController.setLeft("sap-icon://nav-back", null)

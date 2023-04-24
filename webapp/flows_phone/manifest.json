@@ -266,7 +266,7 @@
                 {
                     "pattern": "accounts/{accountId}/home",
                     "name": "account.home",
-                    "target": ["account.master", "account.inbox"],
+                    "target": ["account.master", "account.home"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
@@ -648,7 +648,7 @@
                     "viewLevel": 100
                 },
                 "account.home": {
-                    "viewName": "flows.account.Home",
+                    "viewName": "flows.account.home.Home",
                     "viewId": "account-home",
                     "controlAggregation": "detailPages",
                     "viewLevel": 101
@@ -663,7 +663,7 @@
                     "viewName": "flows.account.inbox.Inbox",
                     "viewId": "account-inbox",
                     "controlAggregation": "detailPages",
-                    "viewLevel": 101
+                    "viewLevel": 102
                 },
                 "account.cards": {
                     "viewName": "flows.account.share.Cards",

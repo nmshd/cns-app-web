@@ -17,7 +17,7 @@
         id="selectPage"
     >
 		<m:headerContent>
-			<m:Button id="hintButton" press="onInfo" icon="sap-icon://hint" />
+			
 		</m:headerContent>
 		<m:subHeader>
 		</m:subHeader>

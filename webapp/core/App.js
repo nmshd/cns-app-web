@@ -62,11 +62,47 @@ sap.ui.define(
                 sap.ui.getCore().getConfiguration().setLanguage(newLanguage)
                 bootstrapper.nativeEnvironment.configAccess.set("language", newLanguage)
                 bootstrapper.nativeEnvironment.configAccess.save()
+                oEvent.getSource().setSelectedKey(newLanguage)
             },
-            onProfileMenuItemPress(oEvent) {
+            async accountSelectionCallbackDefault(account) {
+                if (account) {
+                    App.navTo("accounts.select", "account.home", { accountId: account.id.toString() })
+                }
+                
+                this.accountSelectionCallback = null
+            },
+            async toSwitchProfile() {
+                this.closeProfileMenu()
+                this.accountSelectionCallback = this.accountSelectionCallbackDefault
+                const localAccounts = await App.localAccountController().getAccounts()
+                this.openAccountSelectionPopup(localAccounts, "", "")
+            },
+            toAccountSettings() {
+                this.closeProfileMenu()
+                this.openAccountSettingsPopup()
+            },
+            toPrivacy() {
+                this.closeProfileMenu()
+                this.openPrivacyPopup()
+            },
+            toLegal() {
+                this.closeProfileMenu()
+                this.openLegalPopup()
+            },
+            toImprint() {
+                this.closeProfileMenu()
+                this.openImprintPopup()
+            },
+
+            async onProfileMenuItemPress(oEvent) {
                 const key = oEvent.getParameter("listItem").data("key")
                 switch (key) {
                     case "app.switchProfile":
+                        this.closeProfileMenu()
+                        this.accountSelectionCallback = this.accountSelectionCallbackDefault
+                        const localAccounts = await App.localAccountController().getAccounts()
+                        this.openAccountSelectionPopup(localAccounts, "", "")
+
                         break
                     case "account.settings":
                         this.closeProfileMenu()
@@ -98,7 +134,9 @@ sap.ui.define(
             },
             async setAppViewModel(control) {
                 if (!control || !control.setModel) return
-
+                if (!this.localAccount) {
+                    
+                }
                 const accountId = this.localAccount().id
                 const localAccount = await App.localAccountController().getAccount(accountId)
                 const name = localAccount.name || "Enmeshed"
@@ -117,7 +155,8 @@ sap.ui.define(
                     accountName: name,
                     accountId: accountId,
                     address: address,
-                    devices: devices
+                    devices: devices,
+                    language: bootstrapper.nativeEnvironment.configAccess.get("language").value
                 })
 
                 viewModel.setDefaultBindingMode("OneWay")
@@ -202,6 +241,24 @@ sap.ui.define(
                 this.accountSettingsOpen = true
                 document.addEventListener("click", this.checkDocumentClick.bind(this))
             },
+            async openAccountSelectionPopup(accounts, title, description) {
+                if (!this.accountSelection) {
+                    this.accountSelection = await Fragment.load({
+                        id: "accountSelection",
+                        name: "nmshd.app.flows.accounts.AccountSelectionPopup",
+                        controller: this
+                    })
+                    await this.setAppViewModel(this.accountSelection)
+                    this.setGlobalModels(this.accountSelection)
+                    const model = this.accountSelection.getModel("v")
+                    model.setProperty("/accountSelectionAccounts", accounts ? accounts : [])
+                    model.setProperty("/accountSelectionTitle", title)
+                    model.setProperty("/accountSelectionDescription", description)
+                }
+                this.accountSelection.open()
+                this.accountSelectionOpen = true
+                document.addEventListener("click", this.checkDocumentClick.bind(this))
+            },
             checkDocumentClick(oEvent) {
                 if (oEvent.target.id === "sap-ui-blocklayer-popup") {
                     this.closeProfileMenu()
@@ -238,6 +295,60 @@ sap.ui.define(
                     this.profileMenu.close()
                 }
                 this.profileMenuOpen = false
+            },
+            
+            closeAccountSelectionPopup() {
+                 if (this.accountSelection) {
+                    this.accountSelection.close()
+                }
+                this.accountSelectionOpen = false
+            },
+
+            onAccountSelectionPress(oEvent) {
+                try {
+                    const oItem = oEvent.getParameter("listItem") || oEvent.getSource()
+                    const prop = oItem.getBindingContextPath()
+                    const selectedAccount = oEvent.getSource().getModel("v").getProperty(prop)
+                    appLogger.info(`User chose ${selectedAccount.name} with id ${selectedAccount.id}.`)
+                    if (App.accountSelectionCallback) {
+                        App.accountSelectionCallback(selectedAccount)
+                    }
+                } catch (e) {
+                    App.error(e)
+                } finally {
+                    this.closeAccountSelectionPopup()
+                }
+            },
+
+            async onAccountSelectionCreate() {
+                try {
+                    appLogger.info("User decided for a new account to be created for an accountSelectionRequest.")
+                    const accounts = await runtime.accountServices.getAccounts()
+                    const resourceModel = this.component.getModel("t")
+
+                    const accountname =
+                        resourceModel.getProperty("accounts.processRelationshipToken.profile") + (accounts.length + 1)
+                    const oAccounts = await runtime.accountServices.createAccount(
+                        NMSHDTransport.Realm.Prod,
+                        accountname
+                    )
+                    this.localAccount = oAccounts
+                    await App.selectAccount(this.localAccount.id, "")
+                    appLogger.info(`Account ${this.localAccount.id} was created for account selection.`)
+                    if (App.accountSelectionCallback) {
+                        App.accountSelectionCallback(this.localAccount)
+                    }
+                } catch (e) {
+                    App.error(e)
+                } finally {
+                    this.closeAccountSelectionPopup()
+                }
+            },
+            onAccountSelectionClose() {
+                this.closeAccountSelectionPopup()
+                if (App.accountSelectionCallback) {
+                    App.accountSelectionCallback()
+                }
             },
             async toggleProfileMenu() {
                 if (this.profileMenuOpen) {

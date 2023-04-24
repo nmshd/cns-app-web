@@ -68,8 +68,8 @@
 }
 
 .mainButtons .sapMToggleBtnPressed:not(.sapMBtnDisabled),
-.mainButtons .sapMBar-CTX:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive,
-.mainButtons :not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive {
+.mainButtons .sapMBar-CTX:not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive,
+.mainButtons :not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive {
     background-color: transparent;
 }
 
@@ -81,7 +81,8 @@
 }
 
 .mainButtons .sapMBtn .sapMBtnInner.sapMBtnText .sapMBtnIcon {
-    font-size: 2rem; /* Icon size */
+    font-size: 2rem;
+    /* Icon size */
     padding: 0;
     width: 100%;
     color: #3d86f0;
@@ -145,6 +146,7 @@
 .sap-phone .sapMPageSubHeader .sapMBarRight.sapMBarContainer {
     margin-top: -15px;
 }
+
 .sap-phone .sapMPageSubHeader .sapMBarMiddle .sapMBarContainer img {
     margin-top: -12px !important;
 }
@@ -153,20 +155,20 @@
     overflow: inherit;
 }
 
-.sap-phone .sapMPageSubHeader .sapMBar > .sapMBarContainer.sapMBarLeft {
+.sap-phone .sapMPageSubHeader .sapMBar>.sapMBarContainer.sapMBarLeft {
     padding-left: 1.5rem;
 }
 
-.sap-phone .sapMPageSubHeader .sapMBar > .sapMBarContainer.sapMBarRight {
+.sap-phone .sapMPageSubHeader .sapMBar>.sapMBarContainer.sapMBarRight {
     padding-right: 1.5rem;
 }
 
-.sap-phone .sapMPageSubHeader .sapMBtn.help > .sapMBtnInner {
+.sap-phone .sapMPageSubHeader .sapMBtn.help>.sapMBtnInner {
     background-color: #f7b232;
 }
 
-.sap-phone .sapMBar-CTX.sapMBtn.help:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive,
-.sap-phone .sapMBtn.help:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive {
+.sap-phone .sapMBar-CTX.sapMBtn.help:not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive,
+.sap-phone .sapMBtn.help:not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive {
     background-color: #e7a222;
 }
 
@@ -183,6 +185,7 @@ html.sap-phone body .sapMDialog.sapMDialogStretched {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
+
 .sap-phone .sapMDialog {
     transform: scale(1) translateZ(0px);
     -webkit-transform: scale(1) translateZ(0px);
@@ -197,6 +200,7 @@ html.sap-phone body .sapMDialog.sapMDialogStretched {
     border-radius: 0.25rem;
     box-shadow: 0 0 0 0.0625rem rgba(0, 0, 0, 0.42), 0 1.25rem 5rem 0 rgba(0, 0, 0, 0.3);
 }
+
 .sap-phone .sapMDialog:not(.sapMDialogHighPixelDensity) {
     -webkit-filter: blur(0);
     filter: blur(0);
@@ -221,6 +225,7 @@ html.sap-phone body .sapMDialog.sapMDialogStretched {
         transform: translateY(0);
         transform-origin: bottom left;
     }
+
     to {
         transform: translateY(20px);
         transform-origin: bottom left;
@@ -232,18 +237,19 @@ html.sap-phone body .sapMDialog.sapMDialogStretched {
         transform: translateY(20px);
         transform-origin: bottom left;
     }
+
     to {
         transform: translateY(0);
         transform-origin: bottom left;
     }
 }
 
-.sap-phone .sapUiNoContentPadding > div > div > .sapUiRLContainer {
+.sap-phone .sapUiNoContentPadding>div>div>.sapUiRLContainer {
     padding: 0;
 }
 
-.sap-phone .sapFDynamicPageTitleWrapper.sapFDynamicPageTitleSnapped > .sapFDynamicPageTitle,
-.sap-phone .sapFDynamicPageTitleWrapper.sapFDynamicPageTitleOnly > .sapFDynamicPageTitle {
+.sap-phone .sapFDynamicPageTitleWrapper.sapFDynamicPageTitleSnapped>.sapFDynamicPageTitle,
+.sap-phone .sapFDynamicPageTitleWrapper.sapFDynamicPageTitleOnly>.sapFDynamicPageTitle {
     box-shadow: none;
 }
 
@@ -299,7 +305,7 @@ html.sap-phone body .sapMDialog.profileMenu.sapMDialog.sapMDialogStretched {
     -webkit-transition: none;
     transition: none;
     animation: slideOut 0.2s ease-out;
-    animation-fill-mode: both;
+    animation-fill-mode: forwards;
 }
 
 .sap-phone .sapMDialog.profileMenu.sapMDialogOpen {
@@ -309,13 +315,14 @@ html.sap-phone body .sapMDialog.profileMenu.sapMDialog.sapMDialogStretched {
     -webkit-transition: none;
     transition: none;
     animation: slideIn 0.2s ease-out;
-    animation-fill-mode: both;
+    animation-fill-mode: forwards;
 }
 
 @keyframes slideIn {
     0% {
         transform: translateX(100%);
     }
+
     100% {
         transform: translateX(0);
     }
@@ -325,6 +332,7 @@ html.sap-phone body .sapMDialog.profileMenu.sapMDialog.sapMDialogStretched {
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(100%);
     }

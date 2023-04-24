@@ -10,7 +10,7 @@ sap.ui.define(
         "use strict"
 
         return AccountController.extend("nmshd.app.flows.account.inbox.Inbox", {
-            routeNames: ["account.inbox", "account.home"],
+            routeNames: ["account.inbox"],
 
             onInitialized() {
                 sap.ui

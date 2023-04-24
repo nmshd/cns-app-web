@@ -23,6 +23,7 @@
 			</m:Bar>
 		</m:customHeader>
 		<m:List itemPress="onItemPress" id="AccountNavigation">
+			<!--
 			<m:StandardListItem
                 title="{t>master.title}"
                 visible="{=!${d>/system/phone}}"
@@ -32,6 +33,7 @@
             />
 
 			<m:StandardListItem title="{t>master.about}" icon="sap-icon://hint" type="Navigation" data:key="app.about" />
+			-->
 			<m:StandardListItem title="{t>master.privacy}" icon="sap-icon://shield" type="Navigation" data:key="app.privacy" />
 			<m:StandardListItem title="{t>master.rights}" icon="sap-icon://compare" type="Navigation" data:key="app.legal" />
 			<m:StandardListItem
