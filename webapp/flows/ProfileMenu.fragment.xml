@@ -23,7 +23,7 @@
                     <m:Title text="{v>/profileName}" class="sapMTitleMaxWidth" width="100%" />
                 </m:contentMiddle>
                 <m:contentRight>
-                    <m:Button icon="sap-icon://menu2" text="" press="closeProfileMenu()" />
+                    <m:Button icon="sap-icon://settings" text="" press="closeProfileMenu()" />
                 </m:contentRight>
             </m:Bar>
         </m:customHeader>
@@ -52,12 +52,13 @@
             />
 		</m:List>
         -->
+        
         <m:VBox alignContent="Stretch" class="sapUiSmallMargin">
-            <m:Button icon="sap-icon://settings" text="{t>settings.title}" press="toAccountSettings()" type="Transparent" />
-            <m:Button icon="sap-icon://switch-classes" text="{t>master.switchProfile}" press="toSwitchProfile()" type="Transparent" />
-            <m:Button icon="sap-icon://shield" text="{t>master.privacy}" press="toPrivacy()" type="Transparent" />
-            <m:Button icon="sap-icon://compare" text="{t>master.rights}" press="toLegal()" type="Transparent" />
-            <m:Button icon="sap-icon://message-popup" text="{t>master.imprint}" press="toImprint()" type="Transparent" />
+            <m:Button icon="sap-icon://settings" text="{t>settings.title}" press="toAccountSettings()" type="Transparent" visible="{v>/showProfile}" />
+            <m:Button icon="sap-icon://switch-classes" text="{t>master.switchProfile}" press="toSwitchProfile()" type="Transparent" visible="{v>/showProfile}" />
+            <m:Button icon="sap-icon://shield" text="{t>master.privacy}" press="toPrivacy()" type="Transparent" visible="{v>/showProfile}" />
+            <m:Button icon="sap-icon://compare" text="{t>master.rights}" press="toLegal()" type="Transparent" visible="{v>/showProfile}" />
+            <m:Button icon="sap-icon://message-popup" text="{t>master.imprint}" press="toImprint()" type="Transparent" visible="{v>/showProfile}" />
         </m:VBox>
 		<m:VBox>
 
