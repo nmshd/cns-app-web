@@ -77,6 +77,18 @@ sap.ui.define(
                 const localAccounts = await App.localAccountController().getAccounts()
                 this.openAccountSelectionPopup(localAccounts, "", "")
             },
+            setMenuIcon() {
+                App.appController.setLeft("sap-icon://menu2", () => {
+                    App.toggleProfileMenu()
+                })
+                App.appController.hideBack()
+            },
+            setBackIcon() {
+                App.appController.setLeft("sap-icon://menu2", () => {
+                    App.toggleProfileMenu()
+                })
+                App.appController.showBack()
+            },
             toAccountSettings() {
                 this.closeProfileMenu()
                 this.openAccountSettingsPopup()
@@ -214,6 +226,8 @@ sap.ui.define(
                 document.addEventListener("click", this.checkDocumentClick.bind(this))
             },
             async openProfileMenu() {
+                this.split.showMaster()
+                return
                 if (!this.profileMenu) {
                     this.profileMenu = await Fragment.load({
                         id: "profileMenu",
@@ -291,6 +305,8 @@ sap.ui.define(
                 this.accountSettingsOpen = false
             },
             closeProfileMenu() {
+                this.split.hideMaster()
+                return
                 if (this.profileMenu) {
                     this.profileMenu.close()
                 }
@@ -744,7 +760,7 @@ sap.ui.define(
             },
 
             scan(accountId) {
-                this.navTo("account.master", "account.scan", { accountId: accountId }, null)
+                this.navTo("account.home", "account.scan", { accountId: accountId }, null)
             },
 
             async tryNTimes(fn, tries, sleepBetween) {
