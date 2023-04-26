@@ -36,20 +36,6 @@ sap.ui.define(
                 this.navBack("accounts")
             },
 
-            async onInitialized() {
-                Fragment.load({
-                    name: "nmshd.app.flows.accounts.AppInfoPage",
-                    controller: this
-                })
-                    .then((oInfoPopoverPage) => {
-                        this._oInfoPopover = oInfoPopoverPage
-                        this.getView().addDependent(this._oInfoPopover)
-                    })
-                    .catch((oError) => {
-                        appLogger.error("Could not load Fragment", oError)
-                    })
-            },
-
             async routeRedirect() {
                 const aAccounts = await App.localAccountController().getAccounts()
                 if (aAccounts.length === 1) {
@@ -67,15 +53,13 @@ sap.ui.define(
                     case "":
                     case "accounts":
                     case "accounts.select":
-                        App.appController.clearLeft()
+                        App.setMenuIcon()
                         break
                     default:
-                        App.appController.setLeft("sap-icon://nav-back", null)
+                        App.setBackIcon()
                         break
                 }
-                App.appController.setRight("sap-icon://hint", () => {
-                    this.onInfo()
-                })
+                App.appController.setRight(null)
 
                 this.clear()
 
@@ -99,17 +83,6 @@ sap.ui.define(
                 // routeName is undefined/empty if we start the app the first time or if no route is found -> redirect
                 this.redirectedOnStart = true
                 await this.routeRedirect()
-            },
-
-            onInfo() {
-                let button = App.appController.byId("appRight")
-                if (!button) {
-                    this.navTo("app.master")
-                } else {
-                    if (this._oInfoPopover) {
-                        this._oInfoPopover.openBy(button)
-                    }
-                }
             },
 
             onCreate() {
