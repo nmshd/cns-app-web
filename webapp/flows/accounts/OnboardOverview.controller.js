@@ -16,44 +16,20 @@ sap.ui.define(
             },
 
             async onInitialized() {
-                Fragment.load({
-                    name: "nmshd.app.flows.accounts.AppInfoPage",
-                    controller: this
-                })
-                    .then((oInfoPopoverPage) => {
-                        this._oInfoPopover = oInfoPopoverPage
-                        this.getView().addDependent(this._oInfoPopover)
-                    })
-                    .catch((oError) => {
-                        appLogger.error("Could not load Fragment", oError)
-                    })
+                
             },
 
             async onRouteMatched(oEvent) {
-                App.appController.setLeft("sap-icon://nav-back", null)
+                App.setMenuIcon()
                 App.appController.setTitle("Enmeshed")
-                App.appController.setRight("sap-icon://hint", () => {
-                    this.onInfo()
-                })
                 await App.isInitialized()
                 const aAccounts = await App.localAccountController().getAccounts()
                 if (aAccounts.length >= 1) {
-                    App.appController.setLeft("sap-icon://nav-back", null)
+                    App.setMenuIcon()
                 }
                 await this.super("onRouteMatched")
 
                 this.clear()
-            },
-
-            onInfo() {
-                let button = App.appController.byId("appRight")
-                if (!button) {
-                    this.navTo("app.master")
-                } else {
-                    if (this._oInfoPopover) {
-                        this._oInfoPopover.openBy(button)
-                    }
-                }
             },
 
             clear() {},
@@ -75,11 +51,11 @@ sap.ui.define(
             },
 
             toEULA() {
-                App.navTo("app.eula")
+                App.navTo("", "app.eula")
             },
 
             toPrivacy() {
-                App.navTo("app.privacy")
+                App.navTo("", "app.privacy")
             },
 
             navBackToCreate() {
