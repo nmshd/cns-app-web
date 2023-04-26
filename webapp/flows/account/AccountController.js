@@ -30,11 +30,10 @@ sap.ui.define(
                     case "account.relationships":
                     case "account.profile":
                     case "account.attributes":
-                        //App.appController.setLeft("sap-icon://menu2", null)
-                        App.appController.setLeft(null)
+                        App.setMenuIcon()
                         break
                     default:
-                        App.appController.setLeft("sap-icon://nav-back", null)
+                        App.setBackIcon()
                         break
                 }
 

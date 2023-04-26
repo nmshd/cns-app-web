@@ -18,6 +18,8 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
             this.clear()
 
             await this.super("onRouteMatched", oEvent)
+            App.setMenuIcon()
+
             App.appController.clearRight()
             App.appController.setTitle(this.resource("settings.title"))
         },

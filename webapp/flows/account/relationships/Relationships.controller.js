@@ -57,6 +57,7 @@ sap.ui.define(
 
             async onRouteMatched(oEvent) {
                 await this.super("onRouteMatched", oEvent)
+                App.appController.setTitle(this.resource("relationship.title"))
             },
             onSettings() {
                 this.navTo("account.settings")

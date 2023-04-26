@@ -23,6 +23,7 @@ sap.ui.define(
 
             async onRouteMatched(oEvent) {
                 await this.super("onRouteMatched", oEvent)
+                App.appController.setTitle(this.resource("master.inbox"))
             },
 
             onSettings() {

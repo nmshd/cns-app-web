@@ -4,7 +4,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
         routeName: "app.imprint",
 
         onRouteMatched(oEvent) {
-            App.appController.setLeft("sap-icon://nav-back", null)
+            App.setMenuIcon()
             App.appController.clearRight()
             App.appController.setTitle(this.resource("imprint.title"))
             this.super("onRouteMatched", oEvent)
