@@ -5,7 +5,8 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Bas
         createViewModel() {
             return {
                 busy: false,
-                delay: 0
+                delay: 0,
+                submitAvailable: false
             }
         },
 
@@ -13,7 +14,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Bas
 
         async onRouteMatched(oEvent) {
             await this.super("onRouteMatched")
-            App.appController.setLeft("sap-icon://nav-back", null)
+            App.setBackIcon()
             App.appController.clearRight()
             App.appController.setTitle("Enmeshed")
 
@@ -21,6 +22,34 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Bas
         },
 
         clear() {},
+
+        refresh() {
+            this.viewProp("/submitAvailable", true)
+        },
+
+        async create() {
+            try {
+                this.loadInc()
+                this.viewProp("/submitAvailable", false)
+                const accounts = await runtime.accountServices.getAccounts()
+                const accountname =
+                    this.resource("accounts.processRelationshipToken.profile") + (accounts.length + 1)
+                const oAccounts = await runtime.accountServices.createAccount(
+                    NMSHDTransport.Realm.Prod,
+                    accountname
+                )
+                this.localAccount = oAccounts
+                await App.selectAccount(this.localAccount.id, "")
+                this.accountId = this.localAccount.id
+                App.navTo("", "account.home", {
+                    accountId: this.accountId
+                })
+            } catch (e) {
+                App.error(e)
+            } finally {
+                this.loadDec()
+            }
+        },
 
         async qrcode() {
             await App.navAndReplaceHistory(-1, [

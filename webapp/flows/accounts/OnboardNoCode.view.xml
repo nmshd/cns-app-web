@@ -29,16 +29,18 @@
 		</semantic:subHeader>
 
 		<semantic:content>
-			<m:Title text="{t>onboardNoCode.title}" class="sapUiSmallMargin" />
+            <m:VBox class="sapUiSmallMargin">
+			    <m:Title text="{t>onboardNoCode.title}" />
 
-			<controls:Container class="sapUiSmallMargin">
+                <controls:Container>
+                    <m:Text text="{t>onboardNoCode.text1}" class="inlineText" />
+                    <m:Text text="{t>onboardNoCode.text2}" class="inlineText" />
+                    <m:Text text="{t>onboardNoCode.text3}" class="inlineText" />
+			    </controls:Container>
 
+                <m:Button text="{t>onboardNoCode.create}" icon="sap-icon://accept" type="Emphasized" press="create" enabled="{v>/submitAvailable}" />
+            </m:VBox>
 
-				<m:Text text="{t>onboardNoCode.text1}" class="inlineText" />
-				<m:Text text="{t>onboardNoCode.text2}" class="inlineText" />
-				<m:Text text="{t>onboardNoCode.text3}" class="inlineText" />
-
-			</controls:Container>
 		</semantic:content>
 	</semantic:DetailPage>
 </mvc:View>
