@@ -127,7 +127,7 @@
 						<m:Button text="{t>attribute.newAttribute}" press="onNewAttribute" icon="sap-icon://add" />
 					</m:Toolbar>
 				</m:headerToolbar>
-				<m:List items="{/items}" class="sapUiSmallMargin">
+				<m:List items="{/items}" class="sapUiSmallMargin" width="auto">
 					<m:items>
 						<attributeControls:AttributeRenderer showLabel="true" />
 					</m:items>
