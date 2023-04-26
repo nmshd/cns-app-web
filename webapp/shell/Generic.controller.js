@@ -10,7 +10,7 @@ sap.ui.define(
         return Controller.extend("nmshd.app.shell.Generic", {
             onInit() {
                 if (!Component.get("genericComponent")) {
-                    if (Device.system.phone) {
+                    //if (Device.system.phone) {
                         Component.create({
                             name: "nmshd.app.flows_phone",
                             id: "genericComponent"
@@ -19,7 +19,7 @@ sap.ui.define(
                                 this.getView().byId("GenericContainer").setComponent(Component)
                             })
                             .catch((oError) => Log.error(oError))
-                    } else {
+                    /*} else {
                         Component.create({
                             name: "nmshd.app.flows_desktop",
                             id: "genericComponent"
@@ -29,6 +29,7 @@ sap.ui.define(
                             })
                             .catch((oError) => Log.error(oError))
                     }
+                    */
                 }
             }
         })
