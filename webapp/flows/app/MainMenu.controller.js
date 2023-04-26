@@ -1,0 +1,125 @@
+sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, AccountController) => {
+    "use strict"
+    return AccountController.extend("nmshd.app.flows.app.MainMenu", {
+        routePattern: new RegExp("^[\\w\\.]+$"),
+
+        onInitialized(oEvent) {
+            this.byId("version").attachBrowserEvent("tap", this.tapIncrease.bind(this))
+        },
+
+        tapIncrease() {
+            this.taps++
+            if (this.taps > 5) {
+                this.navTo("app.debug")
+            }
+        },
+
+        toggle() {
+            App.closeProfileMenu()
+        },
+
+        createViewModel() {
+            return {
+                busy: false,
+                delay: 0,
+                showProfile: false,
+                profileName: "BIRD Wallet",
+                appVersion: runtime.nativeEnvironment.configAccess.get("version").value,
+                runtimeVersion: NMSHDAppRuntime.buildInformation.version,
+                language: bootstrapper.nativeEnvironment.configAccess.get("language").value
+            }
+        },
+
+        scan() {
+            App.navTo("account.home", "account.scan", { accountId: this.accountId })
+            App.closeProfileMenu()
+        },
+        
+        toAccountSettings() {
+            App.navTo("account.home", "account.settings", {
+                accountId: this.accountId
+            })
+            App.closeProfileMenu()
+        },
+        toPrivacy() {
+            this.navTo("app.privacy")
+            App.closeProfileMenu()
+        },
+        toLegal() {
+            this.navTo("app.legal")
+            App.closeProfileMenu()
+        },
+        toImprint() {
+            this.navTo("app.imprint")
+            App.closeProfileMenu()
+        },
+        toCreateProfile() {
+            this.navTo("accounts.onboardoverview")
+            App.closeProfileMenu()
+        },
+        toSelect() {
+            App.navTo("", "accounts.select")
+            App.closeProfileMenu()
+        },
+
+        async onRouteMatched(oEvent) {
+            console.log("Route Matched", oEvent)
+            let autoLanguage = sap.ui.getCore().getConfiguration().getLanguage()
+            if (autoLanguage) autoLanguage = autoLanguage.substring(0, 2)
+            if (autoLanguage) {
+                this.byId("language").setSelectedKey(autoLanguage)
+            }
+            let language = bootstrapper.nativeEnvironment.configAccess.get("language")
+            if (language.isSuccess && language.value) {
+                this.byId("language").setSelectedKey(language.value)
+            }
+
+            App.setMenuIcon()
+            App.appController.clearRight()
+            App.appController.setTitle(this.resource("app.masterController.title"))
+            this.super("onRouteMatched", oEvent)
+            this.taps = 0
+            this.accountId = oEvent.getParameter("arguments").accountId
+        },
+
+        async refresh() {
+            const accountId = this.accountId || App.localAccount().id
+            const localAccount = await App.localAccountController().getAccount(accountId)
+            const name = localAccount.name || "Enmeshed"
+            this.accountId = accountId
+            //const address = App.account().identity.address.toString()
+
+
+            
+            if (this.accountId) {
+                this.viewProp("/showProfile", true)
+                this.viewProp("/profileName", name)
+                this.viewProp("/accountId", this.accountId)
+                return
+            }
+            this.viewProp("/showProfile", false)
+            this.viewProp("/profileName", "BIRD Wallet")
+            this.viewProp("/accountId", "")
+        },
+
+        clear() {
+            this.super("clear")
+        },
+
+        onItemPress(oEvent) {
+            this.navTo(oEvent.getParameter("listItem").data("key"))
+        },
+
+        onNavButtonPress() {
+            App.navTo("", "accounts.select")
+        },
+
+        async changeLanguage() {
+            const newLanguage = this.byId("language").getSelectedItem().mProperties.key
+            sap.ui.getCore().getConfiguration().setLanguage(newLanguage)
+            bootstrapper.nativeEnvironment.configAccess.set("language", newLanguage)
+            bootstrapper.nativeEnvironment.configAccess.save()
+            App.appController.setTitle(this.resource("app.masterController.title"))
+        }
+    })
+})
