@@ -15,7 +15,7 @@ sap.ui.define(
             async onInitialized() {},
 
             async onRouteMatched(oEvent) {
-                App.appController.setLeft("sap-icon://nav-back", null)
+                App.setMenuIcon()
                 App.appController.clearRight()
                 App.appController.setTitle(this.resource("accounts.processDeviceToken.title"))
                 await this.super("onRouteMatched")
