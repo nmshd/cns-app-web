@@ -10,6 +10,7 @@ sap.ui.define(
                     selectShare: false,
                     selectContacts: false,
                     selectProfile: false,
+                    showBack: false,
                     title: "",
                     theme: {
                         image: "",
@@ -169,6 +170,20 @@ sap.ui.define(
                 }
             },
 
+            showBack() {
+                this.viewProp("/showBack", true)
+            },
+            hideBack() {
+                this.viewProp("/showBack", false)
+            },
+
+            onBackPress(oEvent) {
+                const currentController = this.byId("appComponent").getCurrentPage().getController()
+                if (currentController.onNavButtonPress) {
+                    currentController.onNavButtonPress.apply(currentController, [oEvent])
+                }
+            },
+
             onRightPress(oEvent) {
                 if (this.onRightAction) {
                     this.onRightAction(oEvent)
@@ -178,9 +193,7 @@ sap.ui.define(
             },
 
             refreshHeader(routeName) {
-                this.setRight("sap-icon://menu2", () => {
-                    App.openProfileMenu()
-                })
+                App.setMenuIcon()
             },
 
             onLoadInc(oEvent) {

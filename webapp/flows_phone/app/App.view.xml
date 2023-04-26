@@ -14,6 +14,7 @@
 		<m:Bar>
 			<m:contentLeft>
 				<m:Button icon="{v>/leftIcon}" id="appLeft" visible="{=!!${v>/leftIcon}}" press="onLeftPress" />
+                <m:Button icon="sap-icon://nav-back" id="appBack" visible="{=!!${v>/showBack}}" press="onBackPress" />
 			</m:contentLeft>
 			<m:contentMiddle>
 				<m:Title text="{v>/title}" visible="{=!${v>/theme/image}}" />
@@ -36,8 +37,8 @@
 		</m:Bar>
 	</controls:ArcHeader>
 
-	<m:SplitApp id="appComponent">
-	</m:SplitApp>
+	<controls:CustomSplitApp id="appComponent" mode="HideMode">
+	</controls:CustomSplitApp>
 	<m:HBox class="mainButtons" alignItems="Center" justifyContent="SpaceAround" visible="{v>/showAccountNavigation}">
 		<m:ToggleButton
             text="{t>master.home}"
