@@ -32,6 +32,9 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
 
         onItemPress(oEvent) {
             this.navTo(oEvent.getParameter("listItem").data("key"), { accountId: this.accountId })
+        },
+        onProfileMenuPress(oEvent) {
+            App.openProfileMenu(oEvent)
         }
     })
 })
