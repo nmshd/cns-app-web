@@ -31,7 +31,7 @@
 		<semantic:content>
 			<m:VBox class="sapUiResponsiveMargin">
 				<m:HBox class="contentInfo sapUiMediumMarginTopBottom">
-					<m:Avatar src="sap-icon://compare" backgroundColor="Accent10" class="sapUiSmallMargin" />
+					<m:Avatar src="sap-icon://hint" backgroundColor="Accent10" class="sapUiSmallMargin" />
 					<controls:Container class="sapUiTinyMargin">
 						<Text text="{t>onboardOverview.doAccept}" class="inlineText" />
 						<Link press="toPrivacy" text="{t>onboardOverview.privacy}" class="sapUiTinyMarginStart inlineText" />
