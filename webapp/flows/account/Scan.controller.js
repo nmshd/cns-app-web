@@ -28,7 +28,9 @@ sap.ui.define(
                         quick: true,
                         sUserFriendlyMsg: this.resource("account.scan.aborted")
                     })
-                    this.navBack("account.relationships")
+                    //this.navBack("account.relationships")
+                    //App.navTo("account.login", "A")
+                    window.history.go(-1)
 
                     return
                 }
@@ -51,7 +53,8 @@ sap.ui.define(
             },
 
             onNavButtonPress() {
-                this.navBack("account.relationships")
+                window.history.go(-1)
+                //this.navBack("account.relationships")
             }
         })
     }
