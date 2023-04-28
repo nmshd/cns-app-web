@@ -1,0 +1,103 @@
+<mvc:View
+    controllerName="nmshd.app.flows.app.About"
+    xmlns:m="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"
+    xmlns="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:controls="nmshd.app.core.controls"
+>
+
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="{d>/system/phone}"
+        title="{t>master.about}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
+
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:content>
+            <m:VBox height="100%">
+                <m:Carousel id="carousel" height="100%" beforePageChanged="onCarouselPageChange">
+                    <m:VBox class="sapUiSmallMargin">
+                        <m:Title text="Willkommen in der BIRD Wallet" />
+                        <m:Text text="Hier kannst du deine persönlichen Bildungsdaten sicher und einfach verwalten." />
+                        <m:Text
+                            text="Speichere deine Zertifikate, Noten, Kursabschlüsse und andere wichtige Informationen in dieser digitalen Brieftasche."
+                        />
+                        <m:Text
+                            text="Die BIRD Wallet ermöglicht es dir, deine Bildungsdaten jederzeit von deinem Gerät aus abzurufen und zu teilen."
+                        />
+                        
+                    </m:VBox>
+                    <m:VBox class="sapUiSmallMargin">
+                        <m:Title text="Eine BIRD Wallet für alle" />
+                        <m:Text
+                            text="Die BIRD Wallet macht es möglich, mehrere Profile zu erstellen, um die Bildungsdaten von dir oder deinen Kindern zu organisieren."
+                        />
+                        <m:Text
+                            text="Fülle jedes Profil mit verschiedenen Bildungsdaten und verwalte sie individuell."
+                        />
+                    </m:VBox>
+                    <m:VBox class="sapUiSmallMargin">
+                        <m:Title text="Knüpfe Kontakte - per QR-Code" />
+                        <m:Text
+                            text="In der BIRD Wallet lassen sich Kontakte wie Bildungsanbieter einfach hinzufügen, indem du ihren QR-Code einscannst."
+                        />
+                        <m:Text text="Das spart Zeit und macht die Kontaktaufnahme unkompliziert." />
+                        <m:Text
+                            text="Wenn du deine Bildungsdaten mit einem Bildungsanbieter teilen möchtest, kannst du dies schnell und einfach über die BIRD Wallet tun."
+                        />
+                    </m:VBox>
+                    <m:VBox class="sapUiSmallMargin">
+                        <m:Title text="Verwalte Daten an einem Ort" />
+                        <m:Text
+                            text="In der BIRD Wallet ist es möglich, Nachrichten und Daten mit deinen Kontakten auszutauschen."
+                        />
+                        <m:Text
+                            text="Wenn du beispielsweise einer Volkshochschule deinen Lebenslauf und deine Zertifikate freigibst, können sie dich für einen Kurs zulassen und dir eine Teilnahmebescheinigung über die Wallet zuschicken."
+                        />
+                    </m:VBox>
+                    <m:VBox class="sapUiSmallMargin">
+                        <m:Title text="Nutze die Wallet auf vielen Geräten" />
+                        <m:Text
+                            text="Je Profil kannst du mehrere Geräte wie Smartphones und Tablets hinzufügen, um deine Bildungsdaten zu sichern."
+                        />
+                        <m:Text text="So hast du immer eine Sicherungskopie, falls eins deiner Geräte ausfällt." />
+                    </m:VBox>
+                    <m:VBox class="sapUiSmallMargin">
+                        <m:Title text="Auch wir benötigen deine Zustimmung" />
+                        <controls:Container>
+                            <m:Text text="{t>onboardOverview.doAccept}" class="inlineText" />
+                            <m:Link
+                                press="toPrivacy"
+                                text="{t>onboardOverview.privacy}"
+                                class="sapUiTinyMarginStart inlineText"
+                            />
+                            <m:Text text="{t>onboardOverview.acceptByScan}" class="inlineText" />
+                        </controls:Container>
+                    </m:VBox>
+                </m:Carousel>
+                <m:Toolbar>
+                    <m:Button text="Zurück" type="Transparent" press="previous()" visible="{= !${v>/isStartPage} }" />
+                    <m:ToolbarSpacer />
+                    <m:Button text="Überspringen" type="Transparent" press="toLast()" visible="{= !${v>/isEndPage} }" />
+                    <m:Button text="Weiter" type="Emphasized" press="next()" visible="{= !${v>/isEndPage} }" />
+                    <m:Button text="Gerät einrichten" type="Emphasized" press="toOnboard()" visible="{v>/isEndPage}" />
+                </m:Toolbar>
+            </m:VBox>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>
