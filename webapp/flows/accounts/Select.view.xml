@@ -25,7 +25,13 @@
 			<m:StandardListItem title="{name}" icon="{v>icon}" type="Navigation" />
 		</m:List>
 		<m:VBox alignItems="Center" alignContent="Center">
-			<m:Button text="{t>select.newProfileButton}" id="accountsCreateAccount" icon="sap-icon://add" press="onCreate" type="Emphasized" />
+			<m:Button
+                text="{t>select.newProfileButton}"
+                id="accountsCreateAccount"
+                icon="sap-icon://add"
+                press="onCreate"
+                type="Emphasized"
+            />
 		</m:VBox>
 	</m:Page>
 </mvc:View>

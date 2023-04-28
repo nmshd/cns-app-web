@@ -6,8 +6,12 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:attributesControl="nmshd.app.core.controls.attributes"
 >
-    <m:Dialog title="{t>accountSelection.title}" stretch="true" id="AccountSelectionFragmentDialog" 
-    class="appDialog appDialogFull">
+    <m:Dialog
+        title="{t>accountSelection.title}"
+        stretch="true"
+        id="AccountSelectionFragmentDialog"
+        class="appDialog appDialogFull"
+    >
         <m:customHeader>
             <m:Bar>
                 <m:contentLeft>

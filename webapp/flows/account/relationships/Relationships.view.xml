@@ -35,7 +35,13 @@
 		<semantic:content>
 			<m:PullToRefresh id="pullToRefresh" refresh="refresh" visible="{=${d>/system/phone}}" />
 
-			<m:SegmentedButton id="filters" selectionChange="onSelectionChange" selectedKey="active" class="sapUiTinyMargin" visible="false">
+			<m:SegmentedButton
+                id="filters"
+                selectionChange="onSelectionChange"
+                selectedKey="active"
+                class="sapUiTinyMargin"
+                visible="false"
+            >
 				<m:items>
 					<m:SegmentedButtonItem text="{t>relationships.relationships.ButtonRelevant}" key="active" />
 					<m:SegmentedButtonItem text="{t>relationships.relationships.ButtonAll}" key="all" />
@@ -50,7 +56,12 @@
             >
 			</m:List>
 			<m:VBox alignItems="Center" alignContent="Center" class="sapUiSmallMarginTop">
-				<m:Button text="{t>relationships.relationships.addContactButton}" icon="sap-icon://bar-code" press="onNewLink" type="Emphasized" />
+				<m:Button
+                    text="{t>relationships.relationships.addContactButton}"
+                    icon="sap-icon://bar-code"
+                    press="onNewLink"
+                    type="Emphasized"
+                />
 			</m:VBox>
 		</semantic:content>
 	</semantic:DetailPage>

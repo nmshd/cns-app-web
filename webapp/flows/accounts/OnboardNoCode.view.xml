@@ -38,7 +38,13 @@
                     <m:Text text="{t>onboardNoCode.text3}" class="inlineText" />
 			    </controls:Container>
 
-                <m:Button text="{t>onboardNoCode.create}" icon="sap-icon://accept" type="Emphasized" press="create" enabled="{v>/submitAvailable}" />
+                <m:Button
+                    text="{t>onboardNoCode.create}"
+                    icon="sap-icon://accept"
+                    type="Emphasized"
+                    press="create"
+                    enabled="{v>/submitAvailable}"
+                />
             </m:VBox>
 
 		</semantic:content>

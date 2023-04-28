@@ -27,7 +27,12 @@
 		</m:customHeader>
 
 		<m:List itemPress="onItemPress" id="AccountNavigation">
-            <m:StandardListItem title="{t>master.home}" icon="sap-icon://home" type="Navigation" data:key="account.home" />
+            <m:StandardListItem
+                title="{t>master.home}"
+                icon="sap-icon://home"
+                type="Navigation"
+                data:key="account.home"
+            />
 			<m:StandardListItem title="{t>master.inbox}" icon="sap-icon://email" type="Navigation" data:key="account.inbox" />
             <!--
 			<m:StandardListItem
