@@ -35,12 +35,9 @@ server:
         ext: "xml,json,properties"
         port: 35729
         path: "webapp/controller"
-    - name: ui5-middleware-simpleproxy
+    - name: backboneProxy
       afterMiddleware: compression
       mountPath: /svc
-      configuration:
-        limit: "15mb"
-        baseUri: "https://bird.enmeshed.eu"
 
 ---
 # Custom development middleware to replace config version
@@ -51,3 +48,13 @@ metadata:
   name: replaceConfigMiddleware
 middleware:
   path: _tools/devMiddleware/replaceConfig.js
+
+---
+# Custom development middleware to proxy to a backend specified in an environment variable
+specVersion: "2.6"
+kind: extension
+type: server-middleware
+metadata:
+  name: backboneProxy
+middleware:
+  path: _tools/devMiddleware/backboneProxy.js
