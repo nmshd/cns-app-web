@@ -30,11 +30,10 @@ sap.ui.define(
                 this.navTo("account.settings")
             },
 
-            async refresh() {
-            },
+            async refresh() {},
 
             onScan() {
-                App.navTo("account.master", "account.scan", {
+                App.navTo("account.login", "account.scan", {
                     accountId: this.accountId
                 })
             },

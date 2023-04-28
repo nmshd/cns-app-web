@@ -74,7 +74,7 @@ sap.ui.define(
             },
 
             navBack(routeName, object, delta) {
-                routeName || (routeName = "account.home")
+                routeName || (routeName = "account.login")
                 if (!object) {
                     object = { accountId: this.accountId }
                 } else if (object && typeof object["accountId"] === "undefined") {

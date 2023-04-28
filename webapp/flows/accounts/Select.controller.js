@@ -41,7 +41,7 @@ sap.ui.define(
                 if (aAccounts.length === 1) {
                     App.navTo("accounts.select", "account.home", { accountId: aAccounts[0].id.toString() })
                 } else if (aAccounts.length === 0) {
-                    App.navTo("accounts.select", "accounts.onboardoverview")
+                    App.navTo("accounts.select", "app.about")
                 }
             },
 
@@ -101,7 +101,7 @@ sap.ui.define(
                 const prop = oItem.getBindingContextPath()
                 const acc = this.prop(prop)
 
-                App.navTo("accounts.select", "account.home", { accountId: acc.id.toString() })
+                App.navTo("account.login", "account.home", { accountId: acc.id.toString() })
             },
 
             onNavButtonPress(oEvent) {

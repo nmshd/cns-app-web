@@ -1,10 +1,11 @@
 sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, AccountController) => {
     "use strict"
     return AccountController.extend("nmshd.app.flows.app.MainMenu", {
-        routePattern: new RegExp("^[\\w\\.]+$"),
+        routePattern: new RegExp(".*"),
 
         onInitialized(oEvent) {
             this.byId("version").attachBrowserEvent("tap", this.tapIncrease.bind(this))
+            App.mainmenu = this
         },
 
         tapIncrease() {
@@ -31,14 +32,25 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
         },
 
         scan() {
-            App.navTo("account.home", "account.scan", { accountId: this.accountId })
+            App.navTo("account.login", "account.scan", { accountId: this.accountId })
             App.closeProfileMenu()
         },
-        
+
+        scanWithinAccount() {
+            this.navTo("account.scan", {
+                accountId: this.accountId
+            })
+            App.closeProfileMenu()
+        },
+
         toAccountSettings() {
             App.navTo("account.home", "account.settings", {
                 accountId: this.accountId
             })
+            App.closeProfileMenu()
+        },
+        toAbout() {
+            this.navTo("app.about")
             App.closeProfileMenu()
         },
         toPrivacy() {
@@ -58,12 +70,11 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
             App.closeProfileMenu()
         },
         toSelect() {
-            App.navTo("", "accounts.select")
+            this.navBack("accounts.select")
             App.closeProfileMenu()
         },
 
         async onRouteMatched(oEvent) {
-            console.log("Route Matched", oEvent)
             let autoLanguage = sap.ui.getCore().getConfiguration().getLanguage()
             if (autoLanguage) autoLanguage = autoLanguage.substring(0, 2)
             if (autoLanguage) {
@@ -77,26 +88,30 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
             App.setMenuIcon()
             App.appController.clearRight()
             App.appController.setTitle(this.resource("app.masterController.title"))
-            this.super("onRouteMatched", oEvent)
-            this.taps = 0
             this.accountId = oEvent.getParameter("arguments").accountId
+            if (this.accountId) {
+                await App.selectAccount(this.accountId, "")
+            }
+            this.taps = 0
+            await this.super("onRouteMatched", oEvent)
         },
 
         async refresh() {
-            const accountId = this.accountId || App.localAccount().id
-            const localAccount = await App.localAccountController().getAccount(accountId)
-            const name = localAccount.name || "Enmeshed"
-            this.accountId = accountId
-            //const address = App.account().identity.address.toString()
+            // @ts-ignore
+            if (runtime.isLoggedIn() && this.accountId) {
+                const accountId = this.accountId
+                const localAccount = await App.localAccountController().getAccount(accountId)
+                const name = localAccount.name || "Enmeshed"
+                this.accountId = accountId
 
-
-            
-            if (this.accountId) {
-                this.viewProp("/showProfile", true)
-                this.viewProp("/profileName", name)
-                this.viewProp("/accountId", this.accountId)
-                return
+                if (this.accountId) {
+                    this.viewProp("/showProfile", true)
+                    this.viewProp("/profileName", name)
+                    this.viewProp("/accountId", this.accountId)
+                    return
+                }
             }
+
             this.viewProp("/showProfile", false)
             this.viewProp("/profileName", "BIRD Wallet")
             this.viewProp("/accountId", "")

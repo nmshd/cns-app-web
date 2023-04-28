@@ -57,16 +57,13 @@ sap.ui.define(
             selectButton(routeName) {
                 this.deselectButtons()
 
-                if (
-                    routeName === "account.home"
-                ) {
+                if (routeName === "account.home") {
                     this.wasHomeBefore = true
                     this.viewProp("/selectStart", true)
                 } else if (routeName === "account.inbox" || routeName === "account.relationship.message") {
                     this.wasHomeBefore = false
                     this.viewProp("/selectInbox", true)
-                }
-                else if (routeName.startsWith("account.cards")) {
+                } else if (routeName.startsWith("account.cards")) {
                     this.wasHomeBefore = false
                     this.viewProp("/selectShare", true)
                 } else if (
@@ -254,19 +251,19 @@ sap.ui.define(
             },
 
             toStart() {
-                App.navTo("account.master", "account.home", { accountId: App.accountId() })
+                App.navTo("account.login", "account.home", { accountId: App.accountId() })
             },
             toInbox() {
-                App.navTo("account.master", "account.inbox", { accountId: App.accountId() })
+                App.navTo("account.login", "account.inbox", { accountId: App.accountId() })
             },
             toCards() {
-                App.navTo("account.master", "account.cards", { accountId: App.accountId() })
+                App.navTo("account.login", "account.cards", { accountId: App.accountId() })
             },
             toContacts() {
-                App.navTo("account.master", "account.relationships", { accountId: App.accountId() })
+                App.navTo("account.login", "account.relationships", { accountId: App.accountId() })
             },
             toProfile() {
-                App.navTo("account.master", "account.attributes", { accountId: App.accountId() })
+                App.navTo("account.login", "account.attributes", { accountId: App.accountId() })
             }
         })
     }

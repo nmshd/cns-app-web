@@ -112,7 +112,7 @@
                 {
                     "pattern": "",
                     "name": "home",
-                    "target": ["app.mainmenu", "accounts.onboardoverview"],
+                    "target": ["app.mainmenu", "accounts.select"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
@@ -242,8 +242,7 @@
                     "pattern": "accounts/{accountId}/login",
                     "name": "account.login",
                     "target": ["app.mainmenu", "account.login"],
-                    "parent": "nmshd.app.Component:generic",
-                    "transition": "show"
+                    "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/home",
@@ -618,8 +617,7 @@
                     "viewName": "flows.account.Login",
                     "viewId": "account-login",
                     "controlAggregation": "detailPages",
-                    "viewLevel": 101,
-                    "transition": "show"
+                    "viewLevel": 100
                 },
                 "account.master": {
                     "viewName": "flows.account.Master",
