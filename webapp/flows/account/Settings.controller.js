@@ -45,7 +45,9 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
             if (!newAccountName || !this.accountId) return
             await runtime.accountServices.renameAccount(this.accountId, newAccountName)
             this.refresh()
-            App.appController.setTitle(newAccountName)
+            if (App.mainmenu) {
+                App.mainmenu.viewProp("/profileName", newAccountName)
+            }
             this.addError({ sUserFriendlyMsg: this.resource("settings.renameError"), quick: true })
         },
 
