@@ -1,0 +1,101 @@
+<mvc:View
+    controllerName="nmshd.app.flows.app.MainMenu"
+    xmlns:m="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+>
+	<m:Page showHeader="true">
+		<m:customHeader>
+            <m:Bar class="mainMenuHeader">
+                <m:contentLeft>
+                    <m:Button icon="sap-icon://menu2" text="" press="toggle" />
+                </m:contentLeft>
+                <m:contentMiddle>
+                    <m:Title text="{v>/profileName}" class="sapMTitleMaxWidth" />
+                </m:contentMiddle>
+                <m:contentRight>
+                    
+                </m:contentRight>
+            </m:Bar>
+        </m:customHeader>
+		<m:VBox alignContent="Stretch" class="sapUiSmallMargin">
+			<m:Title text="Profile Management" />
+			<m:Button
+                icon="sap-icon://bar-code"
+                text="{t>onboardOverview.scanButton}"
+                press="scanWithinAccount()"
+                type="Transparent"
+                visible="{v>/showProfile}"
+            />
+            <m:Button
+                icon="sap-icon://settings"
+                text="{t>settings.title}"
+                press="toAccountSettings()"
+                type="Transparent"
+                visible="{v>/showProfile}"
+            />
+            <m:Button
+                icon="sap-icon://switch-classes"
+                text="{t>master.switchProfile}"
+                press="toSelect()"
+                type="Transparent"
+                visible="{v>/showProfile}"
+            />
+			<m:Button
+                icon="sap-icon://switch-classes"
+                text="{t>master.switchProfile}"
+                press="toSelect()"
+                type="Transparent"
+                visible="{= !${v>/showProfile} }"
+            />
+			<m:Button
+                icon="sap-icon://add"
+                text="{t>select.newProfileButton}"
+                press="toCreateProfile"
+                type="Transparent"
+                visible="{= !${v>/showProfile} }"
+            />
+        </m:VBox>
+		<m:VBox alignContent="Stretch" class="sapUiSmallMargin">
+			<m:Title text="App" />
+			<m:Button icon="sap-icon://hint" text="{t>master.about}" press="toAbout()" type="Transparent" />
+            <m:Button icon="sap-icon://shield" text="{t>master.privacy}" press="toPrivacy()" type="Transparent" />
+            <m:Button icon="sap-icon://compare" text="{t>master.rights}" press="toLegal()" type="Transparent" />
+            <m:Button
+                icon="sap-icon://message-popup"
+                text="{t>master.imprint}"
+                press="toImprint()"
+                type="Transparent"
+            />
+        </m:VBox>
+		<m:VBox>
+
+
+
+			<form:SimpleForm editable="true">
+					<m:Label text="{t>settings.language} (Language)" />
+					<m:VBox>
+						<m:Select id="language" change="changeLanguage" selectedKey="{v>/language}">
+							<core:Item key="en" text="English" />
+							<core:Item key="de" text="Deutsch (German)" />
+							<core:Item key="uk" text="Yкраїнський (Ukrainian)" />
+						</m:Select>
+					</m:VBox>
+            </form:SimpleForm>
+            <form:SimpleForm editable="false">
+					<m:Label text="{t>account.appinfo.appversion}" />
+					<m:Text text="{v>/appVersion}" id="version" />
+
+					<m:Label text="{t>account.appinfo.runtimeVersion}" />
+					<m:Text text="{v>/runtimeVersion}" />
+			</form:SimpleForm>
+		</m:VBox>
+
+	</m:Page>
+</mvc:View>

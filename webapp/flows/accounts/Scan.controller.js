@@ -28,7 +28,9 @@ sap.ui.define(
                         quick: true,
                         sUserFriendlyMsg: this.resource("account.scan.aborted")
                     })
-                    this.navBack("accounts.onboardoverview")
+                    // this.navBack("accounts.onboardoverview")
+                    //App.navTo("", "accounts.onboardoverview")
+                    window.history.go(-1)
 
                     return
                 }
@@ -42,7 +44,9 @@ sap.ui.define(
             },
 
             onNavButtonPress() {
-                this.navBack("accounts.onboardoverview")
+                // this.navBack("accounts.onboardoverview")
+                //App.navTo("", "accounts.onboardoverview")
+                window.history.go(-1)
             }
         })
     }

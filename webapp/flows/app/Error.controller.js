@@ -12,11 +12,11 @@ sap.ui.define(
             },
 
             async onRouteMatched(oEvent) {
-                App.appController.setLeft("sap-icon://nav-back", null)
+                App.setMenuIcon()
                 App.appController.clearRight()
                 App.appController.setTitle(this.resource("app.errorController.title"))
                 await this.super("onRouteMatched", oEvent)
-                App.appController.setLeft("sap-icon://nav-back", null)
+                App.setMenuIcon()
                 App.appController.clearRight()
                 App.appController.setTitle(this.resource("app.errorController.title"))
 

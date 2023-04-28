@@ -30,34 +30,40 @@
 
 		<semantic:content>
 			<m:VBox class="sapUiResponsiveMargin">
-
-				<m:Title text="{t>onboardOverview.title}" class="sapUiSmallMargin" />
-
-				<controls:Container class="sapUiSmallMargin">
-
-
-					<m:Text text="{t>onboardOverview.text1}" class="inlineText" />
-					<m:Text text="{t>onboardOverview.text2}" class="inlineText" />
-					<m:Text text="{t>onboardOverview.text3}" class="inlineText" />
-				</controls:Container>
-
-				<HBox alignItems="Center" renderType="Bare" class="sapUiSmallMargin sapUiMediumMarginBottom">
-					<m:Link text="{t>onboardOverview.noCode}" press="onNoCode" />
-					<ToolbarSpacer />
-
-					<m:Button text="{t>onboardOverview.scanButton}" icon="sap-icon://accept" type="Emphasized" press="scan" />
-
-				</HBox>
-
-
 				<m:HBox class="contentInfo sapUiMediumMarginTopBottom">
-					<m:Avatar src="sap-icon://compare" backgroundColor="Accent10" class="sapUiSmallMargin" />
+					<m:Avatar src="sap-icon://hint" backgroundColor="Accent10" class="sapUiSmallMargin" />
 					<controls:Container class="sapUiTinyMargin">
 						<Text text="{t>onboardOverview.doAccept}" class="inlineText" />
 						<Link press="toPrivacy" text="{t>onboardOverview.privacy}" class="sapUiTinyMarginStart inlineText" />
 						<Text text="{t>onboardOverview.acceptByScan}" class="inlineText" />
 					</controls:Container>
 				</m:HBox>
+
+				<m:Title text="{t>onboardOverview.title}" class="sapUiSmallMargin" />
+				<m:Text text="{t>onboardOverview.text}" class="inlineText" />
+				<m:VBox class="sapUiSmallMargin">
+					<m:VBox>
+						<m:Title text="{t>onboardOverview.title1}" />
+						<m:Text text="{t>onboardOverview.text1}" />
+						<m:Text text="{t>onboardOverview.text2}" />
+						<m:Toolbar>
+							<m:ToolbarSpacer />
+							<m:Button text="{t>onboardOverview.scanButton}" type="Emphasized" press="scan" enabled="{v>/submitAvailable}" />
+						</m:Toolbar>
+					</m:VBox>
+					<m:VBox>
+						<m:Title text="{t>onboardOverview.title3}" />
+						<m:Text text="{t>onboardOverview.text3}" />
+						<m:Toolbar>
+							<m:ToolbarSpacer />
+							<m:Button text="{t>accounts.create.title1}" type="Emphasized" press="onNoCode" enabled="{v>/submitAvailable}" />
+						</m:Toolbar>
+					</m:VBox>
+				</m:VBox>
+
+				
+
+
 
 			</m:VBox>
 		</semantic:content>

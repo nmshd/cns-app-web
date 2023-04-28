@@ -14,6 +14,7 @@
 		<m:Bar>
 			<m:contentLeft>
 				<m:Button icon="{v>/leftIcon}" id="appLeft" visible="{=!!${v>/leftIcon}}" press="onLeftPress" />
+                <m:Button icon="sap-icon://nav-back" id="appBack" visible="{=!!${v>/showBack}}" press="onBackPress" />
 			</m:contentLeft>
 			<m:contentMiddle>
 				<m:Title text="{v>/title}" visible="{=!${v>/theme/image}}" />
@@ -36,16 +37,32 @@
 		</m:Bar>
 	</controls:ArcHeader>
 
-	<m:SplitApp id="appComponent">
-	</m:SplitApp>
+	<controls:CustomSplitApp id="appComponent" mode="HideMode">
+	</controls:CustomSplitApp>
 	<m:HBox class="mainButtons" alignItems="Center" justifyContent="SpaceAround" visible="{v>/showAccountNavigation}">
 		<m:ToggleButton
-            text="{t>master.inbox}"
+            text="{t>master.home}"
             id="appStart"
             icon="sap-icon://home"
             pressed="{v>/selectStart}"
             press="toStart"
         />
+        <m:ToggleButton
+            text="{t>master.relationships}"
+            id="appRelationships"
+            icon="sap-icon://contacts"
+            pressed="{v>/selectContacts}"
+            press="toContacts"
+        />
+        <m:ToggleButton
+            text="{t>master.inbox}"
+            id="appInbox"
+            icon="sap-icon://email"
+            pressed="{v>/selectInbox}"
+            press="toInbox"
+            visible="true"
+        />
+        <!--
 		<m:ToggleButton
             text="{t>master.share}"
             id="appShare"
@@ -54,14 +71,9 @@
             press="toCards"
             visible="false"
         />
+        -->
 
-		<m:ToggleButton
-            text="{t>master.relationships}"
-            id="appRelationships"
-            icon="sap-icon://contacts"
-            pressed="{v>/selectContacts}"
-            press="toContacts"
-        />
+		
 		<m:ToggleButton
             text="{t>master.attribute}"
             id="appProfile"

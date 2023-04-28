@@ -403,6 +403,9 @@ sap.ui.define(
              * @returns {sap.ui.core.routing.Router} the router for this component
              */
             getRouter() {
+                if (!this.getOwnerComponent()) {
+                    return App.appController.getOwnerComponent().getRouter()
+                }
                 return this.getOwnerComponent().getRouter()
             },
 
@@ -591,7 +594,11 @@ sap.ui.define(
              * @returns {sap.ui.model.resource.ResourceModel} the resourceModel of the component
              */
             getResourceBundle() {
-                return this.getOwnerComponent().getModel("t").getResourceBundle()
+                let owner = this.getOwnerComponent()
+                if (!owner) {
+                    owner = App.appController.getOwnerComponent().getRouter()
+                }
+                return owner.getModel("t").getResourceBundle()
             },
 
             /**

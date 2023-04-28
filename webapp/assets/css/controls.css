@@ -179,15 +179,18 @@ body .messageList header {
     flex-flow: column;
     flex-grow: 1;
 }
+
 .messageRendererAuthor {
     color: #888888;
     font-size: 0.8rem;
     margin-right: 0.25rem;
 }
+
 .messageRendererTime {
     color: #888888;
     font-size: 0.8rem;
 }
+
 .messageRendererSubject {
     font-weight: bold;
     margin-bottom: 0.2rem;
@@ -229,10 +232,6 @@ body .messageList header {
     min-width: 8rem;
 }
 
-.readAttributeRequestItemRendererFoundAttribute,
-.readAttributeRequestItemRendererEditControl {
-}
-
 .readAttributeRequestItemRendererButton {
     align-self: flex-end;
 }
@@ -272,6 +271,7 @@ body .messageList header {
     min-width: auto !important;
     width: auto !important;
 }
+
 .attributeRendererButton .sapMBtn .sapMBtnIcon {
     padding: 4px 1px;
     line-height: 1em !important;
@@ -285,6 +285,7 @@ body .messageList header {
     margin-bottom: 0.125rem;
     margin-top: 0.6rem;
 }
+
 .requestItemRendererDescription {
     margin-bottom: 0.6rem;
 }

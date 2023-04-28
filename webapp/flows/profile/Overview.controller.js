@@ -36,10 +36,9 @@ sap.ui.define(
             async onRouteMatched(oEvent) {
                 this.clear()
                 this.viewProp("/submitAvailable", false)
-                App.appController.setRight("sap-icon://settings", () => {
-                    this.onSettings()
-                })
+
                 await this.super("onRouteMatched", oEvent)
+                App.appController.setTitle(this.resource("master.attribute"))
 
                 if (this.viewProp("/route/_name") === "account.attributes.edit") {
                     this.viewProp("/submitAvailable", true)

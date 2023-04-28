@@ -1,7 +1,7 @@
 sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"], (App, AccountController) => {
     "use strict"
     return AccountController.extend("nmshd.app.flows.account.Master", {
-        routePattern: new RegExp("^account\\.[\\w\\.]+$"),
+        routeName: "account.login",
         createViewModel() {
             return {
                 busy: true,
@@ -12,14 +12,17 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
             }
         },
 
-        onScan() {
-            App.navTo("account.master", "account.scan", {
-                accountId: this.accountId
-            })
+        login() {
+            this.navTo("account.home")
         },
 
-        onSettings() {
-            this.navTo("account.settings")
+        async onRouteMatched(oEvent) {
+            await this.super("onRouteMatched", oEvent)
+            this.clear()
+            App.setMenuIcon()
+            App.appController.clearRight()
+            App.appController.setTitle("Login")
+            this.navTo("account.home")
         },
 
         clear() {
@@ -28,13 +31,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
 
         onNavButtonPress() {
             this.navBack("accounts")
-        },
-
-        onItemPress(oEvent) {
-            this.navTo(oEvent.getParameter("listItem").data("key"), { accountId: this.accountId })
-        },
-        onProfileMenuPress(oEvent) {
-            App.openProfileMenu(oEvent)
         }
     })
 })

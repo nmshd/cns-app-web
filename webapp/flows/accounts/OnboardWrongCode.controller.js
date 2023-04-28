@@ -12,7 +12,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Bas
         async onInitialized() {},
 
         async onRouteMatched(oEvent) {
-            App.appController.setLeft("sap-icon://nav-back", null)
+            App.setBackIcon()
             App.appController.clearRight()
             App.appController.setTitle("Enmeshed")
 

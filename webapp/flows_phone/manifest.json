@@ -103,7 +103,7 @@
                 "controlAggregation": "pages",
                 "async": true,
                 "bypassed": {
-                    "target": ["accounts.select"],
+                    "target": ["app.mainmenu", "accounts.select"],
                     "parent": "nmshd.app.Component:generic"
                 }
             },
@@ -112,406 +112,379 @@
                 {
                     "pattern": "",
                     "name": "home",
-                    "target": ["accounts.select"],
-                    "parent": "nmshd.app.Component:generic",
-                    "showMaster": true,
-                    "detailTarget": "start"
+                    "target": ["app.mainmenu", "accounts.select"],
+                    "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "start",
                     "name": "start",
-                    "target": ["accounts.select"],
+                    "target": ["app.mainmenu", "accounts.onboardoverview"],
                     "parent": "nmshd.app.Component:generic"
                 },
 
                 {
                     "pattern": "app/about",
                     "name": "app.about",
-                    "target": ["app.master", "app.about"],
+                    "target": ["app.mainmenu", "app.about"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "app/fatal:?query:",
                     "name": "app.fatal",
-                    "target": ["app.master", "app.fatal"],
+                    "target": ["app.mainmenu", "app.fatal"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "app/error:?query:",
                     "name": "app.error",
-                    "target": ["accounts.select", "app.error"],
+                    "target": ["app.mainmenu", "app.error"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "app/debug",
                     "name": "app.debug",
-                    "target": ["app.master", "app.debug"],
+                    "target": ["app.mainmenu", "app.debug"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "app/eula",
                     "name": "app.eula",
-                    "target": ["app.master", "app.eula"],
+                    "target": ["app.mainmenu", "app.eula"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "app/imprint",
                     "name": "app.imprint",
-                    "target": ["app.master", "app.imprint"],
+                    "target": ["app.mainmenu", "app.imprint"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "app/info",
                     "name": "app.info",
-                    "target": ["app.master", "app.info"],
+                    "target": ["app.mainmenu", "app.info"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "app/legal",
                     "name": "app.legal",
-                    "target": ["app.master", "app.legal"],
-                    "parent": "nmshd.app.Component:generic"
-                },
-                {
-                    "pattern": "app/master",
-                    "name": "app.master",
-                    "target": ["accounts.select", "app.master"],
+                    "target": ["app.mainmenu", "app.legal"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "app/privacy",
                     "name": "app.privacy",
-                    "target": ["app.master", "app.privacy"],
+                    "target": ["app.mainmenu", "app.privacy"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "app/settings",
                     "name": "app.settings",
-                    "target": ["app.master", "app.settings"],
+                    "target": ["app.mainmenu", "app.settings"],
                     "parent": "nmshd.app.Component:generic"
                 },
 
                 {
                     "pattern": "accounts",
                     "name": "accounts",
-                    "target": ["accounts.select"],
-                    "parent": "nmshd.app.Component:generic",
-                    "showMaster": true,
-                    "detailTarget": "start"
+                    "target": ["app.mainmenu", "accounts.select"],
+                    "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/create",
                     "name": "accounts.create",
-                    "target": ["accounts.select", "accounts.create"],
+                    "target": ["app.mainmenu", "accounts.create"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/nocode",
                     "name": "accounts.onboardnocode",
-                    "target": ["accounts.select", "accounts.onboardnocode"],
+                    "target": ["app.mainmenu", "accounts.onboardnocode"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/overview",
                     "name": "accounts.onboardoverview",
-                    "target": ["accounts.select", "accounts.onboardoverview"],
+                    "target": ["app.mainmenu", "accounts.onboardoverview"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/wrongcode",
                     "name": "accounts.onboardwrongcode",
-                    "target": ["accounts.select", "accounts.onboardwrongcode"],
+                    "target": ["app.mainmenu", "accounts.onboardwrongcode"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/devicetoken",
                     "name": "accounts.processdevicetoken",
-                    "target": ["accounts.select", "accounts.processdevicetoken"],
+                    "target": ["app.mainmenu", "accounts.processdevicetoken"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/recoverytoken",
                     "name": "accounts.processrecoverytoken",
-                    "target": ["accounts.select", "accounts.processrecoverytoken"],
+                    "target": ["app.mainmenu", "accounts.processrecoverytoken"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/relationshiptoken",
                     "name": "accounts.processrelationshiptoken",
-                    "target": ["accounts.select", "accounts.processrelationshiptoken"],
+                    "target": ["app.mainmenu", "accounts.processrelationshiptoken"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/scan",
                     "name": "accounts.scan",
-                    "target": ["accounts.select", "accounts.scan"],
+                    "target": ["app.mainmenu", "accounts.scan"],
                     "parent": "nmshd.app.Component:generic"
                 },
 
                 {
                     "pattern": "accounts/{accountId}/login",
                     "name": "account.login",
-                    "target": ["accounts.select", "account.login"],
-                    "parent": "nmshd.app.Component:generic",
-                    "transition": "show"
-                },
-                {
-                    "pattern": "accounts/{accountId}/master",
-                    "name": "account.master",
-                    "target": ["account.master"],
-                    "parent": "nmshd.app.Component:generic",
-                    "showMaster": true,
-                    "detailTarget": "account.inbox"
+                    "target": ["app.mainmenu", "account.login"],
+                    "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/home",
                     "name": "account.home",
-                    "target": ["account.master", "account.inbox"],
+                    "target": ["app.mainmenu", "account.home"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/inbox",
                     "name": "account.inbox",
-                    "target": ["account.master", "account.inbox"],
+                    "target": ["app.mainmenu", "account.inbox"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/scan",
                     "name": "account.scan",
-                    "target": ["account.master", "account.scan"],
+                    "target": ["app.mainmenu", "account.scan"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/cards",
                     "name": "account.cards",
-                    "target": ["account.master", "account.cards"],
+                    "target": ["app.mainmenu", "account.cards"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/cards/{cardId}",
                     "name": "account.card",
-                    "target": ["account.master", "account.card"],
+                    "target": ["app.mainmenu", "account.card"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes",
                     "name": "account.attributes",
-                    "target": ["account.master", "account.attributes"],
+                    "target": ["app.mainmenu", "account.attributes"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes/new",
                     "name": "account.attributes.new",
-                    "target": ["account.master", "account.attributes.new"],
+                    "target": ["app.mainmenu", "account.attributes.new"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes/edit",
                     "name": "account.attributes.edit",
-                    "target": ["account.master", "account.attributes.edit"],
+                    "target": ["app.mainmenu", "account.attributes.edit"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes/{attributeId}",
                     "name": "account.attributes.detail",
-                    "target": ["account.master", "account.attributes.detail"],
+                    "target": ["app.mainmenu", "account.attributes.detail"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes/{attributeId}/edit",
                     "name": "account.attributes.detail.edit",
-                    "target": ["account.master", "account.attributes.detail.edit"],
+                    "target": ["app.mainmenu", "account.attributes.detail.edit"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes/{attributeId}/share",
                     "name": "account.attributes.share",
-                    "target": ["account.attributes.detail", "account.attributes.share"],
+                    "target": ["app.mainmenu", "account.attributes.share"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes/{attributeId}/delete",
                     "name": "account.attributes.detail.delete",
-                    "target": ["account.master", "account.attributes.detail.delete"],
+                    "target": ["app.mainmenu", "account.attributes.detail.delete"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships",
                     "name": "account.relationships",
-                    "target": ["account.master", "account.relationships"],
+                    "target": ["app.mainmenu", "account.relationships"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/requests/{requestId}",
                     "name": "account.relationships.request",
-                    "target": ["account.master", "account.relationships.request"],
+                    "target": ["app.mainmenu", "account.relationships.request"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/template/{templateId}",
                     "name": "account.template",
-                    "target": ["account.master", "account.template"],
+                    "target": ["app.mainmenu", "account.template"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/incoming/{relationshipId}",
                     "name": "account.incomingrequest",
-                    "target": ["account.master", "account.incomingrequest"],
+                    "target": ["app.mainmenu", "account.incomingrequest"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/outgoing/{relationshipId}",
                     "name": "account.outgoingrequest",
-                    "target": ["account.master", "account.outgoingrequest"],
+                    "target": ["app.mainmenu", "account.outgoingrequest"],
                     "parent": "nmshd.app.Component:generic"
                 },
 
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}",
                     "name": "account.relationship.home",
-                    "target": ["account.relationship.master", "account.relationship.home"],
+                    "target": ["app.mainmenu", "account.relationship.home"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/master",
                     "name": "account.relationship.master",
-                    "target": ["account.relationship.master"],
-                    "parent": "nmshd.app.Component:generic",
-                    "showMaster": true,
-                    "detailTarget": "account.relationship.home"
+                    "target": ["app.mainmenu", "account.relationship.master"],
+                    "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/correspondence",
                     "name": "account.relationship.inbox",
-                    "target": ["account.relationship.master", "account.relationship.inbox"],
+                    "target": ["app.mainmenu", "account.relationship.inbox"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/correspondence/{messageId}/forward",
                     "name": "account.relationship.fwdmessage",
-                    "target": ["account.relationship.master", "account.messages.forward"],
+                    "target": ["app.mainmenu", "account.messages.forward"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/correspondence/new",
                     "name": "account.relationship.newmessage",
-                    "target": ["account.relationship.master", "account.messages.new"],
+                    "target": ["app.mainmenu", "account.messages.new"],
                     "parent": "nmshd.app.Component:generic",
                     "greedy": true
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/correspondence/{messageId}",
                     "name": "account.relationship.message",
-                    "target": ["account.relationship.master", "account.messages.detail"],
+                    "target": ["app.mainmenu", "account.messages.detail"],
                     "parent": "nmshd.app.Component:generic"
                 },
 
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/info",
                     "name": "account.relationship.info",
-                    "target": ["account.relationship.master", "account.relationship.info"],
+                    "target": ["app.mainmenu", "account.relationship.info"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/history",
                     "name": "account.relationship.history",
-                    "target": ["account.relationship.master", "account.relationship.history"],
+                    "target": ["app.mainmenu", "account.relationship.history"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/settings",
                     "name": "account.relationship.settings",
-                    "target": ["account.relationship.master", "account.relationship.settings"],
+                    "target": ["app.mainmenu", "account.relationship.settings"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/attributes",
                     "name": "account.relationship.attributes",
-                    "target": ["account.relationship.master", "account.relationship.attributes"],
+                    "target": ["app.mainmenu", "account.relationship.attributes"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/attributesSent",
                     "name": "account.relationship.attributesSent",
-                    "target": ["account.relationship.master", "account.relationship.attributesSent"],
+                    "target": ["app.mainmenu", "account.relationship.attributesSent"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/attributesReceived",
                     "name": "account.relationship.attributesReceived",
-                    "target": ["account.relationship.master", "account.relationship.attributesReceived"],
+                    "target": ["app.mainmenu", "account.relationship.attributesReceived"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/requests",
                     "name": "account.relationship.requests",
-                    "target": ["account.relationship.master", "account.relationship.requests"],
+                    "target": ["app.mainmenu", "account.relationship.requests"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/requests/{requestId}",
                     "name": "account.relationship.request",
-                    "target": ["account.relationship.master", "account.relationship.request"],
+                    "target": ["app.mainmenu", "account.relationship.request"],
                     "parent": "nmshd.app.Component:generic"
                 },
 
                 {
                     "pattern": "accounts/{accountId}/files",
                     "name": "account.files",
-                    "target": ["account.master", "account.files"],
+                    "target": ["app.mainmenu", "account.files"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/files/upload",
                     "name": "account.files.upload",
-                    "target": ["account.master", "account.files.upload"],
+                    "target": ["app.mainmenu", "account.files.upload"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/files/{id}",
                     "name": "account.files.detail",
-                    "target": ["account.master", "account.files.detail"],
+                    "target": ["app.mainmenu", "account.files.detail"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/info",
                     "name": "account.info",
-                    "target": ["account.master", "account.info"],
+                    "target": ["app.mainmenu", "account.info"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/settings",
                     "name": "account.settings",
-                    "target": ["account.master", "account.settings"],
+                    "target": ["app.mainmenu", "account.settings"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/settings/devices/create",
                     "name": "account.settings.createdevice",
-                    "target": ["account.master", "account.settings.createdevice"],
+                    "target": ["app.mainmenu", "account.settings.createdevice"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts/{accountId}/settings/devices/{deviceId}",
                     "name": "account.settings.device",
-                    "target": ["account.master", "account.settings.device"],
+                    "target": ["app.mainmenu", "account.settings.device"],
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
                     "pattern": "accounts",
                     "name": "accounts.select",
-                    "target": ["accounts.select", "accounts.select"],
+                    "target": ["app.mainmenu", "accounts.select"],
                     "parent": "nmshd.app.Component:generic"
                 }
             ],
 
             "targets": {
-                "phone_start": {
-                    "viewName": "flows_phone.app.Start",
-                    "viewId": "accounts-start",
-                    "controlAggregation": "detailPages",
-                    "viewLevel": 3
-                },
                 "accounts.create": {
                     "viewName": "flows.accounts.Create",
                     "viewId": "accounts-create",
@@ -572,6 +545,12 @@
                     "controlAggregation": "masterPages",
                     "viewLevel": 3
                 },
+                "app.mainmenu": {
+                    "viewName": "flows.app.MainMenu",
+                    "viewId": "app-mainmenu",
+                    "controlAggregation": "masterPages",
+                    "viewLevel": 100
+                },
                 "app.privacy": {
                     "viewName": "flows.app.Privacy",
                     "viewId": "app-privacy",
@@ -630,7 +609,7 @@
                 "accounts.select": {
                     "viewName": "flows.accounts.Select",
                     "viewId": "accounts-select",
-                    "controlAggregation": "masterPages",
+                    "controlAggregation": "detailPages",
                     "viewLevel": 1
                 },
 
@@ -638,8 +617,7 @@
                     "viewName": "flows.account.Login",
                     "viewId": "account-login",
                     "controlAggregation": "detailPages",
-                    "viewLevel": 101,
-                    "transition": "show"
+                    "viewLevel": 100
                 },
                 "account.master": {
                     "viewName": "flows.account.Master",
@@ -648,7 +626,7 @@
                     "viewLevel": 100
                 },
                 "account.home": {
-                    "viewName": "flows.account.Home",
+                    "viewName": "flows.account.home.Home",
                     "viewId": "account-home",
                     "controlAggregation": "detailPages",
                     "viewLevel": 101
@@ -663,7 +641,7 @@
                     "viewName": "flows.account.inbox.Inbox",
                     "viewId": "account-inbox",
                     "controlAggregation": "detailPages",
-                    "viewLevel": 101
+                    "viewLevel": 201
                 },
                 "account.cards": {
                     "viewName": "flows.account.share.Cards",
@@ -904,13 +882,6 @@
                     "controlAggregation": "detailPages",
                     "viewLevel": 4002
                 },
-                "start": {
-                    "viewName": "flows.app.Start",
-                    "viewId": "start",
-                    "controlAggregation": "detailPages",
-                    "viewLevel": 0
-                },
-
                 "error": {
                     "viewName": "flows.Error",
                     "viewId": "error",

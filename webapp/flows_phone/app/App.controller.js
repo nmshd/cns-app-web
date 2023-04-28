@@ -10,12 +10,13 @@ sap.ui.define(
                     selectShare: false,
                     selectContacts: false,
                     selectProfile: false,
+                    showBack: false,
                     title: "",
                     theme: {
                         image: "",
                         fontColor: "#ffffff",
                         fontStyle: "light",
-                        backgroundColor: "#29235c"
+                        backgroundColor: "#275DAC"
                     },
                     leftIcon: "",
                     rightIcon: "",
@@ -42,12 +43,13 @@ sap.ui.define(
                 await App.isInitialized()
 
                 runtime.nativeEnvironment.eventBus.publish(
-                    new JSSNative.ThemeEvent("#29235c", JSSNative.ThemeTextStyle.Light)
+                    new JSSNative.ThemeEvent("#275DAC", JSSNative.ThemeTextStyle.Light)
                 )
             },
 
             deselectButtons() {
                 this.viewProp("/selectStart", false)
+                this.viewProp("/selectInbox", false)
                 this.viewProp("/selectShare", false)
                 this.viewProp("/selectContacts", false)
                 this.viewProp("/selectProfile", false)
@@ -55,12 +57,12 @@ sap.ui.define(
             selectButton(routeName) {
                 this.deselectButtons()
 
-                if (
-                    routeName === "account.home" ||
-                    (this.wasHomeBefore && routeName === "account.relationship.message")
-                ) {
+                if (routeName === "account.home") {
                     this.wasHomeBefore = true
                     this.viewProp("/selectStart", true)
+                } else if (routeName === "account.inbox" || routeName === "account.relationship.message") {
+                    this.wasHomeBefore = false
+                    this.viewProp("/selectInbox", true)
                 } else if (routeName.startsWith("account.cards")) {
                     this.wasHomeBefore = false
                     this.viewProp("/selectShare", true)
@@ -165,6 +167,20 @@ sap.ui.define(
                 }
             },
 
+            showBack() {
+                this.viewProp("/showBack", true)
+            },
+            hideBack() {
+                this.viewProp("/showBack", false)
+            },
+
+            onBackPress(oEvent) {
+                const currentController = this.byId("appComponent").getCurrentPage().getController()
+                if (currentController.onNavButtonPress) {
+                    currentController.onNavButtonPress.apply(currentController, [oEvent])
+                }
+            },
+
             onRightPress(oEvent) {
                 if (this.onRightAction) {
                     this.onRightAction(oEvent)
@@ -173,7 +189,9 @@ sap.ui.define(
                 }
             },
 
-            refreshHeader(routeName) {},
+            refreshHeader(routeName) {
+                App.setMenuIcon()
+            },
 
             onLoadInc(oEvent) {
                 this._contentLoadingCounter++
@@ -233,93 +251,19 @@ sap.ui.define(
             },
 
             toStart() {
-                App.navTo("accounts.select", "account.home", { accountId: App.accountId() })
+                App.navTo("account.login", "account.home", { accountId: App.accountId() })
+            },
+            toInbox() {
+                App.navTo("account.login", "account.inbox", { accountId: App.accountId() })
             },
             toCards() {
-                App.navTo("account.home", "account.cards", { accountId: App.accountId() })
+                App.navTo("account.login", "account.cards", { accountId: App.accountId() })
             },
             toContacts() {
-                App.navTo("account.home", "account.relationships", { accountId: App.accountId() })
+                App.navTo("account.login", "account.relationships", { accountId: App.accountId() })
             },
             toProfile() {
-                App.navTo("account.home", "account.attributes", { accountId: App.accountId() })
-            },
-            async openAccountSelectionPopup(accounts, title, description) {
-                const oView = this.getView()
-                this.viewProp("/accountSelectionAccounts", accounts ? accounts : [])
-                this.viewProp("/accountSelectionTitle", title)
-                this.viewProp("/accountSelectionDescription", description)
-
-                const that = this
-                if (!that.popups) {
-                    that.popups = {}
-                }
-                const type = "AccountSelectionPopup"
-                if (!that.popups[type]) {
-                    const oDialog = await Fragment.load({
-                        id: oView.getId(),
-                        name: "nmshd.app.flows.accounts." + type,
-                        controller: this
-                    })
-                    oView.addDependent(oDialog)
-                    oDialog.open()
-                    that.popups[type] = oDialog
-                    that.currentPopup = oDialog
-                } else {
-                    that.popups[type].open()
-                    that.currentPopup = that.popups[type]
-                }
-            },
-            closeAccountSelectionPopup() {
-                if (this.currentPopup) {
-                    this.currentPopup.close()
-                    this.currentPopup = null
-                }
-            },
-
-            onAccountSelectionPress(oEvent) {
-                try {
-                    const oItem = oEvent.getParameter("listItem") || oEvent.getSource()
-                    const prop = oItem.getBindingContextPath()
-                    const selectedAccount = this.viewProp(prop)
-                    appLogger.info(`User chose ${selectedAccount.name} with id ${selectedAccount.id}.`)
-                    if (App.accountSelectionCallback) {
-                        App.accountSelectionCallback(selectedAccount)
-                    }
-                } catch (e) {
-                    App.error(e)
-                } finally {
-                    this.closeAccountSelectionPopup()
-                }
-            },
-
-            async onAccountSelectionCreate() {
-                try {
-                    appLogger.info("User decided for a new account to be created for an accountSelectionRequest.")
-                    const accounts = await runtime.accountServices.getAccounts()
-                    const accountname =
-                        this.resource("accounts.processRelationshipToken.profile") + (accounts.length + 1)
-                    const oAccounts = await runtime.accountServices.createAccount(
-                        NMSHDTransport.Realm.Prod,
-                        accountname
-                    )
-                    this.localAccount = oAccounts
-                    await App.selectAccount(this.localAccount.id, "")
-                    appLogger.info(`Account ${this.localAccount.id} was created for account selection.`)
-                    if (App.accountSelectionCallback) {
-                        App.accountSelectionCallback(this.localAccount)
-                    }
-                } catch (e) {
-                    App.error(e)
-                } finally {
-                    this.closeAccountSelectionPopup()
-                }
-            },
-            onAccountSelectionClose() {
-                this.closeAccountSelectionPopup()
-                if (App.accountSelectionCallback) {
-                    App.accountSelectionCallback()
-                }
+                App.navTo("account.login", "account.attributes", { accountId: App.accountId() })
             }
         })
     }

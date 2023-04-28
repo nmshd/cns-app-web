@@ -6,10 +6,27 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:attributesControl="nmshd.app.core.controls.attributes"
 >
-    <m:Dialog title="{t>accountSelection.title}" stretch="true" id="AccountSelectionFragmentDialog">
+    <m:Dialog
+        title="{t>accountSelection.title}"
+        stretch="true"
+        id="AccountSelectionFragmentDialog"
+        class="appDialog appDialogFull"
+    >
+        <m:customHeader>
+            <m:Bar>
+                <m:contentLeft>
+                    <m:Button icon="sap-icon://nav-back" text="" press="onAccountSelectionClose()" />
+                </m:contentLeft>
+                <m:contentMiddle>
+                    <m:Title text="{t>accountSelection.title}" class="sapMTitleMaxWidth" width="100%" />
+                </m:contentMiddle>
+            </m:Bar>
+        </m:customHeader>
+
         <m:VBox class="sapUiSmallMargin">
             <m:Text text="{t>accountSelection.description}" />
         </m:VBox>
+
         <m:List
             items="{v>/accountSelectionAccounts}"
             itemPress="onAccountSelectionPress"
@@ -18,22 +35,14 @@
         >
 			<m:StandardListItem title="{v>name}" icon="{v>icon}" type="Navigation" />
 		</m:List>
-
-        <m:endButton>
+        <m:VBox alignItems="Center" alignContent="Center" class="sapUiSmallMargin">
             <m:Button
                 text="{t>select.newProfileButton}"
                 id="accountsCreateAccount"
                 icon="sap-icon://add"
                 press="onAccountSelectionCreate"
             />
-        </m:endButton>
-        <m:beginButton>
-            <m:Button
-                text="{t>form.cancel}"
-                type="Reject"
-                enabled="{v>/submitAvailable}"
-                press=".onAccountSelectionClose"
-            />
-        </m:beginButton>
+        </m:VBox>
+        
     </m:Dialog>
 </core:FragmentDefinition>

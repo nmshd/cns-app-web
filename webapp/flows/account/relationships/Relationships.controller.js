@@ -56,10 +56,8 @@ sap.ui.define(
             },
 
             async onRouteMatched(oEvent) {
-                App.appController.setRight("sap-icon://settings", () => {
-                    this.onSettings()
-                })
                 await this.super("onRouteMatched", oEvent)
+                App.appController.setTitle(this.resource("relationship.title"))
             },
             onSettings() {
                 this.navTo("account.settings")

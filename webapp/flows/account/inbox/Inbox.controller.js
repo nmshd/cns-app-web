@@ -10,7 +10,7 @@ sap.ui.define(
         "use strict"
 
         return AccountController.extend("nmshd.app.flows.account.inbox.Inbox", {
-            routeNames: ["account.inbox", "account.home"],
+            routeNames: ["account.inbox"],
 
             onInitialized() {
                 sap.ui
@@ -22,10 +22,8 @@ sap.ui.define(
             },
 
             async onRouteMatched(oEvent) {
-                App.appController.setRight("sap-icon://settings", () => {
-                    this.onSettings()
-                })
                 await this.super("onRouteMatched", oEvent)
+                App.appController.setTitle(this.resource("master.inbox"))
             },
 
             onSettings() {

@@ -1,0 +1,48 @@
+<mvc:View
+    controllerName="nmshd.app.flows.account.home.Home"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:controls="nmshd.app.core.controls"
+>
+
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        showNavButton="{d>/system/phone}"
+        title="{t>master.home}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:subHeader>
+		</semantic:subHeader>
+
+		<semantic:content>
+            <m:VBox class="sapUiSmallMargin">
+                <m:Text text="Welcome to your digital identity." />
+
+                <!-- <m:Button icon="sap-icon://bar-code" text="QR-Code scannen" press="onScan" />-->
+            </m:VBox>
+            <m:GenericTile
+                class="sapUiSmallMarginBegin sapUiTinyMarginTop tileLayout"
+                header="QR-Code scannen"
+                subheader=""
+                press="onScan"
+            >
+                <m:TileContent>
+                    <m:ImageContent src="sap-icon://bar-code" />
+                </m:TileContent>
+            </m:GenericTile>
+		</semantic:content>
+	</semantic:DetailPage>
+
+</mvc:View>

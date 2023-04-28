@@ -34,7 +34,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
                 this.byId("language").setSelectedKey(language.value)
             }
 
-            App.appController.setLeft("sap-icon://nav-back", null)
+            App.setMenuIcon()
             App.appController.clearRight()
             App.appController.setTitle(this.resource("app.masterController.title"))
             this.super("onRouteMatched", oEvent)

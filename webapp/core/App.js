@@ -23,7 +23,8 @@ sap.ui.define(
         "nmshd/app/core/utils/InboxUtil",
         "nmshd/app/core/utils/FileUtil",
         "sap/base/security/URLWhitelist",
-        "nmshd/app/core/UIBridge"
+        "nmshd/app/core/UIBridge",
+        "sap/ui/core/Fragment"
     ],
     (
         Event,
@@ -37,7 +38,8 @@ sap.ui.define(
         InboxUtil,
         FileUtil,
         URLWhitelist,
-        UIBridge
+        UIBridge,
+        Fragment
     ) => {
         "use strict"
 
@@ -55,6 +57,321 @@ sap.ui.define(
         let _relationship = null
 
         return {
+            changeLanguage(oEvent) {
+                const newLanguage = oEvent.getSource().getSelectedItem().mProperties.key
+                sap.ui.getCore().getConfiguration().setLanguage(newLanguage)
+                bootstrapper.nativeEnvironment.configAccess.set("language", newLanguage)
+                bootstrapper.nativeEnvironment.configAccess.save()
+                oEvent.getSource().setSelectedKey(newLanguage)
+            },
+            async accountSelectionCallbackDefault(account) {
+                if (account) {
+                    App.navTo("accounts.select", "account.home", { accountId: account.id.toString() })
+                }
+
+                this.accountSelectionCallback = null
+            },
+            async toSwitchProfile() {
+                this.closeProfileMenu()
+                this.accountSelectionCallback = this.accountSelectionCallbackDefault
+                const localAccounts = await App.localAccountController().getAccounts()
+                this.openAccountSelectionPopup(localAccounts, "", "")
+            },
+            setMenuIcon() {
+                App.appController.setLeft("sap-icon://menu2", () => {
+                    App.toggleProfileMenu()
+                })
+                App.appController.hideBack()
+            },
+            setBackIcon() {
+                App.appController.setLeft("sap-icon://menu2", () => {
+                    App.toggleProfileMenu()
+                })
+                App.appController.showBack()
+            },
+            toAccountSettings() {
+                this.closeProfileMenu()
+                this.openAccountSettingsPopup()
+            },
+            toPrivacy() {
+                this.closeProfileMenu()
+                this.openPrivacyPopup()
+            },
+            toLegal() {
+                this.closeProfileMenu()
+                this.openLegalPopup()
+            },
+            toImprint() {
+                this.closeProfileMenu()
+                this.openImprintPopup()
+            },
+
+            async onProfileMenuItemPress(oEvent) {
+                const key = oEvent.getParameter("listItem").data("key")
+                switch (key) {
+                    case "app.switchProfile":
+                        this.closeProfileMenu()
+                        this.accountSelectionCallback = this.accountSelectionCallbackDefault
+                        const localAccounts = await App.localAccountController().getAccounts()
+                        this.openAccountSelectionPopup(localAccounts, "", "")
+
+                        break
+                    case "account.settings":
+                        this.closeProfileMenu()
+                        this.openAccountSettingsPopup()
+
+                        break
+                    case "app.privacy":
+                        this.closeProfileMenu()
+                        this.openPrivacyPopup()
+                        /*
+                        App.navTo("app.privacy")
+                        */
+                        break
+                    case "app.legal":
+                        this.closeProfileMenu()
+                        this.openLegalPopup()
+                        /*
+                        App.navTo("app.legal")
+                        */
+                        break
+                    case "app.imprint":
+                        this.closeProfileMenu()
+                        this.openImprintPopup()
+                        /*
+                        App.navTo("app.imprint")
+                        */
+                        break
+                }
+            },
+            async setAppViewModel(control) {
+                if (!control || !control.setModel) return
+                if (!this.localAccount) {
+                }
+                const accountId = this.localAccount().id
+                const localAccount = await App.localAccountController().getAccount(accountId)
+                const name = localAccount.name || "Enmeshed"
+                const address = App.account().identity.address.toString()
+
+                const getDevicesResult = await runtime.currentSession.transportServices.devices.getDevices()
+                let devices = []
+                if (getDevicesResult.isSuccess) {
+                    devices = getDevicesResult.value
+                }
+
+                const viewModel = new JSONModel({
+                    appVersion: runtime.nativeEnvironment.configAccess.get("version").value,
+                    runtimeVersion: NMSHDAppRuntime.buildInformation.version,
+                    profileName: name,
+                    accountName: name,
+                    accountId: accountId,
+                    address: address,
+                    devices: devices,
+                    language: bootstrapper.nativeEnvironment.configAccess.get("language").value
+                })
+
+                viewModel.setDefaultBindingMode("OneWay")
+                control.setModel(viewModel, "v")
+            },
+            setGlobalModels(control) {
+                if (!control || !control.setModel) return
+                const deviceModel = new JSONModel(Device)
+                deviceModel.setDefaultBindingMode("OneWay")
+                control.setModel(deviceModel, "d")
+
+                const resourceModel = this.component.getModel("t")
+                control.setModel(resourceModel, "t")
+            },
+            async openPrivacyPopup() {
+                if (!this.privacyPopup) {
+                    this.privacyPopup = await Fragment.load({
+                        id: "privacyPopup",
+                        name: "nmshd.app.flows.app.PrivacyPopup",
+                        controller: this
+                    })
+                    await this.setAppViewModel(this.privacyPopup)
+                    this.setGlobalModels(this.privacyPopup)
+                }
+                this.privacyPopup.open()
+                this.privacyPopupOpen = true
+                document.addEventListener("click", this.checkDocumentClick.bind(this))
+            },
+            async openLegalPopup() {
+                if (!this.legalPopup) {
+                    this.legalPopup = await Fragment.load({
+                        id: "legalPopup",
+                        name: "nmshd.app.flows.app.LegalPopup",
+                        controller: this
+                    })
+                    await this.setAppViewModel(this.legalPopup)
+                    this.setGlobalModels(this.legalPopup)
+                }
+                this.legalPopup.open()
+                this.legalPopupOpen = true
+                document.addEventListener("click", this.checkDocumentClick.bind(this))
+            },
+            async openImprintPopup() {
+                if (!this.imprintPopup) {
+                    this.imprintPopup = await Fragment.load({
+                        id: "imprintPopup",
+                        name: "nmshd.app.flows.app.ImprintPopup",
+                        controller: this
+                    })
+                    await this.setAppViewModel(this.imprintPopup)
+                    this.setGlobalModels(this.imprintPopup)
+                }
+                this.imprintPopup.open()
+                this.imprintPopupOpen = true
+                document.addEventListener("click", this.checkDocumentClick.bind(this))
+            },
+            async openProfileMenu() {
+                this.split.showMaster()
+                return
+                if (!this.profileMenu) {
+                    this.profileMenu = await Fragment.load({
+                        id: "profileMenu",
+                        name: "nmshd.app.flows.ProfileMenu",
+                        controller: this
+                    })
+                    await this.setAppViewModel(this.profileMenu)
+                    this.setGlobalModels(this.profileMenu)
+                }
+                this.profileMenu.open()
+                this.profileMenuOpen = true
+                document.addEventListener("click", this.checkDocumentClick.bind(this))
+            },
+            async openAccountSettingsPopup() {
+                if (!this.accountSettings) {
+                    this.accountSettings = await Fragment.load({
+                        id: "accountSettings",
+                        name: "nmshd.app.flows.account.AccountSettingsPopup",
+                        controller: this
+                    })
+                    await this.setAppViewModel(this.accountSettings)
+                    this.setGlobalModels(this.accountSettings)
+                }
+                this.accountSettings.open()
+                this.accountSettingsOpen = true
+                document.addEventListener("click", this.checkDocumentClick.bind(this))
+            },
+            async openAccountSelectionPopup(accounts, title, description) {
+                if (!this.accountSelection) {
+                    this.accountSelection = await Fragment.load({
+                        id: "accountSelection",
+                        name: "nmshd.app.flows.accounts.AccountSelectionPopup",
+                        controller: this
+                    })
+                    await this.setAppViewModel(this.accountSelection)
+                    this.setGlobalModels(this.accountSelection)
+                    const model = this.accountSelection.getModel("v")
+                    model.setProperty("/accountSelectionAccounts", accounts ? accounts : [])
+                    model.setProperty("/accountSelectionTitle", title)
+                    model.setProperty("/accountSelectionDescription", description)
+                }
+                this.accountSelection.open()
+                this.accountSelectionOpen = true
+                document.addEventListener("click", this.checkDocumentClick.bind(this))
+            },
+            checkDocumentClick(oEvent) {
+                if (oEvent.target.id === "sap-ui-blocklayer-popup") {
+                    this.closeProfileMenu()
+                    this.closePrivacyPopup()
+                    document.removeEventListener("click", this.checkDocumentClick)
+                }
+            },
+            closePrivacyPopup() {
+                if (this.privacyPopup) {
+                    this.privacyPopup.close()
+                }
+                this.privacyPopupOpen = false
+            },
+            closeLegalPopup() {
+                if (this.legalPopup) {
+                    this.legalPopup.close()
+                }
+                this.legalPopupOpen = false
+            },
+            closeImprintPopup() {
+                if (this.imprintPopup) {
+                    this.imprintPopup.close()
+                }
+                this.imprintPopupOpen = false
+            },
+            closeAccountSettingsPopup() {
+                if (this.accountSettings) {
+                    this.accountSettings.close()
+                }
+                this.accountSettingsOpen = false
+            },
+            closeProfileMenu() {
+                this.split.hideMaster()
+                return
+                if (this.profileMenu) {
+                    this.profileMenu.close()
+                }
+                this.profileMenuOpen = false
+            },
+
+            closeAccountSelectionPopup() {
+                if (this.accountSelection) {
+                    this.accountSelection.close()
+                }
+                this.accountSelectionOpen = false
+            },
+
+            onAccountSelectionPress(oEvent) {
+                try {
+                    const oItem = oEvent.getParameter("listItem") || oEvent.getSource()
+                    const prop = oItem.getBindingContextPath()
+                    const selectedAccount = oEvent.getSource().getModel("v").getProperty(prop)
+                    appLogger.info(`User chose ${selectedAccount.name} with id ${selectedAccount.id}.`)
+                    if (App.accountSelectionCallback) {
+                        App.accountSelectionCallback(selectedAccount)
+                    }
+                } catch (e) {
+                    App.error(e)
+                } finally {
+                    this.closeAccountSelectionPopup()
+                }
+            },
+
+            async onAccountSelectionCreate() {
+                try {
+                    appLogger.info("User decided for a new account to be created for an accountSelectionRequest.")
+                    const accounts = await runtime.accountServices.getAccounts()
+                    const resourceModel = this.component.getModel("t")
+
+                    const accountname =
+                        resourceModel.getProperty("accounts.processRelationshipToken.profile") + (accounts.length + 1)
+                    const oAccounts = await runtime.accountServices.createAccount(
+                        NMSHDTransport.Realm.Prod,
+                        accountname
+                    )
+                    this.localAccount = oAccounts
+                    await App.selectAccount(this.localAccount.id, "")
+                    appLogger.info(`Account ${this.localAccount.id} was created for account selection.`)
+                    if (App.accountSelectionCallback) {
+                        App.accountSelectionCallback(this.localAccount)
+                    }
+                } catch (e) {
+                    App.error(e)
+                } finally {
+                    this.closeAccountSelectionPopup()
+                }
+            },
+            onAccountSelectionClose() {
+                this.closeAccountSelectionPopup()
+                if (App.accountSelectionCallback) {
+                    App.accountSelectionCallback()
+                }
+            },
+            async toggleProfileMenu() {
+                if (this.profileMenuOpen) {
+                    this.closeProfileMenu()
+                } else {
+                    this.openProfileMenu()
+                }
+            },
             deleteLogs() {
                 const loggers = [
                     "Account",
@@ -427,7 +744,7 @@ sap.ui.define(
                     image: "",
                     fontColor: "#ffffff",
                     fontStyle: "light",
-                    backgroundColor: "#29235c"
+                    backgroundColor: "#275DAC"
                 }
             },
 
@@ -442,7 +759,7 @@ sap.ui.define(
             },
 
             scan(accountId) {
-                this.navTo("account.master", "account.scan", { accountId: accountId }, null)
+                this.navTo("account.home", "account.scan", { accountId: accountId }, null)
             },
 
             async tryNTimes(fn, tries, sleepBetween) {

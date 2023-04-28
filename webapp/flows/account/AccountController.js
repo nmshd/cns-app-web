@@ -25,14 +25,15 @@ sap.ui.define(
                 const currentRouteName = oEvent.getParameter("arguments")._name
                 switch (currentRouteName) {
                     case "account.home":
+                    case "account.inbox":
                     case "account.cards":
                     case "account.relationships":
                     case "account.profile":
                     case "account.attributes":
-                        App.appController.setLeft("sap-icon://log", null)
+                        App.setMenuIcon()
                         break
                     default:
-                        App.appController.setLeft("sap-icon://nav-back", null)
+                        App.setBackIcon()
                         break
                 }
 
@@ -73,7 +74,7 @@ sap.ui.define(
             },
 
             navBack(routeName, object, delta) {
-                routeName || (routeName = "account.home")
+                routeName || (routeName = "account.login")
                 if (!object) {
                     object = { accountId: this.accountId }
                 } else if (object && typeof object["accountId"] === "undefined") {

@@ -48,6 +48,7 @@ metadata:
   name: replaceConfigMiddleware
 middleware:
   path: _tools/devMiddleware/replaceConfig.js
+
 ---
 # Custom development middleware to proxy to a backend specified in an environment variable
 specVersion: "2.6"
