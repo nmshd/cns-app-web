@@ -25,7 +25,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
                 delay: 0,
                 showProfile: false,
                 profileName: "BIRD Wallet",
-                appVersion: runtime.nativeEnvironment.configAccess.get("version").value,
+                appVersion: bootstrapper.nativeEnvironment.configAccess.get("version").value,
                 runtimeVersion: NMSHDAppRuntime.buildInformation.version,
                 language: bootstrapper.nativeEnvironment.configAccess.get("language").value
             }
