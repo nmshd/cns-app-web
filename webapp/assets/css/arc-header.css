@@ -11,9 +11,9 @@ html .sapUiSizeCompact .mainButtons .sapMBtn {
 }
 
 html .sapUiSizeCompact .mainButtons .sapMBtnIcon {
-    line-height: 1.500rem;
+    line-height: 1.5rem;
     width: 1rem;
-    font-size: 1.000rem;
+    font-size: 1rem;
     max-height: 4rem;
 }
 
@@ -23,27 +23,24 @@ html .sapUiSizeCompact .mainButtons .sapMBtnInner {
     min-width: 4rem;
 }
 
-
-
 html .appDialog .sapMPageHeader {
     display: none;
 }
 
-html .appDialog .sapMPage>.sapMPageHeader+section {
+html .appDialog .sapMPage > .sapMPageHeader + section {
     top: 0px;
 }
 
-
-html .appDialog.appDialogFull>header>.sapMBar {
+html .appDialog.appDialogFull > header > .sapMBar {
     background-color: #3d86f0;
 }
 
-html .appDialog.appDialogFull>header>.sapMBar .sapMBtn,
-html .appDialog.appDialogFull>header>.sapMBar .sapMBtnIcon {
+html .appDialog.appDialogFull > header > .sapMBar .sapMBtn,
+html .appDialog.appDialogFull > header > .sapMBar .sapMBtnIcon {
     color: #ffffff;
 }
 
-html .appDialog.appDialogFull>header>.sapMBar .sapMTitle {
+html .appDialog.appDialogFull > header > .sapMBar .sapMTitle {
     color: #ffffff;
 }
 
@@ -94,10 +91,6 @@ html .sapMDialog.appDialog.appDialogFull:not(.sapMDialogOpen) {
     display: none;
 }
 
-
-
-
-
 html .sapMPageHeader.sapMIBar.sapMHeader-CTX,
 html .sapMPageHeader,
 html .sapMPage.mainMenuHeader {
@@ -123,9 +116,9 @@ html .sapMPageHeader .sapMTitle {
     color: #333333 !important;
 }
 
-html :not(.sapMBtnDisabled) .sapMBtnBack>.sapMBtnIcon,
-html .sapMHeader :not(.sapMBtnDisabled) .sapMBtnTransparent>.sapMBtnIcon,
-html :not(.sapMBtnDisabled) .sapMBtnGhost>.sapMBtnIcon {
+html :not(.sapMBtnDisabled) .sapMBtnBack > .sapMBtnIcon,
+html .sapMHeader :not(.sapMBtnDisabled) .sapMBtnTransparent > .sapMBtnIcon,
+html :not(.sapMBtnDisabled) .sapMBtnGhost > .sapMBtnIcon {
     color: #ffffff;
 }
 
@@ -143,8 +136,8 @@ html .sapUiGlobalBackgroundColor,
 html .sapMShellGlobalInnerBackground,
 html .sapUiComponentContainer .sapMIBar.sapMHeader-CTX,
 html .sapMPage,
-html .sapFDynamicPage .sapFDynamicPageContentWrapperStandard>.sapFDynamicPageContent,
-html .sapFDynamicPage .sapFDynamicPageContentWrapperSolid>.sapFDynamicPageContent {
+html .sapFDynamicPage .sapFDynamicPageContentWrapperStandard > .sapFDynamicPageContent,
+html .sapFDynamicPage .sapFDynamicPageContentWrapperSolid > .sapFDynamicPageContent {
     background-color: transparent !important;
 }
 
@@ -186,7 +179,7 @@ html .arcHeader.arcHeader-light * {
     color: #ffffff;
 }
 
-html .arcHeader>header {
+html .arcHeader > header {
     position: absolute;
     height: 100%;
     left: 0;
@@ -208,7 +201,7 @@ html .logoContainer {
     top: 1.5rem;
 }
 
-html .logoContainer>img {
+html .logoContainer > img {
     max-height: 40px;
     max-width: 80%;
 }
@@ -221,20 +214,20 @@ html .arcForeground {
     position: absolute;
 }
 
-html .arcHeader .sapMBar-CTX:not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive,
-html .arcHeader :not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive {
+html .arcHeader .sapMBar-CTX:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive,
+html .arcHeader :not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive {
     background-color: rgba(0, 0, 0, 0.2);
     border: 1px solid #333333;
     border-radius: 50%;
 }
 
-html .appAccount .sapMPage>.sapMPageHeader+section,
-html .appAccount .sapMPage>.sapMPageHeader+.sapMPageSubHeader+section {
+html .appAccount .sapMPage > .sapMPageHeader + section,
+html .appAccount .sapMPage > .sapMPageHeader + .sapMPageSubHeader + section {
     margin-bottom: 4.5rem;
 }
 
-html .appAccounts .sapMPage>.sapMPageHeader+section,
-html .appAccounts .sapMPage>.sapMPageHeader+.sapMPageSubHeader+section {
+html .appAccounts .sapMPage > .sapMPageHeader + section,
+html .appAccounts .sapMPage > .sapMPageHeader + .sapMPageSubHeader + section {
     top: 3rem;
     padding-top: 2.5rem;
 }
@@ -277,8 +270,8 @@ html .arcSub .sapUiIcon {
     color: #333333;
 }
 
-html .arcSub .sapMBar-CTX:not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive,
-html .arcSub :not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive {
+html .arcSub .sapMBar-CTX:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive,
+html .arcSub :not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive {
     background-color: rgba(0, 0, 0, 0.6);
     border: none;
     height: 2.2rem;

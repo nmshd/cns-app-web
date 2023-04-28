@@ -68,7 +68,7 @@ sap.ui.define(
                 if (account) {
                     App.navTo("accounts.select", "account.home", { accountId: account.id.toString() })
                 }
-                
+
                 this.accountSelectionCallback = null
             },
             async toSwitchProfile() {
@@ -119,7 +119,7 @@ sap.ui.define(
                     case "account.settings":
                         this.closeProfileMenu()
                         this.openAccountSettingsPopup()
-                        
+
                         break
                     case "app.privacy":
                         this.closeProfileMenu()
@@ -147,7 +147,6 @@ sap.ui.define(
             async setAppViewModel(control) {
                 if (!control || !control.setModel) return
                 if (!this.localAccount) {
-                    
                 }
                 const accountId = this.localAccount().id
                 const localAccount = await App.localAccountController().getAccount(accountId)
@@ -312,9 +311,9 @@ sap.ui.define(
                 }
                 this.profileMenuOpen = false
             },
-            
+
             closeAccountSelectionPopup() {
-                 if (this.accountSelection) {
+                if (this.accountSelection) {
                     this.accountSelection.close()
                 }
                 this.accountSelectionOpen = false

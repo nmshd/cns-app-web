@@ -11,14 +11,14 @@ sap.ui.define(
             onInit() {
                 if (!Component.get("genericComponent")) {
                     //if (Device.system.phone) {
-                        Component.create({
-                            name: "nmshd.app.flows_phone",
-                            id: "genericComponent"
+                    Component.create({
+                        name: "nmshd.app.flows_phone",
+                        id: "genericComponent"
+                    })
+                        .then((Component) => {
+                            this.getView().byId("GenericContainer").setComponent(Component)
                         })
-                            .then((Component) => {
-                                this.getView().byId("GenericContainer").setComponent(Component)
-                            })
-                            .catch((oError) => Log.error(oError))
+                        .catch((oError) => Log.error(oError))
                     /*} else {
                         Component.create({
                             name: "nmshd.app.flows_desktop",

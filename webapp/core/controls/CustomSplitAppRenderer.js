@@ -4,9 +4,12 @@
  * Licensed under the Apache License, Version 2.0 - see LICENSE.txt.
  */
 
-sap.ui.define(['sap/m/SplitAppRenderer'],
-	function(SplitContainerRenderer) {
-	    "use strict";
+sap.ui.define(
+    ["sap/m/SplitAppRenderer"],
+    function (SplitContainerRenderer) {
+        "use strict"
 
         return SplitContainerRenderer
-}, /* bExport= */ true);
+    },
+    /* bExport= */ true
+)

@@ -37,10 +37,8 @@ sap.ui.define(
                 this.clear()
                 this.viewProp("/submitAvailable", false)
 
-                
                 await this.super("onRouteMatched", oEvent)
                 App.appController.setTitle(this.resource("master.attribute"))
-                
 
                 if (this.viewProp("/route/_name") === "account.attributes.edit") {
                     this.viewProp("/submitAvailable", true)

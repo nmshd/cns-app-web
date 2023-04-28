@@ -32,12 +32,8 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Bas
                 this.loadInc()
                 this.viewProp("/submitAvailable", false)
                 const accounts = await runtime.accountServices.getAccounts()
-                const accountname =
-                    this.resource("accounts.processRelationshipToken.profile") + (accounts.length + 1)
-                const oAccounts = await runtime.accountServices.createAccount(
-                    NMSHDTransport.Realm.Prod,
-                    accountname
-                )
+                const accountname = this.resource("accounts.processRelationshipToken.profile") + (accounts.length + 1)
+                const oAccounts = await runtime.accountServices.createAccount(NMSHDTransport.Realm.Prod, accountname)
                 this.localAccount = oAccounts
                 await App.selectAccount(this.localAccount.id, "")
                 this.accountId = this.localAccount.id

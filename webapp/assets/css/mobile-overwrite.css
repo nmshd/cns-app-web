@@ -44,8 +44,6 @@ html .sapMPullDown {
     bottom: 1rem;
 }
 
-
-
 .mainButtons.sapMHBox {
     padding-bottom: 0.5rem;
     position: absolute;
@@ -70,8 +68,8 @@ html .sapMPullDown {
 }
 
 .mainButtons .sapMToggleBtnPressed:not(.sapMBtnDisabled),
-.mainButtons .sapMBar-CTX:not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive,
-.mainButtons :not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive {
+.mainButtons .sapMBar-CTX:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive,
+.mainButtons :not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive {
     background-color: transparent;
 }
 
@@ -157,20 +155,20 @@ html .sapMPageSubHeader .sapMBarContainer {
     overflow: inherit;
 }
 
-html .sapMPageSubHeader .sapMBar>.sapMBarContainer.sapMBarLeft {
+html .sapMPageSubHeader .sapMBar > .sapMBarContainer.sapMBarLeft {
     padding-left: 1.5rem;
 }
 
-html .sapMPageSubHeader .sapMBar>.sapMBarContainer.sapMBarRight {
+html .sapMPageSubHeader .sapMBar > .sapMBarContainer.sapMBarRight {
     padding-right: 1.5rem;
 }
 
-html .sapMPageSubHeader .sapMBtn.help>.sapMBtnInner {
+html .sapMPageSubHeader .sapMBtn.help > .sapMBtnInner {
     background-color: #f7b232;
 }
 
-html .sapMBar-CTX.sapMBtn.help:not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive,
-html .sapMBtn.help:not(.sapMBtnDisabled)>.sapMBtnInner.sapMBtnActive {
+html .sapMBar-CTX.sapMBtn.help:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive,
+html .sapMBtn.help:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive {
     background-color: #e7a222;
 }
 
@@ -246,12 +244,12 @@ html .sapMDialog:not(.sapMDialogOpen) {
     }
 }
 
-html .sapUiNoContentPadding>div>div>.sapUiRLContainer {
+html .sapUiNoContentPadding > div > div > .sapUiRLContainer {
     padding: 0;
 }
 
-html .sapFDynamicPageTitleWrapper.sapFDynamicPageTitleSnapped>.sapFDynamicPageTitle,
-html .sapFDynamicPageTitleWrapper.sapFDynamicPageTitleOnly>.sapFDynamicPageTitle {
+html .sapFDynamicPageTitleWrapper.sapFDynamicPageTitleSnapped > .sapFDynamicPageTitle,
+html .sapFDynamicPageTitleWrapper.sapFDynamicPageTitleOnly > .sapFDynamicPageTitle {
     box-shadow: none;
 }
 
