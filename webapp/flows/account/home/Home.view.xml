@@ -28,8 +28,20 @@
 
 		<semantic:content>
             <m:VBox class="sapUiSmallMargin">
-                <m:Text text="Lorem Ipsum." />
+                <m:Text text="Welcome to your digital identity." />
+
+                <!-- <m:Button icon="sap-icon://bar-code" text="QR-Code scannen" press="onScan" />-->
             </m:VBox>
+            <m:GenericTile
+                class="sapUiSmallMarginBegin sapUiTinyMarginTop tileLayout"
+                header="QR-Code scannen"
+                subheader=""
+                press="onScan"
+            >
+                <m:TileContent>
+                    <m:ImageContent src="sap-icon://bar-code" />
+                </m:TileContent>
+            </m:GenericTile>
 		</semantic:content>
 	</semantic:DetailPage>
 
