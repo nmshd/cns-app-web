@@ -36,7 +36,7 @@ sap.ui.define(["sap/ui/core/Control"], (Control) => {
             if (background && background.length > 1) {
                 background = background.substr(1)
             } else {
-                background = "275DAC"
+                background = "3d86f0"
             }
 
             let textStyle = JSSNative.ThemeTextStyle.Dark

@@ -16,7 +16,7 @@ sap.ui.define(
                         image: "",
                         fontColor: "#ffffff",
                         fontStyle: "light",
-                        backgroundColor: "#275DAC"
+                        backgroundColor: "#3d86f0"
                     },
                     leftIcon: "",
                     rightIcon: "",
@@ -43,7 +43,7 @@ sap.ui.define(
                 await App.isInitialized()
 
                 runtime.nativeEnvironment.eventBus.publish(
-                    new JSSNative.ThemeEvent("#275DAC", JSSNative.ThemeTextStyle.Light)
+                    new JSSNative.ThemeEvent("#3d86f0", JSSNative.ThemeTextStyle.Light)
                 )
             },
 
