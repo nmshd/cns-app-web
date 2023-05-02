@@ -24,17 +24,6 @@
 
 			</m:contentRight>
 		</m:Bar>
-		<m:Bar class="arcSub">
-			<m:contentLeft>
-
-			</m:contentLeft>
-			<m:contentMiddle>
-			</m:contentMiddle>
-			<m:contentRight>
-
-
-			</m:contentRight>
-		</m:Bar>
 	</controls:ArcHeader>
 
 	<controls:CustomSplitApp id="appComponent" mode="HideMode">
