@@ -1,0 +1,6 @@
+bars-3
+home
+users
+chat-bubble-oval-left
+user-circle
+information-circle
