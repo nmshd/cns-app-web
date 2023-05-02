@@ -1,12 +1,12 @@
 @font-face {
     font-family: "Inter";
-    src: url('../fonts/Inter-Regular.ttf');
+    src: url("../fonts/Inter-Regular.ttf");
     font-weight: normal;
 }
 
 @font-face {
     font-family: "Inter";
-    src: url('../fonts/Inter-Bold.ttf');
+    src: url("../fonts/Inter-Bold.ttf");
     font-weight: bold;
 }
 
@@ -57,16 +57,16 @@ body .sapMCrsl {
     width: auto !important;
 }
 
-body .sapMCrsl  * {
+body .sapMCrsl * {
     color: #ffffff;
 }
 
-body .sapMCrslBulleted>span.sapMCrslActive {
+body .sapMCrslBulleted > span.sapMCrslActive {
     background-color: #fff !important;
     border: 1px solid #fff !important;
 }
 
-body .sapMCrslBulleted>span {
+body .sapMCrslBulleted > span {
     background-color: #fff !important;
     border: 1px solid #fff !important;
 }
