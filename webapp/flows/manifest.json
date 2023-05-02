@@ -33,7 +33,7 @@
             "tablet": true,
             "phone": true
         },
-        "supportedThemes": ["sap_fiori_3"]
+        "supportedThemes": ["bird-wallet-theme"]
     },
 
     "sap.ui5": {
