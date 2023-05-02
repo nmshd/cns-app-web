@@ -55,7 +55,7 @@ sap.ui.define(
                     image: "",
                     fontColor: "#ffffff",
                     fontStyle: "light",
-                    backgroundColor: "#29235c"
+                    backgroundColor: "#275DAC"
                 })
                 App.appController.setTitle("")
             },
