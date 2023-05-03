@@ -39,9 +39,9 @@ sap.ui.define(
             async routeRedirect() {
                 const aAccounts = await App.localAccountController().getAccounts()
                 if (aAccounts.length === 1) {
-                    App.navTo("accounts.select", "account.home", { accountId: aAccounts[0].id.toString() })
+                    App.navTo("account.login", "account.home", { accountId: aAccounts[0].id.toString() })
                 } else if (aAccounts.length === 0) {
-                    App.navTo("accounts.select", "app.about")
+                    App.navTo("", "app.about")
                 }
             },
 
