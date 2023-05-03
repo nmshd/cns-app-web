@@ -679,12 +679,18 @@ sap.ui.define(
                 if (error) {
                     if (rootCause) appLogger.error(rootCause)
                     appLogger.error(error)
-                    this.navTo("accounts.select", "app.error", {
-                        "?query": { code: error.code ? error.code : error }
-                    })
+                    if (!this.isError) {
+                        this.isError = true
+                        this.navTo("accounts.select", "app.error", {
+                            "?query": { code: error.code ? error.code : error }
+                        })
+                    }
                 } else {
                     appLogger.error("ERROR", "Received unknown App.error call without any parameters.")
-                    this.navTo("accounts.select", "app.error")
+                    if (!this.isError) {
+                        this.isError = true
+                        this.navTo("accounts.select", "app.error")
+                    }
                 }
             },
 
@@ -692,12 +698,18 @@ sap.ui.define(
                 if (error) {
                     if (rootCause) appLogger.error(rootCause)
                     appLogger.error("FATAL", error)
-                    this.navTo("app.master", "app.fatal", {
-                        "?query": { code: error.code }
-                    })
+                    if (!this.isError) {
+                        this.isError = true
+                        this.navTo("app.master", "app.fatal", {
+                            "?query": { code: error.code }
+                        })
+                    }
                 } else {
                     appLogger.error("FATAL", "Received unknown App.fatal call without any parameters.")
-                    this.navTo("app.master", "app.fatal")
+                    if (!this.isError) {
+                        this.isError = true
+                        this.navTo("app.master", "app.fatal")
+                    }
                 }
             },
 
