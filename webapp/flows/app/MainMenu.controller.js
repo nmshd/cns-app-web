@@ -70,7 +70,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
             App.closeProfileMenu()
         },
         toSelect() {
-            this.navBack("accounts.select")
+            App.navTo("", "accounts.select")
             App.closeProfileMenu()
         },
 

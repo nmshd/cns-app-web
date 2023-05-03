@@ -15,7 +15,6 @@
 	<semantic:DetailPage
         id="page"
         navButtonPress="onNavButtonPress"
-        showNavButton="{d>/system/phone}"
         title="{t>error.title}"
         showFooter="false"
         busy="{v>/busy}"

@@ -12,11 +12,11 @@ sap.ui.define(
             },
 
             async onRouteMatched(oEvent) {
-                App.appController.clearLeft()
+                App.setBackIcon()
                 App.appController.clearRight()
                 App.appController.setTitle(this.resource("app.fatalErrorController.title"))
                 await this.super("onRouteMatched", oEvent)
-                App.appController.clearLeft()
+                App.setBackIcon()
                 App.appController.clearRight()
                 App.appController.setTitle(this.resource("app.fatalErrorController.title"))
 
@@ -45,7 +45,9 @@ sap.ui.define(
                 this.super("clear")
             },
             onNavButtonPress() {
-                this.navBack("accounts")
+                App.isError = false
+                //this.navBack("accounts")
+                window.history.go(-1)
             }
         })
     }

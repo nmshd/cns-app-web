@@ -38,11 +38,12 @@
 						<Text text="{t>onboardOverview.acceptByScan}" class="inlineText" />
 					</controls:Container>
 				</m:HBox>
-
-				<m:Title text="{t>onboardOverview.title}" class="sapUiSmallMargin" />
-				<m:Text text="{t>onboardOverview.text}" class="inlineText" />
 				<m:VBox class="sapUiSmallMargin">
-					<m:VBox>
+					<m:Title text="{t>onboardOverview.title}" class="bigTitle" />
+					<m:Text text="{t>onboardOverview.text}" class="inlineText" />
+				</m:VBox>
+				<m:VBox class="sapUiSmallMargin">
+					<m:VBox class="contentBox">
 						<m:Title text="{t>onboardOverview.title1}" />
 						<m:Text text="{t>onboardOverview.text1}" />
 						<m:Text text="{t>onboardOverview.text2}" />
@@ -51,7 +52,7 @@
 							<m:Button text="{t>onboardOverview.scanButton}" type="Emphasized" press="scan" enabled="{v>/submitAvailable}" />
 						</m:Toolbar>
 					</m:VBox>
-					<m:VBox>
+					<m:VBox class="contentBox sapUiSmallMarginTop">
 						<m:Title text="{t>onboardOverview.title3}" />
 						<m:Text text="{t>onboardOverview.text3}" />
 						<m:Toolbar>

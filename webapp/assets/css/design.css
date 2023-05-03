@@ -75,3 +75,25 @@ body .sapMCrslControlsBottom {
     background-color: transparent !important;
     border-top: none !important;
 }
+
+body .sapMTBStandard {
+    border-bottom: none !important;
+}
+
+.contentBox {
+    border: 1px solid #dddddd;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.contentBox .sapMTitle {
+    font-weight: bold !important;
+}
+
+.mainMenuButton {
+    width: 100%;
+    text-align: left;
+}
+.mainMenuButton.sapMBtn .sapMBtnInner {
+    justify-content: start !important;
+}
