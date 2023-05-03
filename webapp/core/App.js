@@ -744,7 +744,7 @@ sap.ui.define(
                     image: "",
                     fontColor: "#ffffff",
                     fontStyle: "light",
-                    backgroundColor: "#275DAC"
+                    backgroundColor: "#3d86f0"
                 }
             },
 
@@ -1077,6 +1077,7 @@ sap.ui.define(
                             runtime.nativeEnvironment.eventBus.publish(
                                 new JSSNative.ThemeEvent("#FFFFFF", JSSNative.ThemeTextStyle.Dark)
                             )
+
                         case "sap_fiori_3":
                             runtime.nativeEnvironment.eventBus.publish(
                                 new JSSNative.ThemeEvent("#FFFFFF", JSSNative.ThemeTextStyle.Dark)
@@ -1088,8 +1089,9 @@ sap.ui.define(
                             )
                             break
                     }
+                    //runtime.nativeEnvironment.configAccess.set("theme", "bird-wallet-theme")
 
-                    sap.ui.getCore().applyTheme(sCurrentTheme)
+                    sap.ui.getCore().applyTheme("bird-wallet-theme")
                 } catch (e) {
                     appLogger.error(e)
                 }

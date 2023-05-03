@@ -1,0 +1,77 @@
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/Inter-Regular.ttf");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/Inter-Bold.ttf");
+    font-weight: bold;
+}
+
+.bigTitle {
+    font-size: 2rem !important;
+    color: #3d86f0 !important;
+}
+
+.contentTitle {
+    font-size: 1.2rem !important;
+    font-weight: bold !important;
+}
+
+.box {
+    background-color: #3d86f0 !important;
+    border-radius: 20px;
+}
+
+.boxTitle {
+    color: #ffffff !important;
+    font-weight: bold !important;
+}
+
+.mainButtons {
+    color: #3d86f0 !important;
+}
+
+.mainButtons img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mainButtons .sapMToggleBtnPressed:not(.sapMBtnDisabled),
+.mainButtons .sapMBtn .sapMBtnInner.sapMToggleBtnPressed:not(.sapMBtnDisabled),
+.mainButtons .sapMBtn .sapMBtnInner.sapMBtnActive,
+.mainButtons .sapMBtn .sapMBtnInner.sapMBtnActive .sapMBtnIcon,
+.mainButtons .sapMBtn .sapMBtnInner.sapMBtnActive .sapMBtnContent {
+    background-color: transparent !important;
+    color: #3d86f0 !important;
+}
+
+.shellTitle.sapMTitle {
+    font-weight: bold;
+}
+
+body .sapMCrsl {
+    background-color: transparent;
+    width: auto !important;
+}
+
+body .sapMCrsl * {
+    color: #ffffff;
+}
+
+body .sapMCrslBulleted > span.sapMCrslActive {
+    background-color: #fff !important;
+    border: 1px solid #fff !important;
+}
+
+body .sapMCrslBulleted > span {
+    background-color: #fff !important;
+    border: 1px solid #fff !important;
+}
+
+body .sapMCrslControlsBottom {
+    background-color: transparent !important;
+    border-top: none !important;
+}

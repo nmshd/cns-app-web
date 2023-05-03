@@ -59,7 +59,7 @@
 						</controls:MessageRenderer>
 					</m:items>
 				</m:List>
-				<m:List visible="{d>/system/phone}">
+				<m:List>
 
 					<m:CustomListItem type="Navigation" class="listBox" press="onNewMessage">
 						<m:VBox class="sapUiSmallMarginTopBottom">
