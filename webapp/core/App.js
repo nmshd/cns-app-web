@@ -1077,6 +1077,11 @@ sap.ui.define(
                 window.App = this
             },
 
+            hideAllToasts() {
+                const toasts = document.querySelectorAll(".sapMMessageToast")
+                toasts.forEach((item) => (item.style = "display:none;"))
+            },
+
             applyTheme() {
                 try {
                     let sCurrentTheme = runtime.nativeEnvironment.configAccess.get("theme").value
