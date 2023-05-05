@@ -10,7 +10,7 @@
     xmlns:form="sap.ui.layout.form"
     xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
-	<m:Page showHeader="true">
+	<m:Page showHeader="true" class="whiteBG">
 		<m:customHeader>
             <m:Bar class="mainMenuHeader">
                 <m:contentLeft>
