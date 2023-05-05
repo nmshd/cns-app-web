@@ -31,75 +31,40 @@
 		<semantic:content>
             <m:VBox height="100%">
                 <m:VBox class="sapUiSmallMargin">
-                    <m:Title text="Du hast noch kein Profil hinzugefügt." class="bigTitle" wrapping="true" />
-                    <m:Text
-                        text="In deinem Profil kannst du deine persönlichen Bildungsdaten speichern und verwalten."
-                        class="sapUiTinyMarginBottom"
-                    />
-                    <m:Text
-                        text="Erst, wenn du ein Profil hinzugefügt hast, stehen dir die wichtigsten Funktionen der BIRD Wallet zur Verfügung."
-                        class="sapUiTinyMarginBottom"
-                    />
-                    <m:Text
-                        text="Bitte beachte, dass die BIRD Wallet derzeit nur in Verbindung mit bestehenden Projektpartnern vom Digitalen Campus, BIRD oder der nationalen Vernetzungsinfrastruktur Digitaler Bildung genutzt werden kann."
-                        class="sapUiTinyMarginBottom"
-                    />
-                    <m:Button text="Profil hinzufügen" press="toOnboard()" type="Emphasized" />
+                    <m:Title text="{t>about.titleText}" class="bigTitle" wrapping="true" />
+                    <m:Text text="{t>about.text1}" class="sapUiTinyMarginBottom" />
+                    <m:Text text="{t>about.text2}" class="sapUiTinyMarginBottom" />
+                    <m:Text text="{t>about.text3}" class="sapUiTinyMarginBottom" />
+                    <m:Button text="{t>about.createProfile}" press="toOnboard()" type="Emphasized" />
                 </m:VBox>
+
                 
                 <m:VBox class="sapUiSmallMargin box">
                     <m:Title
-                        text="Was ist die BIRD Wallet?"
-                        class="sapUiSmallMarginBegin sapUiTinyMarginTop boxTitle"
-                        wrapping="true"
+                        text="{t>about.what}"
+                        class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd boxTitle"
                     />
 
-                    <m:Carousel id="carousel" height="100%" beforePageChanged="onCarouselPageChange">
-                    <m:VBox class="sapUiSmallMargin">
-                        <m:Title text="Willkommen in der BIRD Wallet" class="contentTitle" wrapping="true" />
-                        <m:Text text="Hier kannst du deine persönlichen Bildungsdaten sicher und einfach verwalten." />
-                        <m:Text
-                                text="Speichere deine Zertifikate, Noten, Kursabschlüsse und andere wichtige Informationen in dieser digitalen Brieftasche."
-                            />
-                        <m:Text
-                                text="Die BIRD Wallet ermöglicht es dir, deine Bildungsdaten jederzeit von deinem Gerät aus abzurufen und zu teilen."
-                            />
-                        
+                    <m:Carousel
+                        id="carousel"
+                        height="100%"
+                        beforePageChanged="onCarouselPageChange"
+                        class="sapUiSmallMargin contentCarousel"
+                    >
+                    <m:VBox class="sapUiSmallMarginTop">
+                        <m:Text text="{t>about.carousel1}" />                        
                     </m:VBox>
-                    <m:VBox class="sapUiSmallMargin">
-                        <m:Title text="Eine BIRD Wallet für alle" class="contentTitle" wrapping="true" />
-                        <m:Text
-                                text="Die BIRD Wallet macht es möglich, mehrere Profile zu erstellen, um die Bildungsdaten von dir oder deinen Kindern zu organisieren."
-                            />
-                        <m:Text
-                                text="Fülle jedes Profil mit verschiedenen Bildungsdaten und verwalte sie individuell."
-                            />
+                    <m:VBox class="sapUiSmallMarginTop">
+                        <m:Text text="{t>about.carousel2}" />
                     </m:VBox>
-                    <m:VBox class="sapUiSmallMargin">
-                        <m:Title text="Knüpfe Kontakte - per QR-Code" class="contentTitle" wrapping="true" />
-                        <m:Text
-                                text="In der BIRD Wallet lassen sich Kontakte wie Bildungsanbieter einfach hinzufügen, indem du ihren QR-Code einscannst."
-                            />
-                        <m:Text text="Das spart Zeit und macht die Kontaktaufnahme unkompliziert." />
-                        <m:Text
-                                text="Wenn du deine Bildungsdaten mit einem Bildungsanbieter teilen möchtest, kannst du dies schnell und einfach über die BIRD Wallet tun."
-                            />
+                    <m:VBox class="sapUiSmallMarginTop">
+                        <m:Text text="{t>about.carousel3}" />
                     </m:VBox>
-                    <m:VBox class="sapUiSmallMargin">
-                        <m:Title text="Verwalte Daten an einem Ort" class="contentTitle" wrapping="true" />
-                        <m:Text
-                                text="In der BIRD Wallet ist es möglich, Nachrichten und Daten mit deinen Kontakten auszutauschen."
-                            />
-                        <m:Text
-                                text="Wenn du beispielsweise einer Volkshochschule deinen Lebenslauf und deine Zertifikate freigibst, können sie dich für einen Kurs zulassen und dir eine Teilnahmebescheinigung über die Wallet zuschicken."
-                            />
+                    <m:VBox class="sapUiSmallMarginTop">
+                        <m:Text text="{t>about.carousel4}" />
                     </m:VBox>
-                    <m:VBox class="sapUiSmallMargin">
-                        <m:Title text="Nutze die Wallet auf vielen Geräten" class="contentTitle" wrapping="true" />
-                        <m:Text
-                                text="Je Profil kannst du mehrere Geräte wie Smartphones und Tablets hinzufügen, um deine Bildungsdaten zu sichern."
-                            />
-                        <m:Text text="So hast du immer eine Sicherungskopie, falls eins deiner Geräte ausfällt." />
+                    <m:VBox class="sapUiSmallMarginTop">
+                        <m:Text text="{t>about.carousel5}" />
                     </m:VBox>
                     <!--
                     <m:VBox class="sapUiSmallMargin">
@@ -116,6 +81,20 @@
                     </m:VBox>
                     -->
                 </m:Carousel>
+                    
+                </m:VBox>
+                <m:VBox class="sapUiSmallMargin" press="toAboutProject()">
+                    <m:Title text="{t>about.moreInfo}" class="contentTitle" />
+                    <m:HBox class="contentBox sapUiNoMargin" alignItems="Center" width="100%">
+                        <m:Image src="/assets/icons/info.svg" />
+                        <m:Title text="{t>about.moreInfoText}" class="contentSmallTitle sapUiTinyMarginBegin">
+                            <m:layoutData>
+						        <m:FlexItemData growFactor="1" />
+					        </m:layoutData>
+                        </m:Title>
+                        <m:Image src="/assets/icons/bird.svg" class="big" press="toAboutProject()" />
+                        <m:Button text="Pr" press="toAboutProject()" />
+                    </m:HBox>
                 </m:VBox>
                 
                 <!--
