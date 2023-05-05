@@ -40,6 +40,10 @@ sap.ui.define(
 
             onNavButtonPress() {
                 this.navBack("accounts.select")
+            },
+
+            toAboutProject() {
+                this.navTo("app.aboutProject")
             }
         })
     }
