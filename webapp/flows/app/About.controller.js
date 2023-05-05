@@ -9,6 +9,8 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
             App.appController.setTitle(this.resource("master.about"))
             await this.super("onRouteMatched", oEvent)
             App.appController.setTitle(this.resource("master.about"))
+            const aAccounts = await App.localAccountController().getAccounts()
+            this.viewProp("/accountCount", aAccounts.length)
         },
 
         createViewModel() {
@@ -16,11 +18,15 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
                 busy: false,
                 delay: 0,
                 isStartPage: true,
-                isEndPage: false
+                isEndPage: false,
+                accountCount: 0
             }
         },
 
-        refresh() {},
+        async refresh() {
+            const aAccounts = await App.localAccountController().getAccounts()
+            this.viewProp("/accountCount", aAccounts.length)
+        },
 
         clear() {
             this.super("clear")

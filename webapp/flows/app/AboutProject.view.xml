@@ -16,7 +16,6 @@
 	<semantic:DetailPage
         id="page"
         navButtonPress="onNavButtonPress"
-        showNavButton="{d>/system/phone}"
         title="{t>master.aboutProject}"
         showFooter="false"
         busy="{v>/busy}"

@@ -30,7 +30,7 @@
 
 		<semantic:content>
             <m:VBox height="100%">
-                <m:VBox class="sapUiSmallMargin">
+                <m:VBox class="sapUiSmallMargin" visible="{= !${v>/accountCount}}">
                     <m:Title text="{t>about.titleText}" class="bigTitle" wrapping="true" />
                     <m:Text text="{t>about.text1}" class="sapUiTinyMarginBottom" />
                     <m:Text text="{t>about.text2}" class="sapUiTinyMarginBottom" />
@@ -66,35 +66,22 @@
                     <m:VBox class="sapUiSmallMarginTop">
                         <m:Text text="{t>about.carousel5}" />
                     </m:VBox>
-                    <!--
-                    <m:VBox class="sapUiSmallMargin">
-                        <m:Title text="Auch wir benötigen deine Zustimmung" />
-                        <controls:Container>
-                            <m:Text text="{t>onboardOverview.doAccept}" class="inlineText" />
-                            <m:Link
-                                press="toPrivacy"
-                                text="{t>onboardOverview.privacy}"
-                                class="sapUiTinyMarginStart inlineText"
-                            />
-                            <m:Text text="{t>onboardOverview.acceptByScan}" class="inlineText" />
-                        </controls:Container>
-                    </m:VBox>
-                    -->
                 </m:Carousel>
                     
                 </m:VBox>
+                
+                
                 <m:VBox class="sapUiSmallMargin" press="toAboutProject()">
                     <m:Title text="{t>about.moreInfo}" class="contentTitle" />
-                    <m:HBox class="contentBox sapUiNoMargin" alignItems="Center" width="100%">
-                        <m:Image src="/assets/icons/info.svg" />
-                        <m:Title text="{t>about.moreInfoText}" class="contentSmallTitle sapUiTinyMarginBegin">
-                            <m:layoutData>
-						        <m:FlexItemData growFactor="1" />
-					        </m:layoutData>
-                        </m:Title>
-                        <m:Image src="/assets/icons/bird.svg" class="big" press="toAboutProject()" />
-                        <m:Button text="Pr" press="toAboutProject()" />
-                    </m:HBox>
+                    <controls:ContainerButton
+                        icon="/assets/icons/info.svg"
+                        press="toAboutProject()"
+                        text="{t>about.moreInfoText}"
+                    >
+                    <controls:contentRight>
+                        <m:Image src="/assets/icons/bird.svg" class="big" />
+                    </controls:contentRight>
+                </controls:ContainerButton>
                 </m:VBox>
                 
                 <!--

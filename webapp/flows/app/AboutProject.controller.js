@@ -77,7 +77,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
             })
         },
         onNavButtonPress() {
-            this.navBack("app.about")
+            window.history.go(-1)
         }
     })
 })
