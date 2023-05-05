@@ -59,49 +59,59 @@
 						</controls:MessageRenderer>
 					</m:items>
 				</m:List>
-				<m:List>
+				<m:VBox class="sapUiSmallMargin">
+					<controls:ContainerButton
+                        press="onNewMessage()"
+                        text="{t>relationship.home.navigation.newMessageTitle}"
+                        description="{parts:[{path:'t>relationship.home.navigation.newMessageDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
+                    >
+						<controls:contentRight>
+							<m:Image src="/assets/icons/newmessage.svg" class="big" />
+						</controls:contentRight>
+					</controls:ContainerButton>
 
-					<m:CustomListItem type="Navigation" class="listBox" press="onNewMessage">
-						<m:VBox class="sapUiSmallMarginTopBottom">
-							<m:Title text="{t>relationship.home.navigation.newMessageTitle}" />
-							<m:Text
-                                text="{parts:[{path:'t>relationship.home.navigation.newMessageDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
-                            />
-						</m:VBox>
-					</m:CustomListItem>
-					<m:CustomListItem type="Navigation" class="listBox" press="onInbox">
-						<m:VBox class="sapUiSmallMarginTopBottom">
-							<m:Title text="{t>relationship.home.navigation.inboxTitle}" />
-							<m:Text
-                                text="{parts:[{path:'t>relationship.home.navigation.inboxDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
-                            />
-						</m:VBox>
-					</m:CustomListItem>
-					<m:CustomListItem type="Navigation" class="listBox" press="onSent">
-						<m:VBox class="sapUiSmallMarginTopBottom">
-							<m:Title text="{t>relationship.home.navigation.sentTitle}" />
-							<m:Text
-                                text="{parts:[{path:'t>relationship.home.navigation.sentDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
-                            />
-						</m:VBox>
-					</m:CustomListItem>
-					<m:CustomListItem type="Navigation" class="listBox" press="onReceived">
-						<m:VBox class="sapUiSmallMarginTopBottom">
-							<m:Title text="{t>relationship.home.navigation.receivedTitle}" />
-							<m:Text
-                                text="{parts:[{path:'t>relationship.home.navigation.receivedDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
-                            />
-						</m:VBox>
-					</m:CustomListItem>
-					<m:CustomListItem type="Navigation" class="listBox" press="onRequests">
-						<m:VBox class="sapUiSmallMarginTopBottom">
-							<m:Title text="{t>relationship.home.navigation.requests}" />
-							<m:Text
-                                text="{parts:[{path:'t>relationship.home.navigation.requestsDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
-                            />
-						</m:VBox>
-					</m:CustomListItem>
-				</m:List>
+					<controls:ContainerButton
+                        press="onInbox()"
+                        text="{t>relationship.home.navigation.inboxTitle}"
+                        description="{parts:[{path:'t>relationship.home.navigation.inboxDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
+                    >
+						<controls:contentRight>
+							<m:Image src="/assets/icons/addprofile.svg" class="big" visible="false" />
+						</controls:contentRight>
+					</controls:ContainerButton>
+
+					<controls:ContainerButton
+                        press="onSent()"
+                        text="{t>relationship.home.navigation.sentTitle}"
+                        description="{parts:[{path:'t>relationship.home.navigation.sentDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
+                    >
+						<controls:contentRight>
+							<m:Image src="/assets/icons/addprofile.svg" class="big" visible="false" />
+						</controls:contentRight>
+					</controls:ContainerButton>
+
+					<controls:ContainerButton
+                        press="onReceived()"
+                        text="{t>relationship.home.navigation.receivedTitle}"
+                        description="{parts:[{path:'t>relationship.home.navigation.receivedDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
+                    >
+						<controls:contentRight>
+							<m:Image src="/assets/icons/addprofile.svg" class="big" visible="false" />
+						</controls:contentRight>
+					</controls:ContainerButton>
+
+					<controls:ContainerButton
+                        press="onRequests()"
+                        text="{t>relationship.home.navigation.requests}"
+                        description="{parts:[{path:'t>relationship.home.navigation.requestsDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
+                    >
+						<controls:contentRight>
+							<m:Image src="/assets/icons/addprofile.svg" class="big" visible="false" />
+						</controls:contentRight>
+					</controls:ContainerButton>
+
+				</m:VBox>
+				
 			</l:VerticalLayout>
 
 		</semantic:content>

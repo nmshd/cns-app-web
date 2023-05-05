@@ -643,13 +643,15 @@ sap.ui.define(
 
                 if (sUserFriendlyMsg != undefined) {
                     if (quick) {
-                        MessageToast.show(sUserFriendlyMsg), { duration: 5000 }
+                        MessageToast.show(sUserFriendlyMsg, { duration: 5000 })
+                        setTimeout(App.hideAllToasts, 5000)
                         return
                     }
 
                     MessageToast.show(sUserFriendlyMsg, {
                         duration: 5000
                     })
+                    setTimeout(App.hideAllToasts, 5000)
                     sap.ui
                         .getCore()
                         .getMessageManager()
@@ -676,6 +678,7 @@ sap.ui.define(
                     MessageToast.show(this.resource("global.errorToast"), {
                         duration: 5000
                     })
+                    setTimeout(App.hideAllToasts, 5000)
                     sap.ui
                         .getCore()
                         .getMessageManager()

@@ -197,6 +197,9 @@ sap.ui.define(
             },
 
             onNavButtonPress() {
+                window.history.go(-1)
+                return
+
                 const route = this.viewProp("/route")
                 if (!route.view) {
                     switch (route._name) {

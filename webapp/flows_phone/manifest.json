@@ -129,6 +129,12 @@
                     "parent": "nmshd.app.Component:generic"
                 },
                 {
+                    "pattern": "app/aboutProject",
+                    "name": "app.aboutProject",
+                    "target": ["app.mainmenu", "app.aboutProject"],
+                    "parent": "nmshd.app.Component:generic"
+                },
+                {
                     "pattern": "app/fatal:?query:",
                     "name": "app.fatal",
                     "target": ["app.mainmenu", "app.fatal"],
@@ -496,6 +502,12 @@
                     "viewId": "app-about",
                     "controlAggregation": "detailPages",
                     "viewLevel": 5
+                },
+                "app.aboutProject": {
+                    "viewName": "flows.app.AboutProject",
+                    "viewId": "app-aboutProject",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 6
                 },
                 "app.debug": {
                     "viewName": "flows.app.Debug",

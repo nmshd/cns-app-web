@@ -1,0 +1,69 @@
+<mvc:View
+    controllerName="nmshd.app.flows.app.AboutProject"
+    xmlns:m="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"
+    xmlns="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:controls="nmshd.app.core.controls"
+>
+
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        title="{t>master.aboutProject}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
+
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:content>
+            <m:VBox height="100%">
+                <m:VBox class="sapUiSmallMargin">
+                    <m:Title text="{t>aboutProject.title}" class="bigTitle" wrapping="true" />
+                    <m:Text text="{t>aboutProject.text1}" class="textBold sapUiTinyMarginBottom" />
+                    <m:Text text="{t>aboutProject.text2}" class="sapUiTinyMarginBottom" />
+                    <m:Text text="{t>aboutProject.text3}" class="sapUiTinyMarginBottom" />
+                </m:VBox>
+
+                <m:VBox class="sapUiSmallMargin">
+                    <m:Title text="{t>aboutProject.moreInfo}" class="bigTitle" />
+                    <m:VBox>
+                        <m:Link href="http://digital-campus.org" text="digital-campus.org" />
+                        <m:Link
+                            href="http://www.daad.de/de/der-daad/was-wir-tun/digitalisierung/digitalercampus/"
+                            text="www.daad.de/de/der-daad/was-wir-tun/digitalisierung/digitalercampus/"
+                        />
+                    </m:VBox>
+                </m:VBox>
+
+                <m:VBox class="sapUiSmallMargin bigMarginBottom">
+                    <m:Title text="{t>aboutProject.partners}" class="bigTitle" />
+                    <m:Text text="{t>aboutProject.partnerText1}" class="sapUiTinyMarginBottom" />
+                    <m:Text text="{t>aboutProject.partnerText2}" class="sapUiTinyMarginBottom" />
+
+                    <m:VBox class="contentBox" alignItems="Center">
+                        <m:Image src="/assets/partners/bird.svg" class="logo" />
+                        <m:Image src="/assets/partners/daad.svg" class="logo" />
+                        <m:Image src="/assets/partners/goethe.svg" class="logo" />
+                        <m:Image src="/assets/partners/thlübeck.svg" class="logo" />
+                        <m:Image src="/assets/partners/gast.svg" class="logo" />
+                        <m:Image src="/assets/partners/kiron.svg" class="logo" />
+                        <m:Image src="/assets/partners/rwth.svg" class="logo" />
+                    </m:VBox>
+                </m:VBox>
+                
+            </m:VBox>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

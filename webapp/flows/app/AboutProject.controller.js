@@ -1,16 +1,15 @@
 sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, AccountController) => {
     "use strict"
-    return AccountController.extend("nmshd.app.flows.app.About", {
-        routeName: "app.about",
+    return AccountController.extend("nmshd.app.flows.app.AboutProject", {
+        routeName: "app.aboutProject",
 
         async onRouteMatched(oEvent) {
-            App.setMenuIcon()
+            App.setBackIcon()
             App.appController.clearRight()
-            App.appController.setTitle(this.resource("master.about"))
+            App.appController.setTitle(this.resource("master.aboutProject"))
             await this.super("onRouteMatched", oEvent)
-            App.appController.setTitle(this.resource("master.about"))
-            const aAccounts = await App.localAccountController().getAccounts()
-            this.viewProp("/accountCount", aAccounts.length)
+            App.appController.setTitle(this.resource("master.aboutProject"))
+            App.setBackIcon()
         },
 
         createViewModel() {
@@ -18,15 +17,11 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
                 busy: false,
                 delay: 0,
                 isStartPage: true,
-                isEndPage: false,
-                accountCount: 0
+                isEndPage: false
             }
         },
 
-        async refresh() {
-            const aAccounts = await App.localAccountController().getAccounts()
-            this.viewProp("/accountCount", aAccounts.length)
-        },
+        refresh() {},
 
         clear() {
             this.super("clear")
@@ -69,9 +64,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
             const carousel = this.byId("carousel")
             carousel.previous()
         },
-        toAboutProject() {
-            this.navTo("app.aboutProject")
-        },
         toOnboard() {
             App.navTo("", "accounts.onboardoverview", {
                 backEnabled: true,
@@ -85,7 +77,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
             })
         },
         onNavButtonPress() {
-            this.navBack("app.master")
+            window.history.go(-1)
         }
     })
 })

@@ -55,14 +55,15 @@
                 class="sapUiSmallMarginTop"
             >
 			</m:List>
-			<m:VBox alignItems="Center" alignContent="Center" class="sapUiSmallMarginTop">
-				<m:Button
-                    text="{t>relationships.relationships.addContactButton}"
-                    icon="sap-icon://bar-code"
-                    press="onNewLink"
-                    type="Emphasized"
-                />
-			</m:VBox>
+            <m:VBox class="sapUiSmallMargin">
+                <controls:ContainerButton press="onNewLink()" text="{t>relationships.relationships.addContactButton}">
+						<controls:contentRight>
+							<m:Image src="/assets/icons/addcontact.svg" class="big" />
+						</controls:contentRight>
+					</controls:ContainerButton>
+
+                    
+            </m:VBox>
 		</semantic:content>
 	</semantic:DetailPage>
 </mvc:View>

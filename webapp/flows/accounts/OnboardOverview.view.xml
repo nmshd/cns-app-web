@@ -30,8 +30,8 @@
 
 		<semantic:content>
 			<m:VBox class="sapUiResponsiveMargin">
-				<m:HBox class="contentInfo sapUiMediumMarginTopBottom">
-					<m:Avatar src="sap-icon://hint" backgroundColor="Accent10" class="sapUiSmallMargin" />
+				<m:HBox class="contentInfo sapUiSmallMargin" alignItems="Center">
+					<m:Avatar src="sap-icon://hint" backgroundColor="Accent10" class="sapUiSmallMarginEnd" />
 					<controls:Container class="sapUiTinyMargin">
 						<Text text="{t>onboardOverview.doAccept}" class="inlineText" />
 						<Link press="toPrivacy" text="{t>onboardOverview.privacy}" class="sapUiTinyMarginStart inlineText" />
@@ -43,9 +43,34 @@
 					<m:Text text="{t>onboardOverview.text}" class="inlineText" />
 				</m:VBox>
 				<m:VBox class="sapUiSmallMargin">
+					<controls:ContainerButton
+                        press="scan()"
+                        text="{t>onboardOverview.title1}"
+                        description="{t>onboardOverview.text1}"
+                        enabled="{v>/submitAvailable}"
+                    >
+						<controls:contentRight>
+							<m:Image src="/assets/icons/bird.svg" class="big" />
+						</controls:contentRight>
+						<m:Text text="{t>onboardOverview.text2}" class="sapUiTinyMarginTop" />
+					</controls:ContainerButton>
+
+					<controls:ContainerButton
+                        press="onNoCode()"
+                        text="{t>onboardOverview.title3}"
+                        description="{t>onboardOverview.text3}"
+                        enabled="{v>/submitAvailable}"
+                    >
+						<controls:contentRight>
+							<m:Image src="/assets/icons/addprofile.svg" class="big" />
+						</controls:contentRight>
+						<m:Text text="{t>onboardOverview.text2}" class="sapUiTinyMarginTop" />
+					</controls:ContainerButton>
+
+					<!--
 					<m:VBox class="contentBox">
 						<m:Title text="{t>onboardOverview.title1}" />
-						<m:Text text="{t>onboardOverview.text1}" />
+						<m:Text text="{t>onboardOverview.text1}" class="sapUiTinyMarginBottom" />
 						<m:Text text="{t>onboardOverview.text2}" />
 						<m:Toolbar>
 							<m:ToolbarSpacer />
@@ -60,6 +85,7 @@
 							<m:Button text="{t>accounts.create.title1}" type="Emphasized" press="onNoCode" enabled="{v>/submitAvailable}" />
 						</m:Toolbar>
 					</m:VBox>
+					-->
 				</m:VBox>
 
 				
