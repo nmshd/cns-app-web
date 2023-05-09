@@ -25,9 +25,9 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
                 delay: 0,
                 showProfile: false,
                 profileName: "BIRD Wallet",
-                appVersion: bootstrapper.nativeEnvironment.configAccess.get("version").value,
+                appVersion: "...",
                 runtimeVersion: NMSHDAppRuntime.buildInformation.version,
-                language: bootstrapper.nativeEnvironment.configAccess.get("language").value
+                language: "en"
             }
         },
 
@@ -75,16 +75,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
         },
 
         async onRouteMatched(oEvent) {
-            let autoLanguage = sap.ui.getCore().getConfiguration().getLanguage()
-            if (autoLanguage) autoLanguage = autoLanguage.substring(0, 2)
-            if (autoLanguage) {
-                this.byId("language").setSelectedKey(autoLanguage)
-            }
-            let language = bootstrapper.nativeEnvironment.configAccess.get("language")
-            if (language.isSuccess && language.value) {
-                this.byId("language").setSelectedKey(language.value)
-            }
-
+            
             App.setMenuIcon()
             App.appController.clearRight()
             App.appController.setTitle(this.resource("app.masterController.title"))
@@ -94,6 +85,19 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
             }
             this.taps = 0
             await this.super("onRouteMatched", oEvent)
+            
+            let autoLanguage = sap.ui.getCore().getConfiguration().getLanguage()
+            if (autoLanguage) autoLanguage = autoLanguage.substring(0, 2)
+            if (autoLanguage) {
+                this.byId("language").setSelectedKey(autoLanguage)
+            }
+            let language = bootstrapper.nativeEnvironment.configAccess.get("language")
+            if (language.isSuccess && language.value) {
+                this.byId("language").setSelectedKey(language.value)
+            }
+            
+            this.viewProp("/appVersion", bootstrapper.nativeEnvironment.configAccess.get("version").value)
+            this.viewProp("/language", bootstrapper.nativeEnvironment.configAccess.get("language").value)
         },
 
         async refresh() {
@@ -115,6 +119,8 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
             this.viewProp("/showProfile", false)
             this.viewProp("/profileName", "BIRD Wallet")
             this.viewProp("/accountId", "")
+
+
         },
 
         clear() {
