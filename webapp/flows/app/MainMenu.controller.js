@@ -25,9 +25,9 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
                 delay: 0,
                 showProfile: false,
                 profileName: "BIRD Wallet",
-                appVersion: bootstrapper.nativeEnvironment.configAccess.get("version").value,
+                appVersion: "...",
                 runtimeVersion: NMSHDAppRuntime.buildInformation.version,
-                language: bootstrapper.nativeEnvironment.configAccess.get("language").value
+                language: "en"
             }
         },
 
@@ -75,6 +75,16 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
         },
 
         async onRouteMatched(oEvent) {
+            App.setMenuIcon()
+            App.appController.clearRight()
+            App.appController.setTitle(this.resource("app.masterController.title"))
+            this.accountId = oEvent.getParameter("arguments").accountId
+            if (this.accountId) {
+                await App.selectAccount(this.accountId, "")
+            }
+            this.taps = 0
+            await this.super("onRouteMatched", oEvent)
+
             let autoLanguage = sap.ui.getCore().getConfiguration().getLanguage()
             if (autoLanguage) autoLanguage = autoLanguage.substring(0, 2)
             if (autoLanguage) {
@@ -85,15 +95,8 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/_AppController"], (App, Acc
                 this.byId("language").setSelectedKey(language.value)
             }
 
-            App.setMenuIcon()
-            App.appController.clearRight()
-            App.appController.setTitle(this.resource("app.masterController.title"))
-            this.accountId = oEvent.getParameter("arguments").accountId
-            if (this.accountId) {
-                await App.selectAccount(this.accountId, "")
-            }
-            this.taps = 0
-            await this.super("onRouteMatched", oEvent)
+            this.viewProp("/appVersion", bootstrapper.nativeEnvironment.configAccess.get("version").value)
+            this.viewProp("/language", bootstrapper.nativeEnvironment.configAccess.get("language").value)
         },
 
         async refresh() {
