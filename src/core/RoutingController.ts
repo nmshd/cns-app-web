@@ -14,10 +14,9 @@ import Device from "sap/ui/Device"
  * @namespace nmshd.app.core
  */
 export default abstract class RoutingController extends AppController {
-
-    protected routeName?:string
-    protected routeNames?:string[]
-    protected routePattern?:string|RegExp
+    protected routeName?: string
+    protected routeNames?: string[]
+    protected routePattern?: string | RegExp
 
     public async onInit() {
         super.onInit()
@@ -79,7 +78,7 @@ export default abstract class RoutingController extends AppController {
         }
     }
 
-    private doRouting(oEvent:any) {
+    private doRouting(oEvent: any) {
         let exited = false
         let entered = false
         let routeMatched = false
@@ -119,9 +118,9 @@ export default abstract class RoutingController extends AppController {
         }
     }
 
-    private setRouteParameters(oEvent:any) {
+    private setRouteParameters(oEvent: any) {
         const eventArguments = oEvent.getParameter("arguments")
-        const route:any = {}
+        const route: any = {}
         route["_arguments"] = {}
         route["_name"] = oEvent.getParameter("name")
         for (const prop in eventArguments) {
@@ -149,11 +148,11 @@ export default abstract class RoutingController extends AppController {
      * @param {sap.ui.base.Event} oEvent pattern match event in route 'object'
      * @private
      */
-    private async _onPatternMatched(oEvent:any) {
-        const that = this;
-       const route = this.setRouteParameters(oEvent)
+    private async _onPatternMatched(oEvent: any) {
+        const that = this
+        const route = this.setRouteParameters(oEvent)
 
-       /*
+        /*
         // @ts-ignore
         if (!window.controllerForRoute) window.controllerForRoute = {};
         // @ts-ignore
@@ -162,98 +161,93 @@ export default abstract class RoutingController extends AppController {
 
         //Clone the Event and submit the clone further, otherwise the event is cleared
         //after a short period of time, resulting in errors (empty events) after awaiting promises
-        const e = new Event(
-            "routePatternMatched",
-            that.getRouter(),
-            {
+        const e = new Event("routePatternMatched", that.getRouter(), {
             name: "routePatternMatched",
             arguments: route,
             // @ts-ignore
-            config: oEvent.getParameters().config,
-            }
-        );
+            config: oEvent.getParameters().config
+        })
 
-        let config;
+        let config
         // @ts-ignore
         if (oEvent.getParameters().config) {
             // @ts-ignore
-            config = oEvent.getParameters().config;
+            config = oEvent.getParameters().config
         } else if (oEvent.getId() === "bypassed") {
             // @ts-ignore
-            config = oEvent.getSource()._oConfig.bypassed;
+            config = oEvent.getSource()._oConfig.bypassed
         }
 
         if (config) {
             if (config.showMaster) {
                 // @ts-ignore
                 // @ts-ignore
-                const masterTarget = this.getRouter().getTarget(
-                    config.target[0]
-                ) as any;
-                const absoluteViewName = (this.getRouter() as any)._oConfig.viewPath + "." +
-                    masterTarget._oOptions.viewName;
+                const masterTarget = this.getRouter().getTarget(config.target[0]) as any
+                const absoluteViewName =
+                    (this.getRouter() as any)._oConfig.viewPath + "." + masterTarget._oOptions.viewName
                 if (absoluteViewName === this.getView()!.getViewName()) {
-                    const root = sap.ui
-                    .getCore()
-                    .byId((this.getRouter() as any)._oConfig.controlId);
+                    const root = sap.ui.getCore().byId((this.getRouter() as any)._oConfig.controlId)
 
                     // @ts-ignore
                     if (root && root.getMode) {
-                    // @ts-ignore
-                    if (root.getMode() === "ShowHideMode") {
                         // @ts-ignore
-                        root.showMaster();
-                    } else {
-                        // @ts-ignore
-                        root.toMaster(this.getView().getId());
-                    }
+                        if (root.getMode() === "ShowHideMode") {
+                            // @ts-ignore
+                            root.showMaster()
+                        } else {
+                            // @ts-ignore
+                            root.toMaster(this.getView().getId())
+                        }
                     }
                 }
             }
 
             // @ts-ignore
             if (!Device.system.phone && config.detailTarget) {
-                const displayedViews = await this.getRouter()!.getTargets()!.display(config.detailTarget, route["_arguments"]) as {
-                    name: string;
-                    view: View;
-                    control: Control;
-                    targetInfo: TargetInfo;
+                const displayedViews = (await this.getRouter()!
+                    .getTargets()!
+                    .display(config.detailTarget, route["_arguments"])) as {
+                    name: string
+                    view: View
+                    control: Control
+                    targetInfo: TargetInfo
                 }[]
 
                 for (let i = 0; i < displayedViews.length; i++) {
-                    let view:any = displayedViews[i];
+                    let view: any = displayedViews[i]
                     if (!view || view.error || !view.view) {
-                    appLogger.error(
-                        "Given target was not found while showing given detailTarget of route. See route " +
-                        route._name
-                    );
-                    continue;
-                }
-                    view = view.view;
-                    const controller = view.getController();
-                    controller.viewProp("/route", route);
+                        appLogger.error(
+                            "Given target was not found while showing given detailTarget of route. See route " +
+                                route._name
+                        )
+                        continue
+                    }
+                    view = view.view
+                    const controller = view.getController()
+                    controller.viewProp("/route", route)
                     if (controller.onRouteMatched) {
                         await App.isInitialized()
-                        controller.onRouteMatched.apply(controller, [e]);
+                        controller.onRouteMatched.apply(controller, [e])
                     }
                 }
             }
 
-        // if (config && !config.showMaster) {
-        //     const root = sap.ui.getCore().byId(this.getRouter()._oConfig.controlId)
+            // if (config && !config.showMaster) {
+            //     const root = sap.ui.getCore().byId(this.getRouter()._oConfig.controlId)
 
-        //     // @ts-ignore
-        //     if (root.getMode && root.getMode() === "ShowHideMode") {
-        //         // @ts-ignore
-        //         root.hideMaster()
-        //     }
-        // }
+            //     // @ts-ignore
+            //     if (root.getMode && root.getMode() === "ShowHideMode") {
+            //         // @ts-ignore
+            //         root.hideMaster()
+            //     }
+            // }
 
-        if (this.onRouteMatched && typeof this.onRouteMatched === "function") {
-            await App.isInitialized()
-            this.onRouteMatched(e);
+            if (this.onRouteMatched && typeof this.onRouteMatched === "function") {
+                await App.isInitialized()
+                this.onRouteMatched(e)
+            }
         }
-    }}
+    }
 
     /**
      * Navigates to the given target with given object's properties
@@ -262,7 +256,7 @@ export default abstract class RoutingController extends AppController {
      * @param object The parameter object for the given route
      * @param replace Whether or not the history should be replaced (true) or appended (default, false)
      */
-    public navTo(target:string, object:any = {}, replace:boolean = false) {
+    public navTo(target: string, object: any = {}, replace: boolean = false) {
         return this.getRouter().navTo(target, object, !!replace)
     }
 
@@ -275,7 +269,7 @@ export default abstract class RoutingController extends AppController {
      * @param {*} delta The delta number to navigate n steps back within the history.
      * Delta will be overridden to be below zero
      */
-    public navBack(routeName:string, object?:any, delta:number = -1) {
+    public navBack(routeName: string, object?: any, delta: number = -1) {
         const oHistory = (History as any).getInstance()
         const sPreviousHash = oHistory.getPreviousHash()
 
@@ -283,8 +277,8 @@ export default abstract class RoutingController extends AppController {
             if (sPreviousHash !== undefined) {
                 if (delta) {
                     window.history.go(Math.min(delta, -1))
-                } 
-                /*else if (!Device.system.phone) {
+                } else {
+                    /*else if (!Device.system.phone) {
                     let hash = this.getRouter().getURL(routeName, object)
                     let count = this.countDeltaToHash(hash)
                     if (count >= 0) {
@@ -298,9 +292,8 @@ export default abstract class RoutingController extends AppController {
                     window.history.go(-1)
                 }
                 */
-               else {
-                this.getRouter().navTo(routeName, object, true)
-               }
+                    this.getRouter().navTo(routeName, object, true)
+                }
             } else {
                 this.getRouter().navTo(routeName, object, true /*no history*/)
             }
@@ -309,48 +302,46 @@ export default abstract class RoutingController extends AppController {
         }
     }
 
-    protected onRouteEntry(oEvent:any) {
+    protected onRouteEntry(oEvent: any) {
         // this.getOwnerComponent().addController(this.getMetadata().getName(), this)
     }
 
     /**
      * Is called when the route is not visible anymore. Calls clear after 500ms.
      */
-    protected onRouteExit(oEvent:any) {
+    protected onRouteExit(oEvent: any) {
         //this.getOwnerComponent().removeController(this.getMetadata().getName())
         setTimeout(() => {
             this.clear()
         }, 500)
     }
 
-    protected async onRouteMatched(oEvent:Event, doNotRefresh:boolean = false) {
+    protected async onRouteMatched(oEvent: Event, doNotRefresh: boolean = false) {
         await App.isInitialized()
         if (!doNotRefresh) {
             await this.refresh()
         }
     }
 
-    protected onNavButtonPress(oEvent:UIEvent) {
+    protected onNavButtonPress(oEvent: UIEvent) {
         throw "Implement onNavButtonPress within controller!"
     }
 
-    
+    /**
+     * Convenience method for accessing the router in every controller of the application.
+     * @returns {sap.ui.core.routing.Router} the router for this component
+     */
+    public getRouter(): Router {
+        if (!this.getOwnerComponent()) {
+            return App.appController.getOwnerComponent().getRouter()
+        }
+        return this.getOwnerComponent().getRouter()
+    }
 
     /**
-	 * Convenience method for accessing the router in every controller of the application.
-	 * @returns {sap.ui.core.routing.Router} the router for this component
-	 */
-	public getRouter():Router {
-		if (!this.getOwnerComponent()) {
-			return App.appController.getOwnerComponent().getRouter()
-		}
-		return this.getOwnerComponent().getRouter()
-	}
-
-    /**
-	 * Convenience method for getting the i18n resource bundle of the component.
-	 * @returns The i18n resource bundle of the component
-	 */
+     * Convenience method for getting the i18n resource bundle of the component.
+     * @returns The i18n resource bundle of the component
+     */
     public getResourceBundle(): ResourceBundle {
         let owner = this.getOwnerComponent()
         if (!owner) {

@@ -34,7 +34,7 @@
                     items="{/items}"
                     itemPress="onItemPress"
                 >
-                    <attributeControls:AttributeRenderer showLabel="true"  infoPressed="onInfoPressed" />
+                    <attributeControls:AttributeRenderer showLabel="true" infoPressed="onInfoPressed" />
 
                 </m:List>
             </m:Panel>

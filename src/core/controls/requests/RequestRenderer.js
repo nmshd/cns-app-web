@@ -44,17 +44,19 @@ sap.ui.define(
                                 if (item.type === "RequestItemGroupDVO") {
                                     renderer = new RequestItemGroupRenderer({
                                         group: { path: oContext.getPath() }
-                                    }).attachChange((oEvent) => that.fireChange(oEvent))
-                                    .attachInfoPressed((oEvent) => {
-                                        that.prepareInfoPress(oEvent)
                                     })
+                                        .attachChange((oEvent) => that.fireChange(oEvent))
+                                        .attachInfoPressed((oEvent) => {
+                                            that.prepareInfoPress(oEvent)
+                                        })
                                 } else {
                                     renderer = new RequestItemRenderer({
                                         item: { path: oContext.getPath() }
-                                    }).attachChange((oEvent) => that.fireChange(oEvent))
-                                    .attachInfoPressed((oEvent) => {
-                                        that.prepareInfoPress(oEvent)
                                     })
+                                        .attachChange((oEvent) => that.fireChange(oEvent))
+                                        .attachInfoPressed((oEvent) => {
+                                            that.prepareInfoPress(oEvent)
+                                        })
                                 }
                                 return renderer
                             }

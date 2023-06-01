@@ -48,9 +48,11 @@ sap.ui.define(
                             path: "items",
                             template: new RequestItemRenderer({
                                 item: "{}"
-                            }).attachChange((oEvent) => that.fireChange(oEvent)).attachInfoPressed((oEvent) => {
-                                that.prepareInfoPress(oEvent)
                             })
+                                .attachChange((oEvent) => that.fireChange(oEvent))
+                                .attachInfoPressed((oEvent) => {
+                                    that.prepareInfoPress(oEvent)
+                                })
                         }
                     })
                 )

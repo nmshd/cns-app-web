@@ -5,9 +5,8 @@ import Control from "sap/ui/core/Control"
  * @namespace nmshd.app.flows.app
  */
 export default class MainMenuController extends RoutingController {
-
-    private taps:number = 0
-    private accountId:string
+    private taps: number = 0
+    private accountId: string
 
     constructor() {
         super(MainMenuController.name)
@@ -28,7 +27,7 @@ export default class MainMenuController extends RoutingController {
     }
 
     protected onInitialized() {
-        (this.byId("version")! as Control).attachBrowserEvent("tap", this.tapIncrease.bind(this))
+        ;(this.byId("version")! as Control).attachBrowserEvent("tap", this.tapIncrease.bind(this))
         App.mainmenu = this
     }
 
@@ -86,7 +85,7 @@ export default class MainMenuController extends RoutingController {
         App.closeProfileMenu()
     }
 
-    async onRouteMatched(oEvent:any) {
+    async onRouteMatched(oEvent: any) {
         App.setMenuIcon()
         App.appController.clearRight()
         App.appController.setTitle(this.resource("app.masterController.title"))
@@ -100,11 +99,11 @@ export default class MainMenuController extends RoutingController {
         let autoLanguage = sap.ui.getCore().getConfiguration().getLanguage()
         if (autoLanguage) autoLanguage = autoLanguage.substring(0, 2)
         if (autoLanguage) {
-            (this.byId("language")! as any).setSelectedKey(autoLanguage)
+            ;(this.byId("language")! as any).setSelectedKey(autoLanguage)
         }
         let language = bootstrapper.nativeEnvironment.configAccess.get("language")
         if (language.isSuccess && language.value) {
-            (this.byId("language")! as any).setSelectedKey(language.value)
+            ;(this.byId("language")! as any).setSelectedKey(language.value)
         }
 
         this.viewProp("/appVersion", bootstrapper.nativeEnvironment.configAccess.get("version").value)
@@ -136,7 +135,7 @@ export default class MainMenuController extends RoutingController {
         super.clear()
     }
 
-    onItemPress(oEvent:any) {
+    onItemPress(oEvent: any) {
         this.navTo(oEvent.getParameter("listItem").data("key"))
     }
 
@@ -151,5 +150,4 @@ export default class MainMenuController extends RoutingController {
         bootstrapper.nativeEnvironment.configAccess.save()
         App.appController.setTitle(this.resource("app.masterController.title"))
     }
-
 }

@@ -40,7 +40,7 @@ sap.ui.define(
             },
 
             onScan() {
-                this.navTo( "account.scan", {
+                this.navTo("account.scan", {
                     accountId: this.accountId
                 })
             },

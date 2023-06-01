@@ -1,11 +1,11 @@
 export default class EventBus {
-    private _eventBus:any
+    private _eventBus: any
 
     public init() {
         this._eventBus = sap.ui.getCore().getEventBus()
     }
 
-    public subscribe(channel:string, eventId:string, fn:Function, thisObject?:any, data?:any) {
+    public subscribe(channel: string, eventId: string, fn: Function, thisObject?: any, data?: any) {
         if (data) {
             // Fixes problem that event reference of UI5 event listeners is cleaned
             const obj = $.extend({}, data)
@@ -22,7 +22,7 @@ export default class EventBus {
         }
     }
 
-    public subscribeOnce(channel:string, eventId:string, fn:Function, thisObject?:any, data?:any) {
+    public subscribeOnce(channel: string, eventId: string, fn: Function, thisObject?: any, data?: any) {
         if (data) {
             // Fixes problem that event reference of UI5 event listeners is cleaned
             const obj = $.extend({}, data)
@@ -39,11 +39,11 @@ export default class EventBus {
         }
     }
 
-    public publish(channel:string, eventId:string, data?:any) {
+    public publish(channel: string, eventId: string, data?: any) {
         return this._eventBus.publish(channel, eventId, data)
     }
 
-    public unsubscribe(channel:string, eventId:string, fn:Function, object:any) {
+    public unsubscribe(channel: string, eventId: string, fn: Function, object: any) {
         return (this._eventBus as any).unsubscribe(channel, eventId, fn, object)
     }
 }

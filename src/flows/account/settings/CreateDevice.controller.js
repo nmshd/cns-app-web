@@ -33,11 +33,14 @@ sap.ui.define(
                 })
                 await runtime.currentSession.transportServices.account.syncDatawallet()
                 if (createdDeviceResult.isSuccess) {
-                    this.navTo("account.settings.device",
-                    {
-                        accountId: this.accountId,
-                        deviceId: createdDeviceResult.value.id
-                    }, true)
+                    this.navTo(
+                        "account.settings.device",
+                        {
+                            accountId: this.accountId,
+                            deviceId: createdDeviceResult.value.id
+                        },
+                        true
+                    )
                 }
             },
 

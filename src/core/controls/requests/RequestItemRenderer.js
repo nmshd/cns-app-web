@@ -206,14 +206,14 @@ sap.ui.define(
                             break
                         case "ReadAttributeRequestItemDVO":
                         case "DecidableReadAttributeRequestItemDVO":
-                            control = new ReadAttributeResponseItemRenderer({ requestItem: "{}" }).attachChange(
-                                (oEvent) => {
+                            control = new ReadAttributeResponseItemRenderer({ requestItem: "{}" })
+                                .attachChange((oEvent) => {
                                     that.updateCheckbox(oEvent)
                                     that.fireChange(oEvent)
-                                }
-                            ).attachInfoPressed((oEvent) => {
-                                that.prepareInfoPress(oEvent)
-                            })
+                                })
+                                .attachInfoPressed((oEvent) => {
+                                    that.prepareInfoPress(oEvent)
+                                })
                             break
                         case "CreateAttributeRequestItemDVO":
                         case "DecidableCreateAttributeRequestItemDVO":
@@ -226,14 +226,14 @@ sap.ui.define(
                             break
                         case "ShareAttributeRequestItemDVO":
                         case "DecidableShareAttributeRequestItemDVO":
-                            control = new ShareAttributeResponseItemRenderer({ requestItem: "{}" }).attachChange(
-                                (oEvent) => {
+                            control = new ShareAttributeResponseItemRenderer({ requestItem: "{}" })
+                                .attachChange((oEvent) => {
                                     that.updateCheckbox(oEvent)
                                     that.fireChange(oEvent)
-                                }
-                            ).attachInfoPressed((oEvent) => {
-                                that.prepareInfoPress(oEvent)
-                            })
+                                })
+                                .attachInfoPressed((oEvent) => {
+                                    that.prepareInfoPress(oEvent)
+                                })
                             break
                         case "ProposeAttributeRequestItemDVO":
                         case "DecidableProposeAttributeRequestItemDVO":
@@ -286,14 +286,14 @@ sap.ui.define(
                             break
                         case "ReadAttributeRequestItemDVO":
                         case "DecidableReadAttributeRequestItemDVO":
-                            control = new ReadAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
-                                (oEvent) => {
+                            control = new ReadAttributeRequestItemRenderer({ requestItem: "{}" })
+                                .attachChange((oEvent) => {
                                     that.updateCheckbox(oEvent)
                                     that.fireChange(oEvent)
-                                }
-                            ).attachInfoPressed((oEvent) => {
-                                that.prepareInfoPress(oEvent)
-                            })
+                                })
+                                .attachInfoPressed((oEvent) => {
+                                    that.prepareInfoPress(oEvent)
+                                })
                             break
                         case "CreateAttributeRequestItemDVO":
                         case "DecidableCreateAttributeRequestItemDVO":
@@ -306,14 +306,14 @@ sap.ui.define(
                             break
                         case "ShareAttributeRequestItemDVO":
                         case "DecidableShareAttributeRequestItemDVO":
-                            control = new ShareAttributeRequestItemRenderer({ requestItem: "{}" }).attachChange(
-                                (oEvent) => {
+                            control = new ShareAttributeRequestItemRenderer({ requestItem: "{}" })
+                                .attachChange((oEvent) => {
                                     that.updateCheckbox(oEvent)
                                     that.fireChange(oEvent)
-                                }
-                            ).attachInfoPressed((oEvent) => {
-                                that.prepareInfoPress(oEvent)
-                            })
+                                })
+                                .attachInfoPressed((oEvent) => {
+                                    that.prepareInfoPress(oEvent)
+                                })
                             break
                         case "ProposeAttributeRequestItemDVO":
                         case "DecidableProposeAttributeRequestItemDVO":

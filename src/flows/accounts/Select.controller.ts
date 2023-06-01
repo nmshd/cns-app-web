@@ -1,12 +1,10 @@
 import RoutingController from "../../core/RoutingController"
 
-
 /**
  * @namespace nmshd.app.flows.accounts
  */
 export default class SelectController extends RoutingController {
-
-    private redirectedOnStart:boolean = false
+    private redirectedOnStart: boolean = false
 
     constructor() {
         super(SelectController.name)
@@ -38,7 +36,7 @@ export default class SelectController extends RoutingController {
         }
     }
 
-    public onPopupPress(oEvent:any) {
+    public onPopupPress(oEvent: any) {
         this.navTo(oEvent.getParameter("listItem").data("key"))
     }
 
@@ -55,7 +53,7 @@ export default class SelectController extends RoutingController {
         }
     }
 
-    async onRouteMatched(oEvent:any) {
+    async onRouteMatched(oEvent: any) {
         App.appController.setTitle()
         const currentRouteName = oEvent.getParameter("arguments")._name
         switch (currentRouteName) {
@@ -107,7 +105,7 @@ export default class SelectController extends RoutingController {
         this.viewProp("/items", accs)
     }
 
-    onItemPress(oEvent:any) {
+    onItemPress(oEvent: any) {
         App.afterLogin = null
         const oItem = oEvent.getParameter("listItem") || oEvent.getSource()
         const prop = oItem.getBindingContextPath()
@@ -117,8 +115,7 @@ export default class SelectController extends RoutingController {
         this.navTo("account.home", { accountId: acc.id.toString() })
     }
 
-    onNavButtonPress(oEvent:any) {
+    onNavButtonPress(oEvent: any) {
         this.navBack("accounts")
     }
-
 }

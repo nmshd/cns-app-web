@@ -60,12 +60,12 @@
 							<f:formElements>
 								<f:FormElement label="{t>attribute.Person.givenName}">
 									<f:fields>
-										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/GivenName}"  infoPressed="onInfoPressed" />
+										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/GivenName}" infoPressed="onInfoPressed" />
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="{t>attribute.Person.familyName}">
 									<f:fields>
-										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/Surname}"  infoPressed="onInfoPressed" />
+										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/Surname}" infoPressed="onInfoPressed" />
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="{t>attribute.Person.honorificSuffix}">
@@ -110,7 +110,11 @@
 								</f:FormElement>
 								<f:FormElement label="{t>dvo.attribute.name.CommunicationLanguage}">
 									<f:fields>
-										<attributeControls:AttributeRenderer showLabel="false" binding="{/map/CommunicationLanguage}" infoPressed="onInfoPressed" />
+										<attributeControls:AttributeRenderer
+                                            showLabel="false"
+                                            binding="{/map/CommunicationLanguage}"
+                                            infoPressed="onInfoPressed"
+                                        />
 									</f:fields>
 								</f:FormElement>
 							</f:formElements>

@@ -12,8 +12,7 @@ import Event from "sap/ui/base/Event"
  * @namespace nmshd.app.core
  */
 export default abstract class AppController extends ConvenienceController {
-
-    public formatter:Formatter = Formatter
+    public formatter: Formatter = Formatter
 
     protected onInitialized() {}
 
@@ -28,38 +27,36 @@ export default abstract class AppController extends ConvenienceController {
         }
     }
 
-    protected createViewModel():JSONModel|Object {
+    protected createViewModel(): JSONModel | Object {
         return App.createDefaultViewModel()
     }
 
-    protected async onRouteMatched(oEvent:Event, doNotRefresh:boolean = false) {
+    protected async onRouteMatched(oEvent: Event, doNotRefresh: boolean = false) {
         await App.isInitialized()
         if (!doNotRefresh) {
             await this.refresh()
         }
     }
 
-    protected onNavButtonPress(oEvent:UIEvent) {
+    protected onNavButtonPress(oEvent: UIEvent) {
         throw "Implement onNavButtonPress within controller!"
     }
 
-    
+    /**
+     * Convenience method for accessing the router in every controller of the application.
+     * @returns {sap.ui.core.routing.Router} the router for this component
+     */
+    public getRouter(): Router {
+        if (!this.getOwnerComponent()) {
+            return App.appController.getOwnerComponent().getRouter()
+        }
+        return this.getOwnerComponent().getRouter()
+    }
 
     /**
-	 * Convenience method for accessing the router in every controller of the application.
-	 * @returns {sap.ui.core.routing.Router} the router for this component
-	 */
-	public getRouter():Router {
-		if (!this.getOwnerComponent()) {
-			return App.appController.getOwnerComponent().getRouter()
-		}
-		return this.getOwnerComponent().getRouter()
-	}
-
-    /**
-	 * Convenience method for getting the i18n resource bundle of the component.
-	 * @returns The i18n resource bundle of the component
-	 */
+     * Convenience method for getting the i18n resource bundle of the component.
+     * @returns The i18n resource bundle of the component
+     */
     public getResourceBundle(): ResourceBundle {
         let owner = this.getOwnerComponent()
         if (!owner) {

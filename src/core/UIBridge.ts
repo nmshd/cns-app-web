@@ -4,7 +4,11 @@ import { MessageDVO, IdentityDVO, MailDVO, FileDVO, DeviceOnboardingInfoDTO, Loc
 
 export default class UIBridge implements IUIBridge {
     // @ts-ignore
-    public async showMessage(account:LocalAccountDTO, relationship:IdentityDVO, message:MessageDVO|MailDVO):Promise<Result<void, ApplicationError>> {
+    public async showMessage(
+        account: LocalAccountDTO,
+        relationship: IdentityDVO,
+        message: MessageDVO | MailDVO
+    ): Promise<Result<void, ApplicationError>> {
         return new Promise((resolve, reject) => {
             appLogger.trace("UIBridge.showMessage", account, message)
 
@@ -19,7 +23,10 @@ export default class UIBridge implements IUIBridge {
     }
 
     // @ts-ignore
-    public showRelationship(account:LocalAccountDTO, relationship:IdentityDVO):Promise<Result<void, ApplicationError>> {
+    public showRelationship(
+        account: LocalAccountDTO,
+        relationship: IdentityDVO
+    ): Promise<Result<void, ApplicationError>> {
         return new Promise((resolve, reject) => {
             appLogger.trace("UIBridge.showRelationship", account, relationship)
 
@@ -40,7 +47,7 @@ export default class UIBridge implements IUIBridge {
                     accountId: account.id
                 })
             } else {
-                App.navTo( "account.relationship.home", {
+                App.navTo("account.relationship.home", {
                     relationshipId: relationship.relationship!.id,
                     accountId: account.id
                 })
@@ -51,7 +58,7 @@ export default class UIBridge implements IUIBridge {
     }
 
     // @ts-ignore
-    public showFile(account:LocalAccountDTO, file:FileDVO):Promise<Result<void, ApplicationError>> {
+    public showFile(account: LocalAccountDTO, file: FileDVO): Promise<Result<void, ApplicationError>> {
         return new Promise((resolve) => {
             appLogger.trace("UIBridge.showFile", account, file)
             App.navTo("account.files.detail", { id: file.id, accountId: account.id })
@@ -61,21 +68,19 @@ export default class UIBridge implements IUIBridge {
     }
 
     // @ts-ignore
-    public showDeviceOnboarding(deviceOnboardingInfo:DeviceOnboardingInfoDTO):Promise<Result<void, ApplicationError>> {
+    public showDeviceOnboarding(
+        deviceOnboardingInfo: DeviceOnboardingInfoDTO
+    ): Promise<Result<void, ApplicationError>> {
         App.disableAutoAccountSelection = true
         return new Promise((resolve) => {
-            App.navTo(
-                "accounts.processdevicetoken",
-                {},
-                { deviceOnboardingInfo: deviceOnboardingInfo }
-            )
+            App.navTo("accounts.processdevicetoken", {}, { deviceOnboardingInfo: deviceOnboardingInfo })
             // @ts-ignore
             resolve(Result.ok(undefined))
         })
     }
 
     // @ts-ignore
-    public showRequest(account:LocalAccountDTO, request:LocalRequestDVO):Promise<Result<void, ApplicationError>> {
+    public showRequest(account: LocalAccountDTO, request: LocalRequestDVO): Promise<Result<void, ApplicationError>> {
         return new Promise((resolve) => {
             appLogger.trace("UIBridge.showRequest", account, request)
             App.navTo("account.relationships.request", {
@@ -88,7 +93,10 @@ export default class UIBridge implements IUIBridge {
     }
 
     // @ts-ignore
-    public showError(error:UserfriendlyApplicationError, account?:LocalAccountDTO):Promise<Result<void, ApplicationError>> {
+    public showError(
+        error: UserfriendlyApplicationError,
+        account?: LocalAccountDTO
+    ): Promise<Result<void, ApplicationError>> {
         return new Promise((resolve) => {
             App.error(error)
             // @ts-ignore
@@ -97,7 +105,11 @@ export default class UIBridge implements IUIBridge {
     }
 
     // @ts-ignore
-    public requestAccountSelection(possibleAccounts:LocalAccountDTO[], title:string, description:string):Promise<Result<LocalAccountDTO | undefined, ApplicationError>> {
+    public requestAccountSelection(
+        possibleAccounts: LocalAccountDTO[],
+        title: string,
+        description: string
+    ): Promise<Result<LocalAccountDTO | undefined, ApplicationError>> {
         App.disableAutoAccountSelection = true // Within the account selection screen, do not automatically navigate to the profile's home screen (and possibly overwrite the upcoming uiBridge.showRequest() call)
         return new Promise(async (resolve) => {
             //If we already have a running account selection, cancel it (i.e. undefined account)
@@ -105,7 +117,7 @@ export default class UIBridge implements IUIBridge {
                 App.accountSelectionCallback()
             }
 
-            App.accountSelectionCallback = (account:LocalAccountDTO) => {
+            App.accountSelectionCallback = (account: LocalAccountDTO) => {
                 App.accountSelectionCallback = null
                 if (account) {
                     appLogger.info(

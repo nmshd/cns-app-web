@@ -21,7 +21,13 @@
 
 		<semantic:content>
 			<m:MessageStrip id="message" class="sapUiTinyMargin" visible="false" />
-			<requests:RequestRenderer id="request" binding="{}" change="onChange" class="sapUiSmallMargin" infoPressed="onInfoPressed">
+			<requests:RequestRenderer
+                id="request"
+                binding="{}"
+                change="onChange"
+                class="sapUiSmallMargin"
+                infoPressed="onInfoPressed"
+            >
 			</requests:RequestRenderer>
 		</semantic:content>
 		<semantic:customFooterContent>

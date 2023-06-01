@@ -1,19 +1,17 @@
 import App from "../core/App"
-import JSONModel from "sap/ui/model/json/JSONModel";
-import SplitApp from "sap/m/SplitApp";
-import RoutingController from "../core/RoutingController";
-
+import JSONModel from "sap/ui/model/json/JSONModel"
+import SplitApp from "sap/m/SplitApp"
+import RoutingController from "../core/RoutingController"
 
 /**
  * @namespace nmshd.app.shell.AppShellController
  */
 export default class AppShellController extends RoutingController {
-
-    protected onLeftAction?:Function
-    protected onRightAction?:Function
-    protected wasHomeBefore:boolean
-    protected _contentLoadingCounter:number = 0
-    protected routeName:string
+    protected onLeftAction?: Function
+    protected onRightAction?: Function
+    protected wasHomeBefore: boolean
+    protected _contentLoadingCounter: number = 0
+    protected routeName: string
 
     constructor() {
         super(AppShellController.name)
@@ -62,12 +60,10 @@ export default class AppShellController extends RoutingController {
         this.wasHomeBefore = true
         //await App.isInitialized()
 
-        runtime.nativeEnvironment.eventBus.publish(
-            new JSSNative.ThemeEvent("#3d86f0", JSSNative.ThemeTextStyle.Light)
-        )
+        runtime.nativeEnvironment.eventBus.publish(new JSSNative.ThemeEvent("#3d86f0", JSSNative.ThemeTextStyle.Light))
     }
 
-    protected async onRouteMatched(oEvent:any) {
+    protected async onRouteMatched(oEvent: any) {
         const routeName = oEvent.getParameter("arguments")._name
         this.routeName = routeName
         if (window.appLogger) {
@@ -95,7 +91,7 @@ export default class AppShellController extends RoutingController {
         this.viewProp("/selectProfile", false)
     }
 
-    public selectButton(routeName:string) {
+    public selectButton(routeName: string) {
         this.deselectButtons()
 
         if (routeName === "account.home") {
@@ -125,7 +121,7 @@ export default class AppShellController extends RoutingController {
         }
     }
 
-    public setTitle(title:string) {
+    public setTitle(title: string) {
         if (!title) title = "Enmeshed"
         this.viewProp("/title", title)
     }
@@ -138,25 +134,25 @@ export default class AppShellController extends RoutingController {
         this.setRight()
     }
 
-    setLeft(icon?:string, callback?:Function) {
+    setLeft(icon?: string, callback?: Function) {
         this.setLeftIcon(icon)
         this.setLeftAction(callback)
     }
 
-    setRight(icon?:string, callback?:Function) {
+    setRight(icon?: string, callback?: Function) {
         this.setRightIcon(icon)
         this.setRightAction(callback)
     }
 
-    setLeftIcon(icon?:string) {
+    setLeftIcon(icon?: string) {
         this.viewProp("/leftIcon", icon)
     }
 
-    setRightIcon(icon?:string) {
+    setRightIcon(icon?: string) {
         this.viewProp("/rightIcon", icon)
     }
 
-    setLeftAction(callback?:Function) {
+    setLeftAction(callback?: Function) {
         if (!callback) {
             this.onLeftAction = undefined
             return
@@ -172,7 +168,7 @@ export default class AppShellController extends RoutingController {
         }
     }
 
-    setRightAction(callback?:Function) {
+    setRightAction(callback?: Function) {
         if (!callback) {
             this.onRightAction = undefined
             return
@@ -188,7 +184,7 @@ export default class AppShellController extends RoutingController {
         }
     }
 
-    onDefaultLeftAction(oEvent:UIEvent) {
+    onDefaultLeftAction(oEvent: UIEvent) {
         appLogger.log("App.controller.onDefaultLeftAction")
         const currentController = (this.byId("appComponent")! as any).getCurrentPage().getController()
         if (currentController.onNavButtonPress) {
@@ -196,11 +192,11 @@ export default class AppShellController extends RoutingController {
         }
     }
 
-    onDefaultRightAction(oEvent:UIEvent) {
+    onDefaultRightAction(oEvent: UIEvent) {
         appLogger.log("App.controller.onDefaultRightAction")
     }
 
-    onLeftPress(oEvent:UIEvent) {
+    onLeftPress(oEvent: UIEvent) {
         if (this.onLeftAction) {
             this.onLeftAction(oEvent)
         } else {
@@ -215,7 +211,7 @@ export default class AppShellController extends RoutingController {
         this.viewProp("/showBack", false)
     }
 
-    onBackPress(oEvent:UIEvent) {
+    onBackPress(oEvent: UIEvent) {
         // @ts-ignore
         const currentController = this.byId("appComponent").getCurrentPage().getController()
         if (currentController.onNavButtonPress) {
@@ -223,7 +219,7 @@ export default class AppShellController extends RoutingController {
         }
     }
 
-    onRightPress(oEvent:UIEvent) {
+    onRightPress(oEvent: UIEvent) {
         if (this.onRightAction) {
             this.onRightAction(oEvent)
         } else {
@@ -231,16 +227,16 @@ export default class AppShellController extends RoutingController {
         }
     }
 
-    refreshHeader(routeName:string) {
+    refreshHeader(routeName: string) {
         App.setMenuIcon()
     }
 
-    onBypassed(oEvent:UIEvent) {
+    onBypassed(oEvent: UIEvent) {
         this.viewProp("/showAccountNavigation", false)
         this.refreshHeader("")
     }
 
-    onLoadInc(oEvent:UIEvent) {
+    onLoadInc(oEvent: UIEvent) {
         this._contentLoadingCounter++
         const view = this.getView()
         if (view) {
@@ -248,7 +244,7 @@ export default class AppShellController extends RoutingController {
         }
     }
 
-    onLoadDec(oEvent:UIEvent) {
+    onLoadDec(oEvent: UIEvent) {
         if (this._contentLoadingCounter > 0) {
             this._contentLoadingCounter--
         }
@@ -260,11 +256,11 @@ export default class AppShellController extends RoutingController {
         }
     }
 
-    onLogout(oEvent:UIEvent) {
+    onLogout(oEvent: UIEvent) {
         this.navTo("accounts.select")
     }
 
-    onNewLink(oEvent:UIEvent) {
+    onNewLink(oEvent: UIEvent) {
         App.scan(App.accountId())
     }
 

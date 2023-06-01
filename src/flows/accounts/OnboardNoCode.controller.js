@@ -54,11 +54,9 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
         },
 
         async start() {
-            this.navTo("account.home",
-                {
-                    accountId: this.localAccount.id.toString()
-                }
-            )
+            this.navTo("account.home", {
+                accountId: this.localAccount.id.toString()
+            })
         },
 
         onNavButtonPress() {

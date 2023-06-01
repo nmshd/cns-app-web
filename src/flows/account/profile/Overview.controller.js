@@ -25,7 +25,7 @@ sap.ui.define(
                     .subscribe("datawallet", "refresh", async (sChannel, sIdentfier, oData) => {
                         this.refresh()
                     })
-                
+
                 this.setModel(new JSONModel({}))
             },
 

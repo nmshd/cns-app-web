@@ -6,7 +6,7 @@ export default abstract class Formatter {
      * @param {string} sValue value to be formatted
      * @returns {string} formatted currency value with 2 digits
      */
-    public static toCurrency(sValue:string) {
+    public static toCurrency(sValue: string) {
         if (!sValue) {
             return ""
         }
@@ -14,7 +14,7 @@ export default abstract class Formatter {
         return parseFloat(sValue).toFixed(2)
     }
 
-    public static publicKeyFormatter(oValue:any) {
+    public static publicKeyFormatter(oValue: any) {
         let text = ""
         for (let key in oValue) {
             if (oValue.hasOwnProperty(key)) {
@@ -26,7 +26,7 @@ export default abstract class Formatter {
         return text
     }
 
-    private static _toTranslated(sValue:string, fallback:string, forceTranslation:boolean = false) {
+    private static _toTranslated(sValue: string, fallback: string, forceTranslation: boolean = false) {
         if (!sValue) {
             return ""
         }
@@ -43,7 +43,7 @@ export default abstract class Formatter {
         }
     }
 
-    private static parseDate(sValue:any) {
+    private static parseDate(sValue: any) {
         try {
             if (!sValue) {
                 return ""
@@ -58,7 +58,7 @@ export default abstract class Formatter {
         return sValue
     }
 
-    private static _fromResource(namespace:string, sValue:string){
+    private static _fromResource(namespace: string, sValue: string) {
         if (!sValue) {
             sValue = ""
         }
@@ -70,7 +70,7 @@ export default abstract class Formatter {
         }
     }
 
-    public static hex2buf(hex:string) {
+    public static hex2buf(hex: string) {
         const buffer = new ArrayBuffer(hex.length / 2)
         const array = new Uint8Array(buffer)
         let k = 0
@@ -82,7 +82,7 @@ export default abstract class Formatter {
         return buffer
     }
 
-    public static buf2hex(buffer:any) {
+    public static buf2hex(buffer: any) {
         return Array.prototype.map
             .call(new Uint8Array(buffer), (x) => {
                 return ("00" + x.toString(16)).slice(-2)
@@ -90,13 +90,13 @@ export default abstract class Formatter {
             .join("")
     }
 
-    public static toLocaleDate(sValue:string) {
+    public static toLocaleDate(sValue: string) {
         sValue = Formatter.parseDate(sValue)
         if (!sValue) return sValue
         return NMSHDTransport.CoreDate.from(sValue).format("dd.MM.yyyy")
     }
 
-    public static toAbsoluteDate(sValue:any) {
+    public static toAbsoluteDate(sValue: any) {
         let str
         sValue = Formatter.parseDate(sValue)
         if (!sValue) return sValue
@@ -109,7 +109,7 @@ export default abstract class Formatter {
         return str
     }
 
-    public static toRelativeDate(sValue:any) {
+    public static toRelativeDate(sValue: any) {
         let str
         sValue = Formatter.parseDate(sValue)
         if (!sValue) return sValue
@@ -133,27 +133,27 @@ export default abstract class Formatter {
         return str
     }
 
-    public static toTranslated(sValue:string, fallback:string) {
+    public static toTranslated(sValue: string, fallback: string) {
         return Formatter._toTranslated(sValue, fallback)
     }
 
-    public static toForcedTranslated(sValue:string, fallback:string) {
+    public static toForcedTranslated(sValue: string, fallback: string) {
         return Formatter._toTranslated(sValue, fallback, true)
     }
 
-    public static toGender(sValue:string) {
+    public static toGender(sValue: string) {
         if (!sValue) return ""
         return Formatter.fromResource("gender." + sValue)
     }
 
-    public static toString(oObject:any) {
+    public static toString(oObject: any) {
         if (oObject && typeof oObject.toString === "function") {
             return oObject.toString()
         }
         return "" + oObject
     }
 
-    public static toJSON(oObject:any) {
+    public static toJSON(oObject: any) {
         if (!oObject) return
         try {
             return JSON.stringify(oObject, null, 2)
@@ -162,14 +162,14 @@ export default abstract class Formatter {
         }
     }
 
-    public static fromArray(value:any) {
+    public static fromArray(value: any) {
         if (value instanceof Array) {
             return value.join(",")
         }
         return value
     }
 
-    public static toBase64(value:any) {
+    public static toBase64(value: any) {
         if (!value) return ""
         if (typeof value.toBase64 === "function") {
             return value.toBase64.apply(value)
@@ -180,7 +180,7 @@ export default abstract class Formatter {
         return value
     }
 
-    public static fromHex(value:any) {
+    public static fromHex(value: any) {
         const sValue = "" + value
 
         if (!sValue || sValue.length % 2) return sValue
@@ -193,7 +193,7 @@ export default abstract class Formatter {
         }
     }
 
-    public static truncate(sValue:string, maxlength:number, truncationSymbol:string) {
+    public static truncate(sValue: string, maxlength: number, truncationSymbol: string) {
         if (!sValue || typeof sValue !== "string") return ""
         if (typeof truncationSymbol === "undefined") truncationSymbol = "..."
         if (!maxlength) maxlength = 10
@@ -201,30 +201,30 @@ export default abstract class Formatter {
         return sValue
     }
 
-    public static fromResource(sValue:string) {
+    public static fromResource(sValue: string) {
         return Formatter._fromResource("", sValue)
     }
 
-    public static attributeName(sValue:string) {
+    public static attributeName(sValue: string) {
         const resource = Formatter._fromResource("attribute.", sValue)
         return Formatter.toTranslated(sValue, resource ?? "")
     }
 
-    public static value(sValue:string) {
+    public static value(sValue: string) {
         if (sValue === "" || sValue === undefined || sValue === null) {
             sValue = "-"
         }
         return sValue
     }
 
-    public static async toTitle(address:string) {
+    public static async toTitle(address: string) {
         return (await App.getInfoForAddress(address)).title
     }
 
     /**
      * @param {RelationshipDVO} relationship
      */
-    public static toRelationshipStatusIcon(relationship:any) {
+    public static toRelationshipStatusIcon(relationship: any) {
         if (!relationship) return ""
         let statusIcon
         switch (relationship.status) {

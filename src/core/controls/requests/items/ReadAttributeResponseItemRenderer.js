@@ -44,9 +44,11 @@ sap.ui.define(
                     })
                         .addStyleClass("readAttributeResponseItemRendererFoundAttribute")
                         .bindElement("response/attribute")
-                        .attachInfoPressed((e) => this.fireInfoPressed({
-                            attributeId: e.getParameter("attributeId")
-                    }))
+                        .attachInfoPressed((e) =>
+                            this.fireInfoPressed({
+                                attributeId: e.getParameter("attributeId")
+                            })
+                        )
                 )
             },
 
