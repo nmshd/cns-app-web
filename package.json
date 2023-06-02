@@ -10,7 +10,7 @@
     ],
     "scripts": {
         "lint": "npm run lint:eslint && npm run lint:prettier",
-        "lint:eslint": "eslint --ext .js ./webapp",
+        "lint:eslint": "eslint --ext .js ./src",
         "lint:prettier": "prettier --check .",
         "start": "npm-run-all --parallel watch start:ui5",
         "start:ui5": "npx ui5 serve",
