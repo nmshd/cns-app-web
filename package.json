@@ -19,7 +19,8 @@
         "watch": "babel src --out-dir webapp --source-maps true --extensions \".ts,.js\" --copy-files --watch",
         "ts-typecheck": "tsc --noEmit",
         "wdi5": "cd test/e2e && wdio run wdio.conf.ts",
-        "versionBump": "node ./_tools/versionBump.js && npm i"
+        "versionBump": "node ./_tools/versionBump.js && npm i",
+        "test": ""
     },
     "dependencies": {
         "@js-soft/ts-utils": "2.3.1",
