@@ -1,18 +1,18 @@
 {
     "compilerOptions": {
-        "target": "es2017",
-        "module": "commonjs",
-        "noEmit": true,
-        "checkJs": true,
-        "allowJs": true,
-        "esModuleInterop": true,
+        "target": "ES2020",
+        "module": "AMD",
         "moduleResolution": "node",
-        "allowUmdGlobalAccess": true,
-        "allowSyntheticDefaultImports": true,
         "skipLibCheck": true,
-        "lib": ["dom", "es2017"],
-        "types": ["jquery", "node", "./global-types", "./ui5-types-1.84.4"]
+        "preserveConstEnums": true,
+        "allowJs": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": false,
+        "rootDir": "./src",
+        "outDir": "./webapp",
+        "baseUrl": "./"
     },
-    "include": ["webapp", "./global-types.d.ts"],
-    "exclude": ["webapp/assets/**", "webapp/test/**", "node_modules/**"]
+    "include": ["./src/**/*", "_types/global-types.d.ts"],
+    "exclude": ["src/assets/**", "./test", "node_modules/**"]
 }

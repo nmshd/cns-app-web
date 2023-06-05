@@ -1,6 +1,6 @@
 dist
 node_modules
-ui5-types-1.84.4
-webapp/assets/libs
 *.svg
-webapp/saptheme
+webapp
+src/saptheme
+src/assets/libs
