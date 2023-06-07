@@ -1,4 +1,5 @@
 {
-    "ignore": ["**/*.d.ts"],
-    "presets": [["@babel/preset-env", { "modules": false }], "transform-ui5", "@babel/preset-typescript"]
+    "ignore": ["**/*.d.ts", "src/assets/**"],
+    "presets": [["@babel/preset-env", { "targets": "defaults" }], "transform-ui5", "@babel/preset-typescript"],
+    "sourceMaps": true
 }
