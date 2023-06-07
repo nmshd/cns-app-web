@@ -34,12 +34,6 @@ sap.ui.define(["sap/m/Button", "./ContainerButtonRenderer"], (Button, ContainerB
             return Button.prototype._getImage.apply(this, [sImgId, sSrc, sActiveSrc, bIconDensityAware])
         },
 
-        init(e) {},
-
-        onAfterRendering(oEvent) {
-            if (Button.prototype.onAfterRendering) {
-                Button.prototype.onAfterRendering.apply(this, arguments)
-            }
-        }
+        init(e) {}
     })
 })

@@ -23,12 +23,6 @@ sap.ui.define(["sap/ui/core/Control"], (Control) => {
                 oRM.renderControl(control)
             }
             oRM.write("</div>")
-        },
-
-        onAfterRendering(oEvent) {
-            if (sap.ui.core.Control.prototype.onAfterRendering) {
-                sap.ui.core.Control.prototype.onAfterRendering.apply(this, arguments)
-            }
         }
     })
 })

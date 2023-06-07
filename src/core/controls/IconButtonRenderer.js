@@ -1,5 +1,5 @@
 sap.ui.define(["sap/m/ButtonRenderer", "sap/ui/core/Renderer"], function (ButtonRenderer, Renderer) {
-    "use strict"
+    ;("use strict")
 
     const IconButtonRenderer = Renderer.extend(ButtonRenderer)
 
@@ -8,9 +8,9 @@ sap.ui.define(["sap/m/ButtonRenderer", "sap/ui/core/Renderer"], function (Button
     /**
      * Callback for specific rendering of accessibility attributes.
      *
-     * @param {sap.ui.core.RenderManager}
+     * @param {sap.ui}
      *            oRm the RenderManager currently rendering this control
-     * @param {sap.m.ToggleButton}
+     * @param {import('sap/m/ToggleButton').default}
      *            oToggleButton the ToggleButton that should be rendered
      * @param {object} mAccProps Accessibillity properties
      * @private
@@ -22,9 +22,9 @@ sap.ui.define(["sap/m/ButtonRenderer", "sap/ui/core/Renderer"], function (Button
     /**
      * Callback for specific rendering of inner button attributes.
      *
-     * @param {sap.ui.core.RenderManager}
+     * @param {import('sap/ui/core/RenderManager').default}
      *            oRm the RenderManager currently rendering this control
-     * @param {sap.m.ToggleButton}
+     * @param {import('sap/m/ToggleButton').default}
      *            oToggleButton the ToggleButton that should be rendered
      * @private
      */

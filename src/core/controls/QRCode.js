@@ -38,8 +38,8 @@ sap.ui.define(["sap/ui/core/Control"], (Control) => {
         },
 
         onAfterRendering(oEvent) {
-            if (sap.ui.core.Control.prototype.onAfterRendering) {
-                sap.ui.core.Control.prototype.onAfterRendering.apply(this, arguments)
+            if (Control.prototype.onAfterRendering) {
+                Control.prototype.onAfterRendering.apply(this, arguments)
             }
 
             this.createQRCode()

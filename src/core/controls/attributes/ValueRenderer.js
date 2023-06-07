@@ -119,12 +119,10 @@ sap.ui.define(
                 let valueTypeClass
                 if (!this.renderHints || !this.valueHints) {
                     const valueType = this.getValueType()
-                    // @ts-ignore
                     if (!window.TSServal || !TSServal.Serializable) {
                         App.error("Serializable could not be obtained.")
                         return
                     }
-                    // @ts-ignore
                     valueTypeClass = TSServal.Serializable.getModule(valueType, 1)
                     if (!valueTypeClass) {
                         App.error(`Rendering information for valueType ${valueType} could not be found.`)
@@ -227,13 +225,13 @@ sap.ui.define(
                 const valueHints = this.valueHints
                 switch (this.renderHints.editType) {
                     case "InputLike":
-                        let type = sap.m.InputType.Text
+                        let type = "Text"
                         if (this.renderHints.dataType === "PhoneNumber") {
-                            type = sap.m.InputType.Tel
+                            type = "Tel"
                         } else if (this.renderHints.dataType === "EMailAddress") {
-                            type = sap.m.InputType.Email
+                            type = "Email"
                         } else if (this.renderHints.dataType === "URL") {
-                            type = sap.m.InputType.Url
+                            type = "Url"
                         }
                         control = new Input({
                             type: type,
@@ -311,7 +309,7 @@ sap.ui.define(
                 switch (this.renderHints.editType) {
                     case "InputLike":
                         control = new Input({
-                            type: sap.m.InputType.Number,
+                            type: "Number",
                             maxLength: this.valueHints.maxLength
                         }).attachLiveChange((oEvent) => that.fireChange(oEvent))
                         break
@@ -798,12 +796,6 @@ sap.ui.define(
                     oRM.write("</div>")
                 }
                 oRM.write("</div>")
-            },
-
-            onAfterRendering(oEvent) {
-                if (sap.ui.core.Control.prototype.onAfterRendering) {
-                    sap.ui.core.Control.prototype.onAfterRendering.apply(this, arguments)
-                }
             }
         })
     }
