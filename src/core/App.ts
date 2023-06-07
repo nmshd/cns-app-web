@@ -1,6 +1,15 @@
-import { DatawalletSynchronizedEvent, MailReceivedEvent, OnboardingChangeReceivedEvent } from "@nmshd/app-runtime"
-import { RelationshipDVO } from "@nmshd/runtime"
+import {
+    DatawalletSynchronizedEvent,
+    LocalAccountDTO,
+    MailReceivedEvent,
+    OnboardingChangeReceivedEvent
+} from "@nmshd/app-runtime"
+import { DeviceDTO, RelationshipDVO } from "@nmshd/runtime"
+import Dialog from "sap/m/Dialog"
 import SplitApp from "sap/m/SplitApp"
+import Device from "sap/ui/Device"
+import Control from "sap/ui/core/Control"
+import Fragment from "sap/ui/core/Fragment"
 import Model from "sap/ui/model/Model"
 import JSONModel from "sap/ui/model/json/JSONModel"
 import EventBus from "./EventBus"
@@ -29,6 +38,9 @@ export default abstract class App {
     private static isError: boolean = false
     private static _accounts: IDictionary<any> = {}
     private static disableAutoAccountSelection: boolean = false
+    private static accountSelectionPopupOpen: boolean = false
+    private static accountSelectionCallback?: Function
+    private static accountSelectionPopup?: Dialog
 
     private static profileMenuOpen: boolean = false
     public static splitApp?: SplitApp
@@ -464,6 +476,132 @@ export default abstract class App {
         window.App = this
     }
 
+    public static async openAccountSelectionPopup(accounts: LocalAccountDTO[], title?: string, description?: string) {
+        if (!this.accountSelectionPopup) {
+            this.accountSelectionPopup = (await Fragment.load({
+                id: "accountSelection",
+                name: "nmshd.app.flows.accounts.AccountSelectionPopup",
+                controller: this
+            })) as Dialog
+            await this.setAppViewModel(this.accountSelectionPopup)
+            this.setGlobalModels(this.accountSelectionPopup)
+            const model = this.accountSelectionPopup!.getModel("v") as JSONModel
+            model.setProperty("/accountSelectionAccounts", accounts ? accounts : [])
+            model.setProperty("/accountSelectionTitle", title)
+            model.setProperty("/accountSelectionDescription", description)
+        }
+        this.accountSelectionPopup.open()
+        this.accountSelectionPopupOpen = true
+        document.addEventListener("click", this.checkDocumentClick.bind(this))
+    }
+
+    private static async setAppViewModel(control: Control) {
+        if (!control || !control.setModel) return
+        const accountId = this.localAccount().id
+        const localAccount = await App.localAccountController().getAccount(accountId)
+        const name = localAccount.name || "Enmeshed"
+        const address = App.account().identity.address.toString()
+
+        const getDevicesResult = await runtime.currentSession.transportServices.devices.getDevices()
+        let devices: DeviceDTO[] = []
+        if (getDevicesResult.isSuccess) {
+            devices = getDevicesResult.value
+        }
+
+        const viewModel = new JSONModel({
+            appVersion: runtime.nativeEnvironment.configAccess.get("version").value,
+            runtimeVersion: NMSHDAppRuntime.buildInformation.version,
+            profileName: name,
+            accountName: name,
+            accountId: accountId,
+            address: address,
+            devices: devices,
+            language: bootstrapper.nativeEnvironment.configAccess.get("language").value
+        })
+
+        viewModel.setDefaultBindingMode("OneWay")
+        control.setModel(viewModel, "v")
+    }
+
+    private static setGlobalModels(control: Control) {
+        if (!control || !control.setModel) return
+
+        const deviceModel = new JSONModel(Device)
+        deviceModel.setDefaultBindingMode("OneWay")
+        control.setModel(deviceModel, "d")
+
+        const resourceModel = this.component.getModel("t")
+        control.setModel(resourceModel, "t")
+    }
+
+    private static checkDocumentClick(oEvent: any) {
+        if (oEvent.target.id === "sap-ui-blocklayer-popup") {
+            this.closeAccountSelectionPopup()
+            document.removeEventListener("click", this.checkDocumentClick)
+        }
+    }
+
+    public static async accountSelectionCallbackDefault(account: LocalAccountDTO) {
+        if (account) {
+            App.navTo("account.home", {
+                accountId: account.id.toString()
+            })
+        }
+
+        this.accountSelectionCallback = undefined
+    }
+
+    public static onAccountSelectionPress(oEvent: any) {
+        try {
+            const oItem = oEvent.getParameter("listItem") || oEvent.getSource()
+            const prop = oItem.getBindingContextPath()
+            const selectedAccount = oEvent.getSource().getModel("v").getProperty(prop)
+            appLogger.info(`User chose ${selectedAccount.name} with id ${selectedAccount.id}.`)
+            if (App.accountSelectionCallback) {
+                App.accountSelectionCallback(selectedAccount)
+            }
+        } catch (e) {
+            App.error(e)
+        } finally {
+            this.closeAccountSelectionPopup()
+        }
+    }
+
+    public static async onAccountSelectionCreate() {
+        try {
+            appLogger.info("User decided for a new account to be created for an accountSelectionRequest.")
+            const accounts = await runtime.accountServices.getAccounts()
+            const resourceModel = this.component.getModel("t")
+
+            const accountname =
+                resourceModel.getProperty("accounts.processRelationshipToken.profile") + (accounts.length + 1)
+            const oAccounts = await runtime.accountServices.createAccount(NMSHDTransport.Realm.Prod, accountname)
+            this.localAccount = oAccounts
+            await App.selectAccount(this.localAccount.id, "")
+            appLogger.info(`Account ${this.localAccount.id} was created for account selection.`)
+            if (App.accountSelectionCallback) {
+                App.accountSelectionCallback(this.localAccount)
+            }
+        } catch (e) {
+            App.error(e)
+        } finally {
+            this.closeAccountSelectionPopup()
+        }
+    }
+    public static onAccountSelectionClose() {
+        this.closeAccountSelectionPopup()
+        if (App.accountSelectionCallback) {
+            App.accountSelectionCallback()
+        }
+    }
+
+    public static closeAccountSelectionPopup() {
+        if (this.accountSelectionPopup) {
+            this.accountSelectionPopup.close()
+        }
+        this.accountSelectionPopupOpen = false
+    }
+
     public static hideAllToasts() {
         const toasts = document.querySelectorAll(".sapMMessageToast")
         toasts.forEach((item: any) => (item.style = "display:none;"))
@@ -552,7 +690,7 @@ export default abstract class App {
         }
     }
 
-    public static error(error: any, rootCause?: string) {
+    public static error(error: any, rootCause?: string | any) {
         if (error) {
             if (rootCause) appLogger.error(rootCause)
             appLogger.error(error)
@@ -575,7 +713,7 @@ export default abstract class App {
         }
     }
 
-    public static fatal(error: any, rootCause?: string) {
+    public static fatal(error: any, rootCause?: string | any) {
         if (error) {
             if (rootCause) appLogger.error(rootCause)
             appLogger.error("FATAL", error)
