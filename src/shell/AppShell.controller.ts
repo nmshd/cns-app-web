@@ -1,17 +1,18 @@
 import SplitApp from "sap/m/SplitApp"
+import View from "sap/ui/core/mvc/View"
 import JSONModel from "sap/ui/model/json/JSONModel"
+import IAppShellController from "src/core/IAppShellController"
 import App from "../core/App"
 import RoutingController from "../core/RoutingController"
 
 /**
  * @namespace nmshd.app.shell.AppShellController
  */
-export default class AppShellController extends RoutingController {
+export default class AppShellController extends RoutingController implements IAppShellController {
     protected onLeftAction?: Function
     protected onRightAction?: Function
     protected wasHomeBefore: boolean
     protected _contentLoadingCounter: number = 0
-    protected routeName: string
 
     constructor() {
         super(AppShellController.name)
@@ -212,8 +213,9 @@ export default class AppShellController extends RoutingController {
     }
 
     onBackPress(oEvent: UIEvent) {
-        // @ts-ignore
-        const currentController = this.byId("appComponent").getCurrentPage().getController()
+        const currentController = (
+            (this.byId("appComponent") as SplitApp).getCurrentDetailPage() as View
+        ).getController() as RoutingController
         if (currentController.onNavButtonPress) {
             currentController.onNavButtonPress.apply(currentController, [oEvent])
         }

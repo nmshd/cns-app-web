@@ -57,7 +57,6 @@ export default class UIBridge implements IUIBridge {
         })
     }
 
-    // @ts-ignore
     public showDeviceOnboarding(deviceOnboardingInfo: DeviceOnboardingInfoDTO): Promise<UserfriendlyResult<void>> {
         App.disableAutoAccountSelection = true
         return new Promise((resolve) => {
@@ -87,7 +86,6 @@ export default class UIBridge implements IUIBridge {
         })
     }
 
-    // @ts-ignore
     public requestAccountSelection(
         possibleAccounts: LocalAccountDTO[],
         title: string,

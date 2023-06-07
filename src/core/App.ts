@@ -38,10 +38,10 @@ export default abstract class App {
     public static RelationshipTemplateUtil: RelationshipTemplateUtil
     public static RelationshipUtil: RelationshipUtil
 
-    public static get appController(): any {
+    public static get appController(): IAppShellController {
         return this._appController
     }
-    private static _appController: any
+    private static _appController: IAppShellController
 
     public static get model(): JSONModel {
         return this._model
@@ -402,6 +402,24 @@ export default abstract class App {
         }
     }
 
+    public static async wipeLocalStorage() {
+        // Do not stop runtime when refreshing
+        window.removeEventListener("beforeunload", this.beforeUnloadListener)
+        // Runtime must stop to flush the database before localStorage wipe
+        await runtime.stop()
+        if (window.localStorage) {
+            localStorage.clear()
+        }
+        if (window.indexedDB) {
+            const databases = await indexedDB.databases()
+            for (const database of databases) {
+                await indexedDB.deleteDatabase(database.name!)
+            }
+        }
+
+        document.location = document.location
+    }
+
     public static async selectAccount(id: string, master: string) {
         if (id === this._lastAccount) return Promise.resolve(runtime.currentAccount)
         if (this._localAccountPromise) return this._localAccountPromise
@@ -440,7 +458,7 @@ export default abstract class App {
         })
         return promise
     }
-    public static registerAppController(controller: any) {
+    public static registerAppController(controller: AppShellController) {
         this._appController = controller
         window.App = this
     }

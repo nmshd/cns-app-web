@@ -128,7 +128,6 @@ export default abstract class Formatter {
         } else if (diffSec < 3600 * 24 * 7 /* One Week */) {
             str = mom.dateTime.toRelativeCalendar()
         } else {
-            // @ts-ignore
             str = mom.dateTime.toLocaleString(mom.dateTime.constructor.DATETIME_MED)
         }
 

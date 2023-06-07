@@ -1,4 +1,4 @@
-import { RelationshipDVO } from "@nmshd/runtime"
+import { DataViewObject, RelationshipDVO } from "@nmshd/runtime"
 import JSONModel from "sap/ui/model/json/JSONModel"
 
 export default class InboxUtil {
@@ -24,7 +24,7 @@ export default class InboxUtil {
 
         try {
             const messages = await runtime.currentSession.expander.expandMessageDTOs(messagesResult.value)
-            const requests = []
+            const requests: DataViewObject[] = []
             for (const request of requestResult.value) {
                 const requestDVO = await runtime.currentSession.expander.expandLocalRequestDTO(request)
                 if (requestDVO.createdBy.hasRelationship) {
@@ -32,7 +32,6 @@ export default class InboxUtil {
                 }
             }
 
-            // @ts-ignore
             const model = new JSONModel({ items: requests.concat(messages) })
             return model
         } catch (e) {
@@ -70,12 +69,11 @@ export default class InboxUtil {
 
         try {
             const messages = await runtime.currentSession.expander.expandMessageDTOs(messagesResult.value)
-            const requests = []
+            const requests: DataViewObject[] = []
             for (const request of requestResult.value) {
                 requests.push(await runtime.currentSession.expander.expandLocalRequestDTO(request))
             }
 
-            // @ts-ignore
             const model = new JSONModel({ items: requests.concat(messages) })
             return model
         } catch (e) {

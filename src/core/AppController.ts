@@ -1,12 +1,12 @@
+import ResourceBundle from "sap/base/i18n/ResourceBundle"
+import Event from "sap/ui/base/Event"
+import History from "sap/ui/core/History"
+import Router from "sap/ui/core/routing/Router"
+import JSONModel from "sap/ui/model/json/JSONModel"
 import ResourceModel from "sap/ui/model/resource/ResourceModel"
 import App from "./App"
 import ConvenienceController from "./ConvenienceController"
-import ResourceBundle from "sap/base/i18n/ResourceBundle"
-import Router from "sap/ui/core/routing/Router"
-import History from "sap/ui/core/History"
 import Formatter from "./Formatter"
-import JSONModel from "sap/ui/model/json/JSONModel"
-import Event from "sap/ui/base/Event"
 
 /**
  * @namespace nmshd.app.core
@@ -19,7 +19,6 @@ export default abstract class AppController extends ConvenienceController {
     public async onInit() {
         super.onInit()
 
-        //await App.isInitialized()
         this.setModel(App.model, "a")
 
         if (this.onInitialized && typeof this.onInitialized === "function") {
