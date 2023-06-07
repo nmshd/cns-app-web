@@ -235,7 +235,7 @@ sap.ui.define(
                     this.model.setData(data)
                 } else {
                     this.model = new JSONModel(data)
-                    this.model.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay)
+                    this.model.setDefaultBindingMode("OneWay")
                     this.setModel(this.model)
                 }
             },

@@ -4,6 +4,7 @@ import SplitApp from "sap/m/SplitApp"
 import Model from "sap/ui/model/Model"
 import JSONModel from "sap/ui/model/json/JSONModel"
 import EventBus from "./EventBus"
+import IAppShellController from "./IAppShellController"
 import UIBridge from "./UIBridge"
 import FileUtil from "./utils/FileUtil"
 import InboxUtil from "./utils/InboxUtil"
@@ -458,7 +459,7 @@ export default abstract class App {
         })
         return promise
     }
-    public static registerAppController(controller: AppShellController) {
+    public static registerAppController(controller: IAppShellController) {
         this._appController = controller
         window.App = this
     }

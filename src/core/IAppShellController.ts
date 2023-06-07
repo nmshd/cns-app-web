@@ -14,4 +14,5 @@ export default interface IAppShellController extends Controller {
     setRightAction(callback?: Function)
     showBack()
     hideBack()
+    resource(key: string, values?: string[])
 }

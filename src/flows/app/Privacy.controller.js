@@ -17,7 +17,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
             this.resetViewModel()
             const privacyText = await $.get("flows/app/Privacy.html")
             this.viewProp("/privacyText", privacyText)
-            window.cc = this
         },
 
         onRouteMatched(oEvent) {

@@ -37,7 +37,7 @@ sap.ui.define(
                 }
                 const mergedRequest = this.mergeRequestWithResponse(this.request)
                 const requestModel = new JSONModel(mergedRequest)
-                requestModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay)
+                requestModel.setDefaultBindingMode("OneWay")
                 this.request = requestModel
 
                 this.setModel(model, "rel")

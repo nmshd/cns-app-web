@@ -86,7 +86,7 @@ sap.ui.define(
                 this.map = map
 
                 const model = new JSONModel({ items: expandedAttributes, map: map })
-                model.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay)
+                model.setDefaultBindingMode("OneWay")
                 this.setModel(model)
                 const editableAttributes = NMSHDContent.AttributeValues.Identity.Editable.TYPE_NAMES.map((value) => ({
                     key: value,

@@ -145,7 +145,7 @@ sap.ui.define(
                 const mergedRequest = this.mergeRequestWithResponse(this.request)
 
                 const model = new JSONModel(mergedRequest)
-                model.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay)
+                model.setDefaultBindingMode("OneWay")
                 this.setModel(model)
 
                 if (this.request.status === "ManualDecisionRequired") {

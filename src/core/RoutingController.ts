@@ -1,5 +1,6 @@
 import ResourceBundle from "sap/base/i18n/ResourceBundle"
 import Event from "sap/ui/base/Event"
+import UIComponent from "sap/ui/core/UIComponent"
 import History from "sap/ui/core/routing/History"
 import Router from "sap/ui/core/routing/Router"
 import ResourceModel from "sap/ui/model/resource/ResourceModel"
@@ -252,7 +253,7 @@ export default abstract class RoutingController extends AppController {
      */
     public getRouter(): Router {
         if (!this.getOwnerComponent()) {
-            return App.appController.getOwnerComponent().getRouter()
+            return (App.appController.getOwnerComponent() as UIComponent).getRouter()
         }
         return this.getOwnerComponent().getRouter()
     }
@@ -262,9 +263,9 @@ export default abstract class RoutingController extends AppController {
      * @returns The i18n resource bundle of the component
      */
     public getResourceBundle(): ResourceBundle {
-        let owner = this.getOwnerComponent()
+        let owner = this.getOwnerComponent() as UIComponent
         if (!owner) {
-            owner = App.appController.getOwnerComponent()
+            owner = App.appController.getOwnerComponent() as UIComponent
         }
         let model = owner.getModel("i18n") as ResourceModel
         if (model) {

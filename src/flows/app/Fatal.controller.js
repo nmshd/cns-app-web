@@ -39,7 +39,7 @@ sap.ui.define(
             },
 
             async onRouteExit(oEvent) {
-                await AppController.prototype.onRouteExit.apply(this, [oEvent, true])
+                await RoutingController.prototype.onRouteExit.apply(this, [oEvent, true])
                 App.appController.viewProp("/theme", "")
             },
 
