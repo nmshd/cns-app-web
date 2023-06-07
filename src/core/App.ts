@@ -37,10 +37,15 @@ export default abstract class App {
     private static _relationship?: RelationshipDVO
     private static isError: boolean = false
     private static _accounts: IDictionary<any> = {}
-    private static disableAutoAccountSelection: boolean = false
-    private static accountSelectionPopupOpen: boolean = false
-    private static accountSelectionCallback?: Function
+    public static disableAutoAccountSelection: boolean = false
+    public static enforceAccountCreation: boolean = false
+    public static get accountSelectionPopupOpen() {
+        return this._accountSelectionPopupOpen
+    }
+    private static _accountSelectionPopupOpen: boolean = false
+    public static accountSelectionCallback?: Function
     private static accountSelectionPopup?: Dialog
+    public static openByNotification: boolean = false
 
     private static profileMenuOpen: boolean = false
     public static splitApp?: SplitApp
@@ -491,7 +496,7 @@ export default abstract class App {
             model.setProperty("/accountSelectionDescription", description)
         }
         this.accountSelectionPopup.open()
-        this.accountSelectionPopupOpen = true
+        this._accountSelectionPopupOpen = true
         document.addEventListener("click", this.checkDocumentClick.bind(this))
     }
 
@@ -599,7 +604,7 @@ export default abstract class App {
         if (this.accountSelectionPopup) {
             this.accountSelectionPopup.close()
         }
-        this.accountSelectionPopupOpen = false
+        this._accountSelectionPopupOpen = false
     }
 
     public static hideAllToasts() {
