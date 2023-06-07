@@ -1,3 +1,5 @@
+import { CoreBuffer, Encoding } from "@nmshd/crypto"
+import { CoreDate } from "@nmshd/transport"
 import App from "./App"
 
 export default abstract class Formatter {
@@ -93,7 +95,7 @@ export default abstract class Formatter {
     public static toLocaleDate(sValue: string) {
         sValue = Formatter.parseDate(sValue)
         if (!sValue) return sValue
-        return NMSHDTransport.CoreDate.from(sValue).format("dd.MM.yyyy")
+        return CoreDate.from(sValue).format("dd.MM.yyyy")
     }
 
     public static toAbsoluteDate(sValue: any) {
@@ -102,9 +104,9 @@ export default abstract class Formatter {
         if (!sValue) return sValue
 
         if (sValue.getUTCSeconds() === 0 && sValue.getUTCMinutes() === 0 && sValue.getUTCHours() === 0) {
-            str = NMSHDTransport.CoreDate.from(sValue.toISOString()).format("dd.MM.yyyy")
+            str = CoreDate.from(sValue.toISOString()).format("dd.MM.yyyy")
         } else {
-            str = NMSHDTransport.CoreDate.from(sValue.toISOString()).format("dd.MM.yyyy HH:mm:ss")
+            str = CoreDate.from(sValue.toISOString()).format("dd.MM.yyyy HH:mm:ss")
         }
         return str
     }
@@ -114,7 +116,7 @@ export default abstract class Formatter {
         sValue = Formatter.parseDate(sValue)
         if (!sValue) return sValue
 
-        let mom = NMSHDTransport.CoreDate.from(sValue)
+        let mom = CoreDate.from(sValue)
 
         const diffNow = mom.dateTime.diffNow(["seconds"])
         const diffSec = Math.abs(diffNow.seconds)
@@ -174,8 +176,8 @@ export default abstract class Formatter {
         if (typeof value.toBase64 === "function") {
             return value.toBase64.apply(value)
         }
-        if (value instanceof NMSHDCrypto.CoreBuffer) {
-            return value.toString(NMSHDCrypto.Encoding.Base64)
+        if (value instanceof CoreBuffer) {
+            return value.toString(Encoding.Base64)
         }
         return value
     }

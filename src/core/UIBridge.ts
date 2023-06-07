@@ -15,7 +15,7 @@ export default class UIBridge implements IUIBridge {
                 accountId: account.id,
                 messageId: message.id
             })
-            resolve(NMSHDAppRuntime.UserfriendlyResult.ok(undefined))
+            resolve(UserfriendlyResult.ok(undefined))
         })
     }
 
@@ -45,7 +45,7 @@ export default class UIBridge implements IUIBridge {
                     accountId: account.id
                 })
             }
-            resolve(NMSHDAppRuntime.UserfriendlyResult.ok(undefined))
+            resolve(UserfriendlyResult.ok(undefined))
         })
     }
 
@@ -53,7 +53,7 @@ export default class UIBridge implements IUIBridge {
         return new Promise((resolve) => {
             appLogger.trace("UIBridge.showFile", account, file)
             App.navTo("account.files.detail", { id: file.id, accountId: account.id })
-            resolve(NMSHDAppRuntime.UserfriendlyResult.ok(undefined))
+            resolve(UserfriendlyResult.ok(undefined))
         })
     }
 
@@ -62,7 +62,7 @@ export default class UIBridge implements IUIBridge {
         App.disableAutoAccountSelection = true
         return new Promise((resolve) => {
             App.navTo("accounts.processdevicetoken", {}, { deviceOnboardingInfo: deviceOnboardingInfo })
-            resolve(NMSHDAppRuntime.UserfriendlyResult.ok(undefined))
+            resolve(UserfriendlyResult.ok(undefined))
         })
     }
 
@@ -73,7 +73,7 @@ export default class UIBridge implements IUIBridge {
                 accountId: account.id,
                 requestId: request.id
             })
-            resolve(NMSHDAppRuntime.UserfriendlyResult.ok(undefined))
+            resolve(UserfriendlyResult.ok(undefined))
         })
     }
 
@@ -83,7 +83,7 @@ export default class UIBridge implements IUIBridge {
     ): Promise<UserfriendlyResult<void>> {
         return new Promise((resolve) => {
             App.error(error)
-            resolve(NMSHDAppRuntime.UserfriendlyResult.ok(undefined))
+            resolve(UserfriendlyResult.ok(undefined))
         })
     }
 
@@ -109,7 +109,7 @@ export default class UIBridge implements IUIBridge {
                 } else {
                     appLogger.info(`UIBridge.requestAccountSelection: User cancelled the selection.`)
                 }
-                resolve(NMSHDAppRuntime.UserfriendlyResult.ok(account))
+                resolve(UserfriendlyResult.ok(account))
             }
 
             if (possibleAccounts.length === 0 || App.enforceAccountCreation) {

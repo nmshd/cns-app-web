@@ -1,14 +1,15 @@
+import { DatawalletSynchronizedEvent, MailReceivedEvent, OnboardingChangeReceivedEvent } from "@nmshd/app-runtime"
+import { RelationshipDVO } from "@nmshd/runtime"
+import SplitApp from "sap/m/SplitApp"
 import Model from "sap/ui/model/Model"
 import JSONModel from "sap/ui/model/json/JSONModel"
 import EventBus from "./EventBus"
-import { RelationshipDVO } from "@nmshd/runtime"
 import UIBridge from "./UIBridge"
-import RelationshipUtil from "./utils/RelationshipUtil"
 import FileUtil from "./utils/FileUtil"
-import RelationshipTemplateUtil from "./utils/RelationshipTemplateUtil"
-import MessageUtil from "./utils/MessageUtil"
 import InboxUtil from "./utils/InboxUtil"
-import SplitApp from "sap/m/SplitApp"
+import MessageUtil from "./utils/MessageUtil"
+import RelationshipTemplateUtil from "./utils/RelationshipTemplateUtil"
+import RelationshipUtil from "./utils/RelationshipUtil"
 
 interface IDictionary<TValue> {
     [id: string]: TValue
@@ -106,17 +107,17 @@ export default abstract class App {
 
         this.hideSplashScreen()
 
-        runtime.eventBus.subscribe(NMSHDAppRuntime.MailReceivedEvent, () => {
+        runtime.eventBus.subscribe(MailReceivedEvent, () => {
             this.Bus.publish("message", "refresh")
         })
 
-        runtime.eventBus.subscribe(NMSHDAppRuntime.DatawalletSynchronizedEvent, () => {
+        runtime.eventBus.subscribe(DatawalletSynchronizedEvent, () => {
             this.Bus.publish("datawallet", "refresh")
             this.Bus.publish("relationship", "refresh")
             this.Bus.publish("message", "refresh")
         })
 
-        runtime.eventBus.subscribe(NMSHDAppRuntime.OnboardingChangeReceivedEvent, () => {
+        runtime.eventBus.subscribe(OnboardingChangeReceivedEvent, () => {
             this.Bus.publish("relationship", "refresh")
         })
 
