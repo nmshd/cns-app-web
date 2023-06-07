@@ -1,6 +1,6 @@
-import App from "../core/App"
-import JSONModel from "sap/ui/model/json/JSONModel"
 import SplitApp from "sap/m/SplitApp"
+import JSONModel from "sap/ui/model/json/JSONModel"
+import App from "../core/App"
 import RoutingController from "../core/RoutingController"
 
 /**
@@ -58,7 +58,7 @@ export default class AppShellController extends RoutingController {
         this.getRouter().attachBypassed(this.onBypassed.bind(this))
         */
         this.wasHomeBefore = true
-        //await App.isInitialized()
+        await App.isInitialized()
 
         runtime.nativeEnvironment.eventBus.publish(new JSSNative.ThemeEvent("#3d86f0", JSSNative.ThemeTextStyle.Light))
     }
