@@ -1,3 +1,5 @@
+import MessageStrip from "sap/m/MessageStrip"
+import { MessageType } from "sap/ui/core/library"
 import Model from "sap/ui/model/Model"
 import JSONModel from "sap/ui/model/json/JSONModel"
 import App from "./App"
@@ -42,6 +44,20 @@ export default abstract class ConvenienceController extends BaseController {
     public clear() {
         this._loadingCounter = 0
         this.resetViewModel()
+    }
+
+    public setMessage(message?: string, type: MessageType = MessageType.Information) {
+        const strip = this.byId("message") as MessageStrip
+        if (!strip || strip.getMetadata().getElementName() !== "MessageStrip") return
+
+        if (!message) {
+            strip.setText("")
+            strip.setVisible(false)
+        } else {
+            strip.setText(message)
+            strip.setVisible(true)
+            strip.setType(type)
+        }
     }
 
     /**

@@ -5,6 +5,7 @@
         "moduleResolution": "node",
         "skipLibCheck": true,
         "preserveConstEnums": true,
+        // "checkJs": true,
         "allowJs": true,
         "strict": true,
         "strictNullChecks": true,
