@@ -12,6 +12,8 @@
 
         <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 
+        <meta charset="utf-8" />
+
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
         <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
@@ -52,8 +54,9 @@
         ></script>
 
         <script>
+            window.JSSNative = JSSNativeWeb
+
             async function bootstrap() {
-                window.JSSNative = JSSNativeWeb
                 try {
                     window.bootstrapper = new JSSNative.WebBootstrapper()
                     window.runtime = await NMSHDAppRuntime.AppRuntime.createAndStart(bootstrapper)
@@ -63,6 +66,33 @@
                 }
             }
 
+            function polyfillEnmeshedLibs() {
+                sap.ui.define("@js-soft/native", [], () => {
+                    return JSSNativeWeb
+                })
+
+                sap.ui.define("@nmshd/runtime", [], () => {
+                    return NMSHDRuntime
+                })
+
+                sap.ui.define("@nmshd/app-runtime", [], () => {
+                    return NMSHDAppRuntime
+                })
+
+                sap.ui.define("@nmshd/transport", [], () => {
+                    return NMSHDTransport
+                })
+
+                sap.ui.define("@nmshd/content", [], () => {
+                    return NMSHDContent
+                })
+
+                sap.ui.define("@nmshd/crypto", [], () => {
+                    return NMSHDCrypto
+                })
+            }
+
+            polyfillEnmeshedLibs()
             window._bootstrapPromise = bootstrap()
         </script>
 
