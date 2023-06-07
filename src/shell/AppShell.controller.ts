@@ -1,8 +1,8 @@
 import SplitApp from "sap/m/SplitApp"
 import View from "sap/ui/core/mvc/View"
 import JSONModel from "sap/ui/model/json/JSONModel"
-import IAppShellController from "src/core/IAppShellController"
 import App from "../core/App"
+import IAppShellController from "../core/IAppShellController"
 import RoutingController from "../core/RoutingController"
 
 /**

@@ -1,4 +1,3 @@
-//import Device from "sap/ui/Device";
 import Device from "sap/ui/Device"
 import UIComponent from "sap/ui/core/UIComponent"
 import JSONModel from "sap/ui/model/json/JSONModel"
@@ -19,7 +18,6 @@ export default class Component extends UIComponent {
         // call the base component's init function
         super.init()
 
-        // @ts-ignore
         jQuery.sap.log.setLevel(1)
 
         const oDeviceModel = new JSONModel(Device)

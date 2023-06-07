@@ -1,5 +1,5 @@
-import RoutingController from "../../core/RoutingController"
 import Control from "sap/ui/core/Control"
+import RoutingController from "../../core/RoutingController"
 
 /**
  * @namespace nmshd.app.flows.app
