@@ -81,6 +81,7 @@ sap.ui.define(
 
                 const map = {}
                 for (const attribute of expandedAttributes) {
+                    // @ts-ignore
                     map[attribute.value["@type"]] = attribute
                 }
                 this.map = map
@@ -191,6 +192,7 @@ sap.ui.define(
                         content: {
                             "@type": "IdentityAttribute",
                             value: attributeValue,
+                            // @ts-ignore
                             owner: runtime.currentAccount.address
                         }
                     })
