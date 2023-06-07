@@ -107,7 +107,6 @@ export default class SelectController extends RoutingController {
     }
 
     onItemPress(oEvent: any) {
-        App.afterLogin = null
         const oItem = oEvent.getParameter("listItem") || oEvent.getSource()
         const prop = oItem.getBindingContextPath()
         const acc = this.viewProp(prop)
