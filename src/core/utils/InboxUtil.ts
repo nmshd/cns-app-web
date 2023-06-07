@@ -1,5 +1,6 @@
 import { DataViewObject, RelationshipDVO } from "@nmshd/runtime"
 import JSONModel from "sap/ui/model/json/JSONModel"
+import App from "../App"
 
 export default class InboxUtil {
     async getInbox() {

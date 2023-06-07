@@ -1,6 +1,6 @@
 import { CoreDate } from "@nmshd/transport"
 import JSONModel from "sap/ui/model/json/JSONModel"
-
+import App from "../App"
 export default class FileUtil {
     async getFile(id: string) {
         if (!id) {

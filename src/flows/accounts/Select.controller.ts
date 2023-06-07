@@ -1,3 +1,4 @@
+import App from "../../core/App"
 import RoutingController from "../../core/RoutingController"
 
 /**
@@ -67,7 +68,7 @@ export default class SelectController extends RoutingController {
                 App.setBackIcon()
                 break
         }
-        App.appController.setRight(null)
+        App.appController.setRight()
 
         this.clear()
 

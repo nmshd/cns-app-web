@@ -1,4 +1,5 @@
 import Control from "sap/ui/core/Control"
+import App from "../../core/App"
 import RoutingController from "../../core/RoutingController"
 
 /**
@@ -28,7 +29,6 @@ export default class MainMenuController extends RoutingController {
 
     protected onInitialized() {
         ;(this.byId("version")! as Control).attachBrowserEvent("tap", this.tapIncrease.bind(this))
-        App.mainmenu = this
     }
 
     tapIncrease() {

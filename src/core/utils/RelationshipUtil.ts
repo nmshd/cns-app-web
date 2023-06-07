@@ -1,4 +1,5 @@
 import JSONModel from "sap/ui/model/json/JSONModel"
+import App from "../App"
 
 export default class RelationshipUtil {
     async getRelationship(id: string) {
