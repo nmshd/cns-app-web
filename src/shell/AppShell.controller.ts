@@ -11,7 +11,7 @@ import RoutingController from "../core/RoutingController"
 export default class AppShellController extends RoutingController implements IAppShellController {
     protected onLeftAction?: Function
     protected onRightAction?: Function
-    protected wasHomeBefore: boolean
+    protected wasHomeBefore: boolean = false
     protected _contentLoadingCounter: number = 0
 
     constructor() {

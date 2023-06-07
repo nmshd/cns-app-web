@@ -6,7 +6,7 @@ import RoutingController from "../../core/RoutingController"
  */
 export default class MainMenuController extends RoutingController {
     private taps: number = 0
-    private accountId: string
+    private accountId?: string
 
     constructor() {
         super(MainMenuController.name)

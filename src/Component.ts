@@ -12,7 +12,7 @@ export default class Component extends UIComponent {
         manifest: "json"
     }
 
-    private contentDensityClass: string
+    private contentDensityClass: string = ""
 
     public async init() {
         // call the base component's init function

@@ -1,7 +1,7 @@
-import JSONModel from "sap/ui/model/json/JSONModel"
-import BaseController from "./BaseController"
 import Model from "sap/ui/model/Model"
+import JSONModel from "sap/ui/model/json/JSONModel"
 import App from "./App"
+import BaseController from "./BaseController"
 
 /**
  * @namespace nmshd.app.core
@@ -53,8 +53,8 @@ export default abstract class ConvenienceController extends BaseController {
      * @param values The array of values which should be taken into consideration while translating ({0} would be first index)
      * @returns The fully translated string
      */
-    resource(key: string, values?: string[]) {
-        return this.getResourceBundle().getText(key, values)
+    resource(key: string, values?: string[]): string {
+        return this.getResourceBundle().getText(key, values) ?? ""
     }
 
     /**
