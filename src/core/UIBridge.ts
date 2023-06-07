@@ -100,7 +100,7 @@ export default class UIBridge implements IUIBridge {
             }
 
             App.accountSelectionCallback = (account: LocalAccountDTO) => {
-                App.accountSelectionCallback = null
+                App.accountSelectionCallback = undefined
                 if (account) {
                     appLogger.info(
                         `UIBridge.requestAccountSelection: User selected account ${account.name} with id ${account.id}.`
@@ -115,7 +115,7 @@ export default class UIBridge implements IUIBridge {
                 App.navTo("accounts.processrelationshiptoken", {})
                 return
             }
-            App.appController.openAccountSelectionPopup(possibleAccounts, title, description)
+            App.openAccountSelectionPopup(possibleAccounts, title, description)
         })
     }
 }
