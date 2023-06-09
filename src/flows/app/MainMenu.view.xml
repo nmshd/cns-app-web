@@ -25,7 +25,7 @@
             </m:Bar>
         </m:customHeader>
 		<m:VBox alignContent="Stretch" class="sapUiSmallMargin">
-			<m:Title text="Profile Management" />
+			<m:Title text="{t>mainmenu.profileManagement}" />
 			<m:Button
                 icon="sap-icon://bar-code"
                 text="{t>onboardOverview.scanButton}"
@@ -52,7 +52,7 @@
             />
 			<m:Button
                 icon="sap-icon://switch-classes"
-                text="{t>master.switchProfile}"
+                text="{t>mainmenu.selectProfile}"
                 press="toSelect()"
                 type="Transparent"
                 visible="{= !${v>/showProfile} }"
@@ -68,7 +68,7 @@
             />
         </m:VBox>
 		<m:VBox alignContent="Stretch" class="sapUiSmallMargin">
-			<m:Title text="App" />
+			<m:Title text="{t>mainmenu.app}" />
 			<m:Button icon="sap-icon://hint" text="{t>master.about}" press="toAbout()" type="Transparent" class="mainMenuButton" />
             <m:Button
                 icon="sap-icon://shield"

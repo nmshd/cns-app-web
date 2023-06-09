@@ -28,7 +28,7 @@
 
 		<semantic:content>
             <m:VBox class="sapUiSmallMargin">
-                <m:Text text="Welcome to your digital identity." class="bigTitle" />
+                <m:Text text="{t>account.home.big}" class="bigTitle" />
 
                 <!-- <m:Button icon="sap-icon://bar-code" text="QR-Code scannen" press="onScan" />-->
             </m:VBox>
