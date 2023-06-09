@@ -2,6 +2,7 @@ import Device from "sap/ui/Device"
 import UIComponent from "sap/ui/core/UIComponent"
 import JSONModel from "sap/ui/model/json/JSONModel"
 import App from "./core/App"
+import UIBridge from "./core/UIBridge"
 
 /**
  * DO NOT REMOVE @namespace!
@@ -25,6 +26,7 @@ export default class Component extends UIComponent {
         oDeviceModel.setData(Device)
         this.setModel(oDeviceModel, "d")
 
+        runtime.registerUIBridge(new UIBridge())
         await App.initializeApp(this)
         this.getRouter().initialize()
     }

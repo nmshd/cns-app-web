@@ -14,7 +14,6 @@ import Model from "sap/ui/model/Model"
 import JSONModel from "sap/ui/model/json/JSONModel"
 import EventBus from "./EventBus"
 import IAppShellController from "./IAppShellController"
-import UIBridge from "./UIBridge"
 import FileUtil from "./utils/FileUtil"
 import InboxUtil from "./utils/InboxUtil"
 import MessageUtil from "./utils/MessageUtil"
@@ -109,7 +108,6 @@ export default abstract class App {
             sap.ui.getCore().getConfiguration().setLanguage(language.value)
         }
 
-        runtime.registerUIBridge(new UIBridge())
         runtime.nativeEnvironment.eventBus.publish(new JSSNative.AppReadyEvent())
         this.Bus.publish("Shell", "switchTo", {
             message: "",
