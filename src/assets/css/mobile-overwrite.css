@@ -173,11 +173,17 @@ html .sapMBtn.help:not(.sapMBtnDisabled) > .sapMBtnInner.sapMBtnActive {
 }
 
 /* POPUP */
-
-html body .sapMDialog.sapMDialogStretched {
-    top: 20px !important;
+html body .sapMDialog.sapMDialogStretched,
+html.sap-phone body .sapMDialog.sapMDialogStretched {
+    top: 5px !important;
+    left: 5px !important;
+    bottom: 5px !important;
+    right: 5px !important;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
+
+
+    padding: 0px !important;
 }
 
 html .sapMDialog header .sapMBarLeft,
