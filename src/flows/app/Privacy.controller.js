@@ -28,9 +28,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
 
         refresh() {},
 
-        clear() {},
-        onNavButtonPress() {
-            this.navBack("app.master")
-        }
+        clear() {}
     })
 })

@@ -50,7 +50,6 @@ sap.ui.define(
             },
             onNavButtonPress() {
                 App.isError = false
-                //this.navBack("accounts")
                 window.history.go(-1)
             }
         })

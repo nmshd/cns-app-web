@@ -79,21 +79,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
             this.navTo(navigateToRoute, {
                 accountId: this.accountId
             })
-        },
-        toOnboard() {
-            this.navTo("accounts.onboardoverview", {
-                backEnabled: true,
-                backRoute: "app.about"
-            })
-        },
-        toPrivacy() {
-            this.navTo("app.privacy", {
-                backEnabled: true,
-                backRoute: "app.about"
-            })
-        },
-        onNavButtonPress() {
-            this.navBack("app.master")
         }
     })
 })

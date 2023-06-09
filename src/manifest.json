@@ -111,11 +111,6 @@
                     "target": ["app.mainmenu", "app.debug"]
                 },
                 {
-                    "pattern": "app/eula",
-                    "name": "app.eula",
-                    "target": ["app.mainmenu", "app.eula"]
-                },
-                {
                     "pattern": "app/imprint",
                     "name": "app.imprint",
                     "target": ["app.mainmenu", "app.imprint"]
@@ -124,11 +119,6 @@
                     "pattern": "accounts/{accountId}/imprint",
                     "name": "account.imprint",
                     "target": ["app.mainmenu", "app.imprint"]
-                },
-                {
-                    "pattern": "app/info",
-                    "name": "app.info",
-                    "target": ["app.mainmenu", "app.info"]
                 },
                 {
                     "pattern": "app/legal",
@@ -149,11 +139,6 @@
                     "pattern": "accounts/{accountId}/privacy",
                     "name": "account.privacy",
                     "target": ["app.mainmenu", "app.privacy"]
-                },
-                {
-                    "pattern": "app/settings",
-                    "name": "app.settings",
-                    "target": ["app.mainmenu", "app.settings"]
                 },
 
                 {
@@ -445,21 +430,9 @@
                     "controlAggregation": "detailPages",
                     "viewLevel": 1000
                 },
-                "app.eula": {
-                    "viewName": "flows.app.EULA",
-                    "viewId": "app-eula",
-                    "controlAggregation": "detailPages",
-                    "viewLevel": 5
-                },
                 "app.imprint": {
                     "viewName": "flows.app.Imprint",
                     "viewId": "app-imprint",
-                    "controlAggregation": "detailPages",
-                    "viewLevel": 5
-                },
-                "app.info": {
-                    "viewName": "flows.app.Info",
-                    "viewId": "app-info",
                     "controlAggregation": "detailPages",
                     "viewLevel": 5
                 },
@@ -468,12 +441,6 @@
                     "viewId": "app-legal",
                     "controlAggregation": "detailPages",
                     "viewLevel": 5
-                },
-                "app.master": {
-                    "viewName": "flows.app.Master",
-                    "viewId": "app-master",
-                    "controlAggregation": "masterPages",
-                    "viewLevel": 3
                 },
                 "app.mainmenu": {
                     "viewName": "flows.app.MainMenu",
@@ -484,12 +451,6 @@
                 "app.privacy": {
                     "viewName": "flows.app.Privacy",
                     "viewId": "app-privacy",
-                    "controlAggregation": "detailPages",
-                    "viewLevel": 5
-                },
-                "app.settings": {
-                    "viewName": "flows.app.Settings",
-                    "viewId": "app-settings",
                     "controlAggregation": "detailPages",
                     "viewLevel": 5
                 },
