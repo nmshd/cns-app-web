@@ -152,11 +152,6 @@
                     "target": ["app.mainmenu", "accounts.create"]
                 },
                 {
-                    "pattern": "accounts/nocode",
-                    "name": "accounts.onboardnocode",
-                    "target": ["app.mainmenu", "accounts.onboardnocode"]
-                },
-                {
                     "pattern": "accounts/overview",
                     "name": "accounts.onboardoverview",
                     "target": ["app.mainmenu", "accounts.onboardoverview"]
@@ -263,11 +258,6 @@
                     "target": ["app.mainmenu", "account.relationships.request"]
                 },
                 {
-                    "pattern": "accounts/{accountId}/template/{templateId}",
-                    "name": "account.template",
-                    "target": ["app.mainmenu", "account.template"]
-                },
-                {
                     "pattern": "accounts/{accountId}/incoming/{relationshipId}",
                     "name": "account.incomingrequest",
                     "target": ["app.mainmenu", "account.incomingrequest"]
@@ -282,11 +272,6 @@
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}",
                     "name": "account.relationship.home",
                     "target": ["app.mainmenu", "account.relationship.home"]
-                },
-                {
-                    "pattern": "accounts/{accountId}/relationships/{relationshipId}/master",
-                    "name": "account.relationship.master",
-                    "target": ["app.mainmenu", "account.relationship.master"]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/correspondence",
@@ -454,13 +439,6 @@
                     "controlAggregation": "detailPages",
                     "viewLevel": 5
                 },
-
-                "accounts.onboardnocode": {
-                    "viewName": "flows.accounts.OnboardNoCode",
-                    "viewId": "accounts-onboardnocode",
-                    "controlAggregation": "detailPages",
-                    "viewLevel": 25
-                },
                 "accounts.onboardoverview": {
                     "viewName": "flows.accounts.OnboardOverview",
                     "viewId": "accounts-onboardoverview",
@@ -508,12 +486,6 @@
                     "viewName": "flows.account.Login",
                     "viewId": "account-login",
                     "controlAggregation": "detailPages",
-                    "viewLevel": 100
-                },
-                "account.master": {
-                    "viewName": "flows.account.Master",
-                    "viewId": "account-master",
-                    "controlAggregation": "masterPages",
                     "viewLevel": 100
                 },
                 "account.home": {
@@ -601,12 +573,6 @@
                     "controlAggregation": "detailPages",
                     "viewLevel": 204
                 },
-                "account.template": {
-                    "viewName": "flows.account.relationships.Template",
-                    "viewId": "account-relationships-template",
-                    "controlAggregation": "detailPages",
-                    "viewLevel": 204
-                },
                 "account.incomingrequest": {
                     "viewName": "flows.account.relationships.IncomingRequest",
                     "viewId": "account-relationships-incoming",
@@ -618,13 +584,6 @@
                     "viewId": "account-relationships-outgoing",
                     "controlAggregation": "detailPages",
                     "viewLevel": 202
-                },
-
-                "account.relationship.master": {
-                    "viewName": "flows.account.relationship.Master",
-                    "viewId": "account-relationship-master",
-                    "controlAggregation": "masterPages",
-                    "viewLevel": 250
                 },
 
                 "account.relationship.home": {
