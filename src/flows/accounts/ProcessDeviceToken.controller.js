@@ -21,9 +21,9 @@ sap.ui.define(
                 await this.super("onRouteMatched")
                 await App.isInitialized()
 
+                this.clear()
                 this.info = App.temporaryNavigationCache
                 App.temporaryNavigationCache = undefined
-                this.clear()
 
                 if (!this.info) {
                     this.navBack("accounts.select")
