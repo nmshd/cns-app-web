@@ -7,8 +7,8 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
             return {
                 busy: false,
                 delay: 0,
-                legalChanged: new Date("2021/08/01"),
-                legalVersion: "v0.1",
+                legalChanged: new Date("2023/06/09"),
+                legalVersion: "v1.0",
                 legalText: "Legal"
             }
         },
