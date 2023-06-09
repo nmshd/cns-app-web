@@ -62,7 +62,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
                 this.viewProp("/creation", false)
                 this.viewProp("/creationCompleted", true)
             } catch (e) {
-                this.addError({
+                this.showMessage({
                     oError: e,
                     sUserFriendlyMsg: this.resource("accounts.create.wizard.popup.error")
                 })

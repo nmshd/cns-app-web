@@ -68,7 +68,7 @@ sap.ui.define(
                     }
                 } catch (e) {
                     appLogger.error(e)
-                    this.addError({
+                    this.showMessage({
                         oError: e,
                         sUserFriendlyMsg:
                             // if it is a platformError display the error text from the backbone

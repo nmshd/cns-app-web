@@ -1,4 +1,6 @@
 import MessageStrip from "sap/m/MessageStrip"
+import MessageToast from "sap/m/MessageToast"
+import { Dock } from "sap/ui/core/Popup"
 import { MessageType } from "sap/ui/core/library"
 import Model from "sap/ui/model/Model"
 import JSONModel from "sap/ui/model/json/JSONModel"
@@ -34,6 +36,23 @@ export default abstract class ConvenienceController extends BaseController {
         parsedViewModel.setDefaultBindingMode("OneWay")
         this.setModel(parsedViewModel, "v")
         return parsedViewModel
+    }
+
+    public showMessage(options: { quick?: boolean; sUserFriendlyMsg: string }) {
+        const duration = options.quick ? 3000 : 6000
+        MessageToast.show(options.sUserFriendlyMsg, {
+            duration: duration,
+            width: "15em",
+            my: Dock.CenterBottom,
+            at: Dock.CenterBottom,
+            of: window,
+            offset: "0 -100",
+            collision: "fit fit",
+            autoClose: true,
+            animationTimingFunction: "ease",
+            animationDuration: 500,
+            closeOnBrowserNavigation: false
+        })
     }
 
     protected createViewModel(): JSONModel | Object {

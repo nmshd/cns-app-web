@@ -28,7 +28,7 @@ sap.ui.define(
             async runScanner() {
                 const scanResult = await runtime.nativeEnvironment.scannerAccess.scan()
                 if (scanResult.isError) {
-                    this.addError({
+                    this.showMessage({
                         quick: true,
                         sUserFriendlyMsg: this.resource("account.scan.aborted")
                     })
@@ -46,7 +46,7 @@ sap.ui.define(
                         return App.error(processingResult.error)
                     }
                 } catch (e) {
-                    this.addError({
+                    this.showMessage({
                         sUserFriendlyMsg: this.resource("scanController.retryError")
                     })
                     // QR Code parsing errors might occur

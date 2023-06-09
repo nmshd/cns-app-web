@@ -52,7 +52,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
             if (App.mainmenu) {
                 App.mainmenu.viewProp("/profileName", newAccountName)
             }
-            this.addError({ sUserFriendlyMsg: this.resource("settings.renameError"), quick: true })
+            this.showMessage({ sUserFriendlyMsg: this.resource("settings.renameError"), quick: true })
         },
 
         async toggleExpertMode() {
