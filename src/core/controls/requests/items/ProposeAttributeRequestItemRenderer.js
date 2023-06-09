@@ -25,7 +25,8 @@ sap.ui.define(
                 },
                 publicMethods: [],
                 events: {
-                    change: { allowPreventDefault: true }
+                    change: { allowPreventDefault: true },
+                    infoPressed: {}
                 },
                 defaultAggregation: "_control"
             },
