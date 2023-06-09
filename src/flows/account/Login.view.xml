@@ -10,6 +10,6 @@
     xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
 	<m:Page showHeader="false">
-		<m:Button text="Login" press="login()" />
+		<m:Button text="{t>login.signin}" press="login()" />
 	</m:Page>
 </mvc:View>
