@@ -67,30 +67,7 @@
 						<m:Text text="{t>onboardOverview.text2}" class="sapUiTinyMarginTop" />
 					</controls:ContainerButton>
 
-					<!--
-					<m:VBox class="contentBox">
-						<m:Title text="{t>onboardOverview.title1}" />
-						<m:Text text="{t>onboardOverview.text1}" class="sapUiTinyMarginBottom" />
-						<m:Text text="{t>onboardOverview.text2}" />
-						<m:Toolbar>
-							<m:ToolbarSpacer />
-							<m:Button text="{t>onboardOverview.scanButton}" type="Emphasized" press="scan" enabled="{v>/submitAvailable}" />
-						</m:Toolbar>
-					</m:VBox>
-					<m:VBox class="contentBox sapUiSmallMarginTop">
-						<m:Title text="{t>onboardOverview.title3}" />
-						<m:Text text="{t>onboardOverview.text3}" />
-						<m:Toolbar>
-							<m:ToolbarSpacer />
-							<m:Button text="{t>accounts.create.title1}" type="Emphasized" press="onNoCode" enabled="{v>/submitAvailable}" />
-						</m:Toolbar>
-					</m:VBox>
-					-->
 				</m:VBox>
-
-				
-
-
 
 			</m:VBox>
 		</semantic:content>
