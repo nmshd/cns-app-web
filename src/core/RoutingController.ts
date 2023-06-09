@@ -189,29 +189,20 @@ export default abstract class RoutingController extends AppController {
      * @param {*} delta The delta number to navigate n steps back within the history.
      * Delta will be overridden to be below zero
      */
-    public navBack(routeName: string, object?: any, delta: number = -1) {
+    public navBack(routeName?: string, object?: any, delta: number = -1) {
         const oHistory = (History as any).getInstance()
         const sPreviousHash = oHistory.getPreviousHash()
+
+        if (!routeName) {
+            window.history.go(Math.min(delta, -1))
+            return
+        }
 
         try {
             if (sPreviousHash !== undefined) {
                 if (delta) {
                     window.history.go(Math.min(delta, -1))
                 } else {
-                    /*else if (!Device.system.phone) {
-                    let hash = this.getRouter().getURL(routeName, object)
-                    let count = this.countDeltaToHash(hash)
-                    if (count >= 0) {
-                        const historyEntries = history.state.sap.history
-                        // App.navAndReplaceHistory(1 - historyEntries.length, [routeName, object])
-                        App.navTo(routeName, object, true)
-                    } else {
-                        window.history.go(count)
-                    }
-                } else {
-                    window.history.go(-1)
-                }
-                */
                     this.getRouter().navTo(routeName, object, true)
                 }
             } else {
@@ -244,7 +235,7 @@ export default abstract class RoutingController extends AppController {
     }
 
     public onNavButtonPress(oEvent: UIEvent) {
-        throw "Implement onNavButtonPress within controller!"
+        this.navBack()
     }
 
     /**
