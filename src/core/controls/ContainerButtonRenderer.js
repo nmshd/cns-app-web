@@ -235,6 +235,7 @@ sap.ui.define(
             oRm.close("div")
 
             oRm.openStart("div")
+            oRm.class("containerButtonRendererDescription")
             oRm.openEnd()
 
             oRm.text(oButton.getDescription())
