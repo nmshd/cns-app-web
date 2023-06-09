@@ -61,7 +61,8 @@ export default class UIBridge implements IUIBridge {
     public showDeviceOnboarding(deviceOnboardingInfo: DeviceOnboardingInfoDTO): Promise<UserfriendlyResult<void>> {
         App.disableAutoAccountSelection = true
         return new Promise((resolve) => {
-            App.navTo("accounts.processdevicetoken", {}, { deviceOnboardingInfo: deviceOnboardingInfo })
+            App.temporaryNavigationCache = { deviceOnboardingInfo: deviceOnboardingInfo }
+            App.navTo("accounts.processdevicetoken", {})
             resolve(UserfriendlyResult.ok(undefined))
         })
     }

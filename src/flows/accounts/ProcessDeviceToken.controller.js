@@ -20,14 +20,15 @@ sap.ui.define(
                 App.appController.setTitle(this.resource("accounts.processDeviceToken.title"))
                 await this.super("onRouteMatched")
                 await App.isInitialized()
+
+                this.info = App.temporaryNavigationCache
+                App.temporaryNavigationCache = undefined
                 this.clear()
 
-                this.info = App.prop("/redirect")
                 if (!this.info) {
                     this.navBack("accounts.select")
                     return
                 }
-                App.prop("/redirect", undefined)
                 const secret = this.info.deviceOnboardingInfo
                 this.model = new JSONModel({
                     id: secret.id,

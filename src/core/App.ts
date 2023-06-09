@@ -57,6 +57,8 @@ export default abstract class App {
     public static RelationshipTemplateUtil: RelationshipTemplateUtil
     public static RelationshipUtil: RelationshipUtil
 
+    public static temporaryNavigationCache?: any
+
     public static get appController(): IAppShellController {
         return this._appController
     }
