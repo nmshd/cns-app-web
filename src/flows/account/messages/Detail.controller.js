@@ -66,7 +66,7 @@ sap.ui.define(
 
             onNavButtonPress() {
                 const route = this.viewProp("/route")
-                if (!route.view) {
+                if (route && route.view) {
                     switch (route._name) {
                         case "customers.message":
                             this.navBack("customers.comm", { id: route.id })
