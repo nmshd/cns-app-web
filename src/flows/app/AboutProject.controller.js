@@ -1,7 +1,7 @@
 sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, RoutingController) => {
     "use strict"
     return RoutingController.extend("nmshd.app.flows.app.AboutProject", {
-        routeName: "app.aboutProject",
+        routeNames: ["app.aboutProject", "account.aboutProject"],
 
         onInitialized() {
             this.resetViewModel()

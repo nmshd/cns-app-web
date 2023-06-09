@@ -47,34 +47,32 @@ export default class MainMenuController extends RoutingController {
         App.closeProfileMenu()
     }
 
-    scanWithinAccount() {
-        this.navTo("account.scan", {
+    navToAccountOrApp(accountRoute, appRoute) {
+        const navigateToRoute = this.accountId ? accountRoute : appRoute
+        this.navTo(navigateToRoute, {
             accountId: this.accountId
         })
         App.closeProfileMenu()
     }
 
+    scanWithinAccount() {
+        this.navToAccountOrApp("account.scan", "app.scan")
+    }
+
     toAccountSettings() {
-        this.navTo("account.settings", {
-            accountId: this.accountId
-        })
-        App.closeProfileMenu()
+        this.navToAccountOrApp("account.settings", "app.settings")
     }
     toAbout() {
-        this.navTo("app.about")
-        App.closeProfileMenu()
+        this.navToAccountOrApp("account.about", "app.about")
     }
     toPrivacy() {
-        this.navTo("app.privacy")
-        App.closeProfileMenu()
+        this.navToAccountOrApp("account.privacy", "app.privacy")
     }
     toLegal() {
-        this.navTo("app.legal")
-        App.closeProfileMenu()
+        this.navToAccountOrApp("account.legal", "app.legal")
     }
     toImprint() {
-        this.navTo("app.imprint")
-        App.closeProfileMenu()
+        this.navToAccountOrApp("account.imprint", "app.imprint")
     }
     toCreateProfile() {
         this.navTo("accounts.onboardoverview")

@@ -1,7 +1,7 @@
 sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, RoutingController) => {
     "use strict"
     return RoutingController.extend("nmshd.app.flows.app.Legal", {
-        routeName: "app.legal",
+        routeNames: ["app.legal", "account.legal"],
 
         createViewModel() {
             return {

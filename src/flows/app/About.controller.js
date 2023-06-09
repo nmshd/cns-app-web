@@ -1,7 +1,7 @@
 sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, RoutingController) => {
     "use strict"
     return RoutingController.extend("nmshd.app.flows.app.About", {
-        routeName: "app.about",
+        routeNames: ["app.about", "account.about"],
 
         onInitialized() {
             this.resetViewModel()
@@ -11,6 +11,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
             App.setMenuIcon()
             App.appController.clearRight()
             App.appController.setTitle(this.resource("master.about"))
+            this.accountId = oEvent.getParameter("arguments").accountId
             await this.super("onRouteMatched", oEvent)
             App.appController.setTitle(this.resource("master.about"))
             const aAccounts = await App.localAccountController().getAccounts()
@@ -74,7 +75,10 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
             carousel.previous()
         },
         toAboutProject() {
-            this.navTo("app.aboutProject")
+            const navigateToRoute = this.accountId ? "account.aboutProject" : "app.aboutProject"
+            this.navTo(navigateToRoute, {
+                accountId: this.accountId
+            })
         },
         toOnboard() {
             this.navTo("accounts.onboardoverview", {

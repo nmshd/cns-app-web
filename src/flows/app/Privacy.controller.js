@@ -1,7 +1,7 @@
 sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, RoutingController) => {
     "use strict"
     return RoutingController.extend("nmshd.app.flows.app.Privacy", {
-        routeName: "app.privacy",
+        routeNames: ["app.privacy", "account.privacy"],
 
         createViewModel() {
             return {

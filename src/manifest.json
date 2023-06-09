@@ -81,8 +81,18 @@
                     "target": ["app.mainmenu", "app.about"]
                 },
                 {
+                    "pattern": "accounts/{accountId}/about",
+                    "name": "account.about",
+                    "target": ["app.mainmenu", "app.about"]
+                },
+                {
                     "pattern": "app/aboutProject",
                     "name": "app.aboutProject",
+                    "target": ["app.mainmenu", "app.aboutProject"]
+                },
+                {
+                    "pattern": "accounts/{accountId}/aboutProject",
+                    "name": "account.aboutProject",
                     "target": ["app.mainmenu", "app.aboutProject"]
                 },
                 {
@@ -111,6 +121,11 @@
                     "target": ["app.mainmenu", "app.imprint"]
                 },
                 {
+                    "pattern": "accounts/{accountId}/imprint",
+                    "name": "account.imprint",
+                    "target": ["app.mainmenu", "app.imprint"]
+                },
+                {
                     "pattern": "app/info",
                     "name": "app.info",
                     "target": ["app.mainmenu", "app.info"]
@@ -121,8 +136,18 @@
                     "target": ["app.mainmenu", "app.legal"]
                 },
                 {
+                    "pattern": "accounts/{accountId}/legal",
+                    "name": "account.legal",
+                    "target": ["app.mainmenu", "app.legal"]
+                },
+                {
                     "pattern": "app/privacy",
                     "name": "app.privacy",
+                    "target": ["app.mainmenu", "app.privacy"]
+                },
+                {
+                    "pattern": "accounts/{accountId}/privacy",
+                    "name": "account.privacy",
                     "target": ["app.mainmenu", "app.privacy"]
                 },
                 {
