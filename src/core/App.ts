@@ -5,6 +5,8 @@ import {
     OnboardingChangeReceivedEvent
 } from "@nmshd/app-runtime"
 import { DeviceDTO, RelationshipDVO } from "@nmshd/runtime"
+import { CoreId } from "@nmshd/transport"
+import URLListValidator from "sap/base/security/URLListValidator"
 import Dialog from "sap/m/Dialog"
 import SplitApp from "sap/m/SplitApp"
 import Device from "sap/ui/Device"
@@ -69,18 +71,15 @@ export default abstract class App {
     public static component: any
 
     public static async initializeApp(component: any) {
-        const that = this
         this.resetAppModel()
 
-        /*
-        URLWhitelist.add("tel");
-        URLWhitelist.add("sms");
-        URLWhitelist.add("geo");
-        URLWhitelist.add("mailto");
-        URLWhitelist.add("nmshd");
-        URLWhitelist.add("http");
-        URLWhitelist.add("https");
-        */
+        URLListValidator.add("tel")
+        URLListValidator.add("sms")
+        URLListValidator.add("geo")
+        URLListValidator.add("mailto")
+        URLListValidator.add("nmshd")
+        URLListValidator.add("http")
+        URLListValidator.add("https")
 
         if (location.hash) {
             this.disableAutoAccountSelection = true
@@ -114,13 +113,6 @@ export default abstract class App {
             redirect: "app"
         })
 
-        /*
-        //Fix app close if first entry is empty on Android
-        if (Device.os.name === "Android") {
-          this.navToDirect("accounts");
-        }
-        */
-
         this.hideSplashScreen()
 
         runtime.eventBus.subscribe(MailReceivedEvent, () => {
@@ -138,16 +130,16 @@ export default abstract class App {
         })
 
         this.Bus.subscribe("App", "fatal", (owner: any, message: any, data: any) => {
-            that.fatal(data)
+            this.fatal(data)
         })
 
         this.Bus.subscribe("App", "error", (owner: any, message: any, data: any) => {
-            that.error(data)
+            this.error(data)
         })
 
         this.Bus.subscribe("App", "navTo", (owner: any, message: any, data: any) => {
-            that.prop("/tmpObject", data.object)
-            that.navTo(data.redirect, data.object, !!data.replace)
+            this.prop("/tmpObject", data.object)
+            this.navTo(data.redirect, data.object, !!data.replace)
         })
     }
 
@@ -500,8 +492,8 @@ export default abstract class App {
 
     private static async setAppViewModel(control: Control) {
         if (!control || !control.setModel) return
-        const accountId = this.localAccount().id
-        const localAccount = await App.localAccountController().getAccount(accountId)
+        const accountId = this.getCurrentAccount().id
+        const localAccount = await App.localAccountController().getAccount(CoreId.from(accountId))
         const name = localAccount.name || "Enmeshed"
         const address = App.account().identity.address.toString()
 
@@ -578,12 +570,15 @@ export default abstract class App {
 
             const accountname =
                 resourceModel.getProperty("accounts.processRelationshipToken.profile") + (accounts.length + 1)
-            const oAccounts = await runtime.accountServices.createAccount(NMSHDTransport.Realm.Prod, accountname)
-            this.localAccount = oAccounts
-            await App.selectAccount(this.localAccount.id, "")
-            appLogger.info(`Account ${this.localAccount.id} was created for account selection.`)
+            const createdAccountDTO = await runtime.accountServices.createAccount(
+                NMSHDTransport.Realm.Prod,
+                accountname
+            )
+            // this._localAccount = createdAccountDTO
+            await App.selectAccount(this.currentAccount.id, "")
+            appLogger.info(`Account ${this.currentAccount.id} was created for account selection.`)
             if (App.accountSelectionCallback) {
-                App.accountSelectionCallback(this.localAccount)
+                App.accountSelectionCallback(this.currentAccount)
             }
         } catch (e) {
             App.error(e)
@@ -609,7 +604,10 @@ export default abstract class App {
         const toasts = document.querySelectorAll(".sapMMessageToast")
         toasts.forEach((item: any) => (item.style = "display:none;"))
     }
-    public static localAccount() {
+    public static getCurrentAccount() {
+        return runtime.currentAccount
+    }
+    public static get currentAccount() {
         return runtime.currentAccount
     }
     public static relationship() {

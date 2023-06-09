@@ -1,3 +1,4 @@
+import { CoreId } from "@nmshd/transport"
 import Control from "sap/ui/core/Control"
 import App from "../../core/App"
 import RoutingController from "../../core/RoutingController"
@@ -112,7 +113,7 @@ export default class MainMenuController extends RoutingController {
         // @ts-ignore
         if (runtime.isLoggedIn() && this.accountId) {
             const accountId = this.accountId
-            const localAccount = await App.localAccountController().getAccount(accountId)
+            const localAccount = await App.localAccountController().getAccount(CoreId.from(accountId))
             const name = localAccount.name || "Enmeshed"
             this.accountId = accountId
 
