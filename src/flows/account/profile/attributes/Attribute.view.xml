@@ -51,9 +51,9 @@
 				</form:SimpleForm>
 			</m:Panel>
 
-			<m:Panel headerText="Shared Attribute" visible="{=${type} === 'SharedToPeerAttributeDVO'}">
+			<m:Panel headerText="{t>attribute.shared.title}" visible="{=${type} === 'SharedToPeerAttributeDVO'}">
 				<m:Text
-                    text="This attribute has been shared to one of your contacts. You and your contact '{peer>/name}' share the same details found here."
+                    text="{parts:[{path:'t>attribute.shared.description'},{path:'peer>/name'}], formatter:'jQuery.sap.formatMessage'}"
                 />
 				
 				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTopBottom">
@@ -66,7 +66,7 @@
 				</form:SimpleForm>
 
 
-				<m:Text text="This shared attribute is based on the following root attribute out of your own data:" />
+				<m:Text text="{t>attribute.shared.source}" />
 				<m:List
                     items="{items}"
                     noDataText="{t>attribute.sharedWithNobody}"
@@ -83,12 +83,12 @@
 			<m:Panel visible="{=${type} === 'RepositoryAttributeDVO'}">
 				<m:headerToolbar>
 					<m:Toolbar>
-						<m:Title text="Root Attribute" />
+						<m:Title text="{t>attribute.root.title}" />
 						<m:ToolbarSpacer />
 						<m:Button text="{t>attributes.action.shareAttribute}" icon="sap-icon://share-2" press="toShareAttribute" />
 					</m:Toolbar>
 				</m:headerToolbar>
-				<m:Text text="This root attribute is stored in your attribute repository and can be shared to various contacts." />
+				<m:Text text="{t>attribute.root.description}" />
 				
 				<form:SimpleForm class="sapUiNoContentPadding">
 					<m:Label text="{t>attribute.ownId}" />
@@ -102,11 +102,8 @@
 					
 				</form:SimpleForm>
 
-				<m:Text text="This own attribute is shared with the following contacts:" visible="{=${sharedWith/length} > 0}" />
-				<m:Text
-                    text="This own attribute is so far not shared to any of your contacts. You can share it with the button below."
-                    visible="{=${sharedWith/length} === 0}"
-                />
+				<m:Text text="{t>attribute.root.sharedWithDescription}" visible="{=${sharedWith/length} > 0}" />
+				<m:Text text="{t>attribute.root.noshare}" visible="{=${sharedWith/length} === 0}" />
 				<m:List
                     items="{items}"
                     noDataText="{t>attribute.sharedWithNobody}"
@@ -122,9 +119,9 @@
 				</m:List>
 			</m:Panel>
 
-			<m:Panel headerText="Peer Attribute" visible="{=${type} === 'PeerAttributeDVO'}">
+			<m:Panel headerText="{t>attribute.peer.title}" visible="{=${type} === 'PeerAttributeDVO'}">
 				<m:Text
-                    text="This attribute has been received by one of your contacts. You and your contact '{peer>/name}' share the same details found here."
+                    text="{parts:[{path:'t>attribute.shared.description'},{path:'peer>/name'}], formatter:'jQuery.sap.formatMessage'}"
                 />
 				
 				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTopBottom">
