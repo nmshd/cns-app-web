@@ -22,6 +22,7 @@ sap.ui.define(
             },
 
             async runScanner() {
+                // @ts-ignore
                 const scanResult = await runtime.nativeEnvironment.scannerAccess.scan()
                 if (scanResult.isError) {
                     this.showMessage({

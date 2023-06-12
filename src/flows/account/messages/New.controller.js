@@ -38,6 +38,7 @@ sap.ui.define(
 
             async doChoose() {
                 try {
+                    // @ts-ignore
                     const file = await runtime.nativeEnvironment.fileAccess.select()
                     if (!file || file.isError || !file.value) {
                         if (file.error.code === JSSNative.NativeErrorCodes.FILESYSTEM_SELECTION_CANCELLED) {
