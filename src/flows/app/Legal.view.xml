@@ -7,6 +7,7 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.f"
     xmlns:c="nmshd.app.core.controls"
+    xmlns:controls="nmshd.app.core.controls"
 >
 
 	<semantic:DetailPage
@@ -48,9 +49,28 @@
 					</f:DynamicPageTitle>
 				</f:title>
 				<f:content>
-					<FormattedText htmlText="{v>/legalText}" />
-
-
+					<VBox>
+					<Title text="{t>legal.thirdparty.title}" class="bigTitle" />
+					<Text text="{t>legal.thirdparty.description1}" />
+					<Text text="{t>legal.thirdparty.description2}" />
+					
+					<controls:Container class="sapUiNoMargin">
+						<Text text="{t>legal.thirdparty.description3}" class="inlineText" />
+						<Link
+                                href="mailto://{t>legal.thirdparty.contactlink}"
+                                text="{t>legal.thirdparty.contactlink}"
+                                class="sapUiTinyMarginBegin inlineText"
+                            />
+						<Text text="." class="inlineText" />
+					</controls:Container>
+					<Title text="{t>legal.deps.title}" class="bigTitle sapUiLargeMarginTop" />
+					<Text text="{t>legal.deps.description1}" />
+					<FormattedText htmlText="{v>/deps}" />
+					<Title text="{t>legal.devdeps.title}" class="bigTitle sapUiLargeMarginTop" />
+					<Text text="{t>legal.devdeps.description1}" />
+					<Text text="{t>legal.devdeps.description2}" />
+					<FormattedText htmlText="{v>/devdeps}" />
+					</VBox>
 				</f:content>
 			</f:DynamicPage>
 		</semantic:content>

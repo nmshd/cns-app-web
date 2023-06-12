@@ -9,14 +9,17 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
                 delay: 0,
                 legalChanged: new Date("2023/06/09"),
                 legalVersion: "v1.0",
-                legalText: "Legal"
+                deps: "",
+                devdeps: ""
             }
         },
 
         async onInitialized() {
             this.resetViewModel()
-            const legalText = await $.get("flows/app/Legal.html")
-            this.viewProp("/legalText", legalText)
+            const deps = await $.get("flows/app/LegalDeps.html")
+            this.viewProp("/deps", deps)
+            const devdeps = await $.get("flows/app/LegalDevdeps.html")
+            this.viewProp("/devdeps", devdeps)
         },
 
         onRouteMatched(oEvent) {
@@ -25,6 +28,8 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
             App.appController.setTitle(this.resource("legal.title"))
             this.super("onRouteMatched", oEvent)
         },
+
+        openLink() {},
 
         refresh() {},
 
