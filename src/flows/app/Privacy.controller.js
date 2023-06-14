@@ -7,8 +7,8 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
             return {
                 busy: false,
                 delay: 0,
-                privacyChanged: new Date("2021/08/01"),
-                privacyVersion: "v0.3",
+                privacyChanged: new Date("2023/06/14"),
+                privacyVersion: "v1.0",
                 privacyText: "Privacy"
             }
         },
