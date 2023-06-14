@@ -1,17 +1,18 @@
-import App from "../core/App"
-import JSONModel from "sap/ui/model/json/JSONModel"
 import SplitApp from "sap/m/SplitApp"
+import View from "sap/ui/core/mvc/View"
+import JSONModel from "sap/ui/model/json/JSONModel"
+import App from "../core/App"
+import IAppShellController from "../core/IAppShellController"
 import RoutingController from "../core/RoutingController"
 
 /**
  * @namespace nmshd.app.shell.AppShellController
  */
-export default class AppShellController extends RoutingController {
+export default class AppShellController extends RoutingController implements IAppShellController {
     protected onLeftAction?: Function
     protected onRightAction?: Function
-    protected wasHomeBefore: boolean
+    protected wasHomeBefore: boolean = false
     protected _contentLoadingCounter: number = 0
-    protected routeName: string
 
     constructor() {
         super(AppShellController.name)
@@ -58,7 +59,7 @@ export default class AppShellController extends RoutingController {
         this.getRouter().attachBypassed(this.onBypassed.bind(this))
         */
         this.wasHomeBefore = true
-        //await App.isInitialized()
+        await App.isInitialized()
 
         runtime.nativeEnvironment.eventBus.publish(new JSSNative.ThemeEvent("#3d86f0", JSSNative.ThemeTextStyle.Light))
     }
@@ -212,8 +213,9 @@ export default class AppShellController extends RoutingController {
     }
 
     onBackPress(oEvent: UIEvent) {
-        // @ts-ignore
-        const currentController = this.byId("appComponent").getCurrentPage().getController()
+        const currentController = (
+            (this.byId("appComponent") as SplitApp).getCurrentDetailPage() as View
+        ).getController() as RoutingController
         if (currentController.onNavButtonPress) {
             currentController.onNavButtonPress.apply(currentController, [oEvent])
         }

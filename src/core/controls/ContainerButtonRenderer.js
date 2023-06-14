@@ -35,12 +35,12 @@ sap.ui.define(
 
         /**
          * Renders the HTML for the given control, using the provided
-         * {@link sap.ui.core.RenderManager}.
+         * {@link import('sap/ui/core/RenderManager').default}.
          *
-         * @param {sap.ui.core.RenderManager} oRm
+         * @param {import('sap/ui/core/RenderManager').default} oRm
          *            the RenderManager that can be used for writing to
          *            the Render-Output-Buffer
-         * @param {sap.m.Button} oButton
+         * @param {any} oButton
          *            the button to be rendered
          */
         ContainerButtonRenderer.render = function (oRm, oButton) {
@@ -235,6 +235,7 @@ sap.ui.define(
             oRm.close("div")
 
             oRm.openStart("div")
+            oRm.class("containerButtonRendererDescription")
             oRm.openEnd()
 
             oRm.text(oButton.getDescription())
@@ -300,10 +301,11 @@ sap.ui.define(
 
         /**
          * Renders tabindex with value of "-1" if required by  <code>_bExcludeFromTabChain</code> property.
-         * @param {sap.m.Button} oButton The sap.m.Button to be rendered
-         * @param {sap.ui.core.RenderManager} oRm The RenderManager that can be used for writing to the Render-Output-Buffer
+         * @param {import('sap/m/Button').default} oButton The sap.m.Button to be rendered
+         * @param {import('sap/ui/core/RenderManager').default} oRm The RenderManager that can be used for writing to the Render-Output-Buffer
          */
         function renderTabIndex(oButton, oRm) {
+            // @ts-ignore
             if (oButton._bExcludeFromTabChain) {
                 oRm.attr("tabindex", -1)
             }
@@ -312,9 +314,9 @@ sap.ui.define(
         /**
          * Callback for specific rendering of accessibility attributes.
          *
-         * @param {sap.ui.core.RenderManager}
+         * @param {import('sap/ui/core/RenderManager').default}
          *            oRm the RenderManager currently rendering this control
-         * @param {sap.m.ToggleButton}
+         * @param {import('sap/m/ToggleButton').default}
          *            oToggleButton the ToggleButton that should be rendered
          * @param {object} mAccProps Accessibillity properties
          * @private
@@ -326,9 +328,9 @@ sap.ui.define(
         /**
          * Callback for specific rendering of inner button attributes.
          *
-         * @param {sap.ui.core.RenderManager}
+         * @param {import('sap/ui/core/RenderManager').default}
          *            oRm the RenderManager currently rendering this control
-         * @param {sap.m.ToggleButton}
+         * @param {import('sap/m/ToggleButton').default}
          *            oToggleButton the ToggleButton that should be rendered
          * @private
          */

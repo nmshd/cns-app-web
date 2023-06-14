@@ -116,12 +116,6 @@ sap.ui.define(
                     oRM.renderControl(editControl)
                 }
                 oRM.write("</div>")
-            },
-
-            onAfterRendering(oEvent) {
-                if (sap.ui.core.Control.prototype.onAfterRendering) {
-                    sap.ui.core.Control.prototype.onAfterRendering.apply(this, arguments)
-                }
             }
         })
     }

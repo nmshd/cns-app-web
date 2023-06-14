@@ -1,7 +1,7 @@
 sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, RoutingController) => {
     "use strict"
     return RoutingController.extend("nmshd.app.flows.app.AboutProject", {
-        routeName: "app.aboutProject",
+        routeNames: ["app.aboutProject", "account.aboutProject"],
 
         onInitialized() {
             this.resetViewModel()
@@ -67,21 +67,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
         previous() {
             const carousel = this.byId("carousel")
             carousel.previous()
-        },
-        toOnboard() {
-            this.navTo("accounts.onboardoverview", {
-                backEnabled: true,
-                backRoute: "app.about"
-            })
-        },
-        toPrivacy() {
-            this.navTo("app.privacy", {
-                backEnabled: true,
-                backRoute: "app.about"
-            })
-        },
-        onNavButtonPress() {
-            window.history.go(-1)
         }
     })
 })

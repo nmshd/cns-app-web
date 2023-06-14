@@ -21,6 +21,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
 
         async refreshLogs() {
             try {
+                // @ts-ignore
                 const logs = await runtime.nativeEnvironment.fileAccess.infoDirectory("./logs/")
                 if (logs.isError) {
                     this.writeErrorToLog(logs.error)
@@ -38,6 +39,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
                     logEntries.push(`ModifiedAt: ${file.modifiedAt}`)
                     logEntries.push(`AccessedAt: ${new Date().toISOString()}`)
                     logEntries.push("\n")
+                    // @ts-ignore
                     const fileLog = await runtime.nativeEnvironment.fileAccess.readFileAsText(file.path)
                     if (fileLog.isError) {
                         const error = fileLog.error
@@ -70,6 +72,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
         async downloadLogs() {
             const filename = `${this.currentFileDate()}_EnmeshedLogs.txt`
             const content = NMSHDCrypto.CoreBuffer.fromUtf8(this.byId("logs").getValue())
+            // @ts-ignore
             await runtime.nativeEnvironment.fileAccess.openFileContent(content.buffer, {
                 name: filename,
                 path: filename,
@@ -85,9 +88,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
 
         clear() {
             this.super("clear")
-        },
-        onNavButtonPress() {
-            this.navBack("app.master")
         }
     })
 })

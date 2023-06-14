@@ -1,7 +1,11 @@
-import JSONModel from "sap/ui/model/json/JSONModel"
-import BaseController from "./BaseController"
+import MessageStrip from "sap/m/MessageStrip"
+import MessageToast from "sap/m/MessageToast"
+import { Dock } from "sap/ui/core/Popup"
+import { MessageType } from "sap/ui/core/library"
 import Model from "sap/ui/model/Model"
+import JSONModel from "sap/ui/model/json/JSONModel"
 import App from "./App"
+import BaseController from "./BaseController"
 
 /**
  * @namespace nmshd.app.core
@@ -34,6 +38,23 @@ export default abstract class ConvenienceController extends BaseController {
         return parsedViewModel
     }
 
+    public showMessage(options: { quick?: boolean; sUserFriendlyMsg: string }) {
+        const duration = options.quick ? 3000 : 6000
+        MessageToast.show(options.sUserFriendlyMsg, {
+            duration: duration,
+            width: "15em",
+            my: Dock.CenterBottom,
+            at: Dock.CenterBottom,
+            of: window,
+            offset: "0 -100",
+            collision: "fit fit",
+            autoClose: true,
+            animationTimingFunction: "ease",
+            animationDuration: 500,
+            closeOnBrowserNavigation: false
+        })
+    }
+
     protected createViewModel(): JSONModel | Object {
         const viewModel = new JSONModel({})
         return viewModel
@@ -42,6 +63,20 @@ export default abstract class ConvenienceController extends BaseController {
     public clear() {
         this._loadingCounter = 0
         this.resetViewModel()
+    }
+
+    public setMessage(message?: string, type: MessageType = MessageType.Information) {
+        const strip = this.byId("message") as MessageStrip
+        if (!strip || strip.getMetadata().getElementName() !== "MessageStrip") return
+
+        if (!message) {
+            strip.setText("")
+            strip.setVisible(false)
+        } else {
+            strip.setText(message)
+            strip.setVisible(true)
+            strip.setType(type)
+        }
     }
 
     /**
@@ -53,8 +88,8 @@ export default abstract class ConvenienceController extends BaseController {
      * @param values The array of values which should be taken into consideration while translating ({0} would be first index)
      * @returns The fully translated string
      */
-    resource(key: string, values?: string[]) {
-        return this.getResourceBundle().getText(key, values)
+    resource(key: string, values?: string[]): string {
+        return this.getResourceBundle().getText(key, values) ?? ""
     }
 
     /**

@@ -81,12 +81,13 @@ sap.ui.define(
 
                 const map = {}
                 for (const attribute of expandedAttributes) {
+                    // @ts-ignore
                     map[attribute.value["@type"]] = attribute
                 }
                 this.map = map
 
                 const model = new JSONModel({ items: expandedAttributes, map: map })
-                model.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay)
+                model.setDefaultBindingMode("OneWay")
                 this.setModel(model)
                 const editableAttributes = NMSHDContent.AttributeValues.Identity.Editable.TYPE_NAMES.map((value) => ({
                     key: value,
@@ -191,6 +192,7 @@ sap.ui.define(
                         content: {
                             "@type": "IdentityAttribute",
                             value: attributeValue,
+                            // @ts-ignore
                             owner: runtime.currentAccount.address
                         }
                     })

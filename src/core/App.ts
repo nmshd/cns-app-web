@@ -1,14 +1,26 @@
+import {
+    DatawalletSynchronizedEvent,
+    LocalAccountDTO,
+    MailReceivedEvent,
+    OnboardingChangeReceivedEvent
+} from "@nmshd/app-runtime"
+import { DeviceDTO, RelationshipDVO } from "@nmshd/runtime"
+import { CoreId } from "@nmshd/transport"
+import URLListValidator from "sap/base/security/URLListValidator"
+import Dialog from "sap/m/Dialog"
+import SplitApp from "sap/m/SplitApp"
+import Device from "sap/ui/Device"
+import Control from "sap/ui/core/Control"
+import Fragment from "sap/ui/core/Fragment"
 import Model from "sap/ui/model/Model"
 import JSONModel from "sap/ui/model/json/JSONModel"
 import EventBus from "./EventBus"
-import { RelationshipDVO } from "@nmshd/runtime"
-import UIBridge from "./UIBridge"
-import RelationshipUtil from "./utils/RelationshipUtil"
+import IAppShellController from "./IAppShellController"
 import FileUtil from "./utils/FileUtil"
-import RelationshipTemplateUtil from "./utils/RelationshipTemplateUtil"
-import MessageUtil from "./utils/MessageUtil"
 import InboxUtil from "./utils/InboxUtil"
-import SplitApp from "sap/m/SplitApp"
+import MessageUtil from "./utils/MessageUtil"
+import RelationshipTemplateUtil from "./utils/RelationshipTemplateUtil"
+import RelationshipUtil from "./utils/RelationshipUtil"
 
 interface IDictionary<TValue> {
     [id: string]: TValue
@@ -26,7 +38,15 @@ export default abstract class App {
     private static _relationship?: RelationshipDVO
     private static isError: boolean = false
     private static _accounts: IDictionary<any> = {}
-    private static disableAutoAccountSelection: boolean = false
+    public static disableAutoAccountSelection: boolean = false
+    public static enforceAccountCreation: boolean = false
+    public static get accountSelectionPopupOpen() {
+        return this._accountSelectionPopupOpen
+    }
+    private static _accountSelectionPopupOpen: boolean = false
+    public static accountSelectionCallback?: Function
+    private static accountSelectionPopup?: Dialog
+    public static openByNotification: boolean = false
 
     private static profileMenuOpen: boolean = false
     public static splitApp?: SplitApp
@@ -37,10 +57,12 @@ export default abstract class App {
     public static RelationshipTemplateUtil: RelationshipTemplateUtil
     public static RelationshipUtil: RelationshipUtil
 
-    public static get appController(): any {
+    public static temporaryNavigationCache?: any
+
+    public static get appController(): IAppShellController {
         return this._appController
     }
-    private static _appController: any
+    private static _appController: IAppShellController
 
     public static get model(): JSONModel {
         return this._model
@@ -51,18 +73,15 @@ export default abstract class App {
     public static component: any
 
     public static async initializeApp(component: any) {
-        const that = this
         this.resetAppModel()
 
-        /*
-        URLWhitelist.add("tel");
-        URLWhitelist.add("sms");
-        URLWhitelist.add("geo");
-        URLWhitelist.add("mailto");
-        URLWhitelist.add("nmshd");
-        URLWhitelist.add("http");
-        URLWhitelist.add("https");
-        */
+        URLListValidator.add("tel")
+        URLListValidator.add("sms")
+        URLListValidator.add("geo")
+        URLListValidator.add("mailto")
+        URLListValidator.add("nmshd")
+        URLListValidator.add("http")
+        URLListValidator.add("https")
 
         if (location.hash) {
             this.disableAutoAccountSelection = true
@@ -90,47 +109,39 @@ export default abstract class App {
             sap.ui.getCore().getConfiguration().setLanguage(language.value)
         }
 
-        runtime.registerUIBridge(new UIBridge())
         runtime.nativeEnvironment.eventBus.publish(new JSSNative.AppReadyEvent())
         this.Bus.publish("Shell", "switchTo", {
             message: "",
             redirect: "app"
         })
 
-        /*
-        //Fix app close if first entry is empty on Android
-        if (Device.os.name === "Android") {
-          this.navToDirect("accounts");
-        }
-        */
-
         this.hideSplashScreen()
 
-        runtime.eventBus.subscribe(NMSHDAppRuntime.MailReceivedEvent, () => {
+        runtime.eventBus.subscribe(MailReceivedEvent, () => {
             this.Bus.publish("message", "refresh")
         })
 
-        runtime.eventBus.subscribe(NMSHDAppRuntime.DatawalletSynchronizedEvent, () => {
+        runtime.eventBus.subscribe(DatawalletSynchronizedEvent, () => {
             this.Bus.publish("datawallet", "refresh")
             this.Bus.publish("relationship", "refresh")
             this.Bus.publish("message", "refresh")
         })
 
-        runtime.eventBus.subscribe(NMSHDAppRuntime.OnboardingChangeReceivedEvent, () => {
+        runtime.eventBus.subscribe(OnboardingChangeReceivedEvent, () => {
             this.Bus.publish("relationship", "refresh")
         })
 
         this.Bus.subscribe("App", "fatal", (owner: any, message: any, data: any) => {
-            that.fatal(data)
+            this.fatal(data)
         })
 
         this.Bus.subscribe("App", "error", (owner: any, message: any, data: any) => {
-            that.error(data)
+            this.error(data)
         })
 
         this.Bus.subscribe("App", "navTo", (owner: any, message: any, data: any) => {
-            that.prop("/tmpObject", data.object)
-            that.navTo(data.redirect, data.object, !!data.replace)
+            this.prop("/tmpObject", data.object)
+            this.navTo(data.redirect, data.object, !!data.replace)
         })
     }
 
@@ -401,6 +412,24 @@ export default abstract class App {
         }
     }
 
+    public static async wipeLocalStorage() {
+        // Do not stop runtime when refreshing
+        window.removeEventListener("beforeunload", this.beforeUnloadListener)
+        // Runtime must stop to flush the database before localStorage wipe
+        await runtime.stop()
+        if (window.localStorage) {
+            localStorage.clear()
+        }
+        if (window.indexedDB) {
+            const databases = await indexedDB.databases()
+            for (const database of databases) {
+                await indexedDB.deleteDatabase(database.name!)
+            }
+        }
+
+        document.location = document.location
+    }
+
     public static async selectAccount(id: string, master: string) {
         if (id === this._lastAccount) return Promise.resolve(runtime.currentAccount)
         if (this._localAccountPromise) return this._localAccountPromise
@@ -439,16 +468,148 @@ export default abstract class App {
         })
         return promise
     }
-    public static registerAppController(controller: any) {
+    public static registerAppController(controller: IAppShellController) {
         this._appController = controller
         window.App = this
+    }
+
+    public static async openAccountSelectionPopup(accounts: LocalAccountDTO[], title?: string, description?: string) {
+        if (!this.accountSelectionPopup) {
+            this.accountSelectionPopup = (await Fragment.load({
+                id: "accountSelection",
+                name: "nmshd.app.flows.accounts.AccountSelectionPopup",
+                controller: this
+            })) as Dialog
+            await this.setAppViewModel(this.accountSelectionPopup)
+            this.setGlobalModels(this.accountSelectionPopup)
+            const model = this.accountSelectionPopup!.getModel("v") as JSONModel
+            model.setProperty("/accountSelectionAccounts", accounts ? accounts : [])
+            model.setProperty("/accountSelectionTitle", title)
+            model.setProperty("/accountSelectionDescription", description)
+        }
+        this.accountSelectionPopup.open()
+        this._accountSelectionPopupOpen = true
+        document.addEventListener("click", this.checkDocumentClick.bind(this))
+    }
+
+    private static async setAppViewModel(control: Control) {
+        if (!control || !control.setModel) return
+        const accountId = this.getCurrentAccount().id
+        const localAccount = await App.localAccountController().getAccount(CoreId.from(accountId))
+        const name = localAccount.name || "Enmeshed"
+        const address = App.account().identity.address.toString()
+
+        const getDevicesResult = await runtime.currentSession.transportServices.devices.getDevices()
+        let devices: DeviceDTO[] = []
+        if (getDevicesResult.isSuccess) {
+            devices = getDevicesResult.value
+        }
+
+        const viewModel = new JSONModel({
+            appVersion: runtime.nativeEnvironment.configAccess.get("version").value,
+            runtimeVersion: NMSHDAppRuntime.buildInformation.version,
+            profileName: name,
+            accountName: name,
+            accountId: accountId,
+            address: address,
+            devices: devices,
+            language: bootstrapper.nativeEnvironment.configAccess.get("language").value
+        })
+
+        viewModel.setDefaultBindingMode("OneWay")
+        control.setModel(viewModel, "v")
+    }
+
+    private static setGlobalModels(control: Control) {
+        if (!control || !control.setModel) return
+
+        const deviceModel = new JSONModel(Device)
+        deviceModel.setDefaultBindingMode("OneWay")
+        control.setModel(deviceModel, "d")
+
+        const resourceModel = this.component.getModel("t")
+        control.setModel(resourceModel, "t")
+    }
+
+    private static checkDocumentClick(oEvent: any) {
+        if (oEvent.target.id === "sap-ui-blocklayer-popup") {
+            this.closeAccountSelectionPopup()
+            document.removeEventListener("click", this.checkDocumentClick)
+        }
+    }
+
+    public static async accountSelectionCallbackDefault(account: LocalAccountDTO) {
+        if (account) {
+            App.navTo("account.home", {
+                accountId: account.id.toString()
+            })
+        }
+
+        this.accountSelectionCallback = undefined
+    }
+
+    public static onAccountSelectionPress(oEvent: any) {
+        try {
+            const oItem = oEvent.getParameter("listItem") || oEvent.getSource()
+            const prop = oItem.getBindingContextPath()
+            const selectedAccount = oEvent.getSource().getModel("v").getProperty(prop)
+            appLogger.info(`User chose ${selectedAccount.name} with id ${selectedAccount.id}.`)
+            if (App.accountSelectionCallback) {
+                App.accountSelectionCallback(selectedAccount)
+            }
+        } catch (e) {
+            App.error(e)
+        } finally {
+            this.closeAccountSelectionPopup()
+        }
+    }
+
+    public static async onAccountSelectionCreate() {
+        try {
+            appLogger.info("User decided for a new account to be created for an accountSelectionRequest.")
+            const accounts = await runtime.accountServices.getAccounts()
+            const resourceModel = this.component.getModel("t")
+
+            const accountname =
+                resourceModel.getProperty("accounts.processRelationshipToken.profile") + (accounts.length + 1)
+            const createdAccountDTO = await runtime.accountServices.createAccount(
+                NMSHDTransport.Realm.Prod,
+                accountname
+            )
+            // this._localAccount = createdAccountDTO
+            await App.selectAccount(this.currentAccount.id, "")
+            appLogger.info(`Account ${this.currentAccount.id} was created for account selection.`)
+            if (App.accountSelectionCallback) {
+                App.accountSelectionCallback(this.currentAccount)
+            }
+        } catch (e) {
+            App.error(e)
+        } finally {
+            this.closeAccountSelectionPopup()
+        }
+    }
+    public static onAccountSelectionClose() {
+        this.closeAccountSelectionPopup()
+        if (App.accountSelectionCallback) {
+            App.accountSelectionCallback()
+        }
+    }
+
+    public static closeAccountSelectionPopup() {
+        if (this.accountSelectionPopup) {
+            this.accountSelectionPopup.close()
+        }
+        this._accountSelectionPopupOpen = false
     }
 
     public static hideAllToasts() {
         const toasts = document.querySelectorAll(".sapMMessageToast")
         toasts.forEach((item: any) => (item.style = "display:none;"))
     }
-    public static localAccount() {
+    public static getCurrentAccount() {
+        return runtime.currentAccount
+    }
+    public static get currentAccount() {
         return runtime.currentAccount
     }
     public static relationship() {
@@ -532,7 +693,7 @@ export default abstract class App {
         }
     }
 
-    public static error(error: any, rootCause?: string) {
+    public static error(error: any, rootCause?: string | any) {
         if (error) {
             if (rootCause) appLogger.error(rootCause)
             appLogger.error(error)
@@ -555,7 +716,7 @@ export default abstract class App {
         }
     }
 
-    public static fatal(error: any, rootCause?: string) {
+    public static fatal(error: any, rootCause?: string | any) {
         if (error) {
             if (rootCause) appLogger.error(rootCause)
             appLogger.error("FATAL", error)

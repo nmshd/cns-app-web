@@ -1,5 +1,6 @@
 import { IUIBridge, LocalAccountDTO, UserfriendlyApplicationError, UserfriendlyResult } from "@nmshd/app-runtime"
 import { DeviceOnboardingInfoDTO, FileDVO, IdentityDVO, LocalRequestDVO, MailDVO, MessageDVO } from "@nmshd/runtime"
+import App from "./App"
 
 export default class UIBridge implements IUIBridge {
     public async showMessage(
@@ -15,7 +16,7 @@ export default class UIBridge implements IUIBridge {
                 accountId: account.id,
                 messageId: message.id
             })
-            resolve(NMSHDAppRuntime.UserfriendlyResult.ok(undefined))
+            resolve(UserfriendlyResult.ok(undefined))
         })
     }
 
@@ -45,7 +46,7 @@ export default class UIBridge implements IUIBridge {
                     accountId: account.id
                 })
             }
-            resolve(NMSHDAppRuntime.UserfriendlyResult.ok(undefined))
+            resolve(UserfriendlyResult.ok(undefined))
         })
     }
 
@@ -53,16 +54,16 @@ export default class UIBridge implements IUIBridge {
         return new Promise((resolve) => {
             appLogger.trace("UIBridge.showFile", account, file)
             App.navTo("account.files.detail", { id: file.id, accountId: account.id })
-            resolve(NMSHDAppRuntime.UserfriendlyResult.ok(undefined))
+            resolve(UserfriendlyResult.ok(undefined))
         })
     }
 
-    // @ts-ignore
     public showDeviceOnboarding(deviceOnboardingInfo: DeviceOnboardingInfoDTO): Promise<UserfriendlyResult<void>> {
         App.disableAutoAccountSelection = true
         return new Promise((resolve) => {
-            App.navTo("accounts.processdevicetoken", {}, { deviceOnboardingInfo: deviceOnboardingInfo })
-            resolve(NMSHDAppRuntime.UserfriendlyResult.ok(undefined))
+            App.temporaryNavigationCache = { deviceOnboardingInfo: deviceOnboardingInfo }
+            App.navTo("accounts.processdevicetoken", {})
+            resolve(UserfriendlyResult.ok(undefined))
         })
     }
 
@@ -73,7 +74,7 @@ export default class UIBridge implements IUIBridge {
                 accountId: account.id,
                 requestId: request.id
             })
-            resolve(NMSHDAppRuntime.UserfriendlyResult.ok(undefined))
+            resolve(UserfriendlyResult.ok(undefined))
         })
     }
 
@@ -83,11 +84,10 @@ export default class UIBridge implements IUIBridge {
     ): Promise<UserfriendlyResult<void>> {
         return new Promise((resolve) => {
             App.error(error)
-            resolve(NMSHDAppRuntime.UserfriendlyResult.ok(undefined))
+            resolve(UserfriendlyResult.ok(undefined))
         })
     }
 
-    // @ts-ignore
     public requestAccountSelection(
         possibleAccounts: LocalAccountDTO[],
         title: string,
@@ -101,7 +101,7 @@ export default class UIBridge implements IUIBridge {
             }
 
             App.accountSelectionCallback = (account: LocalAccountDTO) => {
-                App.accountSelectionCallback = null
+                App.accountSelectionCallback = undefined
                 if (account) {
                     appLogger.info(
                         `UIBridge.requestAccountSelection: User selected account ${account.name} with id ${account.id}.`
@@ -109,14 +109,14 @@ export default class UIBridge implements IUIBridge {
                 } else {
                     appLogger.info(`UIBridge.requestAccountSelection: User cancelled the selection.`)
                 }
-                resolve(NMSHDAppRuntime.UserfriendlyResult.ok(account))
+                resolve(UserfriendlyResult.ok(account))
             }
 
             if (possibleAccounts.length === 0 || App.enforceAccountCreation) {
                 App.navTo("accounts.processrelationshiptoken", {})
                 return
             }
-            App.appController.openAccountSelectionPopup(possibleAccounts, title, description)
+            App.openAccountSelectionPopup(possibleAccounts, title, description)
         })
     }
 }

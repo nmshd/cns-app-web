@@ -1,14 +1,14 @@
 sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, RoutingController) => {
     "use strict"
     return RoutingController.extend("nmshd.app.flows.app.Privacy", {
-        routeName: "app.privacy",
+        routeNames: ["app.privacy", "account.privacy"],
 
         createViewModel() {
             return {
                 busy: false,
                 delay: 0,
-                privacyChanged: new Date("2021/08/01"),
-                privacyVersion: "v0.3",
+                privacyChanged: new Date("2023/06/14"),
+                privacyVersion: "v1.0",
                 privacyText: "Privacy"
             }
         },
@@ -17,7 +17,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
             this.resetViewModel()
             const privacyText = await $.get("flows/app/Privacy.html")
             this.viewProp("/privacyText", privacyText)
-            window.cc = this
         },
 
         onRouteMatched(oEvent) {
@@ -29,9 +28,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
 
         refresh() {},
 
-        clear() {},
-        onNavButtonPress() {
-            this.navBack("app.master")
-        }
+        clear() {}
     })
 })

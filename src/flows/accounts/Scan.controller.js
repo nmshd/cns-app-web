@@ -22,9 +22,10 @@ sap.ui.define(
             },
 
             async runScanner() {
+                // @ts-ignore
                 const scanResult = await runtime.nativeEnvironment.scannerAccess.scan()
                 if (scanResult.isError) {
-                    this.addError({
+                    this.showMessage({
                         quick: true,
                         sUserFriendlyMsg: this.resource("account.scan.aborted")
                     })

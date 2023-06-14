@@ -68,6 +68,7 @@ sap.ui.define(
 
                 const map = {}
                 for (const attribute of expandedAttributes) {
+                    // @ts-ignore
                     map[attribute.value["@type"]] = attribute
                 }
                 this.map = map
@@ -144,7 +145,7 @@ sap.ui.define(
                         this.viewProp("/template", foundTemplate)
                         const token = await this.createContent(foundTemplate)
                         if (typeof token !== "string") {
-                            this.addError({
+                            this.showMessage({
                                 oError: token,
                                 sUserFriendlyMsg: this.resource("share.card.creationError")
                             })
@@ -154,7 +155,7 @@ sap.ui.define(
                     }
                 } catch (oError) {
                     const sUserFriendlyMsg = oError.message
-                    this.addError({ oError, sUserFriendlyMsg })
+                    this.showMessage({ oError, sUserFriendlyMsg })
                 } finally {
                     this.loadDec()
                 }

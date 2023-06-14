@@ -23,7 +23,8 @@ sap.ui.define(
                 },
                 publicMethods: [],
                 events: {
-                    change: { allowPreventDefault: true }
+                    change: { allowPreventDefault: true },
+                    infoPressed: {}
                 },
                 defaultAggregation: "_control"
             },
@@ -43,6 +44,11 @@ sap.ui.define(
                     })
                         .addStyleClass("createAttributeResponseItemRendererFoundAttribute")
                         .bindElement("response/attribute")
+                        .attachInfoPressed((e) =>
+                            this.fireInfoPressed({
+                                attributeId: e.getParameter("attributeId")
+                            })
+                        )
                 )
             },
 
@@ -86,12 +92,6 @@ sap.ui.define(
                 }
 
                 oRM.write("</div>")
-            },
-
-            onAfterRendering(oEvent) {
-                if (sap.ui.core.Control.prototype.onAfterRendering) {
-                    sap.ui.core.Control.prototype.onAfterRendering.apply(this, arguments)
-                }
             }
         })
     }

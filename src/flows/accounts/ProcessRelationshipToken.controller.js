@@ -57,7 +57,7 @@ sap.ui.define(
             },
 
             async onRouteExit(oEvent) {
-                await BaseController.prototype.onRouteExit.apply(this, [oEvent, true])
+                await RoutingController.prototype.onRouteExit.apply(this, [oEvent, true])
             },
 
             clear() {

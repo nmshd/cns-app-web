@@ -3,13 +3,13 @@
 <h4>§1 Die Lösung</h4>
 <ol>
     <li>
-        Diese Datenschutzbedingungen gelten für Softwarebausteine, Bibliotheken, Applikationen, Webseiten, Dienste oder
-        Produkte - nachfolgend "Lösung" bzw. "Lösungen" genannt - der j&s-soft GmbH, Max-Jarecki-Str. 21, D-69115
-        Heidelberg.
+        Diese Datenschutzbedingungen gelten für Softwareprodukte, -bausteine, -bibliotheken, -applikationen, Webseiten,
+        Dienste oder Produkte - nachfolgend "Lösung" bzw. "Lösungen" genannt - der j&s-soft GmbH, Max-Jarecki-Str. 21,
+        D-69115 Heidelberg.
     </li>
     <li>
-        Als Auszug sind hier die Applikation "Enmeshed App", der Dienst "Enmeshed Backbone" und die Applikation
-        "Enmeshed Connector" genannt.
+        Als Beispiele gelten die aktuell ausgeführte Applikation "enmeshed App", der Dienst "enmeshed Backbone" und das
+        Produkt "enmeshed Connector" genannt.
     </li>
     <li>Die j&s-soft GmbH ist der Ersteller, Herausgeber und Rechteinhaber der Lösung.</li>
     <li>Die Lösung, dessen Inhalt und die Nutzung der Lösung unterliegen dem deutschen Urheberrecht.</li>
@@ -19,7 +19,8 @@
     </li>
     <li>
         Wir glauben fest daran, dass diese Lösung den Datenschutz, die Sicherheit und die Benutzererfahrung der
-        digitalen Welt verbessert.
+        digitalen Welt verbessert. Die Lösung basiert auf einem sogenannten Least-Knowledge Prinzip, d.h. es wird
+        versucht so wenig Daten wie möglich zentral zu speichern.
     </li>
     <li>
         Jedwede Fragen und Kommentare zu der Lösung können an <a href="mailto:info@js-soft.com">info@js-soft.com</a>
@@ -54,51 +55,144 @@
 <ol>
     <li>Die j&s-soft GmbH behält sich vor, diese Datenschutzbedingungen abzuändern.</li>
 </ol>
-<h4>§5 Benutzung von personenbezogenen Daten</h4>
+<h4>§5 Benutzung von personenbezogene Daten im lokalen Teil</h4>
 <ol>
     <li>
-        Soweit nicht anders erwähnt werden personenbezogene Daten nur innerhalb des lokalen Teils der Lösung im Klartext
-        verarbeitet bzw. gespeichert. Als Beispiel des lokalen Teils gehören die jeweiligen Enmeshed Applikationen oder
-        auch der Enmeshed Connector (auf Firmenseite).
+        Der lokale Teil bezieht sich auf den Teil der Lösung, der lokal auf den Geräten der Anwender läuft, also zum
+        Beispiel die aktuell ausgeführte Applikation oder auch der enmeshed Connector, der meistens auf
+        Organisationsseite zur Integration verwendet wird.
     </li>
     <li>
-        Dies bedeutet, dass die j&s-soft GmbH grundsätzlich keine personenbezogenen Daten der Nutzer kennt, speichert
-        und auch keine technischen Möglichkeiten besitzt auf diese zuzugreifen.
+        Soweit hier nicht anders erwähnt werden personenbezogene Daten - wie auch private und geheime Schlüssel - nur
+        innerhalb des lokalen Teils der Lösung im Klartext verarbeitet bzw. gespeichert.
     </li>
     <li>
-        Sollten aufgrund von Fehlern innerhalb der Lösung personenbezogene Daten an die j&s-soft GmbH gelangen, werden
-        diese unverzüglich vernichtet.
+        Daten des lokalen Teils können seitens der j&s-soft GmbH oder ihrer Dienstleister nicht eingelesen oder
+        verarbeitet werden und verbleiben auf dem jeweiligen Endgerät.
     </li>
     <li>
-        Die Lösung verwendet eine pseudonymisierte Form zur Identifizierung der Benutzer, die zur Benutzung der Lösung
-        unumgänglich ist.
-    </li>
-    <li>
-        Das Pseudonym des Benutzers ermöglicht es der j&s-soft GmbH, eine statistische Auswertung über Benutzer zu
-        fahren. Diese Auswertung wird unter Anderem dafür benutzt, eine Abrechnung für unsere Kunden zu ermöglichen. Der
-        j&s-soft GmbH selbst ist es jedoch nicht möglich persönliche Daten mit einem Pseudonym zu verknüpfen oder
-        anderweitig abzugreifen.
+        Daten des lokalen Teils können seitens Dritter nicht eingelesen oder verarbeitet werden, es sei denn, dass der
+        Nutzer diese Daten manuell über die Lösung teilt.
     </li>
 </ol>
-<h4>§6 Weitergabe von (personenbezogenen) Daten seitens der j&s-soft GmbH</h4>
-
+<h4>§6 Prozessierung und Speicherung von personenbezogenen Daten im zentralen Teil</h4>
 <ol>
     <li>
-        Da die j&s-soft GmbH selbst keine personenbezogenen Daten des Benutzers kennt (siehe §4), können auch keine
-        personenbezogenen Daten weitergegeben werden.
+        Der zentrale Teil der Lösung bezieht sich auf den im Internet zur Verfügung stehenden Dienst "enmeshed
+        Backbone", über den die Kommunikation, die Datenspeicherung und die Synchronisierung zwischen Geräten der
+        Anwender erfolgt.
     </li>
-    <li>Ebenfalls werden von der j&s-soft GmbH keine pseudonymisierten Daten weitergegeben.</li>
+    <li>
+        Soweit hier nicht anders erwähnt, werden Daten aus dem lokalen Teil nur Ende-zu-Ende verschlüsselt an den
+        zentralen Teil übertragen bzw. über den zentralen Teil übermittelt. Die Ende-zu-Ende Verschlüsselung erfolgt
+        zwischen den Geräten einer Identität oder zwischen zwei Identitäten, jedoch nicht mit dem zentralen Teil. Dies
+        hat zur Folge, dass der zentrale Teil diese Verschlüsselung nicht aufbrechen kann und so auf keinerlei
+        Klartextdaten des lokalen Teils zugreifen kann, sondern nur die verschlüsselten Inhalte prozessiert und
+        speichert.
+    </li>
+    <li>
+        Zum Betrieb der Lösung speichert und prozessiert der zentrale Teil jedoch technische Metadaten, die als
+        personenbezogen anzusehen sind:
+        <ul>
+            <li>
+                Die vom zentralen Teil zufallsgenerierte ClientId und das dazugehörige zufallsgenerierte ClientSecret
+                pro Organisation bzw. eine Kombination ClientId & ClientSecret für alle Benutzer einer Applikation.
+            </li>
+            <li>
+                Die vom Gerät erzeugte zufallsgenerierte DeviceId und das dazugehörige zufallsgenerierte DevicePassword
+                des jeweiligen Gerätes.
+            </li>
+            <li>
+                Das Betriebssystem bzw. die Plattform des Gerätes, sowie das dazugehörige Push Notification Token, damit
+                der zentrale Teil an den lokalen Teil Änderungen mitteilen kann.
+            </li>
+            <li>
+                Der vom Gerät erzeugte zufallsgenerierte öffentliche Schlüssel der digitalen Identität, sowie die davon
+                abgeleitete enmeshed Adresse.
+            </li>
+            <li>
+                Die Zuordnung zwischen DeviceId und ClientId, sowie die Zuordnung zwischen DeviceId und enmeshed
+                Adresse.
+            </li>
+            <li>
+                Zufallsgenerierte Identifizierungen für alle Datensätze die ein Benutzer auf dem zentralen Teil
+                erstellen kann, z.B. Nachrichten, Tokens oder Dateien.
+            </li>
+            <li>Der Zeitstempel wann Datensätze erstellt, geändert oder gelöscht wurden.</li>
+            <li>Die enmeshed Adresse die einen Datensatz erstellt, geändert oder gelöscht hat.</li>
+            <li>Die DeviceId die einen Datensatz erstellt, geändert oder gelöscht hat.</li>
+            <li>Die Zuordnung welche enmeshed Adresse mit welcher anderen enmeshed Adresse kommunizieren darf.</li>
+            <li>Die Zuordnung welche Nachricht an welche enmeshed Adresse zugestellt werden soll (recipients).</li>
+            <li>
+                Welche DeviceId einer enmeshed Adresse wann genau eine Nachricht im Empfang genommen hat (receivedAt
+                Datum und receivedByDevice der Nachricht).
+            </li>
+            <li>Die Zuordnung welche Datei-Id in welcher Nachricht als Anhang verschickt wurde.</li>
+            <li>Die verschiedenen Versionsstände der Lösung des jeweiligen Gerätes.</li>
+            <li>Die IP Adresse im Internet, mit dem der zentrale Teil der Lösung von dem Gerät angesprochen wird.</li>
+            <li>
+                Eine zufallsgenerierte Identifikationsnummer pro Anfrage an den zentralen Teil der Lösung, die zur
+                Protokollierung und Fehlerbehebung benutzt wird.
+            </li>
+            <li>
+                Eine technische Benutzerkennung, ein sogenanntes Java Web Token, die Teile der oben aufgeführten
+                personenbezogenen Daten beinhalten kann.
+            </li>
+        </ul>
+    </li>
+    <li>
+        Sollten weitere personenbezogene Daten an die j&s-soft GmbH gelangen, werden diese schnellstmöglich vernichtet.
+    </li>
+</ol>
+<h4>§7 Benutzung von personenbezogenen Daten im zentralen Teil</h4>
+<ol>
+    <li>
+        Die in §6 genannten personenbezogenen Daten ermöglichen es der j&s-soft GmbH, die Benutzer, deren Geräte, deren
+        Beziehungen zu anderen Benutzern und deren Verhalten zu analysieren bzw. auszuwerten, eine sogenannte
+        Metadatenanalyse.
+    </li>
+    <li>
+        Diese Auswertung wird dafür benutzt, eine Eingrenzung von Datennutzung pro Nutzer bzw. Organisation (sogenannte
+        Quota), eine Eingrenzung von Zugriffsrechten (z.B. Zugriff auf verschlüsselten Daten), allgemeine Verbesserungen
+        der Lösung zu entwickeln und eine Abrechnung für unser Organisationen zu ermöglichen.
+    </li>
+    <li>
+        Mit den §6 genannten personenbezogenen Daten ist es der j&s-soft GmbH jedoch nicht ohne weiteres möglich, die
+        erhobenen Daten auf echte natürliche Personen einzugrenzen. Eine solche Eingrenzung wird seitens der j&s-soft
+        GmbH auch nicht versucht.
+    </li>
+</ol>
+<h4>§8 Weitergabe von personenbezogenen Daten seitens der j&s-soft GmbH</h4>
+<ol>
+    <li>
+        Die erhobenen Daten werden mit IT-Zulieferern für sogenanntes Cloud-Hosting geteilt, um den Betrieb
+        sicherzustellen.
+    </li>
+    <li>Der Betrieb erfolgt wo möglich innerhalb der Europäischen Union.</li>
+    <li>
+        Um den Betrieb der Lösung sicherzustellen, müssen Dienste von Dritten in Anspruch genommen werden, die ggf.
+        außerhalb der Euroäischen Union betrieben werden bzw. deren Daten nicht zweifelsfrei in der Europäischen Union
+        bleiben:
+        <ul>
+            <li>Apple Push Notification Service, um sogenannte Push Notifications an iOS Geräte zu übermitteln.</li>
+            <li>Firebase Push Service, um sogenannte Push Notifications an Android Geräte zu übermitteln.</li>
+        </ul>
+    </li>
+    <li>
+        Eine - über den Betrieb hinausgehende - Weitergabe von personenbezogenen Daten des zentralen Teils an Dritte
+        erfolgt nicht.
+    </li>
 </ol>
 
-<h4>§7 Weitergabe von (personenbezogenen) Daten seitens des Nutzers</h4>
+<h4>§9 Weitergabe von personenbezogenen Daten seitens des Nutzers</h4>
 
 <ol>
     <li>
-        Über die Lösung können (personenbezogene) Daten an andere Teilnehmer der Lösung geteilt bzw. freigegeben werden.
+        Über die Lösung können personenbezogene Daten an andere Teilnehmer der Lösung geteilt bzw. freigegeben werden.
     </li>
     <li>
-        Die Weitergabe von (personenbezogenen) Daten mithilfe der Lösung erfolgt stets freiwillig seitens des jeweiligen
-        Nutzers.
+        Die Weitergabe von personenbezogenen Daten mithilfe der Lösung erfolgt stets freiwillig seitens des jeweiligen
+        Nutzers bzw. Dateneigentümers.
     </li>
     <li>
         Die Weitergabe dieser Daten erfolgt meist durch manuelles Zutun des Nutzers, kann aber auch automatisiert
@@ -106,24 +200,33 @@
     </li>
 </ol>
 
-<h4>§8 Datenschutzbedingungen von Dritten</h4>
+<h4>§10 Datenschutzbedingungen von Dritten</h4>
 <ol>
     <li>
-        Der Empfang oder der Versand von personenbezogenen Daten über diese Lösung, impliziert meist die Zustimmung von
-        Datenschutzbedingungen anderer Parteien - wie z.B. anderer Organisationen oder Personen.
+        Der Empfang oder der Versand von personenbezogenen Daten über diese Lösung impliziert eine Kontaktanfrage mit
+        einer dritten Partei, wie z.B. Organisationen oder andere Personen. Schon während der Kontaktanfrage ist es
+        üblich und erwünscht, dass diese dritte Partei die eigenen Datenschutzbedingungen dem Benutzer aufzeigt.
     </li>
     <li>
-        Die j&s-soft GmbH empfiehlt das genaue Lesen der Datenschutzbedingungen der jeweiligen Partei. Sofern sie den
-        Bedingungen nicht zustimmen, werden keine Daten an diese Partei versandt.
+        Der Inhalt und das Einhalten dieser Datenschutzbedingungen obliegt dieser dritten Partei. Die j&s-soft GmbH hat
+        keinen Einfluss auf die Verarbeitung von personenbezogenen Daten bei den jeweiligen Drittparteien, noch weiß die
+        j&s-soft GmbH um wen es sich bei der dritten Partei handelt.
     </li>
     <li>
-        Der Inhalt und das Einhalten dieser Datenschutzbedingungen obliegt rein in der Hand dieser dritten Partei. Die
-        j&s-soft GmbH hat keinen Einfluss auf die Verarbeitung von personenbezogenen Daten bei den jeweiligen
-        Drittparteien.
+        Die j&s-soft GmbH empfiehlt das genaue Lesen der Datenschutzbedingungen der jeweiligen Partei. Ebenso wird
+        empfohlen, die Datenschutzbedingungen so früh wie möglich abzuklären, bestenfalls noch bevor die Kontaktanfrage
+        angenommen wird, da bis zur Annahme einer Kontaktanfrage keine personenbezogenen Daten an die dritte Partei
+        geteilt werden.
+    </li>
+    <li>
+        Die Annahme einer Kontaktanfrage impliziert meist die Zustimmung der Datenschutzbedingungen dieser Partei, was
+        auch so innerhalb der Kontaktanfrage seitens der dritten Partei aufgezeigt werden sollte. Falls keine
+        personenbezogenen Daten zu den Bedingungen geteilt werden sollen, kann die Kontaktanfrage ignoriert bzw. auch
+        direkt gelöscht werden.
     </li>
 </ol>
 
-<h4>§9 Sonstiges</h4>
+<h4>§11 Sonstiges</h4>
 <ol>
     <li>
         An die Stelle der unwirksamen oder undurchführbaren Bestimmung soll diejenige wirksame und durchführbare

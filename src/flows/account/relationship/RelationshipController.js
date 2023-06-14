@@ -81,7 +81,10 @@ sap.ui.define(
             },
 
             onNavButtonPress() {
-                this.navBack()
+                this.navBack("account.relationship.home", {
+                    accountId: this.accountId,
+                    relationshipId: this.relationshipId
+                })
             }
         })
     }

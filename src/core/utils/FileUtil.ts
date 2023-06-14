@@ -1,5 +1,6 @@
+import { CoreDate } from "@nmshd/transport"
 import JSONModel from "sap/ui/model/json/JSONModel"
-
+import App from "../App"
 export default class FileUtil {
     async getFile(id: string) {
         if (!id) {
@@ -87,7 +88,7 @@ export default class FileUtil {
     async uploadFile(file: any, title: string) {
         const uploadResult = await runtime.currentSession.transportServices.files.uploadOwnFile({
             content: new Uint8Array(file.data),
-            expiresAt: NMSHDTransport.CoreDate.utc().add({ years: 2 }).toISOString(),
+            expiresAt: CoreDate.utc().add({ years: 2 }).toISOString(),
             filename: file.name,
             mimetype: file.type,
             title: title,

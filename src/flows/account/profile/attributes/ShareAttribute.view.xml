@@ -47,14 +47,11 @@
 				</form:SimpleForm>
 			</m:Panel>
 
-			<m:Panel headerText="Share Attribute" visible="{=${type} === 'RepositoryAttributeDVO'}">
+			<m:Panel headerText="{t>attribute.share.title}" visible="{=${type} === 'RepositoryAttributeDVO'}">
 
 
-				<m:Text text="You can share this own attribute with the following contacts:" visible="{=${peers>/items/length} > 0}" />
-				<m:Text
-                    text="There are no eligible contacts to share this attribute to. Did you already share this attribute to the contact?"
-                    visible="{=${peers>/items/length} === 0}"
-                />
+				<m:Text text="{t>attribute.share.description}" visible="{=${peers>/items/length} > 0}" />
+				<m:Text text="{t>attribute.share.nocontacts}" visible="{=${peers>/items/length} === 0}" />
 				<m:List
                     id="possiblePeers"
                     items="{peers>/items}"
@@ -65,16 +62,21 @@
                 >
 					<m:StandardListItem title="{peers>name}" />
 				</m:List>
-				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTop" visible="{=${peers>/items/length} > 0}">
-					<m:Label text="Optional title to send with the attribute:" />
+				<form:SimpleForm
+                    class="sapUiNoContentPadding sapUiSmallMarginTop"
+                    visible="{=${peers>/items/length} > 0}"
+                    editable="true"
+                >
+                    <m:Text text="{t>attribute.share.optional}" />
+					<m:Label text="{t>attribute.share.sendtitle}" />
 					<m:Input id="title" width="100%" />
-					<m:Label text="Optional description to send with the attribute:" />
+					<m:Label text="{t>attribute.share.senddescription}" />
 					<m:TextArea id="description" width="100%" />
 					
 				</form:SimpleForm>
 
 				<m:Button
-                    text="Share"
+                    text="{t>attribute.share.action}"
                     press="shareAttribute"
                     enabled="{v>/submitEnabled}"
                     icon="sap-icon://share-2"

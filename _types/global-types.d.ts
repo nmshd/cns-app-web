@@ -5,6 +5,7 @@ import * as _NMSHDContent from "@nmshd/content"
 import * as _NMSHDCrypto from "@nmshd/crypto"
 import * as _NMSHDRuntime from "@nmshd/runtime"
 import * as _NMSHDTransport from "@nmshd/transport"
+import _App from "src/core/App"
 import * as _tsLogger from "./logger"
 
 declare global {
@@ -18,7 +19,7 @@ declare global {
     const bootstrapper: _JSSNative.INativeBootstrapper
     const _bootstrapPromise: Promise
     const QRCode: any
-    const App: any
+    const App: typeof _App
 
     const appLogger: _tsLogger.ILogger
     const NMSHDTransport: typeof _NMSHDTransport

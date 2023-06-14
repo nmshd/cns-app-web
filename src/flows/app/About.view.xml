@@ -84,16 +84,6 @@
                     </controls:contentRight>
                 </controls:ContainerButton>
                 </m:VBox>
-                
-                <!--
-                <m:Toolbar>
-                    <m:Button text="Zurück" type="Transparent" press="previous()" visible="{= !${v>/isStartPage} }" />
-                    <m:ToolbarSpacer />
-                    <m:Button text="Überspringen" type="Transparent" press="toLast()" visible="{= !${v>/isEndPage} }" />
-                    <m:Button text="Weiter" type="Emphasized" press="next()" visible="{= !${v>/isEndPage} }" />
-                    <m:Button text="Gerät einrichten" type="Emphasized" press="toOnboard()" visible="{v>/isEndPage}" />
-                </m:Toolbar>
-                -->
             </m:VBox>
 		</semantic:content>
 	</semantic:DetailPage>

@@ -42,7 +42,7 @@
 
 			</m:Panel>
 
-			<m:Panel headerText="Geteilte Attribute" visible="{=!!${/onNewRelationship} }">
+			<m:Panel headerText="{t>share.card.sharedAttributes}" visible="{=!!${/onNewRelationship} }">
 				<requests:RequestRenderer id="request" binding="{/onNewRelationship}" change="onChange">
 				</requests:RequestRenderer>
 			</m:Panel>

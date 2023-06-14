@@ -1,3 +1,4 @@
+import App from "../../core/App"
 import RoutingController from "../../core/RoutingController"
 
 /**
@@ -67,7 +68,7 @@ export default class SelectController extends RoutingController {
                 App.setBackIcon()
                 break
         }
-        App.appController.setRight(null)
+        App.appController.setRight()
 
         this.clear()
 
@@ -106,7 +107,6 @@ export default class SelectController extends RoutingController {
     }
 
     onItemPress(oEvent: any) {
-        App.afterLogin = null
         const oItem = oEvent.getParameter("listItem") || oEvent.getSource()
         const prop = oItem.getBindingContextPath()
         const acc = this.viewProp(prop)

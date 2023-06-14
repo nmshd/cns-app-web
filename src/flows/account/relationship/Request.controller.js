@@ -145,7 +145,7 @@ sap.ui.define(
                 const mergedRequest = this.mergeRequestWithResponse(this.request)
 
                 const model = new JSONModel(mergedRequest)
-                model.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay)
+                model.setDefaultBindingMode("OneWay")
                 this.setModel(model)
 
                 if (this.request.status === "ManualDecisionRequired") {
@@ -196,8 +196,9 @@ sap.ui.define(
                     )
                     if (acceptResult.isError) return App.error(acceptResult.error)
 
-                    this.navTo("account.relationships", {
-                        accountId: this.accountId
+                    this.navBack("account.relationship.home", {
+                        accountId: this.accountId,
+                        relationshipId: this.relationshipId
                     })
                 } catch (e) {
                     App.error(e)
@@ -227,10 +228,6 @@ sap.ui.define(
                     this.viewProp("/requestRunning", false)
                     runtime.currentSession.transportServices.account.enableAutoSync()
                 }
-            },
-
-            onNavButtonPress() {
-                this.navBack()
             }
         })
     }

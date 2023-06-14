@@ -38,6 +38,7 @@ sap.ui.define(
 
             async doChoose() {
                 try {
+                    // @ts-ignore
                     const file = await runtime.nativeEnvironment.fileAccess.select()
                     if (!file || file.isError || !file.value) {
                         if (file.error.code === JSSNative.NativeErrorCodes.FILESYSTEM_SELECTION_CANCELLED) {
@@ -68,7 +69,7 @@ sap.ui.define(
                     }
                 } catch (e) {
                     appLogger.error(e)
-                    this.addError({
+                    this.showMessage({
                         oError: e,
                         sUserFriendlyMsg:
                             // if it is a platformError display the error text from the backbone

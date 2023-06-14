@@ -219,10 +219,14 @@ sap.ui.define(
                         case "DecidableCreateAttributeRequestItemDVO":
                             control = new CreateAttributeResponseItemRenderer({
                                 requestItem: "{}"
-                            }).attachChange((oEvent) => {
-                                that.updateCheckbox(oEvent)
-                                that.fireChange(oEvent)
                             })
+                                .attachChange((oEvent) => {
+                                    that.updateCheckbox(oEvent)
+                                    that.fireChange(oEvent)
+                                })
+                                .attachInfoPressed((oEvent) => {
+                                    that.prepareInfoPress(oEvent)
+                                })
                             break
                         case "ShareAttributeRequestItemDVO":
                         case "DecidableShareAttributeRequestItemDVO":
@@ -237,12 +241,14 @@ sap.ui.define(
                             break
                         case "ProposeAttributeRequestItemDVO":
                         case "DecidableProposeAttributeRequestItemDVO":
-                            control = new ProposeAttributeResponseItemRenderer({ requestItem: "{}" }).attachChange(
-                                (oEvent) => {
+                            control = new ProposeAttributeResponseItemRenderer({ requestItem: "{}" })
+                                .attachChange((oEvent) => {
                                     that.updateCheckbox(oEvent)
                                     that.fireChange(oEvent)
-                                }
-                            )
+                                })
+                                .attachInfoPressed((oEvent) => {
+                                    that.prepareInfoPress(oEvent)
+                                })
                             break
                         case "RequestItemDVO":
                             console.warn(`Not implemented RequestItem.type encountered: ${item.type}`)
@@ -423,12 +429,6 @@ sap.ui.define(
             )
             */
                 oRM.write("</div>")
-            },
-
-            onAfterRendering(oEvent) {
-                if (sap.ui.core.Control.prototype.onAfterRendering) {
-                    sap.ui.core.Control.prototype.onAfterRendering.apply(this, arguments)
-                }
             }
         })
     }

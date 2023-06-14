@@ -60,6 +60,10 @@ html .whiteBG .sapFDynamicPageTitle {
     font-size: 1rem;
 }
 
+.containerButtonRendererDescription {
+    width: 100%;
+}
+
 .containerButtonRendererInner {
     display: flex;
     flex-direction: column;

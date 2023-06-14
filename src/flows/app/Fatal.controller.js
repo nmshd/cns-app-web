@@ -39,7 +39,7 @@ sap.ui.define(
             },
 
             async onRouteExit(oEvent) {
-                await AppController.prototype.onRouteExit.apply(this, [oEvent, true])
+                await RoutingController.prototype.onRouteExit.apply(this, [oEvent, true])
                 App.appController.viewProp("/theme", "")
             },
 
@@ -50,7 +50,6 @@ sap.ui.define(
             },
             onNavButtonPress() {
                 App.isError = false
-                //this.navBack("accounts")
                 window.history.go(-1)
             }
         })

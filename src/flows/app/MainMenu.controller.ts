@@ -1,12 +1,14 @@
-import RoutingController from "../../core/RoutingController"
+import { CoreId } from "@nmshd/transport"
 import Control from "sap/ui/core/Control"
+import App from "../../core/App"
+import RoutingController from "../../core/RoutingController"
 
 /**
  * @namespace nmshd.app.flows.app
  */
 export default class MainMenuController extends RoutingController {
     private taps: number = 0
-    private accountId: string
+    private accountId?: string
 
     constructor() {
         super(MainMenuController.name)
@@ -28,7 +30,6 @@ export default class MainMenuController extends RoutingController {
 
     protected onInitialized() {
         ;(this.byId("version")! as Control).attachBrowserEvent("tap", this.tapIncrease.bind(this))
-        App.mainmenu = this
     }
 
     tapIncrease() {
@@ -47,34 +48,32 @@ export default class MainMenuController extends RoutingController {
         App.closeProfileMenu()
     }
 
-    scanWithinAccount() {
-        this.navTo("account.scan", {
+    navToAccountOrApp(accountRoute, appRoute) {
+        const navigateToRoute = this.accountId ? accountRoute : appRoute
+        this.navTo(navigateToRoute, {
             accountId: this.accountId
         })
         App.closeProfileMenu()
     }
 
+    scanWithinAccount() {
+        this.navToAccountOrApp("account.scan", "app.scan")
+    }
+
     toAccountSettings() {
-        this.navTo("account.settings", {
-            accountId: this.accountId
-        })
-        App.closeProfileMenu()
+        this.navToAccountOrApp("account.settings", "app.settings")
     }
     toAbout() {
-        this.navTo("app.about")
-        App.closeProfileMenu()
+        this.navToAccountOrApp("account.about", "app.about")
     }
     toPrivacy() {
-        this.navTo("app.privacy")
-        App.closeProfileMenu()
+        this.navToAccountOrApp("account.privacy", "app.privacy")
     }
     toLegal() {
-        this.navTo("app.legal")
-        App.closeProfileMenu()
+        this.navToAccountOrApp("account.legal", "app.legal")
     }
     toImprint() {
-        this.navTo("app.imprint")
-        App.closeProfileMenu()
+        this.navToAccountOrApp("account.imprint", "app.imprint")
     }
     toCreateProfile() {
         this.navTo("accounts.onboardoverview")
@@ -114,7 +113,7 @@ export default class MainMenuController extends RoutingController {
         // @ts-ignore
         if (runtime.isLoggedIn() && this.accountId) {
             const accountId = this.accountId
-            const localAccount = await App.localAccountController().getAccount(accountId)
+            const localAccount = await App.localAccountController().getAccount(CoreId.from(accountId))
             const name = localAccount.name || "Enmeshed"
             this.accountId = accountId
 

@@ -1,14 +1,11 @@
+import ResourceBundle from "sap/base/i18n/ResourceBundle"
+import Event from "sap/ui/base/Event"
+import UIComponent from "sap/ui/core/UIComponent"
+import History from "sap/ui/core/routing/History"
+import Router from "sap/ui/core/routing/Router"
 import ResourceModel from "sap/ui/model/resource/ResourceModel"
 import App from "./App"
-import ResourceBundle from "sap/base/i18n/ResourceBundle"
-import Router from "sap/ui/core/routing/Router"
-import History from "sap/ui/core/routing/History"
 import AppController from "./AppController"
-import Event from "sap/ui/base/Event"
-import Targets, { TargetInfo } from "sap/ui/core/routing/Targets"
-import View from "sap/ui/core/mvc/View"
-import Control from "sap/ui/core/Control"
-import Device from "sap/ui/Device"
 
 /**
  * @namespace nmshd.app.core
@@ -21,7 +18,6 @@ export default abstract class RoutingController extends AppController {
     public async onInit() {
         super.onInit()
 
-        //await App.isInitialized()
         this.setModel(App.model, "a")
 
         this.attachRoutingEvents()
@@ -152,100 +148,24 @@ export default abstract class RoutingController extends AppController {
         const that = this
         const route = this.setRouteParameters(oEvent)
 
-        /*
-        // @ts-ignore
-        if (!window.controllerForRoute) window.controllerForRoute = {};
-        // @ts-ignore
-        window.controllerForRoute[route._name] = that;
-        */
-
         //Clone the Event and submit the clone further, otherwise the event is cleared
         //after a short period of time, resulting in errors (empty events) after awaiting promises
         const e = new Event("routePatternMatched", that.getRouter(), {
             name: "routePatternMatched",
             arguments: route,
-            // @ts-ignore
             config: oEvent.getParameters().config
         })
 
         let config
-        // @ts-ignore
         if (oEvent.getParameters().config) {
-            // @ts-ignore
             config = oEvent.getParameters().config
         } else if (oEvent.getId() === "bypassed") {
-            // @ts-ignore
             config = oEvent.getSource()._oConfig.bypassed
         }
 
-        if (config) {
-            if (config.showMaster) {
-                // @ts-ignore
-                // @ts-ignore
-                const masterTarget = this.getRouter().getTarget(config.target[0]) as any
-                const absoluteViewName =
-                    (this.getRouter() as any)._oConfig.viewPath + "." + masterTarget._oOptions.viewName
-                if (absoluteViewName === this.getView()!.getViewName()) {
-                    const root = sap.ui.getCore().byId((this.getRouter() as any)._oConfig.controlId)
-
-                    // @ts-ignore
-                    if (root && root.getMode) {
-                        // @ts-ignore
-                        if (root.getMode() === "ShowHideMode") {
-                            // @ts-ignore
-                            root.showMaster()
-                        } else {
-                            // @ts-ignore
-                            root.toMaster(this.getView().getId())
-                        }
-                    }
-                }
-            }
-
-            // @ts-ignore
-            if (!Device.system.phone && config.detailTarget) {
-                const displayedViews = (await this.getRouter()!
-                    .getTargets()!
-                    .display(config.detailTarget, route["_arguments"])) as {
-                    name: string
-                    view: View
-                    control: Control
-                    targetInfo: TargetInfo
-                }[]
-
-                for (let i = 0; i < displayedViews.length; i++) {
-                    let view: any = displayedViews[i]
-                    if (!view || view.error || !view.view) {
-                        appLogger.error(
-                            "Given target was not found while showing given detailTarget of route. See route " +
-                                route._name
-                        )
-                        continue
-                    }
-                    view = view.view
-                    const controller = view.getController()
-                    controller.viewProp("/route", route)
-                    if (controller.onRouteMatched) {
-                        await App.isInitialized()
-                        controller.onRouteMatched.apply(controller, [e])
-                    }
-                }
-            }
-
-            // if (config && !config.showMaster) {
-            //     const root = sap.ui.getCore().byId(this.getRouter()._oConfig.controlId)
-
-            //     // @ts-ignore
-            //     if (root.getMode && root.getMode() === "ShowHideMode") {
-            //         // @ts-ignore
-            //         root.hideMaster()
-            //     }
-            // }
-
-            if (this.onRouteMatched && typeof this.onRouteMatched === "function") {
-                await App.isInitialized()
-                this.onRouteMatched(e)
-            }
+        if (this.onRouteMatched && typeof this.onRouteMatched === "function") {
+            await App.isInitialized()
+            this.onRouteMatched(e)
         }
     }
 
@@ -269,29 +189,20 @@ export default abstract class RoutingController extends AppController {
      * @param {*} delta The delta number to navigate n steps back within the history.
      * Delta will be overridden to be below zero
      */
-    public navBack(routeName: string, object?: any, delta: number = -1) {
+    public navBack(routeName?: string, object?: any, delta: number = -1) {
         const oHistory = (History as any).getInstance()
         const sPreviousHash = oHistory.getPreviousHash()
+
+        if (!routeName) {
+            window.history.go(Math.min(delta, -1))
+            return
+        }
 
         try {
             if (sPreviousHash !== undefined) {
                 if (delta) {
                     window.history.go(Math.min(delta, -1))
                 } else {
-                    /*else if (!Device.system.phone) {
-                    let hash = this.getRouter().getURL(routeName, object)
-                    let count = this.countDeltaToHash(hash)
-                    if (count >= 0) {
-                        const historyEntries = history.state.sap.history
-                        // App.navAndReplaceHistory(1 - historyEntries.length, [routeName, object])
-                        App.navTo(routeName, object, true)
-                    } else {
-                        window.history.go(count)
-                    }
-                } else {
-                    window.history.go(-1)
-                }
-                */
                     this.getRouter().navTo(routeName, object, true)
                 }
             } else {
@@ -323,8 +234,8 @@ export default abstract class RoutingController extends AppController {
         }
     }
 
-    protected onNavButtonPress(oEvent: UIEvent) {
-        throw "Implement onNavButtonPress within controller!"
+    public onNavButtonPress(oEvent: UIEvent) {
+        this.navBack()
     }
 
     /**
@@ -333,7 +244,7 @@ export default abstract class RoutingController extends AppController {
      */
     public getRouter(): Router {
         if (!this.getOwnerComponent()) {
-            return App.appController.getOwnerComponent().getRouter()
+            return (App.appController.getOwnerComponent() as UIComponent).getRouter()
         }
         return this.getOwnerComponent().getRouter()
     }
@@ -343,9 +254,9 @@ export default abstract class RoutingController extends AppController {
      * @returns The i18n resource bundle of the component
      */
     public getResourceBundle(): ResourceBundle {
-        let owner = this.getOwnerComponent()
+        let owner = this.getOwnerComponent() as UIComponent
         if (!owner) {
-            owner = App.appController.getOwnerComponent()
+            owner = App.appController.getOwnerComponent() as UIComponent
         }
         let model = owner.getModel("i18n") as ResourceModel
         if (model) {

@@ -24,6 +24,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/flows/account/AccountController"
 
         async doChoose() {
             try {
+                // @ts-ignore
                 const file = await runtime.nativeEnvironment.fileAccess.select()
                 if (!file || file.isError || !file.value) {
                     if (file.error.code === "FILESYSTEM_SELECTION_CANCELLED") {
