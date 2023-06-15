@@ -26,6 +26,7 @@ export default class Component extends UIComponent {
         oDeviceModel.setData(Device)
         this.setModel(oDeviceModel, "d")
 
+        await window._bootstrapPromise
         runtime.registerUIBridge(new UIBridge())
         await App.initializeApp(this)
         this.getRouter().initialize()

@@ -93,8 +93,6 @@ export default abstract class App {
         this.Bus.publish("App", "initializeApp")
         this.component = component
 
-        await window._bootstrapPromise
-
         this.applyTheme()
 
         await this.initializeTransport()
