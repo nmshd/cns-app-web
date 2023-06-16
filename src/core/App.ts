@@ -492,15 +492,20 @@ export default abstract class App {
 
     private static async setAppViewModel(control: Control) {
         if (!control || !control.setModel) return
-        const accountId = this.getCurrentAccount().id
-        const localAccount = await App.localAccountController().getAccount(CoreId.from(accountId))
-        const name = localAccount.name || "Enmeshed"
-        const address = App.account().identity.address.toString()
-
-        const getDevicesResult = await runtime.currentSession.transportServices.devices.getDevices()
+        let accountId, name, address
         let devices: DeviceDTO[] = []
-        if (getDevicesResult.isSuccess) {
-            devices = getDevicesResult.value
+        try {
+            accountId = this.getCurrentAccount().id
+            const localAccount = await App.localAccountController().getAccount(CoreId.from(accountId))
+            name = localAccount.name || "Enmeshed"
+            address = App.account().identity.address.toString()
+            const getDevicesResult = await runtime.currentSession.transportServices.devices.getDevices()
+
+            if (getDevicesResult.isSuccess) {
+                devices = getDevicesResult.value
+            }
+        } catch (e) {
+            // Ignore errors if no account is selected
         }
 
         const viewModel = new JSONModel({

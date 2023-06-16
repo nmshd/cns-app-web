@@ -52,14 +52,14 @@ export default class AppShellController extends RoutingController implements IAp
         App.splitApp = this.byId("appComponent") as SplitApp
 
         App.registerAppController(this)
-        App.Bus.subscribe("Content", "loadInc", this.onLoadInc, this)
-        App.Bus.subscribe("Content", "loadDec", this.onLoadDec, this)
         /*
         this.getRouter().attachRouteMatched(this.onRouteMatched.bind(this))
         this.getRouter().attachBypassed(this.onBypassed.bind(this))
         */
         this.wasHomeBefore = true
         await App.isInitialized()
+        App.Bus.subscribe("Content", "loadInc", this.onLoadInc, this)
+        App.Bus.subscribe("Content", "loadDec", this.onLoadDec, this)
 
         runtime.nativeEnvironment.eventBus.publish(new JSSNative.ThemeEvent("#3d86f0", JSSNative.ThemeTextStyle.Light))
     }
