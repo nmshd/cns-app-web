@@ -478,13 +478,13 @@ export default abstract class App {
                 name: "nmshd.app.flows.accounts.AccountSelectionPopup",
                 controller: this
             })) as Dialog
-            await this.setAppViewModel(this.accountSelectionPopup)
-            this.setGlobalModels(this.accountSelectionPopup)
-            const model = this.accountSelectionPopup!.getModel("v") as JSONModel
-            model.setProperty("/accountSelectionAccounts", accounts ? accounts : [])
-            model.setProperty("/accountSelectionTitle", title)
-            model.setProperty("/accountSelectionDescription", description)
         }
+        await this.setAppViewModel(this.accountSelectionPopup)
+        this.setGlobalModels(this.accountSelectionPopup)
+        const model = this.accountSelectionPopup.getModel("v") as JSONModel
+        model.setProperty("/accountSelectionAccounts", accounts ? accounts : [])
+        model.setProperty("/accountSelectionTitle", title)
+        model.setProperty("/accountSelectionDescription", description)
         this.accountSelectionPopup.open()
         this._accountSelectionPopupOpen = true
         document.addEventListener("click", this.checkDocumentClick.bind(this))
@@ -579,8 +579,7 @@ export default abstract class App {
                 NMSHDTransport.Realm.Prod,
                 accountname
             )
-            // this._localAccount = createdAccountDTO
-            await App.selectAccount(this.currentAccount.id, "")
+            await App.selectAccount(createdAccountDTO.id, "")
             appLogger.info(`Account ${this.currentAccount.id} was created for account selection.`)
             if (App.accountSelectionCallback) {
                 App.accountSelectionCallback(this.currentAccount)
