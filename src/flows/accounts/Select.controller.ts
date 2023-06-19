@@ -78,6 +78,12 @@ export default class SelectController extends RoutingController {
     }
 
     async autoNavIfPossible() {
+        if (!App.selectControllerInitialized) {
+            runtime.nativeEnvironment.eventBus.publish(new JSSNative.AppReadyEvent())
+            App.hideSplashScreen()
+            App.selectControllerInitialized = true
+        }
+
         if (
             App.disableAutoAccountSelection ||
             this.redirectedOnStart ||

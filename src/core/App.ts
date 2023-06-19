@@ -30,6 +30,7 @@ interface IDictionary<TValue> {
  * @namespace nmshd.app.core
  */
 export default abstract class App {
+    public static selectControllerInitialized = false
     private static _initialized = false
     private static _initializedPromise?: Promise<unknown>
     private static _transport = null

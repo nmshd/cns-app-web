@@ -30,10 +30,6 @@ export default class Component extends UIComponent {
         runtime.registerUIBridge(new UIBridge())
         await App.initializeApp(this)
         this.getRouter().initialize()
-        setTimeout(() => {
-            runtime.nativeEnvironment.eventBus.publish(new JSSNative.AppReadyEvent())
-            App.hideSplashScreen()
-        }, 10)
     }
 
     /**
