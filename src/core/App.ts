@@ -469,6 +469,7 @@ export default abstract class App {
     }
 
     public static async openAccountSelectionPopup(accounts: LocalAccountDTO[], title?: string, description?: string) {
+        appLogger.info("Account selection popup opened.")
         if (!this.accountSelectionPopup) {
             this.accountSelectionPopup = (await Fragment.load({
                 id: "accountSelection",

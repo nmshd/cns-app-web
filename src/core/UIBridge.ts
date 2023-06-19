@@ -95,6 +95,7 @@ export default class UIBridge implements IUIBridge {
     ): Promise<UserfriendlyResult<LocalAccountDTO | undefined>> {
         App.disableAutoAccountSelection = true // Within the account selection screen, do not automatically navigate to the profile's home screen (and possibly overwrite the upcoming uiBridge.showRequest() call)
         return new Promise(async (resolve) => {
+            appLogger.info(`UIBridge.requestAccountSelection: Runtime triggered account selection.`)
             //If we already have a running account selection, cancel it (i.e. undefined account)
             if (App.accountSelectionCallback) {
                 App.accountSelectionCallback()
