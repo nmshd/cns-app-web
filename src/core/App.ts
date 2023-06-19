@@ -107,13 +107,10 @@ export default abstract class App {
             sap.ui.getCore().getConfiguration().setLanguage(language.value)
         }
 
-        runtime.nativeEnvironment.eventBus.publish(new JSSNative.AppReadyEvent())
         this.Bus.publish("Shell", "switchTo", {
             message: "",
             redirect: "app"
         })
-
-        this.hideSplashScreen()
 
         runtime.eventBus.subscribe(MailReceivedEvent, () => {
             this.Bus.publish("message", "refresh")
