@@ -30,7 +30,7 @@ sap.ui.define(
                     App.appController.viewProp("/theme", themeInfo)
                 }
 
-                const query = oEvent.getParameter("arguments").query
+                const query = oEvent.getParameter("arguments")["?query"]
                 if (query && query.code) {
                     this.viewProp("/code", query.code)
                 } else {

@@ -51,11 +51,9 @@ sap.ui.define(["sap/ui/core/Control"], (Control) => {
             }
 
             oRM.write(`<header>
-        <div class="arcContainer">
-
-            
-
-
+        <div class="arcContainer" style="height: 100%; background-color: #`)
+            oRM.writeEscaped(background)
+            oRM.write(` !important;">
         </div>
         <div class="logoContainer">
             <img id="arcImage" src="`)
