@@ -36,6 +36,10 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
         clear() {
             this.super("clear")
         },
+        toOnboard() {
+            this.navTo("accounts.onboardoverview")
+        },
+
         onCarouselPageChange(oEvent) {
             const activePageIndex = oEvent.mParameters.activePages[0]
             this.viewProp("/activePageIndex", activePageIndex)
