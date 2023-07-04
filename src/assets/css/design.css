@@ -69,6 +69,10 @@ html .whiteBG .sapFDynamicPageTitle {
     flex-direction: column;
 }
 
+.containerButtonRendererItems {
+    width: 100%;
+}
+
 .containerButtonRendererMiddle {
     display: flex;
     flex-direction: row;
