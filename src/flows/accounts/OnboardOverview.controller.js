@@ -30,6 +30,7 @@ sap.ui.define(
                 App.appController.setTitle(this.resource("accounts.create.title"))
 
                 this.clear()
+                this.viewProp("/submitAvailable", true)
             },
 
             clear() {},
