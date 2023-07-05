@@ -3,8 +3,27 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
     return RoutingController.extend("nmshd.app.flows.app.Debug", {
         routeName: "app.debug",
 
+        createViewModel() {
+            return {
+                items: [],
+                push: []
+            }
+        },
+
         onInitialized() {
+            this.pushMessages = []
             this.resetViewModel()
+            runtime.nativeEnvironment.eventBus.subscribe(JSSNative.RemoteNotificationEvent, (notification) => {
+                const receivedNotification = {
+                    ...notification.notification,
+                    debugReceivedAt: new Date().toISOString(),
+                    debugIndex: this.pushMessages.length
+                }
+                this.pushMessages.push(receivedNotification)
+                this.viewProp("/push", this.pushMessages)
+                appLogger.info("Push notification received", receivedNotification)
+                this.refreshPush()
+            })
         },
 
         async onRouteMatched(oEvent) {
@@ -17,6 +36,18 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
 
         refresh() {
             this.refreshLogs()
+            this.refreshPush()
+        },
+
+        async refreshPush() {
+            this.byId("pushToken").setText("" + runtime.nativeEnvironment.configAccess.get("pushToken").value)
+            const accounts = await runtime.multiAccountController.getAccounts()
+            this.viewProp("/items", accounts)
+            const pushNotificationAsString = []
+            for (const pushNotification of this.pushMessages) {
+                pushNotificationAsString.unshift("" + JSON.stringify(pushNotification, null, 2))
+            }
+            this.byId("push").setValue(pushNotificationAsString.join("\n\n"))
         },
 
         async refreshLogs() {

@@ -229,6 +229,11 @@ export default abstract class RoutingController extends AppController {
 
     protected async onRouteMatched(oEvent: Event, doNotRefresh: boolean = false) {
         await App.isInitialized()
+        if (!App.appReadyEventFired) {
+            runtime.nativeEnvironment.eventBus.publish(new JSSNative.AppReadyEvent())
+            App.hideSplashScreen()
+            App.appReadyEventFired = true
+        }
         if (!doNotRefresh) {
             await this.refresh()
         }

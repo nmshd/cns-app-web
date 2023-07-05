@@ -31,11 +31,31 @@
 			<m:MessageStrip id="message" type="Warning" class="sapUiTinyMargin" text="{t>debug.warning}" />
 
 			<m:VBox class="sapUiTinyMargin">
-				<m:HBox>
-					<m:Button text="{t>debug.refresh}" press="refreshLogs" />
-					<m:Button text="{t>debug.download}" press="downloadLogs" />
-				</m:HBox>
-				<m:TextArea id="logs" width="100%" height="20rem" editable="false" />
+                <m:IconTabBar expandable="false">
+                    <m:items>
+                        <m:IconTabFilter text="Logs" key="logs">
+                            <m:HBox>
+                                <m:Button text="{t>debug.refresh}" press="refreshLogs" />
+                                <m:Button text="{t>debug.download}" press="downloadLogs" />
+                            </m:HBox>
+                            
+                            <m:TextArea id="logs" width="100%" height="20rem" editable="false" />
+                        </m:IconTabFilter>
+                        <m:IconTabFilter text="Push" key="push">
+                            <form:SimpleForm editable="true">
+                                <m:Label text="Push Token" />
+                                <m:Text id="pushToken" />
+                                <m:Label text="Push Messages" />
+                                <m:TextArea id="push" width="100%" height="20rem" editable="false" />
+                                <m:Label text="Profiles" />
+                                <m:List id="addresses" items="{v>/items}">
+                                    <m:StandardListItem title="{v>name}" description="{v>address}" />
+                                </m:List>
+                            </form:SimpleForm>
+                        </m:IconTabFilter>
+                    </m:items>
+                </m:IconTabBar>
+				
 			</m:VBox>
 		</semantic:content>
 	</semantic:DetailPage>
