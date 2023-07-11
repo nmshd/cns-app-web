@@ -1,0 +1,33 @@
+<c:FragmentDefinition xmlns="sap.m"
+    xmlns:c="sap.ui.core">
+    <Dialog stretch="true">
+        <Panel>
+            <Text text="Wähle die Information aus, die an den Kontakt gesendet werden soll." />
+        </Panel>
+        <CustomListItem class="sapUiTinyMargin">
+            <HBox class="sapUiTinyMarginBottom">
+                <c:Icon src="sap-icon://sys-add"
+                    class="sapUiSmallMarginEnd sapUiTinyMarginBegin"
+                    size="150%"
+                    activeColor="Default"
+                    press="onAddNewAttribute" />
+                <Title text="Neue Informationen erfassen" />
+            </HBox>
+        </CustomListItem>
+        <List id="availableAttributesList"
+            items="{results}"
+            mode="SingleSelectLeft">
+            <StandardListItem title="{value/value}" />
+        </List>
+        <endButton>
+            <Button text="{t>attributes.availableAttributesList.save}"
+                type="Accept"
+                press=".onAvailableAttributeChange" />
+        </endButton>
+        <beginButton>
+            <Button text="{t>attributes.availableAttributesList.cancel}"
+                type="Reject"
+                press=".onCloseShowAvailableAttributesFragment" />
+        </beginButton>
+    </Dialog>
+</c:FragmentDefinition>
