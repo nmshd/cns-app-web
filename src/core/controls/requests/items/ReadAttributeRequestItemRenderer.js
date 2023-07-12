@@ -252,8 +252,8 @@ sap.ui.define(
                 this._availableAttributesFragment.open()
             },
             /**
-             * Received the correct context from the child aggregation (ValueRenderer) and use it
-             * as the selected item in the list of all available attributes
+             * Receives the correct context from the child aggregation (ValueRenderer) and uses it
+             * to display the selected item in the list of all available attributes
              *
              * @private
              */
