@@ -11,7 +11,7 @@ function updatePackageJson(newVersion) {
 }
 
 function updateManifestJson(newVersion) {
-    const file = "webapp/manifest.json"
+    const file = "src/manifest.json"
     const json = JSON.parse(fs.readFileSync(file))
     json["sap.app"].applicationVersion.version = newVersion
     fs.writeFileSync(file, `${JSON.stringify(json, null, 4)}\n`)
