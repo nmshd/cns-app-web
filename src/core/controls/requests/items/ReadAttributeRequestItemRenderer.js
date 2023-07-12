@@ -50,9 +50,7 @@ sap.ui.define(
                         enabled: "{item>/isDecidable}",
                         type: "Transparent",
                         press: that.onChangeSelection.bind(this)
-                    })
-                        .addStyleClass("readAttributeRequestItemRendererChangeButton")
-                        .bindElement("query")
+                    }).bindElement("query")
                 )
 
                 this.setAggregation(
@@ -62,16 +60,13 @@ sap.ui.define(
                         editable: "{item>/isDecidable}"
                     })
                         .attachChange((oEvent) => that.fireChange(oEvent))
-                        .addStyleClass("readAttributeRequestItemRendererEditControl")
                         .bindElement("query")
                 )
                 this.setAggregation(
                     "_text",
                     new ValueRenderer({
                         visible: "{= ${results}.length > 0}"
-                    })
-                        .addStyleClass("readAttributeRequestItemRendererFoundAttribute")
-                        .bindElement("query")
+                    }).bindElement("query")
                 )
             },
             /**
