@@ -200,10 +200,18 @@ html .sapMDialog {
     overflow: hidden;
     position: fixed !important;
     opacity: 0;
-    -webkit-transition: opacity 0.15s, left 0.2s, top 0.2s;
-    transition: opacity 0.15s, left 0.2s, top 0.2s;
+    -webkit-transition:
+        opacity 0.15s,
+        left 0.2s,
+        top 0.2s;
+    transition:
+        opacity 0.15s,
+        left 0.2s,
+        top 0.2s;
     border-radius: 0.25rem;
-    box-shadow: 0 0 0 0.0625rem rgba(0, 0, 0, 0.42), 0 1.25rem 5rem 0 rgba(0, 0, 0, 0.3);
+    box-shadow:
+        0 0 0 0.0625rem rgba(0, 0, 0, 0.42),
+        0 1.25rem 5rem 0 rgba(0, 0, 0, 0.3);
 }
 
 html .sapMDialog:not(.sapMDialogHighPixelDensity) {
@@ -299,7 +307,9 @@ html body .sapMDialog.profileMenu.sapMDialog.sapMDialogStretched {
     -webkit-transition: none;
     transition: none;
     border-radius: 0rem;
-    box-shadow: 0 0 0 0.0625rem rgba(0, 0, 0, 0.42), 0 1.25rem 5rem 0 rgba(0, 0, 0, 0.3);
+    box-shadow:
+        0 0 0 0.0625rem rgba(0, 0, 0, 0.42),
+        0 1.25rem 5rem 0 rgba(0, 0, 0, 0.3);
 }
 
 html .sapMDialog.profileMenu,
