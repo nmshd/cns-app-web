@@ -2,7 +2,7 @@
     xmlns:c="sap.ui.core">
     <Dialog stretch="true">
         <Panel>
-            <Text text="Wähle die Information aus, die an den Kontakt gesendet werden soll." />
+            <Text text="{t>attributes.availableAttributesList.description}" />
         </Panel>
         <CustomListItem class="sapUiTinyMargin">
             <HBox class="sapUiTinyMarginBottom">
@@ -11,7 +11,7 @@
                     size="150%"
                     activeColor="Default"
                     press=".onAddNewAttribute" />
-                <Title text="Neue Informationen erfassen" />
+                <Title text="{t>attributes.availableAttributesList.addNewAttribute}" />
             </HBox>
         </CustomListItem>
         <List id="availableAttributesList"
