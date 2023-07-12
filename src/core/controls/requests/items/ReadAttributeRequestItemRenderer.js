@@ -74,20 +74,32 @@ sap.ui.define(
                         .bindElement("query")
                 )
             },
-
+            /**
+             * Opens a Dialog with the all the available attributes for this renderer
+             * and the option to add a new attribute if none of the existing attributes matches.
+             */
             async onChangeSelection() {
                 await this._openAvailableAttributeFragment()
                 await this._setSelectedListItem()
             },
 
+            /**
+             * Closes the Dialog with all the available attributes for this renderer.
+             */
             onCloseShowAvailableAttributesFragment() {
                 this._availableAttributesFragment.close()
             },
 
+            // TODO:
             async onAddNewAttribute() {
                 new MessageToast.show("Not implemented!")
             },
 
+            /**
+             * Receives the selected item and binds it to valueRenderer. It updates the attributePath
+             * for the RequestItemRenderer to ensure the correct attribute will be sent in the response.
+             * Fires a change event so that the RequestItemRenderer selects it's checkbox.
+             */
             onAvailableAttributeChange() {
                 const selectedContext = Fragment.byId("showAvailableAttributesFragment", "availableAttributesList")
                     .getSelectedItem()
@@ -199,6 +211,13 @@ sap.ui.define(
             // ***** private functions *****
             // *****************************
 
+            /**
+             * loads and opens the dialog to show all available attributes for a specific RequestItemRenderer once.
+             * This dialog will be used across all different renderers. The dialog can not be bound to a View so the
+             * required models have to be assigned manually
+             *
+             * @private
+             */
             async _openAvailableAttributeFragment() {
                 const model = this.getModel()
                 const translationModel = this.getModel("t")
@@ -209,7 +228,7 @@ sap.ui.define(
                 )
                 // if the list of the fragment was found we don't have to load the fragment again
                 if (availableAttributesList) {
-                    // we assign the already created fragment to every
+                    // we assign the already created fragment to every RequestItemRenderer
                     this._availableAttributesFragment = availableAttributesList.getParent()
                 } else if (!this._availableAttributesFragment) {
                     this._availableAttributesFragment = await Fragment.load({
@@ -217,8 +236,7 @@ sap.ui.define(
                         name: "nmshd.app.core.fragments.ShowAvailableAttributes",
                         controller: this
                     })
-                    // as we are in no view we can not use addDependent, instead we assign the necessary
-                    // models manually
+                    // assign the required models manually
                     this._availableAttributesFragment.setModel(model)
                     this._availableAttributesFragment.setModel(translationModel, "t")
                 }
@@ -233,7 +251,12 @@ sap.ui.define(
 
                 this._availableAttributesFragment.open()
             },
-
+            /**
+             * Received the correct context from the child aggregation (ValueRenderer) and use it
+             * as the selected item in the list of all available attributes
+             *
+             * @private
+             */
             _setSelectedListItem() {
                 // receive the whole path to the bound value
                 const valueRenderer = this.getAggregation("_text").getAggregation("_control")
