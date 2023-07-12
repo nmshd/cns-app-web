@@ -90,7 +90,7 @@ sap.ui.define(
                 this._availableAttributesFragment.close()
             },
 
-            // TODO:
+            // TODO: DEV-4490
             async onAddNewAttribute() {
                 new MessageToast.show("Not implemented!")
             },
