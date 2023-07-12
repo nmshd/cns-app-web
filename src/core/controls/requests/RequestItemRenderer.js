@@ -157,7 +157,7 @@ sap.ui.define(
                 return context
             },
 
-            updateCheckbox(oEvent) {
+            updateCheckbox(event) {
                 const control = this.getAggregation("_control")
                 if (control && !control.getEditedValue) {
                     this.model.setProperty("/isChecked", false)
@@ -166,6 +166,8 @@ sap.ui.define(
                 const value = control.getEditedValue()
                 const item = this.getItem()
                 if (value || (item && item.mustBeAccepted)) {
+                    this.model.setProperty("/isChecked", true)
+                } else if (event?.getParameter("isChecked")) {
                     this.model.setProperty("/isChecked", true)
                 } else {
                     this.model.setProperty("/isChecked", false)

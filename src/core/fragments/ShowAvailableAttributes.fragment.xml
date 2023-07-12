@@ -10,11 +10,12 @@
                     class="sapUiSmallMarginEnd sapUiTinyMarginBegin"
                     size="150%"
                     activeColor="Default"
-                    press="onAddNewAttribute" />
+                    press=".onAddNewAttribute" />
                 <Title text="Neue Informationen erfassen" />
             </HBox>
         </CustomListItem>
         <List id="availableAttributesList"
+            binding="{query}"
             items="{results}"
             mode="SingleSelectLeft">
             <StandardListItem title="{value/value}" />
