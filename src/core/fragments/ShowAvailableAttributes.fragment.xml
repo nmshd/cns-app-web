@@ -1,34 +1,36 @@
-<c:FragmentDefinition xmlns="sap.m"
-    xmlns:c="sap.ui.core">
+<c:FragmentDefinition xmlns="sap.m" xmlns:c="sap.ui.core">
     <Dialog stretch="true">
         <Panel>
             <Text text="{t>attributes.availableAttributesList.description}" />
         </Panel>
         <CustomListItem class="sapUiTinyMargin">
             <HBox class="sapUiTinyMarginBottom">
-                <c:Icon src="sap-icon://sys-add"
+                <c:Icon
+                    src="sap-icon://sys-add"
                     class="sapUiSmallMarginEnd sapUiTinyMarginBegin"
                     size="150%"
                     activeColor="Default"
-                    press=".onAddNewAttribute" />
+                    press=".onAddNewAttribute"
+                />
                 <Title text="{t>attributes.availableAttributesList.addNewAttribute}" />
             </HBox>
         </CustomListItem>
-        <List id="availableAttributesList"
-            binding="{query}"
-            items="{results}"
-            mode="SingleSelectLeft">
+        <List id="availableAttributesList" binding="{query}" items="{results}" mode="SingleSelectLeft">
             <StandardListItem title="{value/value}" />
         </List>
         <endButton>
-            <Button text="{t>attributes.availableAttributesList.save}"
+            <Button
+                text="{t>attributes.availableAttributesList.save}"
                 type="Accept"
-                press=".onAvailableAttributeChange" />
+                press=".onAvailableAttributeChange"
+            />
         </endButton>
         <beginButton>
-            <Button text="{t>attributes.availableAttributesList.cancel}"
+            <Button
+                text="{t>attributes.availableAttributesList.cancel}"
                 type="Reject"
-                press=".onCloseShowAvailableAttributesFragment" />
+                press=".onCloseShowAvailableAttributesFragment"
+            />
         </beginButton>
     </Dialog>
 </c:FragmentDefinition>
