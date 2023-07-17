@@ -99,14 +99,17 @@ sap.ui.define(
                 const selectedContext = Fragment.byId("showAvailableAttributesFragment", "availableAttributesList")
                     .getSelectedItem()
                     .getBindingContext()
-                this.selectedAttributePath = selectedContext.getPath().replace(/^(.*?)query\//, "")
+                // use the correct context
+                const contextControl = this._availableAttributesFragment.contextControl
+                contextControl.selectedAttributePath = selectedContext.getPath().replace(/^(.*?)query\//, "")
 
-                this.getAggregation("_text")
+                contextControl
+                    .getAggregation("_text")
                     .getAggregation("_control")
-                    .bindText(`${this.selectedAttributePath}/value/value`)
-                this.getAggregation("_text").setAttributePath(this.selectedAttributePath)
-                this.fireChange({ isChecked: true })
-                this.onCloseShowAvailableAttributesFragment()
+                    .bindText(`${contextControl.selectedAttributePath}/value/value`)
+                contextControl.getAggregation("_text").setAttributePath(contextControl.selectedAttributePath)
+                contextControl.fireChange({ isChecked: true })
+                contextControl.onCloseShowAvailableAttributesFragment()
             },
 
             getSelectedAttribute() {
@@ -225,6 +228,8 @@ sap.ui.define(
                 if (availableAttributesList) {
                     // we assign the already created fragment to every RequestItemRenderer
                     this._availableAttributesFragment = availableAttributesList.getParent()
+                    // set the correct contextControl
+                    this._availableAttributesFragment.contextControl = this
                 } else if (!this._availableAttributesFragment) {
                     this._availableAttributesFragment = await Fragment.load({
                         id: "showAvailableAttributesFragment",
@@ -232,6 +237,7 @@ sap.ui.define(
                         controller: this
                     })
                     // assign the required models manually
+                    this._availableAttributesFragment.contextControl = this
                     this._availableAttributesFragment.setModel(model)
                     this._availableAttributesFragment.setModel(translationModel, "t")
                 }
