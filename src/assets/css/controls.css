@@ -215,6 +215,11 @@ body .messageList header {
     justify-content: space-between;
 }
 
+.proposeAttributeRequestItemRenderer {
+    align-items: center;
+    justify-content: stretch;
+}
+
 .requestItemRendererChildContainer,
 .requestItemGroupRendererChildContainer {
     width: calc(100% - 3rem);

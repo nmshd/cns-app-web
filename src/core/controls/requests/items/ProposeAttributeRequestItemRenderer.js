@@ -131,7 +131,7 @@ sap.ui.define(
             renderer(oRM, oControl) {
                 oRM.write("<div")
                 oRM.writeControlData(oControl)
-                oRM.addClass("readAttributeRequestItemRenderer")
+                oRM.addClass("proposeAttributeRequestItemRenderer")
                 oRM.writeClasses()
                 oRM.write(">")
 
