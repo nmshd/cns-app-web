@@ -210,10 +210,12 @@ body .messageList header {
 }
 
 .readAttributeRequestItemRenderer {
-    flex-flow: column;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
 }
 
-.readAttributeRequestItemRenderer {
+.proposeAttributeRequestItemRenderer {
     align-items: center;
     justify-content: stretch;
 }
@@ -230,10 +232,6 @@ body .messageList header {
 
 .readAttributeRequestItemRendererLabel {
     min-width: 8rem;
-}
-
-.readAttributeRequestItemRendererButton {
-    align-self: flex-end;
 }
 
 .requestItemRenderer {

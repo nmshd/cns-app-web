@@ -1,14 +1,14 @@
 sap.ui.define(
     [
         "sap/ui/core/Control",
-        "sap/m/Text",
         "sap/m/Label",
         "sap/m/Button",
-        "sap/m/Select",
+        "sap/m/MessageToast",
+        "sap/ui/core/Fragment",
         "nmshd/app/core/controls/attributes/ValueRenderer",
         "nmshd/app/core/Formatter"
     ],
-    (Control, Text, Label, Button, Select, ValueRenderer, Formatter) => {
+    (Control, Label, Button, MessageToast, Fragment, ValueRenderer, Formatter) => {
         "use strict"
 
         return Control.extend("nmshd.app.core.controls.requests.items.ReadAttributeRequestItemRenderer", {
@@ -32,6 +32,9 @@ sap.ui.define(
 
             init(e) {
                 const that = this
+
+                // default path for
+                this.selectedAttributePath = "results/0"
                 this.setAggregation(
                     "_label",
                     new Label({ text: { path: "name", formatter: Formatter.toTranslated, enabled: "{isDecidable}" } })
@@ -42,39 +45,78 @@ sap.ui.define(
                 this.setAggregation(
                     "_button",
                     new Button({
-                        text: "Ändern",
-                        visible: "{= ${results/length} > 0 && ${item>/isDecidable}}",
-                        enabled: "{item>/isDecidable}"
-                    })
-                        .addStyleClass("readAttributeRequestItemRendererButton")
-                        .bindElement("query")
+                        icon: "sap-icon://edit",
+                        visible: "{= ${results}.length > 0 && ${item>/isDecidable}}",
+                        enabled: "{item>/isDecidable}",
+                        type: "Transparent",
+                        press: that.onChangeSelection.bind(this)
+                    }).bindElement("query")
                 )
 
                 this.setAggregation(
                     "_editControl",
                     new ValueRenderer({
-                        visible: "{= (${results} === undefined || ${results/length} === 0) && ${item>/isDecidable}}",
+                        visible: "{= (${results} === undefined || ${results}.length === 0) && ${item>/isDecidable}}",
                         editable: "{item>/isDecidable}"
                     })
                         .attachChange((oEvent) => that.fireChange(oEvent))
-                        .addStyleClass("readAttributeRequestItemRendererEditControl")
                         .bindElement("query")
                 )
                 this.setAggregation(
                     "_text",
                     new ValueRenderer({
-                        visible: "{= ${results/length} > 0}"
-                    })
-                        .addStyleClass("readAttributeRequestItemRendererFoundAttribute")
-                        .bindElement("query")
+                        visible: "{= ${results}.length > 0}"
+                    }).bindElement("query")
                 )
+            },
+            /**
+             * Opens a Dialog with the all the available attributes for this renderer
+             * and the option to add a new attribute if none of the existing attributes matches.
+             */
+            async onChangeSelection() {
+                await this._openAvailableAttributeFragment()
+                await this._setSelectedListItem()
+            },
+
+            /**
+             * Closes the Dialog with all the available attributes for this renderer.
+             */
+            onCloseShowAvailableAttributesFragment() {
+                this._availableAttributesFragment.close()
+            },
+
+            // TODO: DEV-4490
+            async onAddNewAttribute() {
+                new MessageToast.show("Not implemented!")
+            },
+
+            /**
+             * Receives the selected item and binds it to valueRenderer. It updates the attributePath
+             * for the RequestItemRenderer to ensure the correct attribute will be sent in the response.
+             * Fires a change event so that the RequestItemRenderer selects it's checkbox.
+             */
+            onAvailableAttributeChange() {
+                const selectedContext = Fragment.byId("showAvailableAttributesFragment", "availableAttributesList")
+                    .getSelectedItem()
+                    .getBindingContext()
+                // use the correct context
+                const contextControl = this._availableAttributesFragment.contextControl
+                contextControl.selectedAttributePath = selectedContext.getPath().replace(/^(.*?)query\//, "")
+
+                contextControl
+                    .getAggregation("_text")
+                    .getAggregation("_control")
+                    .bindText(`${contextControl.selectedAttributePath}/value/value`)
+                contextControl.getAggregation("_text").setAttributePath(contextControl.selectedAttributePath)
+                contextControl.fireChange({ isChecked: true })
+                contextControl.onCloseShowAvailableAttributesFragment()
             },
 
             getSelectedAttribute() {
                 const textControl = this.getAggregation("_text")
                 if (!textControl) return undefined
                 if (!textControl.getVisible()) return undefined
-                return textControl.getBindingContext().getObject("results/0")
+                return textControl.getBindingContext().getObject(this.selectedAttributePath)
             },
 
             getEditedValue() {
@@ -163,6 +205,74 @@ sap.ui.define(
                 return undefined
             },
 
+            // *****************************
+            // ***** private functions *****
+            // *****************************
+
+            /**
+             * loads and opens the dialog to show all available attributes for a specific RequestItemRenderer once.
+             * This dialog will be used across all different renderers. The dialog can not be bound to a View so the
+             * required models have to be assigned manually
+             *
+             * @private
+             */
+            async _openAvailableAttributeFragment() {
+                const model = this.getModel()
+                const translationModel = this.getModel("t")
+                const bindingContext = this.getBindingContext()
+                const availableAttributesList = Fragment.byId(
+                    "showAvailableAttributesFragment",
+                    "availableAttributesList"
+                )
+                // if the list of the fragment was found we don't have to load the fragment again
+                if (availableAttributesList) {
+                    // we assign the already created fragment to every RequestItemRenderer
+                    this._availableAttributesFragment = availableAttributesList.getParent()
+                    // set the correct contextControl
+                    this._availableAttributesFragment.contextControl = this
+                } else if (!this._availableAttributesFragment) {
+                    this._availableAttributesFragment = await Fragment.load({
+                        id: "showAvailableAttributesFragment",
+                        name: "nmshd.app.core.fragments.ShowAvailableAttributes",
+                        controller: this
+                    })
+                    // assign the required models manually
+                    this._availableAttributesFragment.contextControl = this
+                    this._availableAttributesFragment.setModel(model)
+                    this._availableAttributesFragment.setModel(translationModel, "t")
+                }
+                this._availableAttributesFragment.setBindingContext(bindingContext)
+                this._availableAttributesFragment.setTitle(
+                    translationModel
+                        .getResourceBundle()
+                        .getText("attributes.availableAttributesList.title", [
+                            Formatter.toTranslated(bindingContext.getObject("query/name"))
+                        ])
+                )
+
+                this._availableAttributesFragment.open()
+            },
+            /**
+             * Receives the correct context from the child aggregation (ValueRenderer) and uses it
+             * to display the selected item in the list of all available attributes
+             *
+             * @private
+             */
+            _setSelectedListItem() {
+                // receive the whole path to the bound value
+                const valueRenderer = this.getAggregation("_text").getAggregation("_control")
+                const resolvedPath = valueRenderer.getBinding("text").getResolvedPath()
+                const selectedAttributeValue = this.getModel().getObject(resolvedPath)
+                const list = Fragment.byId("showAvailableAttributesFragment", "availableAttributesList")
+                const selectedListItem = list
+                    .getItems()
+                    .find(
+                        (listItem) => listItem.getBindingContext().getObject("value/value") === selectedAttributeValue
+                    )
+
+                list.setSelectedItem(selectedListItem)
+            },
+
             renderer(oRM, oControl) {
                 oRM.write("<div")
                 oRM.writeControlData(oControl)
@@ -170,14 +280,16 @@ sap.ui.define(
                 oRM.writeClasses()
                 oRM.write(">")
 
+                oRM.write("<div>")
                 const labelControl = oControl.getAggregation("_label")
                 if (labelControl) {
                     oRM.renderControl(labelControl)
                 }
-
                 const foundAttribute = oControl.getAggregation("_text")
                 if (foundAttribute) {
+                    oRM.write("<div>")
                     oRM.renderControl(foundAttribute)
+                    oRM.write("</div>")
                 }
 
                 const editControl = oControl.getAggregation("_editControl")
@@ -185,11 +297,11 @@ sap.ui.define(
                     oRM.renderControl(editControl)
                 }
 
+                oRM.write("</div>")
                 const buttonControl = oControl.getAggregation("_button")
                 if (buttonControl) {
-                    // oRM.renderControl(buttonControl)
+                    oRM.renderControl(buttonControl)
                 }
-
                 oRM.write("</div>")
             }
         })

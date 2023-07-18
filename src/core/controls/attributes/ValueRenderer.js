@@ -56,7 +56,8 @@ sap.ui.define(
                     propertyName: { type: "string" },
                     valueType: { type: "string" },
                     editable: { type: "boolean" },
-                    updateDisabled: { type: "boolean" }
+                    updateDisabled: { type: "boolean" },
+                    attributePath: { type: "string", defaultValue: "results/0/value/value" }
                 },
                 publicMethods: [],
                 events: {
@@ -656,7 +657,7 @@ sap.ui.define(
 
                 let binding = "value/value"
                 if (this.object && this.object.results && this.object.results.length > 0) {
-                    binding = "results/0/value/value"
+                    binding = this.getAttributePath()
                 }
                 let formatter
                 if (translationNamespace) {
