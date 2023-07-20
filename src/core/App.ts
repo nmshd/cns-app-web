@@ -1,11 +1,11 @@
 import {
     DatawalletSynchronizedEvent,
-    LocalAccountDTO,
     MailReceivedEvent,
     OnboardingChangeReceivedEvent
 } from "@nmshd/app-runtime"
 import { DeviceDTO, RelationshipDVO } from "@nmshd/runtime"
 import { CoreId } from "@nmshd/transport"
+import { Dictionary } from "lodash"
 import URLListValidator from "sap/base/security/URLListValidator"
 import Dialog from "sap/m/Dialog"
 import SplitApp from "sap/m/SplitApp"
@@ -14,8 +14,10 @@ import Control from "sap/ui/core/Control"
 import Fragment from "sap/ui/core/Fragment"
 import Model from "sap/ui/model/Model"
 import JSONModel from "sap/ui/model/json/JSONModel"
-import EventBus from "./EventBus"
+import EventBus, { EventTypes } from "./EventBus"
+import { IAppPopup, IAppPopupParams } from "./IAppPopup"
 import IAppShellController from "./IAppShellController"
+import { PopupType } from "./popups/PopupController"
 import FileUtil from "./utils/FileUtil"
 import InboxUtil from "./utils/InboxUtil"
 import MessageUtil from "./utils/MessageUtil"
@@ -72,6 +74,9 @@ export default abstract class App {
 
     public static Bus: EventBus
     public static component: any
+
+    private static popups:Dictionary<IAppPopup> = {}
+    private static openPopups:Array<IAppPopup> = []
 
     public static async initializeApp(component: any) {
         this.resetAppModel()
@@ -139,6 +144,67 @@ export default abstract class App {
             this.prop("/tmpObject", data.object)
             this.navTo(data.redirect, data.object, !!data.replace)
         })
+
+        this.Bus.subscribe("App", EventTypes.AttributeInfoPressedEvent, async (owner: any, message: any, data: any) => {
+            this.openPopup(PopupType.AttributeInfoPopup, data)
+        })
+
+        this.Bus.subscribe("App", EventTypes.AttributeChangePressedEvent, async (owner: any, message: any, data: any) => {
+            this.openPopup(PopupType.AttributeChangePopup, data)
+        })
+    }
+
+    public static async openPopup(type, content) {
+        if (!this.popups) {
+            this.popups = {}
+        }
+        let dialog = this.popups[type]
+        let controller
+        if (!dialog) {
+            const newController = new (await import("nmshd/app/core/popups/" + type + ".controller")).default
+            //dialog = await XMLView.create({viewName: "nmshd.app.flows.account.profile.attributes.Attribute"})
+            
+            dialog = await Fragment.load({
+                id: "appPopup_" + type,
+                name: "nmshd.app.core.popups." + type,
+                controller: newController
+            }) as IAppPopup
+            (dialog as any).controller = newController
+            
+            this.appController.getView()!.addDependent(dialog)
+            this.popups[type] = dialog
+        }
+        controller = (dialog as any).controller
+        this.setGlobalModels(dialog)
+        
+
+        if (controller && controller.refresh) {
+            controller.refresh(content as IAppPopupParams, dialog)
+        }
+        else {
+            dialog.setModel(new JSONModel(content))
+        }
+
+        //dialog.placeAt(this.appController.getView()!)
+        dialog.open()
+        this.openPopups.push(dialog)
+    }
+
+    public static getIndexOfPopup(type) {
+        const dialog = this.popups[type]
+        return this.openPopups.findIndex((value: Dialog) => value === dialog)
+    }
+
+    public static closePopup(type) {
+        const dialog = this.popups[type]
+        if (!dialog) return
+        dialog.close()
+        this.openPopups.splice(this.getIndexOfPopup(type), 1)
+    }
+    public static closeTopmostPopup() {
+        const dialog = this.openPopups.pop()
+        if (!dialog) return
+        dialog.close()
     }
 
     public static setMenuIcon() {
