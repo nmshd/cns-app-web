@@ -1,3 +1,11 @@
+export enum EventTypes {
+    AttributeInfoPressedEvent = "AttributeInfoPressedEvent",
+    AttributeChangePressedEvent = "AttributeChangePressedEvent"
+}
+
+/**
+ * @namespace nmshd.app.core
+ */
 export default class EventBus {
     private _eventBus: any
 
