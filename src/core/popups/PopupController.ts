@@ -1,26 +1,21 @@
-import View from "sap/ui/core/mvc/View";
-import BaseController from "../BaseController";
-import { IAppPopupParams } from "../IAppPopup";
-
-export enum PopupType {
-    AttributeInfoPopup = "AttributeInfoPopup",
-    AttributeChangePopup = "AttributeChangePopup"
-}
+import View from "sap/ui/core/mvc/View"
+import BaseController from "../BaseController"
+import Formatter from "../Formatter"
+import { IAppPopupParams } from "../IAppPopup"
+import { PopupType } from "./PopupType"
 
 /**
  * @namespace nmshd.app.core.popups
  */
 export default abstract class PopupController extends BaseController {
-    public readonly popupType:PopupType
+    public readonly popupType: PopupType
 
-    protected params:IAppPopupParams
-    protected view:View|undefined
+    public readonly formatter: Formatter = Formatter
 
-    override getView():View|undefined {
-        return this.view
-    }
+    protected params: IAppPopupParams
+    protected view: View | undefined
 
-    public refresh(params:IAppPopupParams, view:View) {
+    public refresh(params: IAppPopupParams, view: View) {
         this.params = params
         this.view = view
     }

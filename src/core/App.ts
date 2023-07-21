@@ -1,8 +1,4 @@
-import {
-    DatawalletSynchronizedEvent,
-    MailReceivedEvent,
-    OnboardingChangeReceivedEvent
-} from "@nmshd/app-runtime"
+import { DatawalletSynchronizedEvent, MailReceivedEvent, OnboardingChangeReceivedEvent } from "@nmshd/app-runtime"
 import { DeviceDTO, RelationshipDVO } from "@nmshd/runtime"
 import { CoreId } from "@nmshd/transport"
 import { Dictionary } from "lodash"
@@ -17,7 +13,7 @@ import JSONModel from "sap/ui/model/json/JSONModel"
 import EventBus, { EventTypes } from "./EventBus"
 import { IAppPopup, IAppPopupParams } from "./IAppPopup"
 import IAppShellController from "./IAppShellController"
-import { PopupType } from "./popups/PopupController"
+import { PopupType } from "./popups/PopupType"
 import FileUtil from "./utils/FileUtil"
 import InboxUtil from "./utils/InboxUtil"
 import MessageUtil from "./utils/MessageUtil"
@@ -75,8 +71,8 @@ export default abstract class App {
     public static Bus: EventBus
     public static component: any
 
-    private static popups:Dictionary<IAppPopup> = {}
-    private static openPopups:Array<IAppPopup> = []
+    private static popups: Dictionary<IAppPopup> = {}
+    private static openPopups: Array<IAppPopup> = []
 
     public static async initializeApp(component: any) {
         this.resetAppModel()
@@ -149,9 +145,13 @@ export default abstract class App {
             this.openPopup(PopupType.AttributeInfoPopup, data)
         })
 
-        this.Bus.subscribe("App", EventTypes.AttributeChangePressedEvent, async (owner: any, message: any, data: any) => {
-            this.openPopup(PopupType.AttributeChangePopup, data)
-        })
+        this.Bus.subscribe(
+            "App",
+            EventTypes.AttributeChangePressedEvent,
+            async (owner: any, message: any, data: any) => {
+                this.openPopup(PopupType.AttributeChangePopup, data)
+            }
+        )
     }
 
     public static async openPopup(type, content) {
@@ -161,27 +161,25 @@ export default abstract class App {
         let dialog = this.popups[type]
         let controller
         if (!dialog) {
-            const newController = new (await import("nmshd/app/core/popups/" + type + ".controller")).default
+            const newController = new (await import("nmshd/app/core/popups/" + type + ".controller")).default()
             //dialog = await XMLView.create({viewName: "nmshd.app.flows.account.profile.attributes.Attribute"})
-            
-            dialog = await Fragment.load({
+
+            dialog = (await Fragment.load({
                 id: "appPopup_" + type,
                 name: "nmshd.app.core.popups." + type,
                 controller: newController
-            }) as IAppPopup
-            (dialog as any).controller = newController
-            
+            })) as IAppPopup
+            ;(dialog as any).controller = newController
+
             this.appController.getView()!.addDependent(dialog)
             this.popups[type] = dialog
         }
         controller = (dialog as any).controller
         this.setGlobalModels(dialog)
-        
 
         if (controller && controller.refresh) {
             controller.refresh(content as IAppPopupParams, dialog)
-        }
-        else {
+        } else {
             dialog.setModel(new JSONModel(content))
         }
 

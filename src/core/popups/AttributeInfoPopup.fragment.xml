@@ -4,36 +4,89 @@
     xmlns:controls="nmshd.app.core.controls"
     xmlns:form="sap.ui.layout.form"
     xmlns:f="sap.ui.layout.form"
-    xmlns:attributesControl="nmshd.app.core.controls.attributes"
+    xmlns:attributeControls="nmshd.app.core.controls.attributes"
 >
-    <m:Dialog title="{t>attribute.newAttribute}" stretch="true" id="AllFragmentDialog">
+    <m:Dialog title="{t>attribute}" stretch="true" id="AllFragmentDialog">
         <m:MessageStrip id="allInfo" visible="false" />
-        <m:Text text="{content/@type}" />
-        <m:Text text="{id}" />
         <m:Panel headerText="{t>attribute.title.categorization}">
-            <m:Text
-                text="{parts:[{path:'t>attribute.info.identityAttributeOwn'},{path:'name',formatter:'.formatter.toTranslated'}], formatter:'jQuery.sap.formatMessage'}"
-                visible="{= ${content/@type} === 'IdentityAttribute' &amp;&amp; ${type} !== 'PeerAttributeDVO'}"
-            />
-            <m:Text
-                text="{parts:[{path:'t>attribute.info.identityAttributePeer'},{path:'name',formatter:'.formatter.toTranslated'},{path:'peer>/name'}], formatter:'jQuery.sap.formatMessage'}"
-                visible="{= ${content/@type} === 'IdentityAttribute' &amp;&amp; ${type} === 'PeerAttributeDVO'}"
-            />
-            <m:Text text="{path:'description',formatter:'.formatter.toTranslated'}" class="sapUiSmallMarginTop" />
-            
-            <form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTopBottom">
-                <m:Label text="{t>attribute.type}" />
-                <m:Text text="{content/@type}" />
-                <m:Label text="{t>attribute.valueType}" />
-                <m:Text text="{path:'name',formatter:'.formatter.toTranslated'}" />
-                <m:Label text="{t>attribute.value}" />
-                <attributesControl:ValueRenderer binding="{}" />
-                
-            </form:SimpleForm>
-        </m:Panel>
+				<m:Text
+                    text="{parts:[{path:'t>attribute.info.identityAttributeOwn'},{path:'name',formatter:'.formatter.toTranslated'}], formatter:'jQuery.sap.formatMessage'}"
+                    visible="{= ${content/@type} === 'IdentityAttribute' &amp;&amp; ${type} !== 'PeerAttributeDVO'}"
+                />
+				<m:Text
+                    text="{parts:[{path:'t>attribute.info.identityAttributePeer'},{path:'name',formatter:'.formatter.toTranslated'},{path:'peer>/name'}], formatter:'jQuery.sap.formatMessage'}"
+                    visible="{= ${content/@type} === 'IdentityAttribute' &amp;&amp; ${type} === 'PeerAttributeDVO'}"
+                />
+				<m:Text text="{path:'description',formatter:'.formatter.toTranslated'}" class="sapUiSmallMarginTop" />
+				
+				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTopBottom">
+					<m:Label text="{t>attribute.type}" />
+					<m:Text text="{content/@type}" />
+					<m:Label text="{t>attribute.valueType}" />
+					<m:Text text="{path:'name',formatter:'.formatter.toTranslated'}" />
+					<m:Label text="{t>attribute.value}" />
+					<attributeControls:ValueRenderer binding="{}" />
+					
+				</form:SimpleForm>
+			</m:Panel>
+
+			<m:Panel headerText="{t>attribute.shared.title}" visible="{=${type} === 'SharedToPeerAttributeDVO'}">
+				<m:Text
+                    text="{parts:[{path:'t>attribute.shared.description'},{path:'peer>/name'}], formatter:'jQuery.sap.formatMessage'}"
+                />
+				
+				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTopBottom">
+					<m:Label text="{t>attribute.sharedId}" />
+					<m:Text text="{id}" />
+					<m:Label text="{t>attribute.sharedAt}" />
+					<m:Text text="{path:'createdAt',formatter:'.formatter.toAbsoluteDate'}" />
+					<m:Label text="{t>attribute.sharedWith}" />
+					<m:Text text="{peer>/name}" />
+				</form:SimpleForm>
+
+			</m:Panel>
+
+			
+
+			<m:Panel visible="{=${type} === 'RepositoryAttributeDVO'}">
+				<m:headerToolbar>
+					<m:Toolbar>
+						<m:Title text="{t>attribute.root.title}" />
+						<m:ToolbarSpacer />
+					</m:Toolbar>
+				</m:headerToolbar>
+				<m:Text text="{t>attribute.root.description}" />
+				
+				<form:SimpleForm class="sapUiNoContentPadding">
+					<m:Label text="{t>attribute.ownId}" />
+					<m:Text text="{id}" />
+					<m:Label text="{t>attribute.createdAt}" />
+					<m:Text text="{path:'createdAt',formatter:'.formatter.toAbsoluteDate'}" />
+					<m:Label text="{t>attribute.valueType}" />
+					<m:Text text="{path:'name',formatter:'.formatter.toTranslated'}" />
+					<m:Label text="{t>attribute.value}" />
+					<attributeControls:ValueRenderer binding="{}" />
+					
+				</form:SimpleForm>
+			</m:Panel>
+
+			<m:Panel headerText="{t>attribute.peer.title}" visible="{=${type} === 'PeerAttributeDVO'}">
+				<m:Text
+                    text="{parts:[{path:'t>attribute.shared.description'},{path:'peer>/name'}], formatter:'jQuery.sap.formatMessage'}"
+                />
+				
+				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTopBottom">
+					<m:Label text="{t>attribute.sharedId}" />
+					<m:Text text="{id}" />
+					<m:Label text="{t>attribute.receivedAt}" />
+					<m:Text text="{path:'createdAt',formatter:'.formatter.toAbsoluteDate'}" />
+					<m:Label text="{t>attribute.sharedBy}" />
+					<m:Text text="{peer>/name}" />
+				</form:SimpleForm>
+			</m:Panel>
 
         <m:endButton>
-            <m:Button text="{t>form.cancel}" press=".cancelPopup" />
+            <m:Button text="{t>popup.close}" press=".cancelPopup" />
         </m:endButton>
     </m:Dialog>
 </core:FragmentDefinition>
