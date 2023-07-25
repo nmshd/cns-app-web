@@ -1,4 +1,5 @@
 export enum PopupType {
     AttributeInfoPopup = "AttributeInfoPopup",
-    AttributeChangePopup = "AttributeChangePopup"
+    AttributeChangePopup = "AttributeChangePopup",
+    CreateAttributePopup = "CreateAttributePopup"
 }
