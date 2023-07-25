@@ -101,7 +101,7 @@ sap.ui.define(
                     this.valueHints = object.results[0].valueHints
                 }
 
-                appLogger.log("Control invalidated through model " + oEvent.getSource().getId())
+                // appLogger.log("Control invalidated through model " + oEvent.getSource().getId())
                 this.invalidateControl()
             },
             invalidateControl() {
