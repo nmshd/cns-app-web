@@ -1,6 +1,4 @@
-import View from "sap/ui/core/mvc/View"
 import JSONModel from "sap/ui/model/json/JSONModel"
-import { IAppPopupParams } from "../IAppPopup"
 import PopupController from "./PopupController"
 import { PopupType } from "./PopupType"
 
@@ -11,15 +9,13 @@ export default class AttributeChangePopupController extends PopupController {
     popupType = PopupType.AttributeChangePopup
     private attributeId?: string
 
-    public async refresh(params: IAppPopupParams, view: View) {
-        super.refresh(params, view)
-
+    public async refresh() {
         this.attributeId = undefined
-        if (!params.data || !params.data.attributeId) {
+        if (!this.params.data || !this.params.data.attributeId) {
             appLogger.warn("No/wrong data for AttributeChangePopup")
             return
         }
-        this.attributeId = params.data.attributeId
+        this.attributeId = this.params.data.attributeId
         if (!this.attributeId) return
 
         const attributeResult = await runtime.currentSession.consumptionServices.attributes.getAttribute({
