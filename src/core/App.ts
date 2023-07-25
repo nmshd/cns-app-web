@@ -162,7 +162,6 @@ export default abstract class App {
         let controller
         if (!dialog) {
             const newController = new (await import("nmshd/app/core/popups/" + type + ".controller")).default()
-            //dialog = await XMLView.create({viewName: "nmshd.app.flows.account.profile.attributes.Attribute"})
 
             dialog = (await Fragment.load({
                 id: "appPopup_" + type,
@@ -178,12 +177,11 @@ export default abstract class App {
         this.setGlobalModels(dialog)
 
         if (controller && controller.refresh) {
-            controller.refresh(content as IAppPopupParams, dialog)
+            controller.refreshPopup(content as IAppPopupParams, dialog)
         } else {
             dialog.setModel(new JSONModel(content))
         }
 
-        //dialog.placeAt(this.appController.getView()!)
         dialog.open()
         this.openPopups.push(dialog)
     }
