@@ -89,16 +89,10 @@ sap.ui.define(
                 const model = new JSONModel({ items: expandedAttributes, map: map })
                 model.setDefaultBindingMode("OneWay")
                 this.setModel(model)
-                const editableAttributes = NMSHDContent.AttributeValues.Identity.Editable.TYPE_NAMES.map((value) => ({
-                    key: value,
-                    text: this.resource(`dvo.attribute.name.${value}`)
-                }))
-                this.prop("/AllAttributes", editableAttributes)
 
                 this.files = await App.FileUtil.getFiles()
                 this.files.refresh()
                 this.setModel(this.files, "files")
-                this.allAttributesChanges()
             },
 
             clear() {
@@ -108,11 +102,10 @@ sap.ui.define(
             },
 
             onNewAttribute() {
-                const oModel = this.getModel()
-                oModel.setProperty("/name", "")
-                oModel.setProperty("/value", "")
-
-                this.openPopup("All")
+                App.openPopup("CreateAttributePopup", {
+                    data: {},
+                    submitCallback: () => this.refresh()
+                })
             },
 
             onItemPress(oEvent) {
@@ -144,105 +137,6 @@ sap.ui.define(
 
             onAbort() {
                 this.navBack("account.attributes")
-            },
-            allAttributesChanges() {
-                const control = this.byId("allName")
-                if (!control) return
-                const selectedValueType = control.getSelectedKey()
-                const valueDescriptionText = this.byId("allDescription")
-                valueDescriptionText.setText(this.resource(`dvo.attribute.description.${selectedValueType}`))
-                const valueEditRenderer = this.byId("allValue")
-                valueEditRenderer.setValueType(selectedValueType)
-                this.byId("allInfo").setVisible(false)
-            },
-
-            async onAllSave() {
-                try {
-                    const oModel = this.currentPopup.getModel()
-                    const oOriginalName = oModel.getProperty("/name")
-
-                    const id = this.byId("allName")
-                    let oName = id.getSelectedKey()
-                    const oValue = this.byId("allValue").getEditedValue()
-                    if (oValue === "" || oValue === null || oValue === undefined) {
-                        /*
-                        this.byId("allValue").setValueState("Error")
-                        this.byId("allValue").setValueStateText("Sie sollten einen Wert eingeben.")
-                        */
-                        return
-                    } else {
-                        // this.byId("allValue").setValueState("None")
-                    }
-
-                    if (oOriginalName) {
-                        oName = oOriginalName
-                    }
-                    this.viewProp("/submitAvailable", false)
-                    let attributeValue = {
-                        "@type": oName,
-                        value: oValue
-                    }
-                    if (typeof oValue === "object") {
-                        attributeValue = {
-                            "@type": oName,
-                            ...oValue
-                        }
-                    }
-                    const createResult = await runtime.currentSession.consumptionServices.attributes.createAttribute({
-                        content: {
-                            "@type": "IdentityAttribute",
-                            value: attributeValue,
-                            // @ts-ignore
-                            owner: runtime.currentAccount.address
-                        }
-                    })
-                    if (createResult.isError) {
-                        this.byId("allInfo").setText(createResult.error.message).setVisible(true)
-                        this.viewProp("/submitAvailable", true)
-                        return
-                    }
-                    this.onPopupClose()
-                    this.refresh()
-                } catch (e) {
-                    App.error(e)
-                    this.onPopupClose()
-                    this.refresh()
-                }
-            },
-
-            async openPopup(type, content) {
-                const oView = this.getView()
-                const that = this
-                if (!that.popups) {
-                    that.popups = {}
-                }
-                if (!that.popups[type]) {
-                    const oDialog = await Fragment.load({
-                        id: oView.getId(),
-                        name: "nmshd.app.flows.account.profile.attributes." + type,
-                        controller: this
-                    })
-                    oView.addDependent(oDialog)
-                    oDialog.open()
-                    that.popups[type] = oDialog
-                    that.currentPopup = oDialog
-                } else {
-                    that.popups[type].open()
-                    that.currentPopup = that.popups[type]
-                }
-                //this.setMessage()
-                this.viewProp("/submitAvailable", true)
-                this.allAttributesChanges()
-            },
-
-            onPopupClose() {
-                /*
-                if (this.byId("allValue")) {
-                    this.byId("allValue").setValueState("None")
-                }
-                */
-                this.currentPopup.close()
-                this.viewProp("/submitAvailable", false)
             }
         })
     }
