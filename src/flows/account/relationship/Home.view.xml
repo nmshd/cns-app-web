@@ -60,6 +60,16 @@
 					</m:items>
 				</m:List>
 				<m:VBox class="sapUiSmallMargin">
+                    <controls:ContainerButton
+                        press="onRequest()"
+                        text="{t>relationship.home.navigation.newRequestTitle}"
+                        description="{parts:[{path:'t>relationship.home.navigation.newRequestDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
+                        visible="{v>/requestButtonVisible}"
+                    >
+						<controls:contentRight>
+							<m:Image src="/assets/icons/newmessage.svg" class="big" />
+						</controls:contentRight>
+					</controls:ContainerButton>
 					<controls:ContainerButton
                         press="onNewMessage()"
                         text="{t>relationship.home.navigation.newMessageTitle}"

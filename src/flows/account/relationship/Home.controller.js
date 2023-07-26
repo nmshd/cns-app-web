@@ -5,7 +5,11 @@ sap.ui.define(
 
         return RelationshipController.extend("nmshd.app.flows.account.relationship.Home", {
             routeNames: ["account.relationship.home", "account.relationship.master"],
-
+            createViewModel() {
+                return {
+                    requestButtonVisible: false
+                }
+            },
             onInitialized() {
                 this.resetViewModel()
                 sap.ui
@@ -30,7 +34,32 @@ sap.ui.define(
                     return
                 }
 
+                this.viewProp("/requestButtonVisible", false)
                 this.byId("pullToRefresh").hide()
+
+                const receivedItemsResult =
+                    await runtime.currentSession.consumptionServices.attributes.getPeerAttributes({
+                        peer: this.relationshipIdentityDVO.id
+                    })
+
+                if (receivedItemsResult.isError) {
+                    App.error(receivedItemsResult.error)
+                    return
+                }
+                const receivedItems = await runtime.currentSession.expander.expandLocalAttributeDTOs(
+                    receivedItemsResult.value
+                )
+
+                for (const receivedItem of receivedItems) {
+                    console.log(receivedItem)
+                    if (
+                        receivedItem.key === "AllowCertificateRequest" &&
+                        receivedItem.valueType === "ProprietaryBoolean" &&
+                        receivedItem.value.value === true
+                    ) {
+                        this.viewProp("/requestButtonVisible", true)
+                    }
+                }
 
                 const items = await App.InboxUtil.getInboxForRelationship(this.relationshipIdentityDVO)
                 if (!items) return
@@ -60,6 +89,15 @@ sap.ui.define(
                             break
                     }
                 }
+            },
+
+            onRequest() {
+                App.openPopup("CreateCertificateRequestPopup", {
+                    data: {
+                        peer: this.relationshipIdentityDVO.id
+                    },
+                    submitCallback: () => this.refresh()
+                })
             },
 
             onNewMessage() {
