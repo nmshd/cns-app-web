@@ -84,11 +84,6 @@ sap.ui.define(
                 })
             },
 
-            // TODO: DEV-4490
-            async onAddNewAttribute() {
-                new MessageToast.show("Not implemented!")
-            },
-
             getSelectedAttribute() {
                 const textControl = this.getAggregation("_text")
                 if (!textControl) return undefined
