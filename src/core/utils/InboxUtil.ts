@@ -58,20 +58,33 @@ export default class InboxUtil {
             return
         }
 
-        const requestResult = await runtime.currentSession.consumptionServices.incomingRequests.getRequests({
+        const incomingRequestResult = await runtime.currentSession.consumptionServices.incomingRequests.getRequests({
             query: {
                 peer: relationship.id
             }
         })
-        if (requestResult.isError) {
-            App.error(requestResult.error)
+        if (incomingRequestResult.isError) {
+            App.error(incomingRequestResult.error)
+            return
+        }
+
+        const outgoingRequestResult = await runtime.currentSession.consumptionServices.outgoingRequests.getRequests({
+            query: {
+                peer: relationship.id
+            }
+        })
+        if (outgoingRequestResult.isError) {
+            App.error(outgoingRequestResult.error)
             return
         }
 
         try {
             const messages = await runtime.currentSession.expander.expandMessageDTOs(messagesResult.value)
             const requests: DataViewObject[] = []
-            for (const request of requestResult.value) {
+            for (const request of incomingRequestResult.value) {
+                requests.push(await runtime.currentSession.expander.expandLocalRequestDTO(request))
+            }
+            for (const request of outgoingRequestResult.value) {
                 requests.push(await runtime.currentSession.expander.expandLocalRequestDTO(request))
             }
 
