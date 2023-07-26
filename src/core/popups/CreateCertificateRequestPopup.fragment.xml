@@ -1,0 +1,25 @@
+<core:FragmentDefinition
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:controls="nmshd.app.core.controls"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:attributesControl="nmshd.app.core.controls.attributes"
+>
+    <m:Dialog title="{t>relationship.home.navigation.newRequestTitle}" stretch="true">
+        <m:MessageStrip id="info" visible="false" />
+            <form:SimpleForm editable="true">
+                <m:Label text="{t>inbox.new.subject}" />
+                <m:Input id="subject" />
+                <m:Label text="{t>attribute.share.senddescription}" />
+                <m:TextArea id="body" rows="10" growingMaxLines="20" growing="true" />
+            </form:SimpleForm>
+
+        <m:endButton>
+            <m:Button text="{t>inbox.new.send}" enabled="{v>/submitAvailable}" type="Accept" press=".onRequestSubmit" />
+        </m:endButton>
+        <m:beginButton>
+            <m:Button text="{t>form.cancel}" type="Reject" enabled="{v>/submitAvailable}" press=".cancelPopup" />
+        </m:beginButton>
+    </m:Dialog>
+</core:FragmentDefinition>
