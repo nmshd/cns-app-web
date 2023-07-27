@@ -36,6 +36,8 @@ export default class CreateCertificateRequestPopupController extends PopupContro
     public clear() {
         super.clear()
         this.info.setText("").setVisible(false)
+        this.subject.setValue("")
+        this.body.setValue("")
         this.viewProp("/submitAvailable", true)
     }
 
