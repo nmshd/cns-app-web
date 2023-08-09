@@ -63,9 +63,7 @@ sap.ui.define(
                     "_text",
                     new ValueRenderer({
                         visible: false
-                    })
-                        // .addStyleClass("proposeAttributeRequestItemRendererProposedAttribute")
-                        .bindElement("query")
+                    }).bindElement("query")
                 )
             },
 
@@ -76,9 +74,14 @@ sap.ui.define(
             async onChangeSelection() {
                 // proposed and existing attributes don't live in the same structure
                 const proposedAttribute = this.getBindingContext().getObject("attribute")
-                // TODO: fix dirty cloning
-                const query = JSON.parse(JSON.stringify(this.getBindingContext().getObject("query")))
-                query.results.unshift(proposedAttribute)
+                const results = this.getBindingContext().getObject("query/results")
+                const query = jQuery.extend(true, {}, this.getBindingContext().getObject("query"))
+                query.results = results
+
+                // check if reference already exists
+                if (!query.results.includes(proposedAttribute)) {
+                    query.results.push(proposedAttribute)
+                }
                 App.Bus.publish("App", EventBus.EventTypes.AttributeChangePressedEvent, {
                     data: {
                         selectedItemPath: this._getSelectedListItemPath(),
@@ -148,19 +151,21 @@ sap.ui.define(
                 if (changedAttributePath.includes("results/0")) {
                     return
                 }
-
+                this.selectedAttributePath = changedAttributePath
                 this.getAggregation("_proposedAttribute").setVisible(false)
                 this.getAggregation("_text").setVisible(true)
-                const correctPath = changedAttributePath.slice(0, -1) + (changedAttributePath.at(-1) - 1)
-                this.getAggregation("_text").getAggregation("_control").bindText(`${correctPath}/value/value`)
-                this.getAggregation("_text").setAttributePath(correctPath)
+                this.getAggregation("_text").getAggregation("_control").bindText(`${changedAttributePath}/value/value`)
+                this.getAggregation("_text").setAttributePath(changedAttributePath)
             },
 
             _getSelectedListItemPath() {
-                // the proposed value will always be the first so we tricks
-                return "results/0/value/value"
-                const valueRenderer = this.getAggregation("_proposedAttribute").getAggregation("_control")
-                return valueRenderer.getBinding("text").getPath()
+                const selectedAttributeValue = this.getAggregation("_proposedAttribute")
+                    .getAggregation("_control")
+                    .getText()
+                const results = this.getBindingContext().getObject("query/results")
+
+                const correctIndex = results.findIndex((result) => result.value.value === selectedAttributeValue)
+                return `results/${correctIndex}/value/value`
             },
 
             renderer(oRM, oControl) {
