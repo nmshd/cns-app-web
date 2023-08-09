@@ -26,7 +26,10 @@ export default class CreateAttributePopupController extends PopupController {
 
     public async refresh() {
         this.clear()
-
+        if (this.params?.data?.valueType) {
+            this.valueTypeSelection.setSelectedKey(this.params.data.valueType)
+            ;(this.byId("valueType") as Select).setVisible(false)
+        }
         const editableAttributes = NMSHDContent.AttributeValues.Identity.Editable.TYPE_NAMES.map((value) => ({
             key: value,
             text: this.resource(`dvo.attribute.name.${value}`)

@@ -3,7 +3,7 @@
         <Panel>
             <Text text="{t>attributes.availableAttributesList.description}" />
         </Panel>
-        <CustomListItem class="sapUiTinyMargin">
+        <CustomListItem class="sapUiTinyMargin" id="addNewAttributeListItem">
             <HBox class="sapUiTinyMarginBottom">
                 <c:Icon
                     src="sap-icon://sys-add"
@@ -15,7 +15,7 @@
                 <Title text="{t>attributes.availableAttributesList.addNewAttribute}" />
             </HBox>
         </CustomListItem>
-        <List id="availableAttributesList" items="{results}" mode="SingleSelectLeft">
+        <List id="availableAttributesList" items="{results}" mode="SingleSelectMaster">
             <StandardListItem title="{value/value}" />
         </List>
         <endButton>
