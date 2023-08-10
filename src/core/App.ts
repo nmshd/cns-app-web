@@ -71,7 +71,7 @@ export default abstract class App {
     public static Bus: EventBus
     public static component: any
 
-    private static popups: Dictionary<IAppPopup> = {}
+    private static popups: Record<string, IAppPopup> = {}
     private static openPopups: Array<IAppPopup> = []
 
     public static async initializeApp(component: any) {
