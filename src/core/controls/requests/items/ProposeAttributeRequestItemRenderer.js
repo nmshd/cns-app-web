@@ -161,8 +161,8 @@ sap.ui.define(
                     .getText()
                 const results = this.getBindingContext().getObject("query/results")
 
-                const correctIndex = results.findIndex((result) => result.value.value === selectedAttributeValue) || 0
-                return `results/${correctIndex}/value/value`
+                const correctIndex = results.findIndex((result) => result.value.value === selectedAttributeValue)
+                return `results/${correctIndex !== -1 ? correctIndex : 0}/value/value`
             },
 
             renderer(oRM, oControl) {
