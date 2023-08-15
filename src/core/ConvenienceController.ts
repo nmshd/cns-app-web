@@ -14,12 +14,10 @@ export default abstract class ConvenienceController extends BaseController {
     public bindingPath = "/"
     private _loadingCounter = 0
 
-    public onInit() {
-        //		super.onInit()
-
+    public onInit(omitClear: boolean = false) {
         this.getView()!.bindElement({ path: this.bindingPath })
 
-        this.clear()
+        if (!omitClear) this.clear()
     }
 
     public refresh() {}

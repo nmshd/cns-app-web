@@ -1,9 +1,9 @@
-import Controller from "sap/ui/core/mvc/Controller"
-import AppComponent from "../Component"
-import Model from "sap/ui/model/Model"
-import ResourceModel from "sap/ui/model/resource/ResourceModel"
 import ResourceBundle from "sap/base/i18n/ResourceBundle"
+import Controller from "sap/ui/core/mvc/Controller"
+import Model from "sap/ui/model/Model"
 import JSONModel from "sap/ui/model/json/JSONModel"
+import ResourceModel from "sap/ui/model/resource/ResourceModel"
+import AppComponent from "../Component"
 
 /**
  * @namespace nmshd.app.core
@@ -28,7 +28,7 @@ export default abstract class BaseController extends Controller {
      * @returns The i18n resource bundle of the component
      */
     public getResourceBundle(): ResourceBundle {
-        const oModel = this.getOwnerComponent().getModel("i18n") as ResourceModel
+        const oModel = App.component.getModel("t") as ResourceModel
         return oModel.getResourceBundle() as ResourceBundle
     }
 

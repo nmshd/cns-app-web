@@ -1,9 +1,9 @@
-<c:FragmentDefinition xmlns="sap.m" xmlns:c="sap.ui.core">
+<c:FragmentDefinition xmlns="sap.m" xmlns:c="sap.ui.core" >
     <Dialog stretch="true">
         <Panel>
             <Text text="{t>attributes.availableAttributesList.description}" />
         </Panel>
-        <CustomListItem class="sapUiTinyMargin">
+        <CustomListItem class="sapUiTinyMargin" id="addNewAttributeListItem">
             <HBox class="sapUiTinyMarginBottom">
                 <c:Icon
                     src="sap-icon://sys-add"
@@ -15,21 +15,21 @@
                 <Title text="{t>attributes.availableAttributesList.addNewAttribute}" />
             </HBox>
         </CustomListItem>
-        <List id="availableAttributesList" binding="{query}" items="{results}" mode="SingleSelectLeft">
+        <List id="availableAttributesList" items="{results}" mode="SingleSelectMaster">
             <StandardListItem title="{value/value}" />
         </List>
         <endButton>
             <Button
                 text="{t>attributes.availableAttributesList.save}"
                 type="Accept"
-                press=".onAvailableAttributeChange"
+                press=".submitChange"
             />
         </endButton>
         <beginButton>
             <Button
                 text="{t>attributes.availableAttributesList.cancel}"
                 type="Reject"
-                press=".onCloseShowAvailableAttributesFragment"
+                press=".cancelPopup"
             />
         </beginButton>
     </Dialog>

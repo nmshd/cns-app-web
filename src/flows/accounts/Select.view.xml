@@ -1,13 +1,7 @@
 <mvc:View
     controllerName="nmshd.app.flows.accounts.Select"
     xmlns:m="sap.m"
-    xmlns:layout="sap.ui.layout"
-    xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:semantic="sap.m.semantic"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns:form="sap.ui.layout.form"
-    xmlns:controls="nmshd.app.core.controls"
 >
 	<m:Page
         title="{t>select.title}"
@@ -17,7 +11,7 @@
         id="selectPage"
     >
 		<m:headerContent>
-			
+
 		</m:headerContent>
 		<m:subHeader>
 		</m:subHeader>

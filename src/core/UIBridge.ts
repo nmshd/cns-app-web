@@ -2,6 +2,9 @@ import { IUIBridge, LocalAccountDTO, UserfriendlyApplicationError, UserfriendlyR
 import { DeviceOnboardingInfoDTO, FileDVO, IdentityDVO, LocalRequestDVO, MailDVO, MessageDVO } from "@nmshd/runtime"
 import App from "./App"
 
+/**
+ * @namespace nmshd.app.core
+ */
 export default class UIBridge implements IUIBridge {
     public async showMessage(
         account: LocalAccountDTO,

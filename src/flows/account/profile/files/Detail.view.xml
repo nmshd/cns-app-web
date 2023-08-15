@@ -1,12 +1,9 @@
 <mvc:View
     controllerName="nmshd.app.flows.account.profile.files.Detail"
     xmlns:m="sap.m"
-    xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
-    xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:form="sap.ui.layout.form"
-    xmlns:controls="nmshd.app.core.controls"
 >
 
 	<semantic:DetailPage

@@ -2,6 +2,9 @@ import { CoreBuffer, Encoding } from "@nmshd/crypto"
 import { CoreDate } from "@nmshd/transport"
 import App from "./App"
 
+/**
+ * @namespace nmshd.app.core
+ */
 export default abstract class Formatter {
     /**
      * Rounds the currency value to 2 digits
@@ -36,6 +39,9 @@ export default abstract class Formatter {
             sValue = sValue.substring(7)
         } else if (!forceTranslation) {
             return sValue
+        }
+        if (!App.component || !App.component.getModel("t")) {
+            return fallback
         }
         const translated = App.component!.getModel("t")!.getProperty(sValue)
         if (translated === sValue && fallback) {

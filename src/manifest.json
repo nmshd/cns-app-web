@@ -4,7 +4,7 @@
         "id": "nmshd.app",
         "type": "application",
         "applicationVersion": {
-            "version": "2.3.9"
+            "version": "2.3.10"
         }
     },
     "sap.ui5": {
@@ -52,7 +52,6 @@
                 "css": []
             }
         },
-
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",
@@ -65,7 +64,6 @@
                     "target": ["app.mainmenu", "accounts.select"]
                 }
             },
-
             "routes": [
                 {
                     "pattern": "",
@@ -77,7 +75,6 @@
                     "name": "start",
                     "target": ["app.mainmenu", "accounts.onboardoverview"]
                 },
-
                 {
                     "pattern": "app/about",
                     "name": "app.about",
@@ -143,7 +140,6 @@
                     "name": "account.privacy",
                     "target": ["app.mainmenu", "app.privacy"]
                 },
-
                 {
                     "pattern": "accounts",
                     "name": "accounts",
@@ -184,7 +180,6 @@
                     "name": "accounts.scan",
                     "target": ["app.mainmenu", "accounts.scan"]
                 },
-
                 {
                     "pattern": "accounts/{accountId}/login",
                     "name": "account.login",
@@ -270,7 +265,6 @@
                     "name": "account.outgoingrequest",
                     "target": ["app.mainmenu", "account.outgoingrequest"]
                 },
-
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}",
                     "name": "account.relationship.home",
@@ -297,7 +291,6 @@
                     "name": "account.relationship.message",
                     "target": ["app.mainmenu", "account.messages.detail"]
                 },
-
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/info",
                     "name": "account.relationship.info",
@@ -338,7 +331,6 @@
                     "name": "account.relationship.request",
                     "target": ["app.mainmenu", "account.relationship.request"]
                 },
-
                 {
                     "pattern": "accounts/{accountId}/files",
                     "name": "account.files",
@@ -380,7 +372,6 @@
                     "target": ["app.mainmenu", "accounts.select"]
                 }
             ],
-
             "targets": {
                 "accounts.create": {
                     "viewName": "flows.accounts.Create",
@@ -484,7 +475,6 @@
                     "controlAggregation": "detailPages",
                     "viewLevel": 1
                 },
-
                 "account.login": {
                     "viewName": "flows.account.Login",
                     "viewId": "account-login",
@@ -588,56 +578,48 @@
                     "controlAggregation": "detailPages",
                     "viewLevel": 202
                 },
-
                 "account.relationship.home": {
                     "viewName": "flows.account.relationship.Home",
                     "viewId": "account-relationship-home",
                     "controlAggregation": "detailPages",
                     "viewLevel": 251
                 },
-
                 "account.relationship.inbox": {
                     "viewName": "flows.account.relationship.Inbox",
                     "viewId": "account-relationship-inbox",
                     "controlAggregation": "detailPages",
                     "viewLevel": 252
                 },
-
                 "account.relationship.message": {
                     "viewName": "flows.account.relationship.Message",
                     "viewId": "account-relationship-message",
                     "controlAggregation": "detailPages",
                     "viewLevel": 252
                 },
-
                 "account.relationship.newmessage": {
                     "viewName": "flows.account.relationship.NewMessage",
                     "viewId": "account-relationship-newmessage",
                     "controlAggregation": "detailPages",
                     "viewLevel": 252
                 },
-
                 "account.relationship.info": {
                     "viewName": "flows.account.relationship.Info",
                     "viewId": "account-relationship-info",
                     "controlAggregation": "detailPages",
                     "viewLevel": 253
                 },
-
                 "account.relationship.history": {
                     "viewName": "flows.account.relationship.History",
                     "viewId": "account-relationship-history",
                     "controlAggregation": "detailPages",
                     "viewLevel": 253
                 },
-
                 "account.relationship.settings": {
                     "viewName": "flows.account.relationship.Settings",
                     "viewId": "account-relationship-settings",
                     "controlAggregation": "detailPages",
                     "viewLevel": 254
                 },
-
                 "account.relationship.attributes": {
                     "viewName": "flows.account.relationship.Attributes",
                     "viewId": "account-relationship-attributes",
@@ -656,49 +638,42 @@
                     "controlAggregation": "detailPages",
                     "viewLevel": 253
                 },
-
                 "account.relationship.requests": {
                     "viewName": "flows.account.relationship.Requests",
                     "viewId": "account-relationship-requests",
                     "controlAggregation": "detailPages",
                     "viewLevel": 260
                 },
-
                 "account.relationship.request": {
                     "viewName": "flows.account.relationship.Request",
                     "viewId": "account-relationship-request",
                     "controlAggregation": "detailPages",
                     "viewLevel": 270
                 },
-
                 "account.files": {
                     "viewName": "flows.account.profile.files.Files",
                     "viewId": "account-files",
                     "controlAggregation": "detailPages",
                     "viewLevel": 600
                 },
-
                 "account.files.upload": {
                     "viewName": "flows.account.profile.files.Upload",
                     "viewId": "account-files-upload",
                     "controlAggregation": "detailPages",
                     "viewLevel": 601
                 },
-
                 "account.files.detail": {
                     "viewName": "flows.account.profile.files.Detail",
                     "viewId": "account-files-detail",
                     "controlAggregation": "detailPages",
                     "viewLevel": 602
                 },
-
                 "account.info": {
                     "viewName": "flows.account.Info",
                     "viewId": "account-info",
                     "controlAggregation": "detailPages",
                     "viewLevel": 400
                 },
-
                 "account.messages.detail": {
                     "viewName": "flows.account.messages.Detail",
                     "viewId": "account.messages.detail",

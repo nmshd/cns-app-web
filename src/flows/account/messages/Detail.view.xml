@@ -5,12 +5,8 @@
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
-    xmlns:f="sap.f"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns:layout="sap.ui.layout"
     xmlns:form="sap.ui.layout.form"
     xmlns:uxap="sap.uxap"
-    xmlns:controls="nmshd.app.core.controls"
 >
     <semantic:DetailPage
         id="page"

@@ -1,22 +1,20 @@
 sap.ui.define(
     [
         "sap/ui/core/Control",
-        "sap/m/Text",
         "sap/m/Label",
         "sap/m/Button",
-        "sap/m/Select",
         "nmshd/app/core/controls/attributes/ValueRenderer",
-        "nmshd/app/core/Formatter"
+        "nmshd/app/core/Formatter",
+        "nmshd/app/core/EventBus"
     ],
-    (Control, Text, Label, Button, Select, ValueRenderer, Formatter) => {
+    (Control, Label, Button, ValueRenderer, Formatter, EventBus) => {
         "use strict"
 
         return Control.extend("nmshd.app.core.controls.requests.items.ProposeAttributeRequestItemRenderer", {
             metadata: {
                 aggregations: {
                     _label: { type: "sap.m.Label", multiple: false, visibility: "hidden" },
-                    _editControl: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" },
-                    _text: { type: "sap.m.Text", multiple: false, visibility: "hidden" },
+                    _text: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" },
                     _proposedAttribute: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" },
                     _button: { type: "sap.m.Button", multiple: false, visibility: "hidden" }
                 },
@@ -33,6 +31,9 @@ sap.ui.define(
 
             init(e) {
                 const that = this
+
+                // default path for
+                this.selectedAttributePath = "results/0"
                 this.setAggregation(
                     "_label",
                     new Label({ text: { path: "name", formatter: Formatter.toTranslated } })
@@ -43,22 +44,11 @@ sap.ui.define(
                 this.setAggregation(
                     "_button",
                     new Button({
-                        text: "Ändern",
-                        visible: false,
-                        enabled: "{item>/isDecidable}"
-                    })
-
-                        .addStyleClass("proposeAttributeRequestItemRendererButton")
-                        .bindElement("query")
-                )
-                this.setAggregation(
-                    "_editControl",
-                    new ValueRenderer({
-                        visible: false // "{= ${results/length} === 0}"
-                    })
-                        .attachChange((oEvent) => that.fireChange(oEvent))
-                        .addStyleClass("proposeAttributeRequestItemRendererEditControl")
-                        .bindElement("query")
+                        icon: "sap-icon://edit",
+                        type: "Transparent",
+                        enabled: "{item>/isDecidable}",
+                        press: that.onChangeSelection.bind(this)
+                    }).bindElement("query")
                 )
                 this.setAggregation(
                     "_proposedAttribute",
@@ -68,20 +58,41 @@ sap.ui.define(
                 )
                 this.setAggregation(
                     "_text",
-                    new Text({
-                        text: "{results/0/value/value}",
+                    new ValueRenderer({
                         visible: false
-                    })
-                        .addStyleClass("proposeAttributeRequestItemRendererFoundAttribute")
-                        .bindElement("query")
+                    }).bindElement("query")
                 )
+            },
+
+            /**
+             * Opens a Dialog with the all the available attributes for this renderer
+             * and the option to add a new attribute if none of the existing attributes matches.
+             */
+            async onChangeSelection() {
+                // proposed and existing attributes don't live in the same structure
+                const proposedAttribute = this.getBindingContext().getObject("attribute")
+                const results = this.getBindingContext().getObject("query/results")
+                const query = jQuery.extend(true, {}, this.getBindingContext().getObject("query"))
+                query.results = results
+
+                // check if reference already exists
+                if (!query.results.includes(proposedAttribute)) {
+                    query.results.push(proposedAttribute)
+                }
+                App.Bus.publish("App", EventBus.EventTypes.AttributeChangePressedEvent, {
+                    data: {
+                        selectedItemPath: this._getSelectedListItemPath(),
+                        query: query
+                    },
+                    submitCallback: this._onAttributeChange.bind(this)
+                })
             },
 
             getSelectedAttribute() {
                 const textControl = this.getAggregation("_text")
                 if (!textControl) return undefined
                 if (!textControl.getVisible()) return undefined
-                return textControl.getBindingContext().getObject("results/0")
+                return textControl.getBindingContext().getObject(this.selectedAttributePath)
             },
 
             getEditedValue() {
@@ -128,6 +139,32 @@ sap.ui.define(
                 return responseParams
             },
 
+            // *****************************
+            // ***** private functions *****
+            // *****************************
+
+            _onAttributeChange(changedAttributePath) {
+                // results/0 is the already proposed item => we do nothing
+                if (changedAttributePath.includes("results/0")) {
+                    return
+                }
+                this.selectedAttributePath = changedAttributePath
+                this.getAggregation("_proposedAttribute").setVisible(false)
+                this.getAggregation("_text").setVisible(true)
+                this.getAggregation("_text").getAggregation("_control").bindText(`${changedAttributePath}/value/value`)
+                this.getAggregation("_text").setAttributePath(changedAttributePath)
+            },
+
+            _getSelectedListItemPath() {
+                const selectedAttributeValue = this.getAggregation("_proposedAttribute")
+                    .getAggregation("_control")
+                    .getText()
+                const results = this.getBindingContext().getObject("query/results")
+
+                const correctIndex = results.findIndex((result) => result.value.value === selectedAttributeValue)
+                return `results/${correctIndex !== -1 ? correctIndex : 0}/value/value`
+            },
+
             renderer(oRM, oControl) {
                 oRM.write("<div")
                 oRM.writeControlData(oControl)
@@ -135,25 +172,22 @@ sap.ui.define(
                 oRM.writeClasses()
                 oRM.write(">")
 
+                oRM.write("<div>")
+
                 const labelControl = oControl.getAggregation("_label")
                 if (labelControl) {
                     oRM.renderControl(labelControl)
                 }
-
                 const foundAttribute = oControl.getAggregation("_text")
                 if (foundAttribute) {
                     oRM.renderControl(foundAttribute)
-                }
-
-                const editControl = oControl.getAggregation("_editControl")
-                if (editControl) {
-                    oRM.renderControl(editControl)
                 }
 
                 const proposedAttribute = oControl.getAggregation("_proposedAttribute")
                 if (proposedAttribute) {
                     oRM.renderControl(proposedAttribute)
                 }
+                oRM.write("</div>")
 
                 const buttonControl = oControl.getAggregation("_button")
                 if (buttonControl) {
