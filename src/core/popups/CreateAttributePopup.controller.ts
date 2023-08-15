@@ -61,15 +61,6 @@ export default class CreateAttributePopupController extends PopupController {
 
             let valueType = this.valueTypeSelection.getSelectedKey()
             const oValue = this.valueRenderer.getEditedValue()
-            if (oValue === "" || oValue === null || oValue === undefined) {
-                /*
-                        this.byId("attributeValue").setValueState("Error")
-                        this.byId("attributeValue").setValueStateText("Sie sollten einen Wert eingeben.")
-                        */
-                return
-            } else {
-                // this.byId("attributeValue").setValueState("None")
-            }
 
             this.viewProp("/submitAvailable", false)
 
