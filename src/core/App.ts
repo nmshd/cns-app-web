@@ -1,7 +1,6 @@
 import { DatawalletSynchronizedEvent, MailReceivedEvent, OnboardingChangeReceivedEvent } from "@nmshd/app-runtime"
 import { DeviceDTO, RelationshipDVO } from "@nmshd/runtime"
 import { CoreId } from "@nmshd/transport"
-import { Dictionary } from "lodash"
 import URLListValidator from "sap/base/security/URLListValidator"
 import Dialog from "sap/m/Dialog"
 import SplitApp from "sap/m/SplitApp"

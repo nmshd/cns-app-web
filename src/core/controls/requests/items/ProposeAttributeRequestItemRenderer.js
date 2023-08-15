@@ -1,16 +1,13 @@
 sap.ui.define(
     [
         "sap/ui/core/Control",
-        "sap/m/Text",
-
         "sap/m/Label",
         "sap/m/Button",
-        "sap/m/MessageToast",
         "nmshd/app/core/controls/attributes/ValueRenderer",
         "nmshd/app/core/Formatter",
         "nmshd/app/core/EventBus"
     ],
-    (Control, Text, Label, Button, MessageToast, ValueRenderer, Formatter, EventBus) => {
+    (Control, Label, Button, ValueRenderer, Formatter, EventBus) => {
         "use strict"
 
         return Control.extend("nmshd.app.core.controls.requests.items.ProposeAttributeRequestItemRenderer", {
@@ -164,7 +161,7 @@ sap.ui.define(
                     .getText()
                 const results = this.getBindingContext().getObject("query/results")
 
-                const correctIndex = results.findIndex((result) => result.value.value === selectedAttributeValue)
+                const correctIndex = results.findIndex((result) => result.value.value === selectedAttributeValue) || 0
                 return `results/${correctIndex}/value/value`
             },
 
