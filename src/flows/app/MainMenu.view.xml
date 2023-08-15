@@ -1,14 +1,9 @@
 <mvc:View
     controllerName="nmshd.app.flows.app.MainMenu"
     xmlns:m="sap.m"
-    xmlns:f="sap.f"
-    xmlns:layout="sap.ui.layout"
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:semantic="sap.m.semantic"
-    xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:form="sap.ui.layout.form"
-    xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 >
 	<m:Page showHeader="true" class="whiteBG">
 		<m:customHeader>
@@ -20,7 +15,7 @@
                     <m:Title text="{v>/profileName}" class="sapMTitleMaxWidth" />
                 </m:contentMiddle>
                 <m:contentRight>
-                    
+
                 </m:contentRight>
             </m:Bar>
         </m:customHeader>

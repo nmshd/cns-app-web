@@ -3,8 +3,6 @@
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
-    xmlns:form="sap.ui.layout.form"
-    xmlns:l="sap.ui.layout"
     xmlns:controls="nmshd.app.core.controls"
 >
 	<semantic:DetailPage

@@ -1,11 +1,8 @@
 <mvc:View
     controllerName="nmshd.app.flows.account.relationship.Home"
     xmlns:m="sap.m"
-    xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns:form="sap.ui.layout.form"
     xmlns:l="sap.ui.layout"
     xmlns:controls="nmshd.app.core.controls"
 >
@@ -111,7 +108,7 @@
 					</controls:ContainerButton>
 
 				</m:VBox>
-				
+
 			</l:VerticalLayout>
 
 		</semantic:content>

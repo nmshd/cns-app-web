@@ -1,16 +1,9 @@
 <mvc:View
     controllerName="nmshd.app.flows.account.share.Card"
     xmlns:m="sap.m"
-    xmlns:layout="sap.ui.layout"
-    xmlns:core="sap.ui.core"
-    xmlns:grid="sap.ui.layout.cssgrid"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns:form="sap.ui.layout.form"
-    xmlns:f="sap.f"
     xmlns:controls="nmshd.app.core.controls"
-    xmlns:u="sap.ui.unified"
     xmlns:requests="nmshd.app.core.controls.requests"
 >
 	<semantic:DetailPage

@@ -1,11 +1,9 @@
 <mvc:View
     controllerName="nmshd.app.flows.account.messages.New"
     xmlns:m="sap.m"
-    xmlns:u="sap.ui.unified"
     xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
-    xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:form="sap.ui.layout.form"
 >
 
