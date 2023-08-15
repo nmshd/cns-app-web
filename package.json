@@ -27,7 +27,7 @@
         "@nmshd/app-runtime": "2.3.6",
         "@nmshd/content": "^2.6.0",
         "@nmshd/crypto": "^2.0.4",
-        "@nmshd/runtime": "2.6.0",
+        "@nmshd/runtime": "2.6.1",
         "@nmshd/transport": "^2.0.5",
         "bson": "^5.4.0",
         "lodash": "^4.17.21",
