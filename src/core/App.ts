@@ -1,7 +1,6 @@
 import { DatawalletSynchronizedEvent, MailReceivedEvent, OnboardingChangeReceivedEvent } from "@nmshd/app-runtime"
 import { DeviceDTO, RelationshipDVO } from "@nmshd/runtime"
 import { CoreId } from "@nmshd/transport"
-import { Dictionary } from "lodash"
 import URLListValidator from "sap/base/security/URLListValidator"
 import Dialog from "sap/m/Dialog"
 import SplitApp from "sap/m/SplitApp"
@@ -71,7 +70,7 @@ export default abstract class App {
     public static Bus: EventBus
     public static component: any
 
-    private static popups: Dictionary<IAppPopup> = {}
+    private static popups: Record<string, IAppPopup> = {}
     private static openPopups: Array<IAppPopup> = []
 
     public static async initializeApp(component: any) {
@@ -152,6 +151,16 @@ export default abstract class App {
                 this.openPopup(PopupType.AttributeChangePopup, data)
             }
         )
+<<<<<<< HEAD
+=======
+        this.Bus.subscribe(
+            "App",
+            EventTypes.CreateAttributePressedEvent,
+            async (owner: any, message: any, data: any) => {
+                this.openPopup(PopupType.CreateAttributePopup, data)
+            }
+        )
+>>>>>>> main
     }
 
     public static async openPopup(type, content) {

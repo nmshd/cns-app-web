@@ -217,7 +217,8 @@ body .messageList header {
 
 .proposeAttributeRequestItemRenderer {
     align-items: center;
-    justify-content: stretch;
+    display: flex;
+    justify-content: space-between;
 }
 
 .requestItemRendererChildContainer,

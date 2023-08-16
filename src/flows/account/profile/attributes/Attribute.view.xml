@@ -1,12 +1,9 @@
 <mvc:View
     controllerName="nmshd.app.flows.account.profile.attributes.Attribute"
     xmlns:m="sap.m"
-    xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
-    xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:form="sap.ui.layout.form"
-    xmlns:controls="nmshd.app.core.controls"
     xmlns:attributeControls="nmshd.app.core.controls.attributes"
 >
 
@@ -22,7 +19,7 @@
 
 
 		<semantic:customHeaderContent>
-			
+
 		</semantic:customHeaderContent>
 
 		<semantic:subHeader>
@@ -39,7 +36,7 @@
                     visible="{= ${content/@type} === 'IdentityAttribute' &amp;&amp; ${type} === 'PeerAttributeDVO'}"
                 />
 				<m:Text text="{path:'description',formatter:'.formatter.toTranslated'}" class="sapUiSmallMarginTop" />
-				
+
 				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTopBottom">
 					<m:Label text="{t>attribute.type}" />
 					<m:Text text="{content/@type}" />
@@ -47,7 +44,7 @@
 					<m:Text text="{path:'name',formatter:'.formatter.toTranslated'}" />
 					<m:Label text="{t>attribute.value}" />
 					<attributeControls:ValueRenderer binding="{}" />
-					
+
 				</form:SimpleForm>
 			</m:Panel>
 
@@ -55,7 +52,7 @@
 				<m:Text
                     text="{parts:[{path:'t>attribute.shared.description'},{path:'peer>/name'}], formatter:'jQuery.sap.formatMessage'}"
                 />
-				
+
 				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTopBottom">
 					<m:Label text="{t>attribute.sharedId}" />
 					<m:Text text="{id}" />
@@ -78,7 +75,7 @@
 				</m:List>
 			</m:Panel>
 
-			
+
 
 			<m:Panel visible="{=${type} === 'RepositoryAttributeDVO'}">
 				<m:headerToolbar>
@@ -89,7 +86,7 @@
 					</m:Toolbar>
 				</m:headerToolbar>
 				<m:Text text="{t>attribute.root.description}" />
-				
+
 				<form:SimpleForm class="sapUiNoContentPadding">
 					<m:Label text="{t>attribute.ownId}" />
 					<m:Text text="{id}" />
@@ -99,7 +96,7 @@
 					<m:Text text="{path:'name',formatter:'.formatter.toTranslated'}" />
 					<m:Label text="{t>attribute.value}" />
 					<attributeControls:ValueRenderer binding="{}" />
-					
+
 				</form:SimpleForm>
 
 				<m:Text text="{t>attribute.root.sharedWithDescription}" visible="{=${sharedWith/length} > 0}" />
@@ -123,7 +120,7 @@
 				<m:Text
                     text="{parts:[{path:'t>attribute.shared.description'},{path:'peer>/name'}], formatter:'jQuery.sap.formatMessage'}"
                 />
-				
+
 				<form:SimpleForm class="sapUiNoContentPadding sapUiSmallMarginTopBottom">
 					<m:Label text="{t>attribute.sharedId}" />
 					<m:Text text="{id}" />
@@ -134,8 +131,8 @@
 				</form:SimpleForm>
 			</m:Panel>
 
-			
-			
+
+
 		</semantic:content>
 	</semantic:DetailPage>
 </mvc:View>

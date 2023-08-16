@@ -8,7 +8,6 @@
         "sourceMap": true,
         "checkJs": true,
         "allowJs": true,
-        // "strict": true,
         "strictNullChecks": true,
         "strictPropertyInitialization": false,
         "rootDir": "./src",

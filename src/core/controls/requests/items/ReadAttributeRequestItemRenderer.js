@@ -3,12 +3,11 @@ sap.ui.define(
         "sap/ui/core/Control",
         "sap/m/Label",
         "sap/m/Button",
-        "sap/m/MessageToast",
-        "sap/ui/core/Fragment",
         "nmshd/app/core/controls/attributes/ValueRenderer",
-        "nmshd/app/core/Formatter"
+        "nmshd/app/core/Formatter",
+        "nmshd/app/core/EventBus"
     ],
-    (Control, Label, Button, MessageToast, Fragment, ValueRenderer, Formatter) => {
+    (Control, Label, Button, ValueRenderer, Formatter, EventBus) => {
         "use strict"
 
         return Control.extend("nmshd.app.core.controls.requests.items.ReadAttributeRequestItemRenderer", {
@@ -74,42 +73,13 @@ sap.ui.define(
              * and the option to add a new attribute if none of the existing attributes matches.
              */
             async onChangeSelection() {
-                await this._openAvailableAttributeFragment()
-                await this._setSelectedListItem()
-            },
-
-            /**
-             * Closes the Dialog with all the available attributes for this renderer.
-             */
-            onCloseShowAvailableAttributesFragment() {
-                this._availableAttributesFragment.close()
-            },
-
-            // TODO: DEV-4490
-            async onAddNewAttribute() {
-                new MessageToast.show("Not implemented!")
-            },
-
-            /**
-             * Receives the selected item and binds it to valueRenderer. It updates the attributePath
-             * for the RequestItemRenderer to ensure the correct attribute will be sent in the response.
-             * Fires a change event so that the RequestItemRenderer selects it's checkbox.
-             */
-            onAvailableAttributeChange() {
-                const selectedContext = Fragment.byId("showAvailableAttributesFragment", "availableAttributesList")
-                    .getSelectedItem()
-                    .getBindingContext()
-                // use the correct context
-                const contextControl = this._availableAttributesFragment.contextControl
-                contextControl.selectedAttributePath = selectedContext.getPath().replace(/^(.*?)query\//, "")
-
-                contextControl
-                    .getAggregation("_text")
-                    .getAggregation("_control")
-                    .bindText(`${contextControl.selectedAttributePath}/value/value`)
-                contextControl.getAggregation("_text").setAttributePath(contextControl.selectedAttributePath)
-                contextControl.fireChange({ isChecked: true })
-                contextControl.onCloseShowAvailableAttributesFragment()
+                App.Bus.publish("App", EventBus.EventTypes.AttributeChangePressedEvent, {
+                    data: {
+                        selectedItemPath: this._getSelectedListItemPath(),
+                        query: this.getBindingContext().getObject("query")
+                    },
+                    submitCallback: this._onAttributeChange.bind(this)
+                })
             },
 
             getSelectedAttribute() {
@@ -209,68 +179,16 @@ sap.ui.define(
             // ***** private functions *****
             // *****************************
 
-            /**
-             * loads and opens the dialog to show all available attributes for a specific RequestItemRenderer once.
-             * This dialog will be used across all different renderers. The dialog can not be bound to a View so the
-             * required models have to be assigned manually
-             *
-             * @private
-             */
-            async _openAvailableAttributeFragment() {
-                const model = this.getModel()
-                const translationModel = this.getModel("t")
-                const bindingContext = this.getBindingContext()
-                const availableAttributesList = Fragment.byId(
-                    "showAvailableAttributesFragment",
-                    "availableAttributesList"
-                )
-                // if the list of the fragment was found we don't have to load the fragment again
-                if (availableAttributesList) {
-                    // we assign the already created fragment to every RequestItemRenderer
-                    this._availableAttributesFragment = availableAttributesList.getParent()
-                    // set the correct contextControl
-                    this._availableAttributesFragment.contextControl = this
-                } else if (!this._availableAttributesFragment) {
-                    this._availableAttributesFragment = await Fragment.load({
-                        id: "showAvailableAttributesFragment",
-                        name: "nmshd.app.core.fragments.ShowAvailableAttributes",
-                        controller: this
-                    })
-                    // assign the required models manually
-                    this._availableAttributesFragment.contextControl = this
-                    this._availableAttributesFragment.setModel(model)
-                    this._availableAttributesFragment.setModel(translationModel, "t")
-                }
-                this._availableAttributesFragment.setBindingContext(bindingContext)
-                this._availableAttributesFragment.setTitle(
-                    translationModel
-                        .getResourceBundle()
-                        .getText("attributes.availableAttributesList.title", [
-                            Formatter.toTranslated(bindingContext.getObject("query/name"))
-                        ])
-                )
-
-                this._availableAttributesFragment.open()
+            _onAttributeChange(changedAttributePath) {
+                this.getAggregation("_text").getAggregation("_control").bindText(`${changedAttributePath}/value/value`)
+                this.getAggregation("_text").setAttributePath(changedAttributePath)
+                this.selectedAttributePath = changedAttributePath
+                this.fireChange({ isChecked: true })
             },
-            /**
-             * Receives the correct context from the child aggregation (ValueRenderer) and uses it
-             * to display the selected item in the list of all available attributes
-             *
-             * @private
-             */
-            _setSelectedListItem() {
-                // receive the whole path to the bound value
-                const valueRenderer = this.getAggregation("_text").getAggregation("_control")
-                const resolvedPath = valueRenderer.getBinding("text").getResolvedPath()
-                const selectedAttributeValue = this.getModel().getObject(resolvedPath)
-                const list = Fragment.byId("showAvailableAttributesFragment", "availableAttributesList")
-                const selectedListItem = list
-                    .getItems()
-                    .find(
-                        (listItem) => listItem.getBindingContext().getObject("value/value") === selectedAttributeValue
-                    )
 
-                list.setSelectedItem(selectedListItem)
+            _getSelectedListItemPath() {
+                const valueRenderer = this.getAggregation("_text").getAggregation("_control")
+                return valueRenderer.getBinding("text").getPath()
             },
 
             renderer(oRM, oControl) {

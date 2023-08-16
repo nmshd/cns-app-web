@@ -4,9 +4,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
     xmlns:form="sap.ui.layout.form"
-    xmlns:l="sap.ui.layout"
     xmlns:f="sap.f"
-    xmlns:c="nmshd.app.core.controls"
     xmlns:controls="nmshd.app.core.controls"
 >
 
@@ -53,7 +51,7 @@
 					<Title text="{t>legal.thirdparty.title}" class="bigTitle" />
 					<Text text="{t>legal.thirdparty.description1}" />
 					<Text text="{t>legal.thirdparty.description2}" />
-					
+
 					<controls:Container class="sapUiNoMargin">
 						<Text text="{t>legal.thirdparty.description3}" class="inlineText" />
 						<Link

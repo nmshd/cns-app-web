@@ -26,7 +26,10 @@ export default class CreateAttributePopupController extends PopupController {
 
     public async refresh() {
         this.clear()
-
+        if (this.params?.data?.valueType) {
+            this.valueTypeSelection.setSelectedKey(this.params.data.valueType)
+            ;(this.byId("valueType") as Select).setVisible(false)
+        }
         const editableAttributes = NMSHDContent.AttributeValues.Identity.Editable.TYPE_NAMES.map((value) => ({
             key: value,
             text: this.resource(`dvo.attribute.name.${value}`)
@@ -58,15 +61,6 @@ export default class CreateAttributePopupController extends PopupController {
 
             let valueType = this.valueTypeSelection.getSelectedKey()
             const oValue = this.valueRenderer.getEditedValue()
-            if (oValue === "" || oValue === null || oValue === undefined) {
-                /*
-                        this.byId("attributeValue").setValueState("Error")
-                        this.byId("attributeValue").setValueStateText("Sie sollten einen Wert eingeben.")
-                        */
-                return
-            } else {
-                // this.byId("attributeValue").setValueState("None")
-            }
 
             this.viewProp("/submitAvailable", false)
 

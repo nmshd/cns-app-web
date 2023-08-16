@@ -10,7 +10,6 @@ export default class AttributeInfoPopupController extends PopupController {
     private attributeId?: string
 
     public async refresh() {
-        this.attributeId = undefined
         if (!this.params.data || !this.params.data.attributeId) {
             appLogger.warn("No/wrong data for AttributeInfoPopup")
             return

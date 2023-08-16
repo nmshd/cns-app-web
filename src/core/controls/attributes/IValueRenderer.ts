@@ -15,7 +15,7 @@ export default interface IValueRenderer extends Control {
     setUpdateDisabled(value: boolean)
     getUpdateDisabled(): boolean
     setAttributePath(value: string)
-    getAttributepath(): string
+    getAttributePath(): string
     invalidateControl()
     updateControls()
     getEditedValue()

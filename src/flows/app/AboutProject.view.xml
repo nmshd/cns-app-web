@@ -1,16 +1,8 @@
 <mvc:View
     controllerName="nmshd.app.flows.app.AboutProject"
     xmlns:m="sap.m"
-    xmlns:layout="sap.ui.layout"
-    xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
-    xmlns:html="http://www.w3.org/1999/xhtml"
-    xmlns:form="sap.ui.layout.form"
-    xmlns:tnt="sap.tnt"
-    xmlns="sap.uxap"
-    xmlns:l="sap.ui.layout"
-    xmlns:controls="nmshd.app.core.controls"
 >
 
 	<semantic:DetailPage
@@ -62,7 +54,7 @@
                         <m:Image src="/assets/partners/rwth.svg" class="logo" />
                     </m:VBox>
                 </m:VBox>
-                
+
             </m:VBox>
 		</semantic:content>
 	</semantic:DetailPage>
