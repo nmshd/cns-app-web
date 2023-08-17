@@ -1,6 +1,6 @@
 {
     "name": "@nmshd/app-web",
-    "version": "2.3.10",
+    "version": "2.3.11",
     "description": "The web sources for the Enmeshed App",
     "repository": "github:nmshd/cns-app-web",
     "license": "MIT",
