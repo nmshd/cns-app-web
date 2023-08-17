@@ -151,8 +151,6 @@ export default abstract class App {
                 this.openPopup(PopupType.AttributeChangePopup, data)
             }
         )
-<<<<<<< HEAD
-=======
         this.Bus.subscribe(
             "App",
             EventTypes.CreateAttributePressedEvent,
@@ -160,7 +158,6 @@ export default abstract class App {
                 this.openPopup(PopupType.CreateAttributePopup, data)
             }
         )
->>>>>>> main
     }
 
     public static async openPopup(type, content) {
