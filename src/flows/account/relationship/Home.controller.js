@@ -116,7 +116,6 @@ sap.ui.define(
                         this.viewProp("/requestCertificateButtonVisible", true)
                     }
                 }
-                console.log(sharedToPeerAttributes)
             }
         })
     }

@@ -17,7 +17,6 @@ sap.ui.define(["sap/ui/core/Control", "sap/m/Text"], (Control, Text) => {
         },
 
         init(e) {
-            const that = this
             this.setAggregation(
                 "_valueRenderer",
                 new Text({
