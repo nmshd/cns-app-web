@@ -57,7 +57,7 @@
 					</m:items>
 				</m:List>
 				<m:VBox class="sapUiSmallMargin">
-                    <controls:ContainerButton
+                    <!-- <controls:ContainerButton
                         press="onRequest()"
                         text="{t>relationship.home.navigation.newRequestTitle}"
                         description="{parts:[{path:'t>relationship.home.navigation.newRequestDescription'},{path:'dvo>/name'}], formatter:'jQuery.sap.formatMessage'}"
@@ -66,7 +66,7 @@
 						<controls:contentRight>
 							<m:Image src="/assets/icons/newmessage.svg" class="big" />
 						</controls:contentRight>
-					</controls:ContainerButton>
+					</controls:ContainerButton> -->
 					<controls:ContainerButton
                         press="onNewMessage()"
                         text="{t>relationship.home.navigation.newMessageTitle}"
@@ -116,7 +116,13 @@
 							<m:Image src="/assets/icons/addprofile.svg" class="big" visible="false" />
 						</controls:contentRight>
 					</controls:ContainerButton>
+                    <controls:ContainerButton
+                        press="onRequestCertificate"
+                        text="{t>relationship.home.navigation.requestCertificate}"
+                        description="{t>relationship.home.navigation.requestCertificateDescription}"
+                        visible="{v>/requestCertificateButtonVisible}">
 
+                    </controls:ContainerButton>
 				</m:VBox>
 
 			</l:VerticalLayout>

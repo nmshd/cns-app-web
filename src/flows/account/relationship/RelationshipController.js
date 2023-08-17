@@ -85,6 +85,21 @@ sap.ui.define(
                     accountId: this.accountId,
                     relationshipId: this.relationshipId
                 })
+            },
+
+            async getSharedToPeerAttributes(query = {}) {
+                const sharedAttributesResult =
+                    await runtime.currentSession.consumptionServices.attributes.getSharedToPeerAttributes({
+                        peer: this.relationshipIdentityDVO.id,
+                        query: query
+                    })
+
+                if (sharedAttributesResult.isError) {
+                    App.error(sharedAttributesResult.error)
+                    return
+                }
+
+                return await runtime.currentSession.expander.expandLocalAttributeDTOs(sharedAttributesResult.value)
             }
         })
     }

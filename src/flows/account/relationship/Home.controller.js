@@ -7,7 +7,7 @@ sap.ui.define(
             routeNames: ["account.relationship.home", "account.relationship.master"],
             createViewModel() {
                 return {
-                    requestButtonVisible: false
+                    requestCertificateButtonVisible: false
                 }
             },
             onInitialized() {
@@ -34,32 +34,9 @@ sap.ui.define(
                     return
                 }
 
-                this.viewProp("/requestButtonVisible", false)
+                await this._setButtonVisibility()
+
                 this.byId("pullToRefresh").hide()
-
-                const receivedItemsResult =
-                    await runtime.currentSession.consumptionServices.attributes.getPeerAttributes({
-                        peer: this.relationshipIdentityDVO.id
-                    })
-
-                if (receivedItemsResult.isError) {
-                    App.error(receivedItemsResult.error)
-                    return
-                }
-                const receivedItems = await runtime.currentSession.expander.expandLocalAttributeDTOs(
-                    receivedItemsResult.value
-                )
-
-                for (const receivedItem of receivedItems) {
-                    console.log(receivedItem)
-                    if (
-                        receivedItem.key === "AllowCertificateRequest" &&
-                        receivedItem.valueType === "ProprietaryBoolean" &&
-                        receivedItem.value.value === true
-                    ) {
-                        this.viewProp("/requestButtonVisible", true)
-                    }
-                }
 
                 const items = await App.InboxUtil.getInboxForRelationship(this.relationshipIdentityDVO)
                 if (!items) return
@@ -91,7 +68,7 @@ sap.ui.define(
                 }
             },
 
-            onRequest() {
+            onRequestCertificate() {
                 App.openPopup("CreateCertificateRequestPopup", {
                     data: {
                         peer: this.relationshipIdentityDVO.id
@@ -123,6 +100,23 @@ sap.ui.define(
 
             onNavButtonPress() {
                 this.navBack("account.relationships")
+            },
+
+            async _setButtonVisibility() {
+                this.viewProp("/requestCertificateButtonVisible", false)
+                // search for technical allowCertificateRequest
+                const query = {
+                    "content.isTechnical": "true",
+                    "content.key": "AllowCertificateRequest",
+                    "content.value.@type": "ProprietaryBoolean"
+                }
+                const sharedToPeerAttributes = await this.getSharedToPeerAttributes(query)
+                for (const sharedToPeerAttribute of sharedToPeerAttributes) {
+                    if (sharedToPeerAttribute.value.value === true) {
+                        this.viewProp("/requestCertificateButtonVisible", true)
+                    }
+                }
+                console.log(sharedToPeerAttributes)
             }
         })
     }
