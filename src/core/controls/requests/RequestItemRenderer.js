@@ -10,6 +10,7 @@ sap.ui.define(
         "nmshd/app/core/controls/requests/items/CreateAttributeRequestItemRenderer",
         "nmshd/app/core/controls/requests/items/ShareAttributeRequestItemRenderer",
         "nmshd/app/core/controls/requests/items/ProposeAttributeRequestItemRenderer",
+        "nmshd/app/core/controls/requests/items/FreeTextRequestItemRenderer",
         "sap/ui/model/json/JSONModel",
         "nmshd/app/core/controls/requests/items/AuthenticationResponseItemRenderer",
         "nmshd/app/core/controls/requests/items/ConsentResponseItemRenderer",
@@ -17,6 +18,7 @@ sap.ui.define(
         "nmshd/app/core/controls/requests/items/CreateAttributeResponseItemRenderer",
         "nmshd/app/core/controls/requests/items/ShareAttributeResponseItemRenderer",
         "nmshd/app/core/controls/requests/items/ProposeAttributeResponseItemRenderer",
+        "nmshd/app/core/controls/requests/items/FreeTextResponseItemRenderer",
         "sap/m/MessageStrip",
         "nmshd/app/core/Formatter"
     ],
@@ -30,6 +32,7 @@ sap.ui.define(
         CreateAttributeRequestItemRenderer,
         ShareAttributeRequestItemRenderer,
         ProposeAttributeRequestItemRenderer,
+        FreeTextRequestItemRenderer,
         JSONModel,
         AuthenticationResponseItemRenderer,
         ConsentResponseItemRenderer,
@@ -37,6 +40,7 @@ sap.ui.define(
         CreateAttributeResponseItemRenderer,
         ShareAttributeResponseItemRenderer,
         ProposeAttributeResponseItemRenderer,
+        FreeTextResponseItemRenderer,
         MessageStrip,
         Formatter
     ) => {
@@ -253,7 +257,6 @@ sap.ui.define(
                                 })
                             break
                         case "RequestItemDVO":
-                            console.warn(`Not implemented RequestItem.type encountered: ${item.type}`)
                             if (item["@type"] === "ConsentRequestItem") {
                                 control = new ConsentResponseItemRenderer({ requestItem: "{}" }).attachChange(
                                     (oEvent) => {
@@ -268,6 +271,15 @@ sap.ui.define(
                                         that.fireChange(oEvent)
                                     }
                                 )
+                            } else if (item["@type"] === "FreeTextRequestItem") {
+                                control = new FreeTextResponseItemRenderer({ requestItem: "{}" }).attachChange(
+                                    (oEvent) => {
+                                        that.updateCheckbox(oEvent)
+                                        that.fireChange(oEvent)
+                                    }
+                                )
+                            } else {
+                                console.warn(`Not implemented RequestItem.type encountered: ${item.type}`)
                             }
                             break
                         default:
@@ -333,7 +345,6 @@ sap.ui.define(
                             )
                             break
                         case "RequestItemDVO":
-                            console.warn(`Not implemented RequestItem.type encountered: ${item.type}`)
                             if (item["@type"] === "ConsentRequestItem") {
                                 control = new ConsentRequestItemRenderer({ requestItem: "{}" }).attachChange(
                                     (oEvent) => {
@@ -348,6 +359,15 @@ sap.ui.define(
                                         that.fireChange(oEvent)
                                     }
                                 )
+                            } else if (item["@type"] === "FreeTextRequestItem") {
+                                control = new FreeTextRequestItemRenderer({ requestItem: "{}" }).attachChange(
+                                    (oEvent) => {
+                                        that.updateCheckbox(oEvent)
+                                        that.fireChange(oEvent)
+                                    }
+                                )
+                            } else {
+                                console.warn(`Not implemented RequestItem.type encountered: ${item.type}`)
                             }
                             break
                         default:

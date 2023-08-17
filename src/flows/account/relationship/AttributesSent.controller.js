@@ -23,17 +23,7 @@ sap.ui.define(
                     return
                 }
 
-                const sentItemsResult =
-                    await runtime.currentSession.consumptionServices.attributes.getSharedToPeerAttributes({
-                        peer: this.relationshipIdentityDVO.id
-                    })
-
-                if (sentItemsResult.isError) {
-                    App.error(sentItemsResult.error)
-                    return
-                }
-
-                const sentItems = await runtime.currentSession.expander.expandLocalAttributeDTOs(sentItemsResult.value)
+                const sentItems = await this.getSharedToPeerAttributes()
                 const nonTechnical = []
                 /** @type any[] */
                 const technical = [

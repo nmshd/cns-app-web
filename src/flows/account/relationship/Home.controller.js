@@ -5,7 +5,11 @@ sap.ui.define(
 
         return RelationshipController.extend("nmshd.app.flows.account.relationship.Home", {
             routeNames: ["account.relationship.home", "account.relationship.master"],
-
+            createViewModel() {
+                return {
+                    requestCertificateButtonVisible: false
+                }
+            },
             onInitialized() {
                 this.resetViewModel()
                 sap.ui
@@ -29,6 +33,8 @@ sap.ui.define(
                     App.error("Error while fetching relationship")
                     return
                 }
+
+                await this._setButtonVisibility()
 
                 this.byId("pullToRefresh").hide()
 
@@ -62,6 +68,15 @@ sap.ui.define(
                 }
             },
 
+            onRequestCertificate() {
+                App.openPopup("CreateCertificateRequestPopup", {
+                    data: {
+                        peer: this.relationshipIdentityDVO.id
+                    },
+                    submitCallback: () => this.refresh()
+                })
+            },
+
             onNewMessage() {
                 this.navTo("account.relationship.newmessage", {
                     relationshipId: this.relationshipId
@@ -85,6 +100,22 @@ sap.ui.define(
 
             onNavButtonPress() {
                 this.navBack("account.relationships")
+            },
+
+            async _setButtonVisibility() {
+                this.viewProp("/requestCertificateButtonVisible", false)
+                // search for technical allowCertificateRequest
+                const query = {
+                    "content.isTechnical": "true",
+                    "content.key": "AllowCertificateRequest",
+                    "content.value.@type": "ProprietaryBoolean"
+                }
+                const sharedToPeerAttributes = await this.getSharedToPeerAttributes(query)
+                for (const sharedToPeerAttribute of sharedToPeerAttributes) {
+                    if (sharedToPeerAttribute.value.value === true) {
+                        this.viewProp("/requestCertificateButtonVisible", true)
+                    }
+                }
             }
         })
     }
