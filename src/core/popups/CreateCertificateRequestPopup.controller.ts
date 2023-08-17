@@ -24,7 +24,6 @@ export default class CreateCertificateRequestPopupController extends PopupContro
 
     public async refresh() {
         this.clear()
-        this.peer = undefined
         if (!this.params.data || !this.params.data.peer) {
             appLogger.warn("No/wrong data for CreateCerticateRequest")
             return
