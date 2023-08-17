@@ -55,8 +55,7 @@ export default class CreateCertificateRequestPopupController extends PopupContro
                             "@type": "FreeTextRequestItem",
                             mustBeAccepted: true,
                             title: subject,
-                            description: body,
-                            freeText: "test"
+                            freeText: body
                         }
                     ]
                 },
