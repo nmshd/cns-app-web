@@ -53,9 +53,8 @@ sap.ui.define(
             async checkCanAccept() {
                 if (!this.relationshipIdentityDVO || !this.request) return
                 const responseParams = this.getResponseParams()
-                const canAcceptResult = await runtime.currentSession.consumptionServices.incomingRequests.canAccept(
-                    responseParams
-                )
+                const canAcceptResult =
+                    await runtime.currentSession.consumptionServices.incomingRequests.canAccept(responseParams)
                 if (canAcceptResult.isSuccess) {
                     if (canAcceptResult.value.isSuccess) {
                         this.byId("acceptButton").setEnabled(true)
@@ -75,9 +74,8 @@ sap.ui.define(
             async checkCanReject() {
                 if (!this.relationshipIdentityDVO || !this.request) return
                 const responseParams = this.getRejectResponseParams()
-                const canRejectResult = await runtime.currentSession.consumptionServices.incomingRequests.canReject(
-                    responseParams
-                )
+                const canRejectResult =
+                    await runtime.currentSession.consumptionServices.incomingRequests.canReject(responseParams)
                 if (canRejectResult.isSuccess) {
                     if (canRejectResult.value.isSuccess) {
                         this.byId("rejectButton").setEnabled(true)
@@ -191,9 +189,8 @@ sap.ui.define(
                 try {
                     const responseParams = this.getResponseParams()
 
-                    const acceptResult = await runtime.currentSession.consumptionServices.incomingRequests.accept(
-                        responseParams
-                    )
+                    const acceptResult =
+                        await runtime.currentSession.consumptionServices.incomingRequests.accept(responseParams)
                     if (acceptResult.isError) return App.error(acceptResult.error)
 
                     this.navBack("account.relationship.home", {
@@ -216,9 +213,8 @@ sap.ui.define(
                 try {
                     const responseParams = this.getRejectResponseParams()
 
-                    const rejectResult = await runtime.currentSession.consumptionServices.incomingRequests.reject(
-                        responseParams
-                    )
+                    const rejectResult =
+                        await runtime.currentSession.consumptionServices.incomingRequests.reject(responseParams)
                     if (rejectResult.isError) return App.error(rejectResult.error)
 
                     this.refresh()

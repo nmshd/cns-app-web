@@ -74,9 +74,8 @@ sap.ui.define(
             async checkCanAccept() {
                 if (!this.request) return
                 const responseParams = this.getResponseParams()
-                const canAcceptResult = await runtime.currentSession.consumptionServices.incomingRequests.canAccept(
-                    responseParams
-                )
+                const canAcceptResult =
+                    await runtime.currentSession.consumptionServices.incomingRequests.canAccept(responseParams)
                 if (canAcceptResult.isSuccess) {
                     if (canAcceptResult.value.isSuccess) {
                         this.byId("acceptButton").setEnabled(true)
@@ -152,9 +151,8 @@ sap.ui.define(
                 try {
                     const responseParams = this.getResponseParams()
 
-                    const acceptResult = await runtime.currentSession.consumptionServices.incomingRequests.accept(
-                        responseParams
-                    )
+                    const acceptResult =
+                        await runtime.currentSession.consumptionServices.incomingRequests.accept(responseParams)
                     if (acceptResult.isError) return App.error(acceptResult.error)
 
                     this.navTo("account.relationships", {
