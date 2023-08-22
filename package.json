@@ -24,11 +24,11 @@
         "@js-soft/native-electron": "1.2.5",
         "@js-soft/native-web": "1.2.5",
         "@js-soft/ts-utils": "2.3.1",
-        "@nmshd/app-runtime": "2.3.7",
+        "@nmshd/app-runtime": "2.3.8",
         "@nmshd/content": "^2.6.0",
         "@nmshd/crypto": "^2.0.4",
-        "@nmshd/runtime": "2.7.0",
-        "@nmshd/transport": "^2.0.6",
+        "@nmshd/runtime": "2.7.1",
+        "@nmshd/transport": "^2.1.0",
         "bson": "^5.4.0",
         "lodash": "^4.17.21",
         "pako": "^2.1.0"
@@ -43,7 +43,7 @@
         "@types/lodash": "^4.14.197",
         "@types/mocha": "^10.0.1",
         "@types/openui5": "1.117.0",
-        "@ui5/cli": "^3.4.0",
+        "@ui5/cli": "^3.4.1",
         "@wdio/cli": "^8.15.5",
         "@wdio/local-runner": "^8.15.4",
         "@wdio/mocha-framework": "^8.15.4",
@@ -62,7 +62,7 @@
         "ui5-middleware-livereload": "^3.0.0",
         "ui5-tooling-transpile": "^3.0.3",
         "wdio-chromedriver-service": "^8.1.1",
-        "wdio-ui5-service": "^1.5.1",
+        "wdio-ui5-service": "^1.5.3",
         "webdriverio": "^8.15.4"
     },
     "publishConfig": {
