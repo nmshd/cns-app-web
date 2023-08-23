@@ -110,7 +110,7 @@ sap.ui.define(
                     "content.key": "AllowCertificateRequest",
                     "content.value.@type": "ProprietaryBoolean"
                 }
-                const sharedToPeerAttributes = await this.getSharedToPeerAttributes(query)
+                const sharedToPeerAttributes = await this.getPeerAttributes(query)
                 for (const sharedToPeerAttribute of sharedToPeerAttributes) {
                     if (sharedToPeerAttribute.value.value === true) {
                         this.viewProp("/requestCertificateButtonVisible", true)
