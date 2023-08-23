@@ -1,66 +1,72 @@
-<mvc:View
-    controllerName="nmshd.app.flows.account.relationships.Relationships"
+<mvc:View controllerName="nmshd.app.flows.account.relationships.Relationships"
     xmlns:m="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
-    xmlns:controls="nmshd.app.core.controls"
->
+    xmlns:controls="nmshd.app.core.controls">
 
-	<semantic:DetailPage id="page" navButtonPress="onNavButtonPress" title="{t>relationship.title}" showFooter="false">
+    <semantic:DetailPage id="page"
+        navButtonPress="onNavButtonPress"
+        title="{t>relationship.title}"
+        showFooter="false">
 
 
-		<semantic:customHeaderContent>
-			<m:Button
-                text="{t>relationships.relationships.addContactButton}"
+        <semantic:customHeaderContent>
+            <m:Button text="{t>relationships.relationships.addContactButton}"
                 icon="sap-icon://bar-code"
                 visible="{= !${d>/system/phone}}"
-                press="onNewLink"
-            />
+                press="onNewLink" />
 
-			<m:Button
-                text="{= ${d>/system/phone} ? '' : ${t>relationship.refresh}}"
+            <m:Button text="{= ${d>/system/phone} ? '' : ${t>relationship.refresh}}"
                 icon="sap-icon://refresh"
                 visible="{= !${d>/system/phone}}"
-                press="refresh"
-            />
+                press="refresh" />
 
-		</semantic:customHeaderContent>
+        </semantic:customHeaderContent>
 
-		<semantic:subHeader>
-		</semantic:subHeader>
+        <semantic:subHeader>
+        </semantic:subHeader>
 
-		<semantic:content>
-			<m:PullToRefresh id="pullToRefresh" refresh="refresh" visible="{=${d>/system/phone}}" />
+        <semantic:content>
+            <m:PullToRefresh id="pullToRefresh"
+                refresh="refresh"
+                visible="{=${d>/system/phone}}" />
 
-			<m:SegmentedButton
-                id="filters"
+            <m:SegmentedButton id="filters"
                 selectionChange="onSelectionChange"
                 selectedKey="active"
                 class="sapUiTinyMargin"
-                visible="false"
-            >
-				<m:items>
-					<m:SegmentedButtonItem text="{t>relationships.relationships.ButtonRelevant}" key="active" />
-					<m:SegmentedButtonItem text="{t>relationships.relationships.ButtonAll}" key="all" />
-				</m:items>
+                visible="false">
+                <m:items>
+                    <m:SegmentedButtonItem text="{t>relationships.relationships.ButtonRelevant}"
+                        key="active" />
+                    <m:SegmentedButtonItem text="{t>relationships.relationships.ButtonAll}"
+                        key="all" />
+                </m:items>
 
-			</m:SegmentedButton>
-			<m:List
-                id="list"
+            </m:SegmentedButton>
+            <m:List id="list"
                 items="{path:'/items', factory:'.itemFactory'}"
                 noDataText="{t>relationships.relationships.noContacts}"
-                class="sapUiSmallMarginTop"
-            >
-			</m:List>
+                class="sapUiSmallMarginTop">
+            </m:List>
+            <m:Panel expanded="false" headerText="{t>relationships.relationships.openRequests}" visible="{= ${openRequests}.length > 0 ? true : false }">
+                <m:List class="sapUiSmallMarginTop"
+                    items="{openRequests}" >
+                    <m:StandardListItem type="Active" title="{path: 'name', formatter: '.formatter.toTranslated'}" press=".onOpenRequestPressed"/>
+                </m:List>
+            </m:Panel>
             <m:VBox class="sapUiSmallMargin">
-                <controls:ContainerButton press="onNewLink()" text="{t>relationships.relationships.addContactButton}">
-						<controls:contentRight>
-							<m:Image src="/assets/icons/addcontact.svg" class="big" />
-						</controls:contentRight>
-					</controls:ContainerButton>
+                <controls:ContainerButton press="onNewLink()"
+                    text="{t>relationships.relationships.addContactButton}">
+                    <controls:contentRight>
+                        <m:Image src="/assets/icons/addcontact.svg"
+                            class="big" />
+                    </controls:contentRight>
+                </controls:ContainerButton>
+
 
 
             </m:VBox>
-		</semantic:content>
-	</semantic:DetailPage>
+        </semantic:content>
+    </semantic:DetailPage>
 </mvc:View>
