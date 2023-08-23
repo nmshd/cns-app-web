@@ -100,6 +100,20 @@ sap.ui.define(
                 }
 
                 return await runtime.currentSession.expander.expandLocalAttributeDTOs(sharedAttributesResult.value)
+            },
+
+            async getPeerAttributes(query = {}) {
+                const attributesResult = await runtime.currentSession.consumptionServices.attributes.getPeerAttributes({
+                    peer: this.relationshipIdentityDVO.id,
+                    query: query
+                })
+
+                if (attributesResult.isError) {
+                    App.error(attributesResult.error)
+                    return
+                }
+
+                return await runtime.currentSession.expander.expandLocalAttributeDTOs(attributesResult.value)
             }
         })
     }
