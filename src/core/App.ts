@@ -1,5 +1,5 @@
-import { DatawalletSynchronizedEvent, MailReceivedEvent, OnboardingChangeReceivedEvent } from "@nmshd/app-runtime"
-import { DeviceDTO, RelationshipDVO } from "@nmshd/runtime"
+import { DatawalletSynchronizedEvent, MailReceivedEvent } from "@nmshd/app-runtime"
+import { DeviceDTO, RelationshipChangedEvent, RelationshipDVO } from "@nmshd/runtime"
 import { CoreId } from "@nmshd/transport"
 import URLListValidator from "sap/base/security/URLListValidator"
 import Dialog from "sap/m/Dialog"
@@ -123,7 +123,7 @@ export default abstract class App {
             this.Bus.publish("message", "refresh")
         })
 
-        runtime.eventBus.subscribe(OnboardingChangeReceivedEvent, () => {
+        runtime.eventBus.subscribe(RelationshipChangedEvent, () => {
             this.Bus.publish("relationship", "refresh")
         })
 
