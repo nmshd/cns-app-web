@@ -60,14 +60,22 @@ export default class AttributeChangePopupController extends PopupController {
 
     private setSelectedItem(selectedItemPath: String) {
         const list = this.byId("availableAttributesList") as List
-        const selectedAttributeValue = this.getModel().getProperty(`/${selectedItemPath}`) as String
+        let selectedAttributeValue = this.getModel().getProperty(`/${selectedItemPath}`) as String
+        let valuePath = "value/value"
+        if (!selectedAttributeValue) {
+            // We didn't find the selectedItemPath, which means we're coping with a complex attribute
+            //const selectedItemSplit = selectedItemPath.split("/")
+            //const spliceLastPathOfPath = selectedItemSplit.splice(selectedItemSplit.length - 1, 1)
+            const strippedLastValue = selectedItemPath.substring(0, selectedItemPath.lastIndexOf("/"))
+            selectedAttributeValue = this.getModel().getProperty(`/${strippedLastValue}`) as String
+            valuePath = "value"
+        }
 
-        const selectedListItem = list
-            .getItems()
-            .find(
-                (listItem: StandardListItem) =>
-                    listItem?.getBindingContext()?.getObject("value/value") === selectedAttributeValue
-            ) as StandardListItem
+        const selectedListItem = list.getItems().find((listItem: StandardListItem) => {
+            const currentItem = JSON.stringify(listItem?.getBindingContext()?.getObject(valuePath))
+            const searchItem = JSON.stringify(selectedAttributeValue)
+            return currentItem === searchItem
+        }) as StandardListItem
 
         list.setSelectedItem(selectedListItem)
     }

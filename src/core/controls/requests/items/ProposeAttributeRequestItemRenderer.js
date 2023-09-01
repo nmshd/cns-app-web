@@ -92,7 +92,7 @@ sap.ui.define(
                 const textControl = this.getAggregation("_text")
                 if (!textControl) return undefined
                 if (!textControl.getVisible()) return undefined
-                return textControl.getBindingContext().getObject(this.selectedAttributePath)
+                return textControl.getBindingContext().getObject()
             },
 
             getEditedValue() {
@@ -144,24 +144,24 @@ sap.ui.define(
             // *****************************
 
             _onAttributeChange(changedAttributePath) {
-                // results/0 is the already proposed item => we do nothing
-                if (changedAttributePath.includes("results/0")) {
-                    return
-                }
-                this.selectedAttributePath = changedAttributePath
+                this.selectedAttributePath = `query/${changedAttributePath}/value/value`
                 this.getAggregation("_proposedAttribute").setVisible(false)
                 this.getAggregation("_text").setVisible(true)
-                this.getAggregation("_text").getAggregation("_control").bindText(`${changedAttributePath}/value/value`)
-                this.getAggregation("_text").setAttributePath(changedAttributePath)
+                const valueRenderer = this.getAggregation("_text")
+                valueRenderer.bindObject(`query/${changedAttributePath}`)
+
+                this.getAggregation("_text").setAttributePath(`${changedAttributePath}/value/value`)
             },
 
             _getSelectedListItemPath() {
-                const selectedAttributeValue = this.getAggregation("_proposedAttribute")
-                    .getAggregation("_control")
-                    .getText()
+                const selectedAttribute = this.getAggregation("_proposedAttribute")
+                const selectedAttributeValue = selectedAttribute.getEditedValue()
                 const results = this.getBindingContext().getObject("query/results")
 
-                const correctIndex = results.findIndex((result) => result.value.value === selectedAttributeValue)
+                const correctIndex = results.findIndex((result) => {
+                    // TODO: Correct this for complex attributes (see AttributeChangePopup find)
+                    return result.value.value === selectedAttributeValue
+                })
                 return `results/${correctIndex !== -1 ? correctIndex : 0}/value/value`
             },
 
