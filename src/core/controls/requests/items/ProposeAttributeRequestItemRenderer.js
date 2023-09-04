@@ -154,13 +154,21 @@ sap.ui.define(
             },
 
             _getSelectedListItemPath() {
-                const selectedAttribute = this.getAggregation("_proposedAttribute")
-                const selectedAttributeValue = selectedAttribute.getEditedValue()
+                let selectedAttributeValue = this.getSelectedAttribute()
+
+                if (selectedAttributeValue) {
+                    selectedAttributeValue = selectedAttributeValue.value
+                } else {
+                    const selectedAttribute = this.getAggregation("_proposedAttribute")
+                    selectedAttributeValue = selectedAttribute.getEditedValue()
+                }
+
                 const results = this.getBindingContext().getObject("query/results")
 
                 const correctIndex = results.findIndex((result) => {
-                    // TODO: Correct this for complex attributes (see AttributeChangePopup find)
-                    return result.value.value === selectedAttributeValue
+                    const currentItem = JSON.stringify(result.value)
+                    const searchItem = JSON.stringify(selectedAttributeValue)
+                    return currentItem === searchItem
                 })
                 return `results/${correctIndex !== -1 ? correctIndex : 0}/value/value`
             },
