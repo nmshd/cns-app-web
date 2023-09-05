@@ -33,6 +33,10 @@ sap.ui.define(
                 this.viewProp("/submitAvailable", true)
             },
 
+            async refresh() {
+                this.viewProp("/submitAvailable", true)
+            },
+
             clear() {},
 
             onCreate() {
