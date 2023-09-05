@@ -21,7 +21,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[xml]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "redhat.vscode-xml"
     },
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,

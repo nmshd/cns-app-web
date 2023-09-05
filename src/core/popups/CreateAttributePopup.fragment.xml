@@ -23,7 +23,7 @@
             <m:Label text="{t>attribute.description}" />
             <m:Text id="allDescription" />
             <m:Label text="{t>attribute.value}" />
-            <attributesControl:ValueRenderer id="attributeValue" editable="true" />
+            <attributesControl:ValueRenderer id="attributeValue" editable="true" change="onValueRendererChange" />
         </form:SimpleForm>
 
         <m:endButton>

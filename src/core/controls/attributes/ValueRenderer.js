@@ -20,7 +20,7 @@ sap.ui.define(
         "sap/m/Text",
         "sap/m/Label",
         "sap/ui/layout/form/SimpleForm",
-        "sap/m/Title"
+        "sap/m/Button"
     ],
     (
         Control,
@@ -43,7 +43,7 @@ sap.ui.define(
         Text,
         Label,
         SimpleForm,
-        Title
+        Button
     ) => {
         "use strict"
 
@@ -206,7 +206,9 @@ sap.ui.define(
                             }).attachChange((oEvent) => that.fireChange(oEvent))
                         } else {
                             if (this.renderHints.dataType === "FileReference") {
-                                control = new Text({ text: "Work in progress" })
+                                control = new Button({ text: "Durchsuchen..." }).attachPress((oEvent) =>
+                                    that.fireChange({ id: "FileReference" })
+                                )
                             } else {
                                 control = new RatingIndicator({
                                     maxValue: Math.min(this.valueHints.max, 10),

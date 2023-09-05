@@ -1,6 +1,7 @@
 import MessageStrip from "sap/m/MessageStrip"
 import Select from "sap/m/Select"
 import Text from "sap/m/Text"
+import { EventTypes } from "../EventBus"
 import IValueRenderer from "../controls/attributes/IValueRenderer"
 import PopupController from "./PopupController"
 import { PopupType } from "./PopupType"
@@ -52,6 +53,14 @@ export default class CreateAttributePopupController extends PopupController {
         this.descriptionText.setText(this.resource(`dvo.attribute.description.${selectedValueType}`))
         this.valueRenderer.setValueType(selectedValueType)
         this.info.setVisible(false)
+    }
+
+    onValueRendererChange(oEvent) {
+        if (oEvent.getParameter("id") === "FileReference") {
+            App.Bus.publish("App", EventTypes.FileSelectionPressedEvent, {
+                submitCallback: this.createAttribute.bind(this)
+            })
+        }
     }
 
     public async createAttribute() {

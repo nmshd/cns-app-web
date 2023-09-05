@@ -1,0 +1,42 @@
+<c:FragmentDefinition xmlns="sap.m" xmlns:c="sap.ui.core">
+    <Dialog stretch="true">
+        <Panel>
+            <Text text="{t>files}" />
+        </Panel>
+        <CustomListItem class="sapUiTinyMargin" id="addNewAttributeListItem">
+            <HBox class="sapUiTinyMarginBottom">
+                <c:Icon
+                    src="sap-icon://sys-add"
+                    class="sapUiSmallMarginEnd sapUiTinyMarginBegin"
+                    size="150%"
+                    activeColor="Default"
+                    press=".onUploadFile"
+                />
+                <Title text="{t>files.upload}" />
+            </HBox>
+        </CustomListItem>
+        <List id="availableFilesList" items="{/items}" noDataText="{t>files.noDataText}"
+            mode="SingleSelectMaster">
+            <ObjectListItem title="{title}" type="Navigation" icon="{icon}">
+                <attributes>
+                    <ObjectAttribute text="{path:'createdAt',formatter:'.formatter.toRelativeDate'}" />
+                    <ObjectAttribute text="{t>files.view}" active="true" press="openFile" />
+                </attributes>
+            </ObjectListItem>
+        </List>
+        <endButton>
+            <Button
+                text="{t>attributes.availableAttributesList.save}"
+                type="Accept"
+                press=".submitChange"
+            />
+        </endButton>
+        <beginButton>
+            <Button
+                text="{t>attributes.availableAttributesList.cancel}"
+                type="Reject"
+                press=".cancelPopup"
+            />
+        </beginButton>
+    </Dialog>
+</c:FragmentDefinition>

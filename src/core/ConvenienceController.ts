@@ -65,7 +65,7 @@ export default abstract class ConvenienceController extends BaseController {
 
     public setMessage(message?: string, type: MessageType = MessageType.Information) {
         const strip = this.byId("message") as MessageStrip
-        if (!strip || strip.getMetadata().getElementName() !== "MessageStrip") return
+        if (!strip || !strip.getMetadata().getElementName().includes("MessageStrip")) return
 
         if (!message) {
             strip.setText("")
