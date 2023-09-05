@@ -69,6 +69,7 @@ sap.ui.define(
                 if (!model) return
                 this.setModel(model)
                 this.filterRelevant()
+                await this._getOpenRequests()
             },
 
             clear() {
@@ -188,6 +189,28 @@ sap.ui.define(
 
             onNavButtonPress() {
                 this.navBack("accounts.select", null, -2)
+            },
+
+            onOpenRequestPressed(event) {
+                this.navTo("account.relationships.request", {
+                    accountId: this.accountId,
+                    requestId: event.getSource().getBindingContext().getObject("id")
+                })
+            },
+
+            async _getOpenRequests() {
+                const openRequestsResult =
+                    await runtime.currentSession.consumptionServices.incomingRequests.getRequests({
+                        query: {
+                            status: ["DecisionRequired", "ManualDecisionRequired"],
+                            "source.type": "RelationshipTemplate"
+                        }
+                    })
+                const expandedOpenRequests = await runtime.currentSession.expander.expandLocalRequestDTOs(
+                    openRequestsResult.value
+                )
+
+                this.getModel().setProperty("/openRequests", expandedOpenRequests)
             }
         })
     }
