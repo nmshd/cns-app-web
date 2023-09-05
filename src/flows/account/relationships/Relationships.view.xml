@@ -2,7 +2,8 @@
     xmlns:m="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
-    xmlns:controls="nmshd.app.core.controls">
+    xmlns:controls="nmshd.app.core.controls"
+>
 
     <semantic:DetailPage id="page"
         navButtonPress="onNavButtonPress"
@@ -49,12 +50,6 @@
                 noDataText="{t>relationships.relationships.noContacts}"
                 class="sapUiSmallMarginTop">
             </m:List>
-            <m:Panel expanded="false" headerText="{t>relationships.relationships.openRequests}" visible="{= ${openRequests}.length > 0 ? true : false }">
-                <m:List class="sapUiSmallMarginTop"
-                    items="{openRequests}" >
-                    <m:StandardListItem type="Active" title="{path: 'name', formatter: '.formatter.toTranslated'}" press=".onOpenRequestPressed"/>
-                </m:List>
-            </m:Panel>
             <m:VBox class="sapUiSmallMargin">
                 <controls:ContainerButton press="onNewLink()"
                     text="{t>relationships.relationships.addContactButton}">
@@ -63,10 +58,17 @@
                             class="big" />
                     </controls:contentRight>
                 </controls:ContainerButton>
-
-
-
             </m:VBox>
         </semantic:content>
+        <m:VBox class="sapMPanelWrappingDiv"/>
+            <m:List visible="{= ${openRequests}.length > 0 ? true : false }"
+                class="sapUiSmallMarginTop"
+                items="{openRequests}">
+                <controls:MessageRenderer type="Active"
+                    subject="{path: 'name', formatter: '.formatter.toTranslated'}"
+                    authorName="{path: 'createdBy/name', formatter: '.formatter.toTranslated'}"
+                    time="{path: 'createdAt', formatter: '.formatter.toRelativeDate'}"
+                    press=".onOpenRequestPressed" />
+            </m:List>
     </semantic:DetailPage>
 </mvc:View>
