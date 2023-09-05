@@ -39,8 +39,6 @@ sap.ui.define(
                 this.viewProp("/submitAvailable", true)
             },
 
-            clear() {},
-
             onCreate() {
                 this.navTo("accounts.create")
             },
