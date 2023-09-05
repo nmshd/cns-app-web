@@ -6,7 +6,7 @@ import { PopupType } from "./PopupType"
  */
 export default class FileUploadPopup extends PopupController {
     popupType = PopupType.FileUploadPopup
-    maxFileSizeMB: 10,
+    maxFileSizeMB: 10
 
     public refresh() {
         this.setMessage()
