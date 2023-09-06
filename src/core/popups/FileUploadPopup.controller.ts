@@ -67,7 +67,7 @@ export default class FileUploadPopup extends PopupController {
         }
     }
 
-    public submitChange() {
+    public async submitChange() {
         if (this.file === undefined) {
             appLogger.warn("No file is selected.")
         } else {
