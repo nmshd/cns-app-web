@@ -66,4 +66,22 @@ export default class FileUploadPopup extends PopupController {
             App.error(e)
         }
     }
+
+    public submitChange() {
+        if (this.file === undefined) {
+            appLogger.warn("No file is selected.")
+        } else {
+            try {
+                let title = this.byId("name").getValue()
+                if (!title) {
+                    title = this.byId("name").getPlaceholder()
+                }
+
+                const file = await this.load(App.FileUtil.uploadFile(this.file, title))
+                this.submitPopup(this.file)
+            } catch (e) {
+                App.error(e)
+            }
+        }
+    }
 }

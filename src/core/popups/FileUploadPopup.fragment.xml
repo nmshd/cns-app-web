@@ -18,6 +18,7 @@
         <endButton>
             <Button
                 text="{t>attributes.availableAttributesList.save}"
+                enabled="{v>/submitEnabled}"
                 type="Accept"
                 press=".submitChange"
             />
