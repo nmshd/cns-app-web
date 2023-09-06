@@ -188,6 +188,9 @@ sap.ui.define(
 
             _getSelectedListItemPath() {
                 const valueRenderer = this.getAggregation("_text").getAggregation("_control")
+                if (valueRenderer.getBinding("fileReference")) {
+                    return valueRenderer.getBinding("fileReference").getPath()
+                }
                 return valueRenderer.getBinding("text").getPath()
             },
 

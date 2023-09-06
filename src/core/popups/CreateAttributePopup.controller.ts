@@ -1,7 +1,8 @@
+import HBox from "sap/m/HBox"
 import MessageStrip from "sap/m/MessageStrip"
 import Select from "sap/m/Select"
 import Text from "sap/m/Text"
-import { EventTypes } from "../EventBus"
+import JSONModel from "sap/ui/model/json/JSONModel"
 import IValueRenderer from "../controls/attributes/IValueRenderer"
 import PopupController from "./PopupController"
 import { PopupType } from "./PopupType"
@@ -55,16 +56,22 @@ export default class CreateAttributePopupController extends PopupController {
         this.info.setVisible(false)
     }
 
-    onValueRendererChange(oEvent) {
-        if (oEvent.getParameter("id") === "FileReference") {
-            App.Bus.publish("App", EventTypes.FileSelectionPressedEvent, {
-                submitCallback: this.createAttribute.bind(this)
-            })
-        }
+    // onValueRendererChange(oEvent) {
+    //     if (oEvent.getParameter("id") === "FileReference") {
+    //         App.Bus.publish("App", EventTypes.FileSelectionPressedEvent, {
+    //             submitCallback: this.createFileReferenceAttribute.bind(this)
+    //         })
+    //     }
+    // }
+
+    private createFileReferenceAttribute(file) {
+        const hBox = this.valueRenderer.getAggregation("_control") as HBox
+        hBox.setModel(new JSONModel({ ...file }), "fileReference")
     }
 
     public async createAttribute() {
         try {
+            let validTo
             const oModel = this.getModel()
             const oOriginalName = oModel.getProperty("/name")
 
@@ -81,6 +88,10 @@ export default class CreateAttributePopupController extends PopupController {
                 value: oValue
             }
             if (typeof oValue === "object") {
+                if (oValue.validTo) {
+                    validTo = oValue.validTo
+                    delete oValue.validTo
+                }
                 attributeValue = {
                     "@type": valueType,
                     ...oValue
@@ -90,6 +101,7 @@ export default class CreateAttributePopupController extends PopupController {
                 content: {
                     "@type": "IdentityAttribute",
                     value: attributeValue,
+                    validTo: validTo,
                     // @ts-ignore
                     owner: runtime.currentAccount.address
                 }

@@ -6,7 +6,7 @@ import { PopupType } from "./PopupType"
  */
 export default class FileUploadPopup extends PopupController {
     popupType = PopupType.FileUploadPopup
-    maxFileSizeMB: 10
+    private maxFileSizeMB: 10
 
     public refresh() {
         this.setMessage()
@@ -29,7 +29,7 @@ export default class FileUploadPopup extends PopupController {
             const file = await runtime.nativeEnvironment.fileAccess.select()
             if (!file || file.isError || !file.value) {
                 if (file.error.code === "FILESYSTEM_SELECTION_CANCELLED") {
-                    this.setMessage(this.resource("profile.files.upload.error.filesystemSelection"), "Error")
+                    this.setMessage()
                 } else {
                     this.setMessage(this.resource("profile.files.upload.error"), "Error")
                 }

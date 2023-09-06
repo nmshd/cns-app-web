@@ -20,7 +20,9 @@ sap.ui.define(
         "sap/m/Text",
         "sap/m/Label",
         "sap/ui/layout/form/SimpleForm",
-        "sap/m/Button"
+        "sap/m/Button",
+        "sap/m/HBox",
+        "nmshd/app/core/controls/FileReferenceRenderer"
     ],
     (
         Control,
@@ -43,7 +45,9 @@ sap.ui.define(
         Text,
         Label,
         SimpleForm,
-        Button
+        Button,
+        HBox,
+        FileReferenceRenderer
     ) => {
         "use strict"
 
@@ -206,9 +210,18 @@ sap.ui.define(
                             }).attachChange((oEvent) => that.fireChange(oEvent))
                         } else {
                             if (this.renderHints.dataType === "FileReference") {
-                                control = new Button({ text: "Durchsuchen..." }).attachPress((oEvent) =>
-                                    that.fireChange({ id: "FileReference" })
-                                )
+                                control = new HBox({
+                                    items: [
+                                        new Input({ editable: false, value: "{fileReference>/filename}" }),
+                                        new Button({ text: "Durchsuchen..." }).attachPress(() =>
+                                            App.openPopup("FileSelectionPopup", {
+                                                submitCallback: (file) => {
+                                                    control.setModel(new JSONModel({ ...file }), "fileReference")
+                                                }
+                                            })
+                                        )
+                                    ]
+                                })
                             } else {
                                 control = new RatingIndicator({
                                     maxValue: Math.min(this.valueHints.max, 10),
@@ -676,6 +689,8 @@ sap.ui.define(
                 } else {
                     if (this.renderHints.technicalType === "Object") {
                         control = this.createReadonlyObjectControl()
+                    } else if (this.renderHints.dataType === "FileReference") {
+                        control = new FileReferenceRenderer({ fileReference: { path: binding } })
                     } else {
                         control = new Text({ text: { path: binding } })
                     }
@@ -740,6 +755,12 @@ sap.ui.define(
                 switch (this.renderHints.dataType) {
                     case "Year":
                         value = new Date(value).getUTCFullYear()
+                        break
+                    case "FileReference":
+                        value = {
+                            value: control.getModel("fileReference").getProperty("/truncatedReference"),
+                            validTo: control.getModel("fileReference").getProperty("/expiresAt")
+                        }
                         break
                 }
                 switch (this.renderHints.technicalType) {
