@@ -180,15 +180,29 @@ sap.ui.define(
             // *****************************
 
             _onAttributeChange(changedAttributePath) {
-                this.getAggregation("_text").getAggregation("_control").bindText(`${changedAttributePath}/value/value`)
-                this.getAggregation("_text").setAttributePath(changedAttributePath)
-                this.selectedAttributePath = changedAttributePath
+                this.selectedAttributePath = ""
+                this.getAggregation("_text").setAttributePath("")
+                this.getAggregation("_text").bindObject(`query/${changedAttributePath}`)
                 this.fireChange({ isChecked: true })
             },
 
             _getSelectedListItemPath() {
-                const valueRenderer = this.getAggregation("_text").getAggregation("_control")
-                return valueRenderer.getBinding("text").getPath()
+                let selectedAttributeValue = this.getSelectedAttribute()
+
+                if (selectedAttributeValue) {
+                    selectedAttributeValue = selectedAttributeValue.value
+                } else {
+                    selectedAttributeValue = this.getEditedValue()
+                }
+
+                const results = this.getBindingContext().getObject("query/results")
+
+                const correctIndex = results.findIndex((result) => {
+                    const currentItem = JSON.stringify(result.value)
+                    const searchItem = JSON.stringify(selectedAttributeValue)
+                    return currentItem === searchItem
+                })
+                return `results/${correctIndex !== -1 ? correctIndex : 0}/value/value`
             },
 
             renderer(oRM, oControl) {
