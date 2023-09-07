@@ -132,7 +132,11 @@ sap.ui.define(
 
                 const selectedAttribute = this.getSelectedAttribute()
                 if (selectedAttribute) {
-                    responseParams.attributeId = selectedAttribute.id
+                    if (selectedAttribute.id) {
+                        responseParams.attributeId = selectedAttribute.id
+                    } else {
+                        responseParams.attribute = selectedAttribute.content
+                    }
                 } else {
                     responseParams.attribute = this.getProposedValue()
                 }
@@ -151,6 +155,7 @@ sap.ui.define(
                 valueRenderer.bindObject(`query/${changedAttributePath}`)
 
                 this.getAggregation("_text").setAttributePath(`${changedAttributePath}/value/value`)
+                this.fireChange({ isChecked: true })
             },
 
             _getSelectedListItemPath() {
