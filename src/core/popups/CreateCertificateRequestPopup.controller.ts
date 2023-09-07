@@ -61,18 +61,16 @@ export default class CreateCertificateRequestPopupController extends PopupContro
                 peer: this.peer!
             }
 
-            const canCreateRequestResult = await runtime.currentSession.consumptionServices.outgoingRequests.canCreate(
-                requestPayload
-            )
+            const canCreateRequestResult =
+                await runtime.currentSession.consumptionServices.outgoingRequests.canCreate(requestPayload)
             if (canCreateRequestResult.isError) {
                 this.info.setText(canCreateRequestResult.error.message).setVisible(true)
                 this.viewProp("/submitAvailable", true)
                 return
             }
 
-            const createRequestResult = await runtime.currentSession.consumptionServices.outgoingRequests.create(
-                requestPayload
-            )
+            const createRequestResult =
+                await runtime.currentSession.consumptionServices.outgoingRequests.create(requestPayload)
 
             if (createRequestResult.isError) {
                 this.info.setText(createRequestResult.error.message).setVisible(true)
