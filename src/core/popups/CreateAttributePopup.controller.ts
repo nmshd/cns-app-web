@@ -26,17 +26,29 @@ export default class CreateAttributePopupController extends PopupController {
 
     public async refresh() {
         this.clear()
-        if (this.params?.data?.valueType) {
-            this.valueTypeSelection.setSelectedKey(this.params.data.valueType)
-            ;(this.byId("valueType") as Select).setVisible(false)
-        } else {
-            ;(this.byId("valueType") as Select).setVisible(true)
-        }
+
         const editableAttributes = NMSHDContent.AttributeValues.Identity.Editable.TYPE_NAMES.map((value) => ({
             key: value,
             text: this.resource(`dvo.attribute.name.${value}`)
         }))
         this.prop("/AllAttributes", editableAttributes)
+        if (this.params?.data?.valueType) {
+            const valueType = this.params?.data?.valueType
+            if (editableAttributes.findIndex((key) => valueType === key) === -1) {
+                const uneditableAttributes = NMSHDContent.AttributeValues.Identity.Uneditable.TYPE_NAMES.map(
+                    (value) => ({
+                        key: value,
+                        text: this.resource(`dvo.attribute.name.${value}`)
+                    })
+                )
+                this.prop("/AllAttributes", uneditableAttributes)
+            }
+
+            this.valueTypeSelection.setSelectedKey(this.params.data.valueType)
+            ;(this.byId("valueType") as Select).setVisible(false)
+        } else {
+            ;(this.byId("valueType") as Select).setVisible(true)
+        }
         this.selectedValueTypeChanged()
     }
 
