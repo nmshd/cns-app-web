@@ -301,3 +301,8 @@ html body .sapMSLIAttribute {
     min-height: 2.75rem;
     height: auto !important;
 }
+
+/* Fix: UI5 Radion Buttons not showing selected state */
+.sapMRbB .sapMRbBInn {
+    r: 25.5%;
+}
