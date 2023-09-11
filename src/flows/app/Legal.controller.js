@@ -4,11 +4,20 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
         routeNames: ["app.legal", "account.legal"],
 
         createViewModel() {
+            let legalChangedAt = ""
+            let legalVersion = ""
+
+            const model = this.getOwnerComponent()?.getModel("ProjectSites")
+            if (model) {
+                legalVersion = model.getProperty("/legalVersion")
+                legalChangedAt = model.getProperty("/legalChangedAt")
+            }
+
             return {
                 busy: false,
                 delay: 0,
-                legalChanged: new Date("2023/06/09"),
-                legalVersion: "v1.0",
+                legalChanged: new Date(legalChangedAt),
+                legalVersion: legalVersion,
                 deps: "",
                 devdeps: ""
             }
