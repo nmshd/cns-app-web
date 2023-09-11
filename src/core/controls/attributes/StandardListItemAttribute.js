@@ -57,34 +57,6 @@ sap.ui.define(
                     })
                 )
             }
-            /*
-            renderer(oRM, oControl) {
-                oRM.write("<div")
-                oRM.addClass("attributeRenderer")
-                oRM.writeControlData(oControl)
-                oRM.writeClasses()
-                oRM.write(">")
-                const labelControl = oControl.getAggregation("_label")
-                if (labelControl && oControl.getShowLabel()) {
-                    oRM.write('<div class="attributeRendererLabel">')
-                    oRM.renderControl(labelControl)
-                    oRM.write("</div>")
-                }
-                const valueControl = oControl.getAggregation("_value")
-                if (valueControl) {
-                    oRM.write('<div class="attributeRendererValue">')
-                    oRM.renderControl(valueControl)
-                    oRM.write("</div>")
-                }
-                const buttonControl = oControl.getAggregation("_button")
-                if (buttonControl) {
-                    oRM.write('<div class="attributeRendererButton">')
-                    oRM.renderControl(buttonControl)
-                    oRM.write("</div>")
-                }
-                oRM.write("</div>")
-            }
-            */
         })
     }
 )
