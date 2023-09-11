@@ -1,21 +1,19 @@
 sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, RoutingController) => {
     "use strict"
-    return RoutingController.extend("nmshd.app.flows.app.About", {
-        routeNames: ["app.about", "account.about"],
+    return RoutingController.extend("nmshd.app.flows.app.AboutProjectNVB", {
+        routeNames: ["app.aboutProjectNVB", "account.aboutProjectNVB"],
 
         onInitialized() {
             this.resetViewModel()
         },
 
         async onRouteMatched(oEvent) {
-            App.setMenuIcon()
+            App.setBackIcon()
             App.appController.clearRight()
-            App.appController.setTitle(this.resource("master.about"))
-            this.accountId = oEvent.getParameter("arguments").accountId
+            App.appController.setTitle(this.resource("master.aboutProjectNVB"))
             await this.super("onRouteMatched", oEvent)
-            App.appController.setTitle(this.resource("master.about"))
-            const aAccounts = await App.localAccountController().getAccounts()
-            this.viewProp("/accountCount", aAccounts.length)
+            App.appController.setTitle(this.resource("master.aboutProjectNVB"))
+            App.setBackIcon()
         },
 
         createViewModel() {
@@ -23,23 +21,15 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
                 busy: false,
                 delay: 0,
                 isStartPage: true,
-                isEndPage: false,
-                accountCount: 0
+                isEndPage: false
             }
         },
 
-        async refresh() {
-            const aAccounts = await App.localAccountController().getAccounts()
-            this.viewProp("/accountCount", aAccounts.length)
-        },
+        refresh() {},
 
         clear() {
             this.super("clear")
         },
-        toOnboard() {
-            this.navTo("accounts.onboardoverview")
-        },
-
         onCarouselPageChange(oEvent) {
             const activePageIndex = oEvent.mParameters.activePages[0]
             this.viewProp("/activePageIndex", activePageIndex)
@@ -77,13 +67,6 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
         previous() {
             const carousel = this.byId("carousel")
             carousel.previous()
-        },
-        toAboutProject() {
-            const page = this.getModel("ProjectSites").getProperty("/aboutProjectRoute")
-            const navigateToRoute = this.accountId ? `account${page}` : `app${page}`
-            this.navTo(navigateToRoute, {
-                accountId: this.accountId
-            })
         }
     })
 })

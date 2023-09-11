@@ -1,4 +1,4 @@
-<c:FragmentDefinition xmlns="sap.m" xmlns:c="sap.ui.core" >
+<c:FragmentDefinition xmlns="sap.m" xmlns:c="sap.ui.core" xmlns:attributeControls="nmshd.app.core.controls.attributes" >
     <Dialog stretch="true">
         <Panel>
             <Text text="{t>attributes.availableAttributesList.description}" />
@@ -16,7 +16,7 @@
             </HBox>
         </CustomListItem>
         <List id="availableAttributesList" items="{results}" mode="SingleSelectMaster">
-            <StandardListItem title="{value/value}" />
+            <attributeControls:StandardListItemAttribute showLabel="true" infoPressed="onInfoPressed" />
         </List>
         <endButton>
             <Button

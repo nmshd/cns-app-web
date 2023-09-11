@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="nmshd.app.flows.app.AboutProject"
+    controllerName="nmshd.app.flows.app.AboutProjectBIRD"
     xmlns:m="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.m.semantic"
@@ -8,7 +8,7 @@
 	<semantic:DetailPage
         id="page"
         navButtonPress="onNavButtonPress"
-        title="{t>master.aboutProject}"
+        title="{t>master.aboutProjectBIRD}"
         showFooter="false"
         busy="{v>/busy}"
         busyIndicatorDelay="{v>/delay}"
@@ -22,14 +22,14 @@
 		<semantic:content>
             <m:VBox height="100%">
                 <m:VBox class="sapUiSmallMargin">
-                    <m:Title text="{t>aboutProject.title}" class="bigTitle" wrapping="true" />
-                    <m:Text text="{t>aboutProject.text1}" class="textBold sapUiTinyMarginBottom" />
-                    <m:Text text="{t>aboutProject.text2}" class="sapUiTinyMarginBottom" />
-                    <m:Text text="{t>aboutProject.text3}" class="sapUiTinyMarginBottom" />
+                    <m:Title text="{t>aboutProjectBIRD.title}" class="bigTitle" wrapping="true" />
+                    <m:Text text="{t>aboutProjectBIRD.text1}" class="textBold sapUiTinyMarginBottom" />
+                    <m:Text text="{t>aboutProjectBIRD.text2}" class="sapUiTinyMarginBottom" />
+                    <m:Text text="{t>aboutProjectBIRD.text3}" class="sapUiTinyMarginBottom" />
                 </m:VBox>
 
                 <m:VBox class="sapUiSmallMargin">
-                    <m:Title text="{t>aboutProject.moreInfo}" class="bigTitle" />
+                    <m:Title text="{t>aboutProjectBIRD.moreInfo}" class="bigTitle" />
                     <m:VBox>
                         <m:Link href="http://digital-campus.org" text="digital-campus.org" />
                         <m:Link
@@ -40,9 +40,9 @@
                 </m:VBox>
 
                 <m:VBox class="sapUiSmallMargin bigMarginBottom">
-                    <m:Title text="{t>aboutProject.partners}" class="bigTitle" />
-                    <m:Text text="{t>aboutProject.partnerText1}" class="sapUiTinyMarginBottom" />
-                    <m:Text text="{t>aboutProject.partnerText2}" class="sapUiTinyMarginBottom" />
+                    <m:Title text="{t>aboutProjectBIRD.partners}" class="bigTitle" />
+                    <m:Text text="{t>aboutProjectBIRD.partnerText1}" class="sapUiTinyMarginBottom" />
+                    <m:Text text="{t>aboutProjectBIRD.partnerText2}" class="sapUiTinyMarginBottom" />
 
                     <m:VBox class="contentBox" alignItems="Center">
                         <m:Image src="/assets/partners/bird.svg" class="logo" />

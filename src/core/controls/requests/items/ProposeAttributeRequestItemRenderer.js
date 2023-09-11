@@ -92,7 +92,7 @@ sap.ui.define(
                 const textControl = this.getAggregation("_text")
                 if (!textControl) return undefined
                 if (!textControl.getVisible()) return undefined
-                return textControl.getBindingContext().getObject(this.selectedAttributePath)
+                return textControl.getBindingContext().getObject()
             },
 
             getEditedValue() {
@@ -132,7 +132,11 @@ sap.ui.define(
 
                 const selectedAttribute = this.getSelectedAttribute()
                 if (selectedAttribute) {
-                    responseParams.attributeId = selectedAttribute.id
+                    if (selectedAttribute.id) {
+                        responseParams.attributeId = selectedAttribute.id
+                    } else {
+                        responseParams.attribute = selectedAttribute.content
+                    }
                 } else {
                     responseParams.attribute = this.getProposedValue()
                 }
@@ -144,24 +148,33 @@ sap.ui.define(
             // *****************************
 
             _onAttributeChange(changedAttributePath) {
-                // results/0 is the already proposed item => we do nothing
-                if (changedAttributePath.includes("results/0")) {
-                    return
-                }
-                this.selectedAttributePath = changedAttributePath
+                this.selectedAttributePath = `query/${changedAttributePath}/value/value`
                 this.getAggregation("_proposedAttribute").setVisible(false)
                 this.getAggregation("_text").setVisible(true)
-                this.getAggregation("_text").getAggregation("_control").bindText(`${changedAttributePath}/value/value`)
-                this.getAggregation("_text").setAttributePath(changedAttributePath)
+                const valueRenderer = this.getAggregation("_text")
+                valueRenderer.bindObject(`query/${changedAttributePath}`)
+
+                this.getAggregation("_text").setAttributePath(`${changedAttributePath}/value/value`)
+                this.fireChange({ isChecked: true })
             },
 
             _getSelectedListItemPath() {
-                const selectedAttributeValue = this.getAggregation("_proposedAttribute")
-                    .getAggregation("_control")
-                    .getText()
+                let selectedAttributeValue = this.getSelectedAttribute()
+
+                if (selectedAttributeValue) {
+                    selectedAttributeValue = selectedAttributeValue.value
+                } else {
+                    const selectedAttribute = this.getAggregation("_proposedAttribute")
+                    selectedAttributeValue = selectedAttribute.getEditedValue()
+                }
+
                 const results = this.getBindingContext().getObject("query/results")
 
-                const correctIndex = results.findIndex((result) => result.value.value === selectedAttributeValue)
+                const correctIndex = results.findIndex((result) => {
+                    const currentItem = JSON.stringify(result.value)
+                    const searchItem = JSON.stringify(selectedAttributeValue)
+                    return currentItem === searchItem
+                })
                 return `results/${correctIndex !== -1 ? correctIndex : 0}/value/value`
             },
 
