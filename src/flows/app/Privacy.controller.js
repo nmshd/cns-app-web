@@ -24,7 +24,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
 
         async onInitialized() {
             this.resetViewModel()
-            const privacyText = await $.get("flows/app/Privacy.html")
+            const privacyText = await $.get("assets/texts/Privacy.html")
             this.viewProp("/privacyText", privacyText)
         },
 
