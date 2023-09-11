@@ -15,8 +15,9 @@ sap.ui.define(
             metadata: {
                 aggregations: {
                     _label: { type: "sap.m.Label", multiple: false, visibility: "hidden" },
+                    _proposedLabel: { type: "sap.m.Label", multiple: false, visibility: "hidden" },
                     _editControl: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" },
-                    _text: { type: "sap.m.Text", multiple: false, visibility: "hidden" },
+                    _text: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" },
                     _proposedAttribute: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" },
                     _button: { type: "sap.m.Button", multiple: false, visibility: "hidden" }
                 },
@@ -41,6 +42,14 @@ sap.ui.define(
                 )
 
                 this.setAggregation(
+                    "_proposedLabel",
+                    new Label({
+                        text: { path: "t>renderer.ProposeAttributeResponseItemRenderer.proposedValueLabel" },
+                        visible: "{= ${item>/proposedValueOverruled} === true }"
+                    }).addStyleClass("proposeAttributeResponseItemRendererProposeLabel")
+                )
+
+                this.setAggregation(
                     "_button",
                     new Button({
                         text: "Ändern",
@@ -62,18 +71,20 @@ sap.ui.define(
                 )
                 this.setAggregation(
                     "_proposedAttribute",
-                    new ValueRenderer()
+                    new ValueRenderer({
+                        editable: false,
+                        visible: "{= ${item>/proposedValueOverruled} === true }"
+                    })
                         .addStyleClass("proposeAttributeResponseItemRendererProposedAttribute")
                         .bindElement("attribute")
                 )
                 this.setAggregation(
                     "_text",
-                    new Text({
-                        text: "{results/0/value/value}",
-                        visible: false
+                    new ValueRenderer({
+                        editable: false
                     })
-                        .addStyleClass("proposeAttributeResponseItemRendererFoundAttribute")
-                        .bindElement("query")
+                        .addStyleClass("proposeAttributeResponseItemRendererProposedAttribute")
+                        .bindElement("response/attribute")
                 )
             },
 
@@ -150,16 +161,18 @@ sap.ui.define(
                     oRM.renderControl(editControl)
                 }
 
-                const proposedAttribute = oControl.getAggregation("_proposedAttribute")
-                if (proposedAttribute) {
-                    oRM.renderControl(proposedAttribute)
-                }
-
                 const buttonControl = oControl.getAggregation("_button")
                 if (buttonControl) {
                     oRM.renderControl(buttonControl)
                 }
-
+                const proposedValueLabel = oControl.getAggregation("_proposedLabel")
+                if (proposedValueLabel) {
+                    oRM.renderControl(proposedValueLabel)
+                }
+                const proposedAttribute = oControl.getAggregation("_proposedAttribute")
+                if (proposedAttribute) {
+                    oRM.renderControl(proposedAttribute)
+                }
                 oRM.write("</div>")
             }
         })
