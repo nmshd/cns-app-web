@@ -28,7 +28,7 @@
 						<f:snappedContent>
 							<HBox alignItems="Center" justifyContent="SpaceBetween">
 								<Text text="{v>/legalVersion}" />
-								<Text text="{path:'v>/legalChanged', formatter:'.formatter.toAbsoluteDate'}" class="sapUiSmallMarginStart" />
+								<Text text="{path:'v>/legalChanged', formatter:'.formatter.toLocaleDate'}" class="sapUiSmallMarginStart" />
 							</HBox>
 						</f:snappedContent>
 						<f:expandedContent>
@@ -36,7 +36,7 @@
 								<Label text="{t>legal.version}" />
 								<Text text="{v>/legalVersion}" />
 								<Label text="{t>legal.changed}" />
-								<Text text="{path:'v>/legalChanged', formatter:'.formatter.toAbsoluteDate'}" />
+								<Text text="{path:'v>/legalChanged', formatter:'.formatter.toLocaleDate'}" />
 							</form:SimpleForm>
 
 						</f:expandedContent>
