@@ -5,10 +5,14 @@ sap.ui.define(
         return RoutingController.extend("nmshd.app.flows.accounts.OnboardOverview", {
             routeNames: ["accounts.onboardoverview"],
             createViewModel() {
+                let acceptRequired = false
+                acceptRequired = this.getOwnerComponent()?.getModel("ProjectSites")?.getProperty("/acceptRequired")
                 return {
                     busy: false,
                     delay: 0,
-                    submitAvailable: true
+                    submitAvailable: true,
+                    acceptRequired: !!acceptRequired,
+                    accepted: !acceptRequired
                 }
             },
 
@@ -16,8 +20,9 @@ sap.ui.define(
                 this.navTo(oEvent.getParameter("listItem").data("key"))
             },
 
-            async onInitialized() {
-                this.viewProp("/submitAvailable", true)
+            onPrivacyChange() {
+                const checkbox = this.byId("privacyConsentBox")
+                this.viewProp("/accepted", checkbox.getSelected())
             },
 
             async onRouteMatched(oEvent) {
@@ -31,12 +36,8 @@ sap.ui.define(
                 await this.super("onRouteMatched")
                 App.appController.setTitle(this.resource("accounts.create.title"))
 
+                this.byId("privacyConsentBox").setSelected(false)
                 this.clear()
-                this.viewProp("/submitAvailable", true)
-            },
-
-            async refresh() {
-                this.viewProp("/submitAvailable", true)
             },
 
             onCreate() {
