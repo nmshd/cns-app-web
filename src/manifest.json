@@ -44,6 +44,10 @@
             "DefaultRelationshipTemplates": {
                 "type": "sap.ui.model.json.JSONModel",
                 "uri": "models/DefaultRelationshipTemplates.json"
+            },
+            "ProjectSites": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "models/ProjectSites.json"
             }
         },
         "resources": {
@@ -86,14 +90,24 @@
                     "target": ["app.mainmenu", "app.about"]
                 },
                 {
-                    "pattern": "app/aboutProject",
-                    "name": "app.aboutProject",
-                    "target": ["app.mainmenu", "app.aboutProject"]
+                    "pattern": "app/aboutProjectBIRD",
+                    "name": "app.aboutProjectBIRD",
+                    "target": ["app.mainmenu", "app.aboutProjectBIRD"]
                 },
                 {
-                    "pattern": "accounts/{accountId}/aboutProject",
-                    "name": "account.aboutProject",
-                    "target": ["app.mainmenu", "app.aboutProject"]
+                    "pattern": "app/aboutProjectNVB",
+                    "name": "app.aboutProjectNVB",
+                    "target": ["app.mainmenu", "app.aboutProjectNVB"]
+                },
+                {
+                    "pattern": "accounts/{accountId}/aboutProjectBIRD",
+                    "name": "account.aboutProjectBIRD",
+                    "target": ["app.mainmenu", "app.aboutProjectBIRD"]
+                },
+                {
+                    "pattern": "accounts/{accountId}/aboutProjectNVB",
+                    "name": "account.aboutProjectNVB",
+                    "target": ["app.mainmenu", "app.aboutProjectNVB"]
                 },
                 {
                     "pattern": "app/fatal:?query:",
@@ -385,9 +399,15 @@
                     "controlAggregation": "detailPages",
                     "viewLevel": 5
                 },
-                "app.aboutProject": {
-                    "viewName": "flows.app.AboutProject",
-                    "viewId": "app-aboutProject",
+                "app.aboutProjectBIRD": {
+                    "viewName": "flows.app.AboutProjectBIRD",
+                    "viewId": "app-aboutProjectBIRD",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 6
+                },
+                "app.aboutProjectNVB": {
+                    "viewName": "flows.app.AboutProjectNVB",
+                    "viewId": "app-aboutProjectNVB",
                     "controlAggregation": "detailPages",
                     "viewLevel": 6
                 },

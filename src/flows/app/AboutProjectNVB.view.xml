@@ -1,0 +1,52 @@
+<mvc:View
+    controllerName="nmshd.app.flows.app.AboutProjectNVB"
+    xmlns:m="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+>
+
+	<semantic:DetailPage
+        id="page"
+        navButtonPress="onNavButtonPress"
+        title="{t>master.aboutProjectNVB}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
+
+
+		<semantic:customHeaderContent>
+
+		</semantic:customHeaderContent>
+
+		<semantic:content>
+            <m:VBox height="100%">
+                <m:VBox class="sapUiSmallMargin">
+                    <m:Title text="{t>aboutProjectNVB.title}" class="bigTitle" wrapping="true" />
+                    <m:Text text="{t>aboutProjectNVB.text1}" class="textBold sapUiTinyMarginBottom" />
+                    <m:Text text="{t>aboutProjectNVB.text2}" class="sapUiTinyMarginBottom" />
+                    <m:Text text="{t>aboutProjectNVB.text3}" class="sapUiTinyMarginBottom" />
+                </m:VBox>
+
+                <m:VBox class="sapUiSmallMargin">
+                    <m:Title text="{t>aboutProjectNVB.moreInfo}" class="bigTitle" />
+                    <m:VBox>
+                        <m:Link href="https://bildungsraum.de/dashboard.action" text="Bildungsraum" target="_blank" />
+                    </m:VBox>
+                </m:VBox>
+
+                <m:VBox class="sapUiSmallMargin bigMarginBottom">
+                    <m:Title text="{t>aboutProjectNVB.partners}" class="bigTitle" />
+                    <m:Text text="{t>aboutProjectNVB.partnerText1}" class="sapUiTinyMarginBottom" />
+                    <m:Text text="{t>aboutProjectNVB.partnerText2}" class="sapUiTinyMarginBottom" />
+
+                    <!--
+                    <m:VBox class="contentBox" alignItems="Center">
+                    </m:VBox>
+                    -->
+                </m:VBox>
+
+            </m:VBox>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

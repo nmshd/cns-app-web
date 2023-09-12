@@ -1,7 +1,7 @@
 sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, RoutingController) => {
     "use strict"
-    return RoutingController.extend("nmshd.app.flows.app.AboutProject", {
-        routeNames: ["app.aboutProject", "account.aboutProject"],
+    return RoutingController.extend("nmshd.app.flows.app.AboutProjectBIRD", {
+        routeNames: ["app.aboutProjectBIRD", "account.aboutProjectBIRD"],
 
         onInitialized() {
             this.resetViewModel()
@@ -10,9 +10,9 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
         async onRouteMatched(oEvent) {
             App.setBackIcon()
             App.appController.clearRight()
-            App.appController.setTitle(this.resource("master.aboutProject"))
+            App.appController.setTitle(this.resource("master.aboutProjectBIRD"))
             await this.super("onRouteMatched", oEvent)
-            App.appController.setTitle(this.resource("master.aboutProject"))
+            App.appController.setTitle(this.resource("master.aboutProjectBIRD"))
             App.setBackIcon()
         },
 

@@ -16,7 +16,9 @@ sap.ui.define(
                 this.navTo(oEvent.getParameter("listItem").data("key"))
             },
 
-            async onInitialized() {},
+            async onInitialized() {
+                this.viewProp("/submitAvailable", true)
+            },
 
             async onRouteMatched(oEvent) {
                 App.setMenuIcon()
@@ -36,8 +38,6 @@ sap.ui.define(
             async refresh() {
                 this.viewProp("/submitAvailable", true)
             },
-
-            clear() {},
 
             onCreate() {
                 this.navTo("accounts.create")

@@ -104,8 +104,6 @@ sap.ui.define(
                     this.renderHints = object.results[0].renderHints
                     this.valueHints = object.results[0].valueHints
                 }
-
-                appLogger.log("Control invalidated through model " + oEvent.getSource().getId())
                 this.invalidateControl()
             },
             invalidateControl() {
@@ -711,9 +709,14 @@ sap.ui.define(
             getEditedValue() {
                 const control = this.getAggregation("_control")
                 if (!control) return
+
+                if (!this.getEditable()) {
+                    const context = this.getBindingContext().getObject()
+                    return context.value
+                }
                 let value
 
-                if (this._valueType === "BirthDate") {
+                if (this.getEditable() && this._valueType === "BirthDate") {
                     const date = control.getDateValue()
                     if (!date) return
                     const value = {
@@ -802,6 +805,9 @@ sap.ui.define(
 
             getEditedContext() {
                 const context = this.getBindingContext().getObject()
+                if (!this.getEditable()) {
+                    return context
+                }
                 const editedValue = this.getEditedValue()
                 context.editedValue = editedValue
                 return context

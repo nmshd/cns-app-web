@@ -13,6 +13,7 @@ import { PopupType } from "./PopupType"
 export default class CreateAttributePopupController extends PopupController {
     popupType = PopupType.CreateAttributePopup
 
+    public selectedValueType: string
     public valueTypeSelection: Select
     public descriptionText: Text
     public valueRenderer: IValueRenderer
@@ -20,6 +21,7 @@ export default class CreateAttributePopupController extends PopupController {
 
     public onInit() {
         super.onInit(true)
+        this.selectedValueType = ""
         this.valueTypeSelection = this.byId("valueType") as Select
         this.descriptionText = this.byId("allDescription") as Text
         this.valueRenderer = this.byId("attributeValue") as IValueRenderer
@@ -28,15 +30,32 @@ export default class CreateAttributePopupController extends PopupController {
 
     public async refresh() {
         this.clear()
-        if (this.params?.data?.valueType) {
-            this.valueTypeSelection.setSelectedKey(this.params.data.valueType)
-            ;(this.byId("valueType") as Select).setVisible(false)
-        }
+
         const editableAttributes = NMSHDContent.AttributeValues.Identity.Editable.TYPE_NAMES.map((value) => ({
             key: value,
             text: this.resource(`dvo.attribute.name.${value}`)
         }))
         this.prop("/AllAttributes", editableAttributes)
+        if (this.params?.data?.valueType) {
+            const valueType = this.params?.data?.valueType
+            this.selectedValueType = valueType
+            if (editableAttributes.findIndex((key) => valueType === key) === -1) {
+                const uneditableAttributes = NMSHDContent.AttributeValues.Identity.Uneditable.TYPE_NAMES.map(
+                    (value) => ({
+                        key: value,
+                        text: this.resource(`dvo.attribute.name.${value}`)
+                    })
+                )
+                this.prop("/AllAttributes", uneditableAttributes)
+            } else {
+                this.prop("/AllAttributes", editableAttributes)
+            }
+
+            this.valueTypeSelection.setSelectedKey(this.params.data.valueType)
+            ;(this.byId("valueType") as Select).setVisible(false)
+        } else {
+            ;(this.byId("valueType") as Select).setVisible(true)
+        }
         this.selectedValueTypeChanged()
     }
 
@@ -75,7 +94,7 @@ export default class CreateAttributePopupController extends PopupController {
             const oModel = this.getModel()
             const oOriginalName = oModel.getProperty("/name")
 
-            let valueType = this.valueTypeSelection.getSelectedKey()
+            let valueType = this.valueRenderer.getValueType()
             const oValue = this.valueRenderer.getEditedValue()
 
             this.viewProp("/submitAvailable", false)
