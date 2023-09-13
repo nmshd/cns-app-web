@@ -32,7 +32,7 @@
 					<m:Title text="{t>onboardOverview.privacyTitle}" class="bigTitle" />
 					<m:Text text="{t>onboardOverview.privacyText}" class="inlineText" />
 				</m:VBox>
-				<m:HBox class="contentInfo sapUiSmallMargin" alignItems="Center" visible="{= !${v>/acceptRequired}}">
+				<m:HBox class="contentInfo sapUiSmallMargin" alignItems="Center" visible="{= !${v>/privacyAcceptRequired}}">
 					<m:Avatar src="sap-icon://hint" backgroundColor="Accent10" class="sapUiSmallMarginEnd" />
 					
 					<controls:Container class="sapUiTinyMargin">
@@ -41,12 +41,25 @@
 						<Text text="{t>onboardOverview.acceptByScan}" class="inlineText" />
 					</controls:Container>
 				</m:HBox>
-				<m:HBox class="contentInfo sapUiSmallMargin" alignItems="Center" visible="{= ${v>/acceptRequired}}">
+				<m:HBox class="contentInfo sapUiSmallMargin" alignItems="Center" visible="{= ${v>/privacyAcceptRequired}}">
 					<m:Checkbox id="privacyConsentBox" text="{onboardOverview.acceptPrivacy}" select="onPrivacyChange" />
 					<controls:Container class="sapUiTinyMargin">
 						<Text text="{t>onboardOverview.consentPrivacy1}" class="inlineText" />
 						<Link press="toPrivacy" text=" {t>onboardOverview.privacy} " class="sapUiTinyMarginStart inlineText" />
 						<Text text="{t>onboardOverview.consentPrivacy2}" class="inlineText" />
+					</controls:Container>
+				</m:HBox>
+				<m:HBox class="contentInfo sapUiSmallMargin" alignItems="Center" visible="{= !${v>/testAcceptRequired}&amp;&amp; ${v>/testAcceptVisible}}">
+					<m:Avatar src="sap-icon://hint" backgroundColor="Accent10" class="sapUiSmallMarginEnd" />
+					
+					<controls:Container class="sapUiTinyMargin">
+						<Text text="{t>onboardOverview.consentTest1}" class="inlineText" />
+					</controls:Container>
+				</m:HBox>
+				<m:HBox class="contentInfo sapUiSmallMargin" alignItems="Center" visible="{= ${v>/testAcceptRequired}&amp;&amp; ${v>/testAcceptVisible}}">
+					<m:Checkbox id="testConsentBox" text="{onboardOverview.consentTestCheckbox}" select="onTestChange" />
+					<controls:Container class="sapUiTinyMargin">
+						<Text text="{t>onboardOverview.consentTestManual1}" class="inlineText" />
 					</controls:Container>
 				</m:HBox>
 				<m:VBox class="sapUiSmallMargin">
@@ -58,7 +71,7 @@
                         press="scan()"
                         text="{t>onboardOverview.title1}"
                         description="{t>onboardOverview.text1}"
-                        enabled="{= ${v>/submitAvailable} &amp;&amp; ${v>/accepted} }"
+                        enabled="{= ${v>/submitAvailable} &amp;&amp; ${v>/privacyAccepted} &amp;&amp; ${v>/testAccepted} }"
                     >
 						<controls:contentRight>
 							<m:Image src="/assets/icons/bird.svg" class="big" />
@@ -70,7 +83,7 @@
                         press="onNoCode()"
                         text="{t>onboardOverview.title3}"
                         description="{t>onboardOverview.text3}"
-                        enabled="{= ${v>/submitAvailable} &amp;&amp; ${v>/accepted} }"
+                        enabled="{= ${v>/submitAvailable} &amp;&amp; ${v>/privacyAccepted} &amp;&amp; ${v>/testAccepted} }"
                     >
 						<controls:contentRight>
 							<m:Image src="/assets/icons/addprofile.svg" class="big" />

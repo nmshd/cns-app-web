@@ -5,14 +5,24 @@ sap.ui.define(
         return RoutingController.extend("nmshd.app.flows.accounts.OnboardOverview", {
             routeNames: ["accounts.onboardoverview"],
             createViewModel() {
-                let acceptRequired = false
-                acceptRequired = this.getOwnerComponent()?.getModel("ProjectSites")?.getProperty("/acceptRequired")
+                const model = this.getOwnerComponent()?.getModel("ProjectSites")
+                let privacyAcceptRequired = false
+                let testAcceptRequired = false
+                let testAcceptVisible = false
+                if (model) {
+                    privacyAcceptRequired = model.getProperty("/privacyAcceptRequired")
+                    testAcceptRequired = model.getProperty("/testAcceptRequired")
+                    testAcceptVisible = model.getProperty("/testAcceptVisible")
+                }
                 return {
                     busy: false,
                     delay: 0,
                     submitAvailable: true,
-                    acceptRequired: !!acceptRequired,
-                    accepted: !acceptRequired
+                    privacyAcceptRequired: !!privacyAcceptRequired,
+                    privacyAccepted: !privacyAcceptRequired,
+                    testAcceptVisible: testAcceptVisible,
+                    testAcceptRequired: !!testAcceptRequired && testAcceptVisible,
+                    testAccepted: !testAcceptRequired || !testAcceptVisible
                 }
             },
 
@@ -22,7 +32,12 @@ sap.ui.define(
 
             onPrivacyChange() {
                 const checkbox = this.byId("privacyConsentBox")
-                this.viewProp("/accepted", checkbox.getSelected())
+                this.viewProp("/privacyAccepted", checkbox.getSelected())
+            },
+
+            onTestChange() {
+                const checkbox = this.byId("testConsentBox")
+                this.viewProp("/testAccepted", checkbox.getSelected())
             },
 
             async onRouteMatched(oEvent) {
@@ -37,6 +52,7 @@ sap.ui.define(
                 App.appController.setTitle(this.resource("accounts.create.title"))
 
                 this.byId("privacyConsentBox").setSelected(false)
+                this.byId("testConsentBox").setSelected(false)
                 this.clear()
             },
 
