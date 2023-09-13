@@ -1,8 +1,6 @@
-import HBox from "sap/m/HBox"
 import MessageStrip from "sap/m/MessageStrip"
 import Select from "sap/m/Select"
 import Text from "sap/m/Text"
-import JSONModel from "sap/ui/model/json/JSONModel"
 import IValueRenderer from "../controls/attributes/IValueRenderer"
 import PopupController from "./PopupController"
 import { PopupType } from "./PopupType"
@@ -73,19 +71,6 @@ export default class CreateAttributePopupController extends PopupController {
         this.descriptionText.setText(this.resource(`dvo.attribute.description.${selectedValueType}`))
         this.valueRenderer.setValueType(selectedValueType)
         this.info.setVisible(false)
-    }
-
-    // onValueRendererChange(oEvent) {
-    //     if (oEvent.getParameter("id") === "FileReference") {
-    //         App.Bus.publish("App", EventTypes.FileSelectionPressedEvent, {
-    //             submitCallback: this.createFileReferenceAttribute.bind(this)
-    //         })
-    //     }
-    // }
-
-    private createFileReferenceAttribute(file) {
-        const hBox = this.valueRenderer.getAggregation("_control") as HBox
-        hBox.setModel(new JSONModel({ ...file }), "fileReference")
     }
 
     public async createAttribute() {
