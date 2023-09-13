@@ -78,7 +78,8 @@ export default class FileUploadPopup extends PopupController {
                 }
 
                 const file = await this.load(App.FileUtil.uploadFile(this.file, title))
-                this.submitPopup(this.file)
+                const fileDVO = await runtime.currentSession.expander.expandFileDTO(file)
+                await this.submitPopup(fileDVO)
             } catch (e) {
                 App.error(e)
             }

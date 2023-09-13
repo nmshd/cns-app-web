@@ -11,15 +11,16 @@ export default class FileUtil {
             return
         }
 
-        const relationshipResult = await runtime.currentSession.transportServices.files.getFile({
+        const fileResult = await runtime.currentSession.transportServices.files.getFile({
             id: id
         })
-        if (relationshipResult.isError) {
-            App.error(relationshipResult.error)
+        if (fileResult.isError) {
+            App.error(fileResult.error)
             return
         }
         try {
-            const model = new JSONModel(relationshipResult.value)
+            const fileDVO = await runtime.currentSession.expander.expandFileDTO(fileResult.value)
+            const model = new JSONModel(fileDVO)
             return model
         } catch (e) {
             App.error(
@@ -40,13 +41,10 @@ export default class FileUtil {
             return
         }
 
-        const relationshipsResult = await runtime.currentSession.transportServices.files.getFiles({})
-        if (relationshipsResult.isError) {
-            App.error(relationshipsResult.error)
-            return
-        }
+        const filesResults = await runtime.currentSession.transportServices.files.getFiles({})
         try {
-            const model = new JSONModel({ items: relationshipsResult.value })
+            const fileDVOs = await runtime.currentSession.expander.expandFileDTOs(filesResults.value)
+            const model = new JSONModel({ items: fileDVOs })
             return model
         } catch (e) {
             App.error(
