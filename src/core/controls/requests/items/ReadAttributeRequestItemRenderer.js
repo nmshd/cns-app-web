@@ -95,10 +95,12 @@ sap.ui.define(
                 if (!editControl.getVisible()) return undefined
                 const editedValue = editControl.getEditedValue()
                 if (!editedValue) return undefined
-                return this.createAttributeWithValue(editedValue)
+                const metadata = editControl.getAttributeMetadata()
+                return this.createAttributeWithValue(editedValue, metadata)
             },
 
-            createAttributeWithValue(value) {
+            createAttributeWithValue(value, metadata) {
+                if (!metadata) metadata = {}
                 const item = this.getBindingContext().getObject()
                 let owner = runtime.currentAccount.address
                 const query = item.query
@@ -123,6 +125,7 @@ sap.ui.define(
                             value: value,
                             title: query.name
                         },
+                        validTo: metadata.validTo,
                         key: query.key,
                         owner,
                         confidentiality,
@@ -144,6 +147,7 @@ sap.ui.define(
                 const attribute = {
                     "@type": "IdentityAttribute",
                     value: attributeValue,
+                    validTo: metadata.validTo,
                     owner: runtime.currentAccount.address
                 }
                 return attribute

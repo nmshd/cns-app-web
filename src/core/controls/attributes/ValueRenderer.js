@@ -74,6 +74,7 @@ sap.ui.define(
                 if (!this.getUpdateDisabled()) {
                     this.attachModelContextChange(this.modelContextChangeListener)
                 }
+                this.attributeMetadata = {}
             },
             modelContextChangeListener(oEvent) {
                 if (this.getUpdateDisabled()) return
@@ -145,6 +146,8 @@ sap.ui.define(
                 let valueType = this.object ? this.object.valueType : undefined
                 valueType = valueType ? valueType : this.getValueType()
 
+                this.attributeMetadata = {}
+
                 if (!valueType && this.object && this.object.content && this.object.content.value) {
                     valueType = this.object.content.value["@type"]
                 }
@@ -211,12 +214,14 @@ sap.ui.define(
                                 control = new HBox({
                                     items: [
                                         new Input({ editable: false, value: "{fileReference>/name}" }),
-                                        new Button({ text: "Durchsuchen..." }).attachPress(() =>
-                                            App.openPopup("FileSelectionPopup", {
-                                                submitCallback: (file) => {
-                                                    control.setModel(new JSONModel({ ...file }), "fileReference")
-                                                }
-                                            })
+                                        new Button({ text: Formatter.toTranslated("i18n://files.select") }).attachPress(
+                                            () =>
+                                                App.openPopup("FileSelectionPopup", {
+                                                    submitCallback: (file) => {
+                                                        control.setModel(new JSONModel({ ...file }), "fileReference")
+                                                        that.fireChange()
+                                                    }
+                                                })
                                         )
                                     ]
                                 })
@@ -760,10 +765,10 @@ sap.ui.define(
                         value = new Date(value).getUTCFullYear()
                         break
                     case "FileReference":
-                        value = {
-                            value: control.getModel("fileReference").getProperty("/truncatedReference"),
+                        this.attributeMetadata = {
                             validTo: control.getModel("fileReference").getProperty("/expiresAt")
                         }
+                        value = control.getModel("fileReference").getProperty("/truncatedReference")
                         break
                 }
                 switch (this.renderHints.technicalType) {
@@ -801,6 +806,10 @@ sap.ui.define(
                 this.valueHints = undefined
                 this.setProperty("valueType", valueType, true)
                 this.updateControls()
+            },
+
+            getAttributeMetadata() {
+                return this.attributeMetadata
             },
 
             getEditedContext() {

@@ -90,12 +90,12 @@ export default class CreateAttributePopupController extends PopupController {
 
     public async createAttribute() {
         try {
-            let validTo
             const oModel = this.getModel()
             const oOriginalName = oModel.getProperty("/name")
 
             let valueType = this.valueRenderer.getValueType()
             const oValue = this.valueRenderer.getEditedValue()
+            const metadata = this.valueRenderer.getAttributeMetadata()
 
             this.viewProp("/submitAvailable", false)
 
@@ -107,10 +107,6 @@ export default class CreateAttributePopupController extends PopupController {
                 value: oValue
             }
             if (typeof oValue === "object") {
-                if (oValue.validTo) {
-                    validTo = oValue.validTo
-                    delete oValue.validTo
-                }
                 attributeValue = {
                     "@type": valueType,
                     ...oValue
@@ -120,7 +116,7 @@ export default class CreateAttributePopupController extends PopupController {
                 content: {
                     "@type": "IdentityAttribute",
                     value: attributeValue,
-                    validTo: validTo,
+                    validTo: metadata.validTo,
                     // @ts-ignore
                     owner: runtime.currentAccount.address
                 }
