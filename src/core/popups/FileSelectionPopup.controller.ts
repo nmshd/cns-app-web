@@ -25,7 +25,10 @@ export default class FileSelectionPopup extends PopupController {
 
     public onUploadFile() {
         App.Bus.publish("App", EventTypes.FileUploadPressedEvent, {
-            // submitCallback: this.createAttribute.bind(this)
+            submitCallback: (file) => {
+                this.selectedFile = file
+                this.submitChange()
+            }
         })
     }
 
