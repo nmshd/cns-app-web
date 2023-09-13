@@ -5,10 +5,24 @@ sap.ui.define(
         return RoutingController.extend("nmshd.app.flows.accounts.OnboardOverview", {
             routeNames: ["accounts.onboardoverview"],
             createViewModel() {
+                const model = this.getOwnerComponent()?.getModel("ProjectSites")
+                let privacyAcceptRequired = false
+                let testAcceptRequired = false
+                let testAcceptVisible = false
+                if (model) {
+                    privacyAcceptRequired = model.getProperty("/privacyAcceptRequired")
+                    testAcceptRequired = model.getProperty("/testAcceptRequired")
+                    testAcceptVisible = model.getProperty("/testAcceptVisible")
+                }
                 return {
                     busy: false,
                     delay: 0,
-                    submitAvailable: true
+                    submitAvailable: true,
+                    privacyAcceptRequired: !!privacyAcceptRequired,
+                    privacyAccepted: !privacyAcceptRequired,
+                    testAcceptVisible: testAcceptVisible,
+                    testAcceptRequired: !!testAcceptRequired && testAcceptVisible,
+                    testAccepted: !testAcceptRequired || !testAcceptVisible
                 }
             },
 
@@ -16,8 +30,14 @@ sap.ui.define(
                 this.navTo(oEvent.getParameter("listItem").data("key"))
             },
 
-            async onInitialized() {
-                this.viewProp("/submitAvailable", true)
+            onPrivacyChange() {
+                const checkbox = this.byId("privacyConsentBox")
+                this.viewProp("/privacyAccepted", checkbox.getSelected())
+            },
+
+            onTestChange() {
+                const checkbox = this.byId("testConsentBox")
+                this.viewProp("/testAccepted", checkbox.getSelected())
             },
 
             async onRouteMatched(oEvent) {
@@ -31,12 +51,9 @@ sap.ui.define(
                 await this.super("onRouteMatched")
                 App.appController.setTitle(this.resource("accounts.create.title"))
 
+                this.byId("privacyConsentBox").setSelected(false)
+                this.byId("testConsentBox").setSelected(false)
                 this.clear()
-                this.viewProp("/submitAvailable", true)
-            },
-
-            async refresh() {
-                this.viewProp("/submitAvailable", true)
             },
 
             onCreate() {

@@ -1,4 +1,11 @@
 {
     "aboutProjectTitle": "master.aboutProjectNVB",
-    "aboutProjectRoute": ".aboutProjectNVB"
+    "aboutProjectRoute": ".aboutProjectNVB",
+    "privacyAcceptRequired": true,
+    "privacyVersion": "v1.0",
+    "privacyChangedAt": "2023/06/14",
+    "legalVersion": "v1.0",
+    "legalChangedAt": "2023/06/14",
+    "testAcceptVisible": true,
+    "testAcceptRequired": true
 }
