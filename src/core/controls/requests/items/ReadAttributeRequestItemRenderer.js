@@ -191,9 +191,6 @@ sap.ui.define(
             },
 
             _getSelectedListItemPath() {
-                // if (valueRenderer.getBinding("fileReference")) {
-                //     return valueRenderer.getBinding("fileReference").getPath()
-                // }
                 let selectedAttributeValue = this.getSelectedAttribute()
 
                 if (selectedAttributeValue) {
