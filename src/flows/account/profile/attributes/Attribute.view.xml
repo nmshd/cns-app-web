@@ -44,7 +44,10 @@
 					<m:Text text="{path:'name',formatter:'.formatter.toTranslated'}" />
 					<m:Label text="{t>attribute.value}" />
 					<attributeControls:ValueRenderer binding="{}" />
-
+					<m:Label text="{t>attribute.validFrom}" visible="{= !!${content/validFrom} }" />
+					<m:Text text="{path:'content/validFrom',formatter:'.formatter.toAbsoluteDate'}" visible="{= !!${content/validFrom} }" />
+					<m:Label text="{t>attribute.validTo}" visible="{= !!${content/validTo} }" />
+					<m:Text text="{path:'content/validTo',formatter:'.formatter.toAbsoluteDate'}" visible="{= !!${content/validTo} }" />
 				</form:SimpleForm>
 			</m:Panel>
 
