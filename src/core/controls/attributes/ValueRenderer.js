@@ -210,7 +210,7 @@ sap.ui.define(
                             if (this.renderHints.dataType === "FileReference") {
                                 control = new HBox({
                                     items: [
-                                        new Input({ editable: false, value: "{fileReference>/filename}" }),
+                                        new Input({ editable: false, value: "{fileReference>/name}" }),
                                         new Button({ text: "Durchsuchen..." }).attachPress(() =>
                                             App.openPopup("FileSelectionPopup", {
                                                 submitCallback: (file) => {

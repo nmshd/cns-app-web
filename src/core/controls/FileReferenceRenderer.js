@@ -22,7 +22,7 @@ sap.ui.define(
                 this.setAggregation(
                     "content",
                     new Button({
-                        text: "{file>/filename}",
+                        text: "{file>/name}",
                         icon: { path: "file>/mimetype", formatter: Formatter.iconByMimetype },
                         type: "Transparent"
                     }).attachPress(this.onOpenFile.bind(this))
@@ -35,17 +35,32 @@ sap.ui.define(
             },
 
             async invalidateControl() {
-                const result = await runtime.currentSession.transportServices.files.getOrLoadFile({
-                    reference: this.getFileReference()
-                })
+                try {
+                    if (!this.getFileReference()) {
+                        this.fileModel.setData({})
+                        return
+                    }
+                    const fileRef = NMSHDTransport.FileReference.from(this.getFileReference())
+                    let fileResult = await runtime.currentSession.transportServices.files.getFile({
+                        id: fileRef.id.toString()
+                    })
+                    if (fileResult.isError) {
+                        fileResult = await runtime.currentSession.transportServices.files.getOrLoadFile({
+                            reference: this.getFileReference()
+                        })
+                        if (fileResult.isError) {
+                            throw new Error(fileResult.error)
+                        }
+                    }
 
-                if (result.isError) {
+                    const fileDVO = await runtime.currentSession.expander.expandFileDTO(fileResult.value)
+
+                    this.file = fileDVO
+                    this.fileModel.setData(fileDVO)
+                } catch (e) {
                     this.fileModel.setData({})
-                    return
+                    App.error(e)
                 }
-
-                this.file = result.value
-                this.fileModel.setData(result.value)
             },
 
             onOpenFile() {
