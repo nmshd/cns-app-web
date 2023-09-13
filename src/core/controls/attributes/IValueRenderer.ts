@@ -20,4 +20,5 @@ export default interface IValueRenderer extends Control {
     updateControls()
     getEditedValue()
     getEditedContext()
+    getAttributeMetadata(): object
 }

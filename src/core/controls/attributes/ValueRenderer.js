@@ -20,7 +20,9 @@ sap.ui.define(
         "sap/m/Text",
         "sap/m/Label",
         "sap/ui/layout/form/SimpleForm",
-        "sap/m/Title"
+        "sap/m/Button",
+        "sap/m/HBox",
+        "nmshd/app/core/controls/FileReferenceRenderer"
     ],
     (
         Control,
@@ -43,7 +45,9 @@ sap.ui.define(
         Text,
         Label,
         SimpleForm,
-        Title
+        Button,
+        HBox,
+        FileReferenceRenderer
     ) => {
         "use strict"
 
@@ -70,6 +74,7 @@ sap.ui.define(
                 if (!this.getUpdateDisabled()) {
                     this.attachModelContextChange(this.modelContextChangeListener)
                 }
+                this.attributeMetadata = {}
             },
             modelContextChangeListener(oEvent) {
                 if (this.getUpdateDisabled()) return
@@ -141,6 +146,8 @@ sap.ui.define(
                 let valueType = this.object ? this.object.valueType : undefined
                 valueType = valueType ? valueType : this.getValueType()
 
+                this.attributeMetadata = {}
+
                 if (!valueType && this.object && this.object.content && this.object.content.value) {
                     valueType = this.object.content.value["@type"]
                 }
@@ -204,7 +211,20 @@ sap.ui.define(
                             }).attachChange((oEvent) => that.fireChange(oEvent))
                         } else {
                             if (this.renderHints.dataType === "FileReference") {
-                                control = new Text({ text: "Work in progress" })
+                                control = new HBox({
+                                    items: [
+                                        new Input({ editable: false, value: "{fileReference>/name}" }),
+                                        new Button({ text: Formatter.toTranslated("i18n://files.select") }).attachPress(
+                                            () =>
+                                                App.openPopup("FileSelectionPopup", {
+                                                    submitCallback: (file) => {
+                                                        control.setModel(new JSONModel({ ...file }), "fileReference")
+                                                        that.fireChange()
+                                                    }
+                                                })
+                                        )
+                                    ]
+                                })
                             } else {
                                 control = new RatingIndicator({
                                     maxValue: Math.min(this.valueHints.max, 10),
@@ -672,6 +692,8 @@ sap.ui.define(
                 } else {
                     if (this.renderHints.technicalType === "Object") {
                         control = this.createReadonlyObjectControl()
+                    } else if (this.renderHints.dataType === "FileReference") {
+                        control = new FileReferenceRenderer({ fileReference: { path: binding } })
                     } else {
                         control = new Text({ text: { path: binding } })
                     }
@@ -742,6 +764,12 @@ sap.ui.define(
                     case "Year":
                         value = new Date(value).getUTCFullYear()
                         break
+                    case "FileReference":
+                        this.attributeMetadata = {
+                            validTo: control.getModel("fileReference").getProperty("/expiresAt")
+                        }
+                        value = control.getModel("fileReference").getProperty("/truncatedReference")
+                        break
                 }
                 switch (this.renderHints.technicalType) {
                     case "Integer":
@@ -778,6 +806,10 @@ sap.ui.define(
                 this.valueHints = undefined
                 this.setProperty("valueType", valueType, true)
                 this.updateControls()
+            },
+
+            getAttributeMetadata() {
+                return this.attributeMetadata
             },
 
             getEditedContext() {

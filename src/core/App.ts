@@ -158,6 +158,12 @@ export default abstract class App {
                 this.openPopup(PopupType.CreateAttributePopup, data)
             }
         )
+        this.Bus.subscribe("App", EventTypes.FileSelectionPressedEvent, async (owner: any, message: any, data: any) => {
+            this.openPopup(PopupType.FileSelectionPopup, data)
+        })
+        this.Bus.subscribe("App", EventTypes.FileUploadPressedEvent, async (owner: any, message: any, data: any) => {
+            this.openPopup(PopupType.FileUploadPopup, data)
+        })
     }
 
     public static async openPopup(type, content) {

@@ -1,7 +1,9 @@
 export enum EventTypes {
     AttributeInfoPressedEvent = "AttributeInfoPressedEvent",
     AttributeChangePressedEvent = "AttributeChangePressedEvent",
-    CreateAttributePressedEvent = "CreateAttributePressedEvent"
+    CreateAttributePressedEvent = "CreateAttributePressedEvent",
+    FileSelectionPressedEvent = "FileSelectionPressedEvent",
+    FileUploadPressedEvent = "FileUploadPressedEvent"
 }
 
 /**

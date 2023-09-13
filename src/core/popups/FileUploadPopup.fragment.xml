@@ -1,0 +1,34 @@
+<c:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:c="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+>
+    <Dialog title="{t>files.upload}" stretch="true">
+        <MessageStrip id="message" visible="false" class="sapUiTinyMargin" />
+
+        <form:SimpleForm editable="true">
+            <Label text="{t>file}" />
+            <Button id="fileBrowser" text="{t>inbox.new.browse}" press="onChooseFile" />
+
+            <Label text="{t>attribute.Thing.name}" />
+            <Input id="name" />
+
+
+        </form:SimpleForm>
+        <endButton>
+            <Button
+                text="{t>attributes.availableAttributesList.save}"
+                enabled="{v>/submitEnabled}"
+                type="Accept"
+                press=".submitChange"
+            />
+        </endButton>
+        <beginButton>
+            <Button
+                text="{t>attributes.availableAttributesList.cancel}"
+                type="Reject"
+                press=".cancelPopup"
+            />
+        </beginButton>
+    </Dialog>
+</c:FragmentDefinition>

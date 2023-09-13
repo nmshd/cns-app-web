@@ -1,6 +1,7 @@
 import { CoreBuffer, Encoding } from "@nmshd/crypto"
 import { CoreDate } from "@nmshd/transport"
 import App from "./App"
+import FileType from "./utils/FileType"
 
 /**
  * @namespace nmshd.app.core
@@ -226,6 +227,10 @@ export default abstract class Formatter {
 
     public static async toTitle(address: string) {
         return (await App.getInfoForAddress(address)).title
+    }
+
+    public static async iconByMimetype(mimeType: string) {
+        return FileType.iconByMimetype(mimeType)
     }
 
     /**

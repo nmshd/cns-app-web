@@ -80,6 +80,7 @@ export default class CreateAttributePopupController extends PopupController {
 
             let valueType = this.valueRenderer.getValueType()
             const oValue = this.valueRenderer.getEditedValue()
+            const metadata = this.valueRenderer.getAttributeMetadata()
 
             this.viewProp("/submitAvailable", false)
 
@@ -100,6 +101,7 @@ export default class CreateAttributePopupController extends PopupController {
                 content: {
                     "@type": "IdentityAttribute",
                     value: attributeValue,
+                    validTo: metadata.validTo,
                     // @ts-ignore
                     owner: runtime.currentAccount.address
                 }
