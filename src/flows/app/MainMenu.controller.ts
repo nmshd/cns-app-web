@@ -21,7 +21,7 @@ export default class MainMenuController extends RoutingController {
             busy: false,
             delay: 0,
             showProfile: false,
-            profileName: "BIRD Wallet",
+            profileName: this.resource("app.title"),
             appVersion: "...",
             runtimeVersion: NMSHDAppRuntime.buildInformation.version,
             language: "en"
@@ -126,7 +126,7 @@ export default class MainMenuController extends RoutingController {
         }
 
         this.viewProp("/showProfile", false)
-        this.viewProp("/profileName", "BIRD Wallet")
+        this.viewProp("/profileName", this.resource("app.title"))
         this.viewProp("/accountId", "")
     }
 
