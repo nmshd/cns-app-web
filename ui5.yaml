@@ -18,7 +18,7 @@ builder:
       afterTask: replaceVersion
       configuration:
         debug: true
-        exludes:
+        excludes:
           - "/src/assets/**"
           - "/assets/**"
 
@@ -41,7 +41,7 @@ server:
     - name: ui5-tooling-transpile-middleware
       afterMiddleware: compression
       configuration:
-        exludes:
+        excludes:
           - "/src/assets/**"
           - "/assets/**"
     - name: ui5-middleware-livereload
