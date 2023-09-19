@@ -17,6 +17,13 @@ export default class MainMenuController extends RoutingController {
     }
 
     protected createViewModel() {
+        const model = this.getOwnerComponent()?.getModel("ProjectSites")
+        let legalVisible = false
+        let eulaVisible = false
+        if (model) {
+            legalVisible = model.getProperty("/legalVisible")
+            eulaVisible = model.getProperty("/eulaVisible")
+        }
         return {
             busy: false,
             delay: 0,
@@ -24,7 +31,9 @@ export default class MainMenuController extends RoutingController {
             profileName: this.resource("app.title"),
             appVersion: "...",
             runtimeVersion: NMSHDAppRuntime.buildInformation.version,
-            language: "en"
+            language: "en",
+            legalVisible,
+            eulaVisible
         }
     }
 
@@ -71,6 +80,9 @@ export default class MainMenuController extends RoutingController {
     }
     toLegal() {
         this.navToAccountOrApp("account.legal", "app.legal")
+    }
+    toEULA() {
+        this.navToAccountOrApp("account.eula", "app.eula")
     }
     toImprint() {
         this.navToAccountOrApp("account.imprint", "app.imprint")
