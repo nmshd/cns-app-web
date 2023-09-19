@@ -4,7 +4,7 @@
         "id": "nmshd.app",
         "type": "application",
         "applicationVersion": {
-            "version": "2.5.4"
+            "version": "2.5.5"
         }
     },
     "sap.ui5": {
@@ -143,6 +143,16 @@
                     "pattern": "accounts/{accountId}/legal",
                     "name": "account.legal",
                     "target": ["app.mainmenu", "app.legal"]
+                },
+                {
+                    "pattern": "app/eula",
+                    "name": "app.eula",
+                    "target": ["app.mainmenu", "app.eula"]
+                },
+                {
+                    "pattern": "accounts/{accountId}/eula",
+                    "name": "account.eula",
+                    "target": ["app.mainmenu", "app.eula"]
                 },
                 {
                     "pattern": "app/privacy",
@@ -438,6 +448,12 @@
                 "app.legal": {
                     "viewName": "flows.app.Legal",
                     "viewId": "app-legal",
+                    "controlAggregation": "detailPages",
+                    "viewLevel": 5
+                },
+                "app.eula": {
+                    "viewName": "flows.app.EULA",
+                    "viewId": "app-eula",
                     "controlAggregation": "detailPages",
                     "viewLevel": 5
                 },

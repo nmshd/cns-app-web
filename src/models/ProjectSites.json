@@ -4,8 +4,12 @@
     "privacyAcceptRequired": true,
     "privacyVersion": "v1.0",
     "privacyChangedAt": "2023/06/14",
+    "legalVisible": true,
     "legalVersion": "v1.0",
     "legalChangedAt": "2023/06/14",
+    "eulaVisible": false,
+    "eulaVersion": "v1.0",
+    "eulaChangedAt": "2023/06/14",
     "testAcceptVisible": true,
     "testAcceptRequired": true
 }

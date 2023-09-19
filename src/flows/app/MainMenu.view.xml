@@ -74,10 +74,19 @@
             />
             <m:Button
                 icon="sap-icon://compare"
+                text="{t>master.eula}"
+                press="toEULA()"
+                type="Transparent"
+                class="mainMenuButton"
+                visible="{v>/eulaVisible}"
+            />
+            <m:Button
+                icon="sap-icon://compare"
                 text="{t>master.rights}"
                 press="toLegal()"
                 type="Transparent"
                 class="mainMenuButton"
+                visible="{v>/legalVisible}"
             />
             <m:Button
                 icon="sap-icon://message-popup"

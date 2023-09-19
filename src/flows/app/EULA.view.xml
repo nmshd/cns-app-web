@@ -1,0 +1,54 @@
+<mvc:View
+    controllerName="nmshd.app.flows.app.EULA"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:f="sap.f"
+    xmlns:controls="nmshd.app.core.controls"
+>
+
+	<semantic:DetailPage
+        navButtonPress="onNavButtonPress"
+        showNavButton="{d>/system/phone}"
+        title="{t>eula.title}"
+        showFooter="false"
+        busy="{v>/busy}"
+        busyIndicatorDelay="{v>/delay}"
+    >
+
+
+
+		<semantic:content>
+			<f:DynamicPage class="sapUiSmallContentPadding">
+				<f:title>
+					<f:DynamicPageTitle>
+
+						<f:snappedContent>
+							<HBox alignItems="Center" justifyContent="SpaceBetween">
+								<Text text="{v>/eulaVersion}" />
+								<Text text="{path:'v>/eulaChanged', formatter:'.formatter.toLocaleDate'}" class="sapUiSmallMarginStart" />
+							</HBox>
+						</f:snappedContent>
+						<f:expandedContent>
+							<form:SimpleForm class="sapUiNoContentPadding">
+								<Label text="{t>eula.version}" />
+								<Text text="{v>/eulaVersion}" />
+								<Label text="{t>eula.changed}" />
+								<Text text="{path:'v>/eulaChanged', formatter:'.formatter.toLocaleDate'}" />
+							</form:SimpleForm>
+
+						</f:expandedContent>
+
+						<f:actions>
+
+						</f:actions>
+					</f:DynamicPageTitle>
+				</f:title>
+				<f:content>
+					<FormattedText htmlText="{v>/eula}" />
+				</f:content>
+			</f:DynamicPage>
+		</semantic:content>
+	</semantic:DetailPage>
+</mvc:View>

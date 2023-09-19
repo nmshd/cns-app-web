@@ -1,6 +1,6 @@
 {
     "name": "@nmshd/app-web",
-    "version": "2.5.4",
+    "version": "2.5.5",
     "description": "The web sources for the Enmeshed App",
     "repository": "github:nmshd/cns-app-web",
     "license": "MIT",
@@ -20,7 +20,7 @@
     },
     "dependencies": {
         "@js-soft/native-abstractions": "1.2.1",
-        "@js-soft/native-cordova": "1.2.5",
+        "@js-soft/native-cordova": "1.2.6",
         "@js-soft/native-electron": "1.2.5",
         "@js-soft/native-web": "1.2.5",
         "@js-soft/ts-utils": "2.3.1",
