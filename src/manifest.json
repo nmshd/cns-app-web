@@ -4,7 +4,7 @@
         "id": "nmshd.app",
         "type": "application",
         "applicationVersion": {
-            "version": "2.5.5"
+            "version": "2.5.8"
         }
     },
     "sap.ui5": {
@@ -29,7 +29,11 @@
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
                     "bundleName": "nmshd.app.i18n.i18n",
-                    "supportedLocales": ["en", "de", "uk"],
+                    "supportedLocales": [
+                        "en",
+                        "de",
+                        "uk"
+                    ],
                     "fallbackLocale": "en"
                 }
             },
@@ -65,335 +69,533 @@
                 "controlAggregation": "pages",
                 "async": true,
                 "bypassed": {
-                    "target": ["app.mainmenu", "accounts.select"]
+                    "target": [
+                        "app.mainmenu",
+                        "accounts.select"
+                    ]
                 }
             },
             "routes": [
                 {
                     "pattern": "",
                     "name": "home",
-                    "target": ["app.mainmenu", "accounts.select"]
+                    "target": [
+                        "app.mainmenu",
+                        "accounts.select"
+                    ]
                 },
                 {
                     "pattern": "start",
                     "name": "start",
-                    "target": ["app.mainmenu", "accounts.onboardoverview"]
+                    "target": [
+                        "app.mainmenu",
+                        "accounts.onboardoverview"
+                    ]
                 },
                 {
                     "pattern": "app/about",
                     "name": "app.about",
-                    "target": ["app.mainmenu", "app.about"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.about"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/about",
                     "name": "account.about",
-                    "target": ["app.mainmenu", "app.about"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.about"
+                    ]
                 },
                 {
                     "pattern": "app/aboutProjectBIRD",
                     "name": "app.aboutProjectBIRD",
-                    "target": ["app.mainmenu", "app.aboutProjectBIRD"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.aboutProjectBIRD"
+                    ]
                 },
                 {
                     "pattern": "app/aboutProjectNVB",
                     "name": "app.aboutProjectNVB",
-                    "target": ["app.mainmenu", "app.aboutProjectNVB"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.aboutProjectNVB"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/aboutProjectBIRD",
                     "name": "account.aboutProjectBIRD",
-                    "target": ["app.mainmenu", "app.aboutProjectBIRD"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.aboutProjectBIRD"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/aboutProjectNVB",
                     "name": "account.aboutProjectNVB",
-                    "target": ["app.mainmenu", "app.aboutProjectNVB"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.aboutProjectNVB"
+                    ]
                 },
                 {
                     "pattern": "app/fatal:?query:",
                     "name": "app.fatal",
-                    "target": ["app.mainmenu", "app.fatal"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.fatal"
+                    ]
                 },
                 {
                     "pattern": "app/error:?query:",
                     "name": "app.error",
-                    "target": ["app.mainmenu", "app.error"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.error"
+                    ]
                 },
                 {
                     "pattern": "app/debug",
                     "name": "app.debug",
-                    "target": ["app.mainmenu", "app.debug"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.debug"
+                    ]
                 },
                 {
                     "pattern": "app/imprint",
                     "name": "app.imprint",
-                    "target": ["app.mainmenu", "app.imprint"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.imprint"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/imprint",
                     "name": "account.imprint",
-                    "target": ["app.mainmenu", "app.imprint"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.imprint"
+                    ]
                 },
                 {
                     "pattern": "app/legal",
                     "name": "app.legal",
-                    "target": ["app.mainmenu", "app.legal"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.legal"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/legal",
                     "name": "account.legal",
-                    "target": ["app.mainmenu", "app.legal"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.legal"
+                    ]
                 },
                 {
                     "pattern": "app/eula",
                     "name": "app.eula",
-                    "target": ["app.mainmenu", "app.eula"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.eula"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/eula",
                     "name": "account.eula",
-                    "target": ["app.mainmenu", "app.eula"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.eula"
+                    ]
                 },
                 {
                     "pattern": "app/privacy",
                     "name": "app.privacy",
-                    "target": ["app.mainmenu", "app.privacy"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.privacy"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/privacy",
                     "name": "account.privacy",
-                    "target": ["app.mainmenu", "app.privacy"]
+                    "target": [
+                        "app.mainmenu",
+                        "app.privacy"
+                    ]
                 },
                 {
                     "pattern": "accounts",
                     "name": "accounts",
-                    "target": ["app.mainmenu", "accounts.select"]
+                    "target": [
+                        "app.mainmenu",
+                        "accounts.select"
+                    ]
                 },
                 {
                     "pattern": "accounts/create",
                     "name": "accounts.create",
-                    "target": ["app.mainmenu", "accounts.create"]
+                    "target": [
+                        "app.mainmenu",
+                        "accounts.create"
+                    ]
                 },
                 {
                     "pattern": "accounts/overview",
                     "name": "accounts.onboardoverview",
-                    "target": ["app.mainmenu", "accounts.onboardoverview"]
+                    "target": [
+                        "app.mainmenu",
+                        "accounts.onboardoverview"
+                    ]
                 },
                 {
                     "pattern": "accounts/wrongcode",
                     "name": "accounts.onboardwrongcode",
-                    "target": ["app.mainmenu", "accounts.onboardwrongcode"]
+                    "target": [
+                        "app.mainmenu",
+                        "accounts.onboardwrongcode"
+                    ]
                 },
                 {
                     "pattern": "accounts/devicetoken",
                     "name": "accounts.processdevicetoken",
-                    "target": ["app.mainmenu", "accounts.processdevicetoken"]
+                    "target": [
+                        "app.mainmenu",
+                        "accounts.processdevicetoken"
+                    ]
                 },
                 {
                     "pattern": "accounts/recoverytoken",
                     "name": "accounts.processrecoverytoken",
-                    "target": ["app.mainmenu", "accounts.processrecoverytoken"]
+                    "target": [
+                        "app.mainmenu",
+                        "accounts.processrecoverytoken"
+                    ]
                 },
                 {
                     "pattern": "accounts/relationshiptoken",
                     "name": "accounts.processrelationshiptoken",
-                    "target": ["app.mainmenu", "accounts.processrelationshiptoken"]
+                    "target": [
+                        "app.mainmenu",
+                        "accounts.processrelationshiptoken"
+                    ]
                 },
                 {
                     "pattern": "accounts/scan",
                     "name": "accounts.scan",
-                    "target": ["app.mainmenu", "accounts.scan"]
+                    "target": [
+                        "app.mainmenu",
+                        "accounts.scan"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/login",
                     "name": "account.login",
-                    "target": ["app.mainmenu", "account.login"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.login"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/home",
                     "name": "account.home",
-                    "target": ["app.mainmenu", "account.home"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.home"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/inbox",
                     "name": "account.inbox",
-                    "target": ["app.mainmenu", "account.inbox"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.inbox"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/scan",
                     "name": "account.scan",
-                    "target": ["app.mainmenu", "account.scan"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.scan"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/cards",
                     "name": "account.cards",
-                    "target": ["app.mainmenu", "account.cards"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.cards"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/cards/{cardId}",
                     "name": "account.card",
-                    "target": ["app.mainmenu", "account.card"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.card"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes",
                     "name": "account.attributes",
-                    "target": ["app.mainmenu", "account.attributes"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.attributes"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes/new",
                     "name": "account.attributes.new",
-                    "target": ["app.mainmenu", "account.attributes.new"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.attributes.new"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes/edit",
                     "name": "account.attributes.edit",
-                    "target": ["app.mainmenu", "account.attributes.edit"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.attributes.edit"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes/{attributeId}",
                     "name": "account.attributes.detail",
-                    "target": ["app.mainmenu", "account.attributes.detail"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.attributes.detail"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes/{attributeId}/edit",
                     "name": "account.attributes.detail.edit",
-                    "target": ["app.mainmenu", "account.attributes.detail.edit"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.attributes.detail.edit"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes/{attributeId}/share",
                     "name": "account.attributes.share",
-                    "target": ["app.mainmenu", "account.attributes.share"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.attributes.share"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/attributes/{attributeId}/delete",
                     "name": "account.attributes.detail.delete",
-                    "target": ["app.mainmenu", "account.attributes.detail.delete"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.attributes.detail.delete"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships",
                     "name": "account.relationships",
-                    "target": ["app.mainmenu", "account.relationships"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.relationships"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/requests/{requestId}",
                     "name": "account.relationships.request",
-                    "target": ["app.mainmenu", "account.relationships.request"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.relationships.request"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/incoming/{relationshipId}",
                     "name": "account.incomingrequest",
-                    "target": ["app.mainmenu", "account.incomingrequest"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.incomingrequest"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/outgoing/{relationshipId}",
                     "name": "account.outgoingrequest",
-                    "target": ["app.mainmenu", "account.outgoingrequest"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.outgoingrequest"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}",
                     "name": "account.relationship.home",
-                    "target": ["app.mainmenu", "account.relationship.home"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.relationship.home"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/correspondence",
                     "name": "account.relationship.inbox",
-                    "target": ["app.mainmenu", "account.relationship.inbox"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.relationship.inbox"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/correspondence/{messageId}/forward",
                     "name": "account.relationship.fwdmessage",
-                    "target": ["app.mainmenu", "account.messages.forward"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.messages.forward"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/correspondence/new",
                     "name": "account.relationship.newmessage",
-                    "target": ["app.mainmenu", "account.messages.new"],
+                    "target": [
+                        "app.mainmenu",
+                        "account.messages.new"
+                    ],
                     "greedy": true
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/correspondence/{messageId}",
                     "name": "account.relationship.message",
-                    "target": ["app.mainmenu", "account.messages.detail"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.messages.detail"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/info",
                     "name": "account.relationship.info",
-                    "target": ["app.mainmenu", "account.relationship.info"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.relationship.info"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/history",
                     "name": "account.relationship.history",
-                    "target": ["app.mainmenu", "account.relationship.history"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.relationship.history"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/settings",
                     "name": "account.relationship.settings",
-                    "target": ["app.mainmenu", "account.relationship.settings"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.relationship.settings"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/attributes",
                     "name": "account.relationship.attributes",
-                    "target": ["app.mainmenu", "account.relationship.attributes"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.relationship.attributes"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/attributesSent",
                     "name": "account.relationship.attributesSent",
-                    "target": ["app.mainmenu", "account.relationship.attributesSent"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.relationship.attributesSent"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/attributesReceived",
                     "name": "account.relationship.attributesReceived",
-                    "target": ["app.mainmenu", "account.relationship.attributesReceived"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.relationship.attributesReceived"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/requests",
                     "name": "account.relationship.requests",
-                    "target": ["app.mainmenu", "account.relationship.requests"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.relationship.requests"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/relationships/{relationshipId}/requests/{requestId}",
                     "name": "account.relationship.request",
-                    "target": ["app.mainmenu", "account.relationship.request"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.relationship.request"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/files",
                     "name": "account.files",
-                    "target": ["app.mainmenu", "account.files"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.files"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/files/upload",
                     "name": "account.files.upload",
-                    "target": ["app.mainmenu", "account.files.upload"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.files.upload"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/files/{id}",
                     "name": "account.files.detail",
-                    "target": ["app.mainmenu", "account.files.detail"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.files.detail"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/info",
                     "name": "account.info",
-                    "target": ["app.mainmenu", "account.info"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.info"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/settings",
                     "name": "account.settings",
-                    "target": ["app.mainmenu", "account.settings"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.settings"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/settings/devices/create",
                     "name": "account.settings.createdevice",
-                    "target": ["app.mainmenu", "account.settings.createdevice"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.settings.createdevice"
+                    ]
                 },
                 {
                     "pattern": "accounts/{accountId}/settings/devices/{deviceId}",
                     "name": "account.settings.device",
-                    "target": ["app.mainmenu", "account.settings.device"]
+                    "target": [
+                        "app.mainmenu",
+                        "account.settings.device"
+                    ]
                 },
                 {
                     "pattern": "accounts",
                     "name": "accounts.select",
-                    "target": ["app.mainmenu", "accounts.select"]
+                    "target": [
+                        "app.mainmenu",
+                        "accounts.select"
+                    ]
                 }
             ],
             "targets": {
