@@ -42,7 +42,7 @@
 					</controls:Container>
 				</m:HBox>
 				<m:HBox class="contentInfo sapUiSmallMargin" alignItems="Center" visible="{= ${v>/privacyAcceptRequired}}">
-					<m:Checkbox id="privacyConsentBox" text="{onboardOverview.acceptPrivacy}" select="onPrivacyChange" />
+					<m:CheckBox id="privacyConsentBox" text="{onboardOverview.acceptPrivacy}" select="onPrivacyChange" />
 					<controls:Container class="sapUiTinyMargin">
 						<Text text="{t>onboardOverview.consentPrivacy1}" class="inlineText" />
 						<Link press="toPrivacy" text=" {t>onboardOverview.privacy} " class="sapUiTinyMarginStart inlineText" />
@@ -57,7 +57,7 @@
 					</controls:Container>
 				</m:HBox>
 				<m:HBox class="contentInfo sapUiSmallMargin" alignItems="Center" visible="{= ${v>/testAcceptRequired}&amp;&amp; ${v>/testAcceptVisible}}">
-					<m:Checkbox id="testConsentBox" text="{onboardOverview.consentTestCheckbox}" select="onTestChange" />
+					<m:CheckBox id="testConsentBox" text="{onboardOverview.consentTestCheckbox}" select="onTestChange" />
 					<controls:Container class="sapUiTinyMargin">
 						<Text text="{t>onboardOverview.consentTestManual1}" class="inlineText" />
 					</controls:Container>
