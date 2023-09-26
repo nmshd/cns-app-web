@@ -15,7 +15,7 @@
         "start": "npx ui5 serve",
         "build": "ui5 build preload --exclude-task createDebugFiles generateVersionInfo replaceCopyright -a",
         "wdi5": "cd test/e2e && wdio run wdio.conf.ts",
-        "versionBump": "node ./_tools/versionBump.js && npm i && prettier -w manifest.json",
+        "versionBump": "node ./_tools/versionBump.js && npm i && prettier -w src/manifest.json",
         "test": ""
     },
     "dependencies": {
