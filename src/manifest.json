@@ -4,7 +4,7 @@
         "id": "nmshd.app",
         "type": "application",
         "applicationVersion": {
-            "version": "2.5.8"
+            "version": "2.5.9"
         }
     },
     "sap.ui5": {
