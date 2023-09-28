@@ -85,7 +85,7 @@ sap.ui.define(
                     }
                     this.byId("acceptButton").setEnabled(false)
                     this.byId("request").setValidationItems(canAcceptResult.value.items)
-                    this.setMessage("There are errorneous items which block the request.", "Error")
+                    this.setMessage(this.resource("error.app.requestItemErrors"), "Warning")
                     console.warn("Cannot Accept", canAcceptResult.value.items)
                 } else {
                     this.byId("acceptButton").setEnabled(false)
