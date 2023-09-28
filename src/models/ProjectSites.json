@@ -10,6 +10,12 @@
     "eulaVisible": false,
     "eulaVersion": "v1.0",
     "eulaChangedAt": "2023-06-14",
+    "testLinkVisible": true,
     "testAcceptVisible": false,
-    "testAcceptRequired": false
+    "testAcceptRequired": true,
+    "supportedLanguages": [
+        { "key": "en", "text": "English" },
+        { "key": "de", "text": "Deutsch (German)" },
+        { "key": "uk", "text": "Yкраїнський (Ukrainian)" }
+    ]
 }
