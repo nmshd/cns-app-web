@@ -20,9 +20,11 @@ export default class MainMenuController extends RoutingController {
         const model = this.getOwnerComponent()?.getModel("ProjectSites")
         let legalVisible = false
         let eulaVisible = false
+        let supportedLanguages = false
         if (model) {
             legalVisible = model.getProperty("/legalVisible")
             eulaVisible = model.getProperty("/eulaVisible")
+            supportedLanguages = model.getProperty("/supportedLanguages")
         }
         return {
             busy: false,
@@ -33,7 +35,8 @@ export default class MainMenuController extends RoutingController {
             runtimeVersion: NMSHDAppRuntime.buildInformation.version,
             language: "en",
             legalVisible,
-            eulaVisible
+            eulaVisible,
+            supportedLanguages
         }
     }
 
@@ -158,6 +161,7 @@ export default class MainMenuController extends RoutingController {
         const newLanguage = (this.byId("language")! as any).getSelectedItem().mProperties.key
         sap.ui.getCore().getConfiguration().setLanguage(newLanguage)
         bootstrapper.nativeEnvironment.configAccess.set("language", newLanguage)
+        this.viewProp("/language", newLanguage)
         bootstrapper.nativeEnvironment.configAccess.save()
         App.appController.setTitle(this.resource("app.masterController.title"))
     }
