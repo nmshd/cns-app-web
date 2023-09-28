@@ -9,10 +9,12 @@ sap.ui.define(
                 let privacyAcceptRequired = false
                 let testAcceptRequired = false
                 let testAcceptVisible = false
+                let testLinkVisible = false
                 if (model) {
                     privacyAcceptRequired = model.getProperty("/privacyAcceptRequired")
                     testAcceptRequired = model.getProperty("/testAcceptRequired")
                     testAcceptVisible = model.getProperty("/testAcceptVisible")
+                    testLinkVisible = model.getProperty("/testLinkVisible")
                 }
                 return {
                     busy: false,
@@ -22,7 +24,8 @@ sap.ui.define(
                     privacyAccepted: !privacyAcceptRequired,
                     testAcceptVisible: testAcceptVisible,
                     testAcceptRequired: !!testAcceptRequired && testAcceptVisible,
-                    testAccepted: !testAcceptRequired || !testAcceptVisible
+                    testAccepted: !testAcceptRequired || !testAcceptVisible,
+                    testLinkVisible
                 }
             },
 

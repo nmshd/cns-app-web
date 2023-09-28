@@ -54,12 +54,16 @@
 					
 					<controls:Container class="sapUiTinyMargin">
 						<Text text="{t>onboardOverview.consentTest1}" class="inlineText" />
+						<Link press="toEULA" text=" {t>onboardOverview.consentTestLink} " class="sapUiTinyMarginStart inlineText" visible="{v>/testLinkVisible}" />
+						<Text text="{t>onboardOverview.consentTest2}" class="inlineText" />
 					</controls:Container>
 				</m:HBox>
 				<m:HBox class="contentInfo sapUiSmallMargin" alignItems="Center" visible="{= ${v>/testAcceptRequired}&amp;&amp; ${v>/testAcceptVisible}}">
 					<m:CheckBox id="testConsentBox" text="{onboardOverview.consentTestCheckbox}" select="onTestChange" />
 					<controls:Container class="sapUiTinyMargin">
 						<Text text="{t>onboardOverview.consentTestManual1}" class="inlineText" />
+						<Link press="toEULA" text=" {t>onboardOverview.consentTestManualLink} " class="sapUiTinyMarginStart inlineText"  visible="{v>/testLinkVisible}" />
+						<Text text="{t>onboardOverview.consentTestManual2}" class="inlineText" />
 					</controls:Container>
 				</m:HBox>
 				<m:VBox class="sapUiSmallMargin">
