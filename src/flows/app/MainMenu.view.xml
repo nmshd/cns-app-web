@@ -103,11 +103,9 @@
 			<form:SimpleForm editable="true">
 					<m:Label text="{t>settings.language} (Language)" />
 					<m:VBox>
-						<m:Select id="language" change="changeLanguage" selectedKey="{v>/language}">
-							<core:Item key="en" text="English" />
-							<core:Item key="de" text="Deutsch (German)" />
-							<core:Item key="uk" text="Yкраїнський (Ukrainian)" />
-						</m:Select>
+						<m:Select id="language" change="changeLanguage" selectedKey="{v>/language}" items="{v>/supportedLanguages}">
+                            <core:Item key="{v>key}" text="{v>text}" />
+                        </m:Select>
 					</m:VBox>
             </form:SimpleForm>
             <form:SimpleForm editable="false">
