@@ -25,7 +25,7 @@
 		<semantic:content>
             <m:MessageStrip id="message" class="sapUiTinyMargin" visible="false" />
 
-			<form:SimpleForm>
+			<form:SimpleForm labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12">
                 <m:Label text="{t>relationship.request.name}" />
 				<m:Text text="{path:'name',formatter:'.formatter.toTranslated'}" />
                 <m:Label text="{t>relationship.request.description}" />

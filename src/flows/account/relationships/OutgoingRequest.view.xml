@@ -17,7 +17,7 @@
     >
 
 		<semantic:content>
-			<form:SimpleForm>
+			<form:SimpleForm labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12">
 				<m:Label text="{t>relationship.request.outgoing.sent}" />
 				<m:Text text="{path:'rel>/relationship/date',formatter:'.formatter.toRelativeDate'}" />
 				<m:Label text="{t>relationship.request.outgoing.name}" />
