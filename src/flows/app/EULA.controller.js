@@ -30,6 +30,7 @@ sap.ui.define(["nmshd/app/core/App", "nmshd/app/core/RoutingController"], (App, 
 
         onRouteMatched(oEvent) {
             App.setMenuIcon()
+            App.setBackIcon()
             App.appController.clearRight()
             App.appController.setTitle(this.resource("eula.title"))
             this.super("onRouteMatched", oEvent)
