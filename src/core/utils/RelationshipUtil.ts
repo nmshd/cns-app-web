@@ -68,12 +68,32 @@ export default class RelationshipUtil {
         }
     }
 
-    async getRelationships() {
+    async syncAndUpdateModel(model) {
         const syncResult = await runtime.currentSession.transportServices.account.syncEverything()
         if (syncResult.isError) {
             App.error(syncResult.error)
             return
         }
+        const updatedRelationshipsResult = await runtime.currentSession.appServices.relationships.getRelationships({})
+        if (updatedRelationshipsResult.isError) {
+            App.error(updatedRelationshipsResult.error)
+            return
+        }
+        try {
+            return model.setData({ items: updatedRelationshipsResult.value })
+        } catch (e) {
+            App.error(
+                {
+                    code: "error.app.jsonModel",
+                    message: "Error while updating JSONMOdel."
+                },
+                e
+            )
+            return
+        }
+    }
+
+    async getRelationships() {
         const relationshipsResult = await runtime.currentSession.appServices.relationships.getRelationships({})
         if (relationshipsResult.isError) {
             App.error(relationshipsResult.error)
@@ -81,6 +101,7 @@ export default class RelationshipUtil {
         }
         try {
             const model = new JSONModel({ items: relationshipsResult.value })
+            this.syncAndUpdateModel(model)
             return model
         } catch (e) {
             App.error(
