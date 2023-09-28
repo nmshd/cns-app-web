@@ -10,6 +10,10 @@
     font-weight: bold;
 }
 
+.whiteBG {
+    background-color: #fff !important;
+}
+
 html .sapUiGlobalBackgroundColor,
 html .sapMShellGlobalInnerBackground,
 html .sapMPageBgStandard,
