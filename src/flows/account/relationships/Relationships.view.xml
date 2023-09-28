@@ -50,6 +50,15 @@
                 noDataText="{t>relationships.relationships.noContacts}"
                 class="sapUiSmallMarginTop">
             </m:List>
+            <m:List visible="{= ${v>/openRequests}.length > 0 ? true : false }"
+                class="sapUiSmallMarginTop"
+                items="{v>/openRequests}">
+                <controls:MessageRenderer type="Active"
+                    subject="{path: 'v>name', formatter: '.formatter.toTranslated'}"
+                    authorName="{path: 'v>createdBy/name', formatter: '.formatter.toTranslated'}"
+                    time="{path: 'v>createdAt', formatter: '.formatter.toRelativeDate'}"
+                    press=".onOpenRequestPressed" />
+            </m:List>
             <m:VBox class="sapUiSmallMargin">
                 <controls:ContainerButton press="onNewLink()"
                     text="{t>relationships.relationships.addContactButton}">
@@ -60,15 +69,7 @@
                 </controls:ContainerButton>
             </m:VBox>
         </semantic:content>
-        <m:VBox class="sapMPanelWrappingDiv"/>
-            <m:List visible="{= ${openRequests}.length > 0 ? true : false }"
-                class="sapUiSmallMarginTop"
-                items="{openRequests}">
-                <controls:MessageRenderer type="Active"
-                    subject="{path: 'name', formatter: '.formatter.toTranslated'}"
-                    authorName="{path: 'createdBy/name', formatter: '.formatter.toTranslated'}"
-                    time="{path: 'createdAt', formatter: '.formatter.toRelativeDate'}"
-                    press=".onOpenRequestPressed" />
-            </m:List>
+        <!--<m:VBox class="sapMPanelWrappingDiv"/>-->
+            
     </semantic:DetailPage>
 </mvc:View>
