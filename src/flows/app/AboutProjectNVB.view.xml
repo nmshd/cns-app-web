@@ -29,14 +29,14 @@
                 </m:VBox>
 
                 <m:VBox class="sapUiSmallMargin">
-                    <m:Title text="{t>aboutProjectNVB.moreInfo}" class="bigTitle" />
+                    <m:Title text="{t>aboutProjectNVB.moreInfo}" class="bigTitle" wrapping="true" />
                     <m:VBox>
                         <m:Link href="https://bildungsraum.de/dashboard.action" text="Bildungsraum" target="_blank" />
                     </m:VBox>
                 </m:VBox>
 
                 <m:VBox class="sapUiSmallMargin bigMarginBottom">
-                    <m:Title text="{t>aboutProjectNVB.partners}" class="bigTitle" />
+                    <m:Title text="{t>aboutProjectNVB.partners}" class="bigTitle" wrapping="true" />
                     <m:Text text="{t>aboutProjectNVB.partnerText1}" class="sapUiTinyMarginBottom" />
                     <m:Text text="{t>aboutProjectNVB.partnerText2}" class="sapUiTinyMarginBottom" />
 

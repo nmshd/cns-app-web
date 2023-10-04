@@ -35,7 +35,8 @@ sap.ui.define(
 
             createViewModel() {
                 return {
-                    busy: false
+                    busy: false,
+                    openRequests: []
                 }
             },
 
@@ -194,7 +195,7 @@ sap.ui.define(
             onOpenRequestPressed(event) {
                 this.navTo("account.relationships.request", {
                     accountId: this.accountId,
-                    requestId: event.getSource().getBindingContext().getObject("id")
+                    requestId: event.getSource().getBindingContext("v").getObject("id")
                 })
             },
 
@@ -210,7 +211,7 @@ sap.ui.define(
                     openRequestsResult.value
                 )
 
-                this.getModel().setProperty("/openRequests", expandedOpenRequests)
+                this.viewProp("/openRequests", expandedOpenRequests)
             }
         })
     }
