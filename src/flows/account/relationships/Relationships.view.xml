@@ -69,7 +69,5 @@
                 </controls:ContainerButton>
             </m:VBox>
         </semantic:content>
-        <!--<m:VBox class="sapMPanelWrappingDiv"/>-->
-            
     </semantic:DetailPage>
 </mvc:View>
