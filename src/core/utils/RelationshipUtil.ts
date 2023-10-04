@@ -85,7 +85,7 @@ export default class RelationshipUtil {
             App.error(
                 {
                     code: "error.app.jsonModel",
-                    message: "Error while updating JSONMOdel."
+                    message: "Error while updating JSONModel."
                 },
                 e
             )
