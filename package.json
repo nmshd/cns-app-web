@@ -5,9 +5,6 @@
     "repository": "github:nmshd/cns-app-web",
     "license": "MIT",
     "author": "j&s-soft GmbH",
-    "files": [
-        "dist"
-    ],
     "scripts": {
         "lint": "npm run lint:eslint && npm run lint:prettier",
         "lint:eslint": "eslint --ext .js ./src",
