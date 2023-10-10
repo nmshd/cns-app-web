@@ -4,3 +4,7 @@ _test*
 *-dbg.js
 src
 _tools
+_types
+.ci
+.github
+.vscode
