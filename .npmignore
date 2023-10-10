@@ -1,0 +1,10 @@
+dist/test-resources/**/*
+*.test.js
+_test*
+*-dbg.js
+src
+_tools
+_types
+.ci
+.github
+.vscode
