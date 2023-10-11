@@ -140,6 +140,29 @@ sap.ui.define(
                 }
                 if (!this.valueHints) {
                     this.valueHints = valueTypeClass.valueHints
+                    const valueHintsTranslated = []
+                    if (this.valueHints.values) {
+                        for (const valueHint of this.valueHints.values) {
+                            valueHintsTranslated.push({
+                                displayName: Formatter.toTranslated(valueHint.displayName),
+                                key: valueHint.key
+                            })
+                        }
+                        valueHintsTranslated.sort((a, b) => {
+                            const nameA = a.displayName.toUpperCase() // ignore upper and lowercase
+                            const nameB = b.displayName.toUpperCase() // ignore upper and lowercase
+                            if (nameA < nameB) {
+                                return -1
+                            }
+                            if (nameA > nameB) {
+                                return 1
+                            }
+                            // displayNames must be equal
+                            return 0
+                        })
+
+                        this.valueHints.values = valueHintsTranslated
+                    }
                     if (model) model.setProperty("/valueHints", this.valueHints)
                 }
 
@@ -204,7 +227,7 @@ sap.ui.define(
 
                                     template: new ListItem({
                                         key: "{key}",
-                                        text: { path: "displayName", formatter: Formatter.toTranslated }
+                                        text: { path: "displayName" }
                                     }),
                                     length: 300
                                 }
