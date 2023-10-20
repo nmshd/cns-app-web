@@ -49,6 +49,11 @@
 					<m:Label text="{t>attribute.validTo}" visible="{= !!${content/validTo} }" />
 					<m:Text text="{path:'content/validTo',formatter:'.formatter.toAbsoluteDate'}" visible="{= !!${content/validTo} }" />
 				</form:SimpleForm>
+
+				<m:Title text="{t>attribute.tags}" visible="{= ${tags}.length > 1}" />
+				<m:List items="{tags}" visible="{= ${tags}.length > 1}">
+					<m:StandardListItem title="#{}" />
+				</m:List>
 			</m:Panel>
 
 			<m:Panel headerText="{t>attribute.shared.title}" visible="{=${type} === 'SharedToPeerAttributeDVO'}">

@@ -74,7 +74,7 @@
                         text="{t>about.moreInfoText}"
                     >
                     <controls:contentRight>
-                        <m:Image src="/assets/icons/bird.svg" class="big" />
+                        
                     </controls:contentRight>
                 </controls:ContainerButton>
                 </m:VBox>
