@@ -5,6 +5,14 @@ _test*
 src
 _tools
 _types
+.babelrc.json
 .ci
+.eslint*
 .github
+.gitignore
+.prettier*
 .vscode
+global-types.d.ts
+README_dev.md
+tsconfig.json
+ui5.yaml
