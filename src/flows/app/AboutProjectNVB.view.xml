@@ -40,10 +40,15 @@
                     <m:Text text="{t>aboutProjectNVB.partnerText1}" class="sapUiTinyMarginBottom" />
                     <m:Text text="{t>aboutProjectNVB.partnerText2}" class="sapUiTinyMarginBottom" />
 
-                    <!--
-                    <m:VBox class="contentBox" alignItems="Center">
+                    
+                    <m:VBox class="contentBox sapUiSmallMargin" alignItems="Center" alignContent="Center" justifyContent="Center">
+                        <m:Image src="/assets/logos/meinbildungsraum.svg" width="100%" height="90px" class="sapUiSmallMarginTopBottom" />
+                        <m:HBox>
+                            <m:Image src="/assets/logos/BMBF_Logo.png" class="logo" width="100%" />
+                            <m:Image src="/assets/logos/darp.png" class="logo"  width="100%" />
+                        </m:HBox>
                     </m:VBox>
-                    -->
+                    
                 </m:VBox>
 
             </m:VBox>

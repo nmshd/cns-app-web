@@ -25,6 +25,8 @@
 			<m:VBox>
 				<form:SimpleForm>
 					<form:content>
+						<m:Label text="" />
+						<m:Image src="assets/logos/js-soft.png" width="50%" />
 						<m:Label text="{t>imprint.text1}" />
 						<m:VBox>
 							<m:Text text="{t>imprint.text2}" />
