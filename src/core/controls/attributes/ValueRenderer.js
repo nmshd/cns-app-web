@@ -22,7 +22,8 @@ sap.ui.define(
         "sap/ui/layout/form/SimpleForm",
         "sap/m/Button",
         "sap/m/HBox",
-        "nmshd/app/core/controls/FileReferenceRenderer"
+        "nmshd/app/core/controls/FileReferenceRenderer",
+        "@nmshd/content"
     ],
     (
         Control,
@@ -47,7 +48,8 @@ sap.ui.define(
         SimpleForm,
         Button,
         HBox,
-        FileReferenceRenderer
+        FileReferenceRenderer,
+        NMSHDContent
     ) => {
         "use strict"
 
@@ -140,7 +142,7 @@ sap.ui.define(
                 }
                 if (!this.valueHints) {
                     this.valueHints = valueTypeClass.valueHints
-                    const valueHintsTranslated = []
+                    let valueHintsTranslated = []
                     if (this.valueHints.values) {
                         for (const valueHint of this.valueHints.values) {
                             valueHintsTranslated.push({
@@ -161,6 +163,14 @@ sap.ui.define(
                             return 0
                         })
 
+                        if (valueTypeClass === NMSHDContent.Country || valueTypeClass === NMSHDContent.Citizenship) {
+                            // add DACH at the start of the translatedArray
+                            const valueHintsDACH = valueHintsTranslated.filter(
+                                (valueHint) =>
+                                    valueHint.key === "DE" || valueHint.key === "AT" || valueHint.key === "CH"
+                            )
+                            valueHintsTranslated = valueHintsDACH.concat(valueHintsTranslated)
+                        }
                         this.valueHints.values = valueHintsTranslated
                     }
                     if (model) model.setProperty("/valueHints", this.valueHints)
