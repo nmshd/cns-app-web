@@ -1,6 +1,6 @@
 {
     "name": "@nmshd/app-web",
-    "version": "2.6.0",
+    "version": "2.6.1",
     "description": "The web sources for the Enmeshed App",
     "repository": "github:nmshd/cns-app-web",
     "license": "MIT",
@@ -48,7 +48,7 @@
         "babel-preset-transform-ui5": "^7.2.5",
         "chromedriver": "^118.0.1",
         "cross-env": "^7.0.3",
-        "eslint": "^8.51.0",
+        "eslint": "^8.52.0",
         "eslint-config-prettier": "^9.0.0",
         "express-http-proxy": "^2.0.0",
         "npm-run-all": "^4.1.5",
