@@ -44,7 +44,11 @@ sap.ui.define(
             },
 
             toAboutProject() {
-                this.navTo("app.aboutProject")
+                const page = this.getModel("ProjectSites").getProperty("/aboutProjectRoute")
+                const navigateToRoute = this.accountId ? `account${page}` : `app${page}`
+                this.navTo(navigateToRoute, {
+                    accountId: this.accountId
+                })
             }
         })
     }

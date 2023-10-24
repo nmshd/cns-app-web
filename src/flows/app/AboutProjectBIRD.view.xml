@@ -29,7 +29,7 @@
                 </m:VBox>
 
                 <m:VBox class="sapUiSmallMargin">
-                    <m:Title text="{t>aboutProjectBIRD.moreInfo}" class="bigTitle" />
+                    <m:Title text="{t>aboutProjectBIRD.moreInfo}" class="bigTitle" wrapping="true" />
                     <m:VBox>
                         <m:Link href="http://digital-campus.org" text="digital-campus.org" />
                         <m:Link
@@ -40,7 +40,7 @@
                 </m:VBox>
 
                 <m:VBox class="sapUiSmallMargin bigMarginBottom">
-                    <m:Title text="{t>aboutProjectBIRD.partners}" class="bigTitle" />
+                    <m:Title text="{t>aboutProjectBIRD.partners}" class="bigTitle" wrapping="true" />
                     <m:Text text="{t>aboutProjectBIRD.partnerText1}" class="sapUiTinyMarginBottom" />
                     <m:Text text="{t>aboutProjectBIRD.partnerText2}" class="sapUiTinyMarginBottom" />
 

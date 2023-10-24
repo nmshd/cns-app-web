@@ -30,7 +30,7 @@
                 <!-- <m:Button icon="sap-icon://bar-code" text="QR-Code scannen" press="onScan" />-->
             </m:VBox>
             <m:VBox class="sapUiSmallMargin">
-                <m:Title class="contentTitle" text="{t>home.quickStart}" />
+                <m:Title class="contentTitle" text="{t>home.quickStart}" visible="false" />
                 <controls:ContainerButton press="onScan()" text="{t>newRelationship.addContact}">
 						<controls:contentRight>
 							<m:Image src="/assets/icons/addcontact.svg" class="big" />

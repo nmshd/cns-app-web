@@ -28,6 +28,8 @@
 						<m:Label text="{t>imprint.text1}" />
 						<m:VBox>
 							<m:Text text="{t>imprint.text2}" />
+							<m:Label text="" />
+							<m:Image src="assets/logos/js-soft.png" width="300px" />
 							<m:Title text="{t>imprint.text3}" />
 							<m:Text text="{t>imprint.text4}" />
 							<m:Text text="{t>imprint.text5}" />

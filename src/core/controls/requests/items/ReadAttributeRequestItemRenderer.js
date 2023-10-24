@@ -133,6 +133,7 @@ sap.ui.define(
                     }
                     return attribute
                 }
+                const tags = query.attributeCreationHints.tags
 
                 let attributeValue = {
                     "@type": query.valueType,
@@ -148,7 +149,8 @@ sap.ui.define(
                     "@type": "IdentityAttribute",
                     value: attributeValue,
                     validTo: metadata.validTo,
-                    owner: runtime.currentAccount.address
+                    owner: runtime.currentAccount.address,
+                    tags: tags
                 }
                 return attribute
             },

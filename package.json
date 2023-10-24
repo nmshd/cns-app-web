@@ -1,13 +1,10 @@
 {
     "name": "@nmshd/app-web",
-    "version": "2.5.11",
+    "version": "2.6.1",
     "description": "The web sources for the Enmeshed App",
     "repository": "github:nmshd/cns-app-web",
     "license": "MIT",
     "author": "j&s-soft GmbH",
-    "files": [
-        "dist"
-    ],
     "scripts": {
         "lint": "npm run lint:eslint && npm run lint:prettier",
         "lint:eslint": "eslint --ext .js ./src",
