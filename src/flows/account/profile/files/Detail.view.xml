@@ -29,7 +29,7 @@
 				<m:Label text="{t>attribute.Thing.name}" />
 				<m:Text text="{title}" />
 				<m:Label text="{t>file}" />
-				<m:Link text="{t>files.open}" press="openFile" />
+				<m:Link accessibleRole="Button" text="{t>files.open}" press="openFile" />
 				<m:Label text="{t>attribute.Corporation.type}" />
 				<m:Text text="{mimetype}" />
 
