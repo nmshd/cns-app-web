@@ -140,6 +140,44 @@ sap.ui.define(
                 }
                 if (!this.valueHints) {
                     this.valueHints = valueTypeClass.valueHints
+                    let valueHintsTranslated = []
+                    if (this.valueHints.values) {
+                        // translate first and then sort the translated values
+                        for (const valueHint of this.valueHints.values) {
+                            valueHintsTranslated.push({
+                                displayName: Formatter.toTranslated(valueHint.displayName),
+                                key: valueHint.key
+                            })
+                        }
+                        valueHintsTranslated.sort((a, b) => {
+                            const nameA = a.displayName.toUpperCase() // ignore upper and lowercase
+                            const nameB = b.displayName.toUpperCase() // ignore upper and lowercase
+                            if (nameA < nameB) {
+                                return -1
+                            }
+                            if (nameA > nameB) {
+                                return 1
+                            }
+                            // displayNames must be equal
+                            return 0
+                        })
+
+                        if (this.renderHints.dataType === "Country") {
+                            // add DACH at the start of the translatedArray
+                            const valueHintsDACH = valueHintsTranslated.filter(
+                                (valueHint) =>
+                                    valueHint.key === "DE" || valueHint.key === "AT" || valueHint.key === "CH"
+                            )
+                            valueHintsTranslated = valueHintsDACH.concat(valueHintsTranslated)
+                        } else if (this.renderHints.dataType === "Language") {
+                            // add de and en at the start of the array
+                            const valueHintsLanguage = valueHintsTranslated.filter(
+                                (valueHint) => valueHint.key === "de" || valueHint.key === "en"
+                            )
+                            valueHintsTranslated = valueHintsLanguage.concat(valueHintsTranslated)
+                        }
+                        this.valueHints.values = valueHintsTranslated
+                    }
                     if (model) model.setProperty("/valueHints", this.valueHints)
                 }
 
@@ -202,7 +240,7 @@ sap.ui.define(
 
                                     template: new ListItem({
                                         key: "{key}",
-                                        text: { path: "displayName", formatter: Formatter.toTranslated }
+                                        text: { path: "displayName" }
                                     }),
                                     length: 300
                                 }
