@@ -14,6 +14,9 @@
     display: flex;
     align-items: center;
 }
+.maxWidth {
+    max-width: 100%;
+}
 
 html.sapUiMedia-Std-Desktop .boxItemRenderer,
 html.sapUiMedia-Std-Tablet .boxItemRenderer {
