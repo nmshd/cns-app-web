@@ -74,7 +74,7 @@ sap.ui.define(
                 oRM.writeClasses()
                 oRM.write(">")
                 const buttonControl = oControl.getAggregation("content")
-                oRM.write("<div>")
+                oRM.write("<div class='maxWidth'>")
                 oRM.renderControl(buttonControl)
                 oRM.write("</div>")
 
