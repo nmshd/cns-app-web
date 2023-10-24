@@ -29,7 +29,7 @@
 			<VBox visible="{=${v>/creation}}" class="sapUiResponsiveMargin">
 				<controls:Container class="sapUiTinyMargin">
 					<Text text="{t>create.doAccept}" class="inlineText" />
-					<Link press="toPrivacy" text="{t>create.privacy}" class="sapUiTinyMarginStart inlineText" />
+					<Link accessibleRole="Button" press="toPrivacy" text="{t>create.privacy}" class="sapUiTinyMarginStart inlineText" />
 					<Text text="{t>create.continue}" class="inlineText" />
 				</controls:Container>
 

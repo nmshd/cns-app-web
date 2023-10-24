@@ -133,7 +133,10 @@ sap.ui.define(
                     }
                     return attribute
                 }
-                const tags = query.attributeCreationHints.tags
+                let tags = []
+                if (query && query.attributeCreationHints && Array.isArray(query.attributeCreationHints.tags)) {
+                    tags = query.attributeCreationHints.tags
+                }
 
                 let attributeValue = {
                     "@type": query.valueType,
