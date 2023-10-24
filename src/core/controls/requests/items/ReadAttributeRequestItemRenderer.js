@@ -221,14 +221,14 @@ sap.ui.define(
                 oRM.writeClasses()
                 oRM.write(">")
 
-                oRM.write("<div>")
+                oRM.write("<div class='maxWidth'>")
                 const labelControl = oControl.getAggregation("_label")
                 if (labelControl) {
                     oRM.renderControl(labelControl)
                 }
                 const foundAttribute = oControl.getAggregation("_text")
                 if (foundAttribute) {
-                    oRM.write("<div>")
+                    oRM.write("<div class='maxWidth'>")
                     oRM.renderControl(foundAttribute)
                     oRM.write("</div>")
                 }
