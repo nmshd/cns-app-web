@@ -144,6 +144,7 @@ sap.ui.define(
                     this.valueHints = valueTypeClass.valueHints
                     let valueHintsTranslated = []
                     if (this.valueHints.values) {
+                        // translate first and then sort the translated values
                         for (const valueHint of this.valueHints.values) {
                             valueHintsTranslated.push({
                                 displayName: Formatter.toTranslated(valueHint.displayName),
