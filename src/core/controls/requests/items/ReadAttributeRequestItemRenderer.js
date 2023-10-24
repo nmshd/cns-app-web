@@ -133,7 +133,7 @@ sap.ui.define(
                     }
                     return attribute
                 }
-                const tags = query.attributeCreationHints.tags
+                const tags = query.attributeCreationHints?.tags
 
                 let attributeValue = {
                     "@type": query.valueType,
