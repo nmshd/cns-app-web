@@ -34,10 +34,10 @@
 				</m:VBox>
 				<m:HBox class="contentInfo sapUiSmallMargin" alignItems="Center" visible="{= !${v>/privacyAcceptRequired}}">
 					<m:Avatar src="sap-icon://hint" backgroundColor="Accent10" class="sapUiSmallMarginEnd" />
-					
+
 					<controls:Container class="sapUiTinyMargin">
 						<Text text="{t>onboardOverview.doAccept}" class="inlineText" />
-						<Link press="toPrivacy" text=" {t>onboardOverview.privacy} " class="sapUiTinyMarginStart inlineText" />
+						<Link accessibleRole="Button" press="toPrivacy" text=" {t>onboardOverview.privacy} " class="sapUiTinyMarginStart inlineText" />
 						<Text text="{t>onboardOverview.acceptByScan}" class="inlineText" />
 					</controls:Container>
 				</m:HBox>
@@ -45,16 +45,16 @@
 					<m:CheckBox id="privacyConsentBox" text="{onboardOverview.acceptPrivacy}" select="onPrivacyChange" />
 					<controls:Container class="sapUiTinyMargin">
 						<Text text="{t>onboardOverview.consentPrivacy1}" class="inlineText" />
-						<Link press="toPrivacy" text=" {t>onboardOverview.privacy} " class="sapUiTinyMarginStart inlineText" />
+						<Link accessibleRole="Button" press="toPrivacy" text=" {t>onboardOverview.privacy} " class="sapUiTinyMarginStart inlineText" />
 						<Text text="{t>onboardOverview.consentPrivacy2}" class="inlineText" />
 					</controls:Container>
 				</m:HBox>
 				<m:HBox class="contentInfo sapUiSmallMargin" alignItems="Center" visible="{= !${v>/testAcceptRequired}&amp;&amp; ${v>/testAcceptVisible}}">
 					<m:Avatar src="sap-icon://hint" backgroundColor="Accent10" class="sapUiSmallMarginEnd" />
-					
+
 					<controls:Container class="sapUiTinyMargin">
 						<Text text="{t>onboardOverview.consentTest1}" class="inlineText" />
-						<Link press="toEULA" text=" {t>onboardOverview.consentTestLink} " class="sapUiTinyMarginStart inlineText" visible="{v>/testLinkVisible}" />
+						<Link accessibleRole="Button" press="toEULA" text=" {t>onboardOverview.consentTestLink} " class="sapUiTinyMarginStart inlineText" visible="{v>/testLinkVisible}" />
 						<Text text="{t>onboardOverview.consentTest2}" class="inlineText" />
 					</controls:Container>
 				</m:HBox>
@@ -62,7 +62,7 @@
 					<m:CheckBox id="testConsentBox" text="{onboardOverview.consentTestCheckbox}" select="onTestChange" />
 					<controls:Container class="sapUiTinyMargin">
 						<Text text="{t>onboardOverview.consentTestManual1}" class="inlineText" />
-						<Link press="toEULA" text=" {t>onboardOverview.consentTestManualLink} " class="sapUiTinyMarginStart inlineText"  visible="{v>/testLinkVisible}" />
+						<Link accessibleRole="Button" press="toEULA" text=" {t>onboardOverview.consentTestManualLink} " class="sapUiTinyMarginStart inlineText"  visible="{v>/testLinkVisible}" />
 						<Text text="{t>onboardOverview.consentTestManual2}" class="inlineText" />
 					</controls:Container>
 				</m:HBox>
