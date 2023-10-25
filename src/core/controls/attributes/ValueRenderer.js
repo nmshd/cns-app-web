@@ -140,43 +140,20 @@ sap.ui.define(
                 }
                 if (!this.valueHints) {
                     this.valueHints = valueTypeClass.valueHints
-                    let valueHintsTranslated = []
                     if (this.valueHints.values) {
-                        // translate first and then sort the translated values
-                        for (const valueHint of this.valueHints.values) {
-                            valueHintsTranslated.push({
-                                displayName: Formatter.toTranslated(valueHint.displayName),
-                                key: valueHint.key
-                            })
-                        }
-                        valueHintsTranslated.sort((a, b) => {
-                            const nameA = a.displayName.toUpperCase() // ignore upper and lowercase
-                            const nameB = b.displayName.toUpperCase() // ignore upper and lowercase
-                            if (nameA < nameB) {
-                                return -1
+                        this.valueHints.values = this.translateAndSortValueHints(this.valueHints, this.renderHints)
+                    } else if (this.renderHints.editType === "Complex") {
+                        for (const propertyHint in this.renderHints.propertyHints) {
+                            if (
+                                this.renderHints.propertyHints[propertyHint].dataType === "Country" ||
+                                this.renderHints.propertyHints[propertyHint].dataType === "Language"
+                            ) {
+                                this.valueHints.propertyHints[propertyHint].values = this.translateAndSortValueHints(
+                                    this.valueHints.propertyHints[propertyHint],
+                                    this.renderHints.propertyHints[propertyHint]
+                                )
                             }
-                            if (nameA > nameB) {
-                                return 1
-                            }
-                            // displayNames must be equal
-                            return 0
-                        })
-
-                        if (this.renderHints.dataType === "Country") {
-                            // add DACH at the start of the translatedArray
-                            const valueHintsDACH = valueHintsTranslated.filter(
-                                (valueHint) =>
-                                    valueHint.key === "DE" || valueHint.key === "AT" || valueHint.key === "CH"
-                            )
-                            valueHintsTranslated = valueHintsDACH.concat(valueHintsTranslated)
-                        } else if (this.renderHints.dataType === "Language") {
-                            // add de and en at the start of the array
-                            const valueHintsLanguage = valueHintsTranslated.filter(
-                                (valueHint) => valueHint.key === "de" || valueHint.key === "en"
-                            )
-                            valueHintsTranslated = valueHintsLanguage.concat(valueHintsTranslated)
                         }
-                        this.valueHints.values = valueHintsTranslated
                     }
                     if (model) model.setProperty("/valueHints", this.valueHints)
                 }
@@ -198,6 +175,44 @@ sap.ui.define(
                     this.createReadonlyControl()
                 }
             },
+            translateAndSortValueHints(valueHints, renderHints) {
+                let valueHintsTranslated = []
+                // translate first and then sort the translated values
+                for (const valueHint of valueHints.values) {
+                    valueHintsTranslated.push({
+                        displayName: Formatter.toTranslated(valueHint.displayName),
+                        key: valueHint.key
+                    })
+                }
+                valueHintsTranslated.sort((a, b) => {
+                    const nameA = a.displayName.toUpperCase() // ignore upper and lowercase
+                    const nameB = b.displayName.toUpperCase() // ignore upper and lowercase
+                    if (nameA < nameB) {
+                        return -1
+                    }
+                    if (nameA > nameB) {
+                        return 1
+                    }
+                    // displayNames must be equal
+                    return 0
+                })
+
+                if (renderHints.dataType === "Country") {
+                    // add DACH at the start of the translatedArray
+                    const valueHintsDACH = valueHintsTranslated.filter(
+                        (valueHint) => valueHint.key === "DE" || valueHint.key === "AT" || valueHint.key === "CH"
+                    )
+                    valueHintsTranslated = valueHintsDACH.concat(valueHintsTranslated)
+                } else if (renderHints.dataType === "Language") {
+                    // add de and en at the start of the array
+                    const valueHintsLanguage = valueHintsTranslated.filter(
+                        (valueHint) => valueHint.key === "de" || valueHint.key === "en"
+                    )
+                    valueHintsTranslated = valueHintsLanguage.concat(valueHintsTranslated)
+                }
+                return valueHintsTranslated
+            },
+
             createEditableSelectControl() {
                 const that = this
                 let control
