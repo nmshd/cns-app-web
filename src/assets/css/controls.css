@@ -17,6 +17,9 @@
 .maxWidth {
     max-width: 100%;
 }
+.simpleFormHeight div[id$="--Grid"] {
+    padding-bottom: 6rem !important;
+}
 
 html.sapUiMedia-Std-Desktop .boxItemRenderer,
 html.sapUiMedia-Std-Tablet .boxItemRenderer {
