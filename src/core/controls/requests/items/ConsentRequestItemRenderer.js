@@ -47,7 +47,6 @@ sap.ui.define(
                         iconFirst: false,
                         type: "Transparent",
                         text: { path: "t>link.external" },
-                        href: { path: "link" },
                         visible: "{= !!${link}}"
                     })
                         .addStyleClass("consentResponseItemRendererLink")
