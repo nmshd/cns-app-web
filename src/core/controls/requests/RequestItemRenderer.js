@@ -137,6 +137,13 @@ sap.ui.define(
                 return checkbox.getSelected()
             },
 
+            setSelected(value) {
+                const checkbox = this.getAggregation("_checkbox")
+                if (!checkbox) return false
+                checkbox.setSelected(value)
+                this.model.setProperty("/isChecked", value)
+            },
+
             getResponseParams() {
                 const control = this.getAggregation("_control")
                 if (!control) {
