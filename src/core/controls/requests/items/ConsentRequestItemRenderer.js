@@ -14,9 +14,9 @@ sap.ui.define(
         return Control.extend("nmshd.app.core.controls.requests.items.ConsentRequestItemRenderer", {
             metadata: {
                 aggregations: {
-                    _label: { type: "sap.m.Label", multiple: false, visibility: "hidden" },
+                    _label: { type: "sap.m.Text", multiple: false, visibility: "hidden" },
                     _valueRenderer: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" },
-                    _button: { type: "sap.m.Button", multiple: false, visibility: "hidden" }
+                    _link: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" }
                 },
                 properties: {
                     requestItem: { type: "object", defaultValue: {} }
@@ -32,13 +32,30 @@ sap.ui.define(
                 const that = this
                 this.setAggregation(
                     "_label",
-                    new Label({ text: { path: "consent", formatter: Formatter.toTranslated } }).addStyleClass(
+                    new Text({ text: { path: "consent", formatter: Formatter.toTranslated } }).addStyleClass(
                         "consentRequestItemRendererLabel"
                     )
                 )
                 this.setAggregation(
                     "_valueRenderer",
                     new ValueRenderer({}).addStyleClass("consentRequestItemRendererFoundAttribute")
+                )
+                this.setAggregation(
+                    "_link",
+                    new Button({
+                        icon: "sap-icon://action",
+                        iconFirst: false,
+                        type: "Transparent",
+                        text: { path: "t>link.external" },
+                        href: { path: "link" },
+                        visible: "{= !!${link}}"
+                    })
+                        .addStyleClass("consentResponseItemRendererLink")
+                        .attachPress((oEvent) => {
+                            const button = oEvent.getSource()
+                            const object = button.getBindingContext().getObject()
+                            window.open(object.link, "_blank")
+                        })
                 )
             },
 
@@ -83,9 +100,9 @@ sap.ui.define(
                     oRM.renderControl(foundAttribute)
                 }
 
-                const buttonControl = oControl.getAggregation("_button")
-                if (buttonControl) {
-                    oRM.renderControl(buttonControl)
+                const linkControl = oControl.getAggregation("_link")
+                if (linkControl) {
+                    oRM.renderControl(linkControl)
                 }
 
                 oRM.write("</div>")
