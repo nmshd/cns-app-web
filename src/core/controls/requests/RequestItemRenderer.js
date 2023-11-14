@@ -116,6 +116,7 @@ sap.ui.define(
                     "_title",
                     new Text({
                         text: { path: "title", formatter: Formatter.toTranslated },
+                        wrapping: true,
                         visible: "{=!!${title}}"
                     })
                 )
@@ -123,6 +124,7 @@ sap.ui.define(
                     "_description",
                     new Text({
                         text: { path: "description", formatter: Formatter.toTranslated },
+                        wrapping: true,
                         visible: "{=!!${description}}"
                     })
                 )
@@ -133,6 +135,13 @@ sap.ui.define(
                 const checkbox = this.getAggregation("_checkbox")
                 if (!checkbox) return false
                 return checkbox.getSelected()
+            },
+
+            setSelected(value) {
+                const checkbox = this.getAggregation("_checkbox")
+                if (!checkbox) return false
+                checkbox.setSelected(value)
+                this.model.setProperty("/isChecked", value)
             },
 
             getResponseParams() {

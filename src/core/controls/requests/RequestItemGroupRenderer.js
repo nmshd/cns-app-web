@@ -49,7 +49,10 @@ sap.ui.define(
                             template: new RequestItemRenderer({
                                 item: "{}"
                             })
-                                .attachChange((oEvent) => that.fireChange(oEvent))
+                                .attachChange((oEvent) => {
+                                    that.updateCheckbox(oEvent)
+                                    that.fireChange(oEvent)
+                                })
                                 .attachInfoPressed((oEvent) => {
                                     that.prepareInfoPress(oEvent)
                                 })
@@ -63,7 +66,10 @@ sap.ui.define(
                         editable: "{=!${mustBeAccepted}}",
                         visible: "{= ${isDecidable}}",
                         selected: "{mustBeAccepted}"
-                    }).attachSelect((oEvent) => that.fireChange(oEvent))
+                    }).attachSelect((oEvent) => {
+                        that.updateItemCheckboxes()
+                        that.fireChange(oEvent)
+                    })
                 )
                 this.setAggregation("_title", new Text({ text: "{title}", visible: "{=!!${title}}" }))
                 this.setAggregation("_description", new Text({ text: "{description}", visible: "{=!!${description}}" }))
@@ -131,6 +137,33 @@ sap.ui.define(
                     itemResponses.push({ accept: false })
                 }
                 return { items: itemResponses, accept: false }
+            },
+
+            updateCheckbox(event) {
+                const list = this.getAggregation("_list")
+                let selected = false
+                for (const item of list.getItems()) {
+                    const itemCheckbox = item.getAggregation("_checkbox")
+                    if (itemCheckbox && itemCheckbox.getSelected()) {
+                        selected = true
+                        break
+                    }
+                }
+                const groupCheckbox = this.getAggregation("_checkbox")
+                if (groupCheckbox) {
+                    groupCheckbox.setSelected(selected)
+                }
+            },
+
+            updateItemCheckboxes() {
+                const groupCheckbox = this.getAggregation("_checkbox")
+                if (!groupCheckbox) return
+
+                const value = groupCheckbox.getSelected()
+                const list = this.getAggregation("_list")
+                for (const item of list.getItems()) {
+                    item.setSelected(value)
+                }
             },
 
             renderer(oRM, oControl) {

@@ -16,7 +16,7 @@ sap.ui.define(
                 aggregations: {
                     _label: { type: "sap.m.Text", multiple: false, visibility: "hidden" },
                     _valueRenderer: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" },
-                    _button: { type: "sap.m.Button", multiple: false, visibility: "hidden" }
+                    _link: { type: "sap.ui.core.Control", multiple: false, visibility: "hidden" }
                 },
                 properties: {
                     requestItem: { type: "object", defaultValue: {} }
@@ -41,6 +41,22 @@ sap.ui.define(
                     new AttributeRenderer({
                         showLabel: false
                     }).addStyleClass("consentResponseItemRendererFoundAttribute")
+                )
+                this.setAggregation(
+                    "_link",
+                    new Button({
+                        icon: "sap-icon://action",
+                        iconFirst: false,
+                        type: "Transparent",
+                        text: { path: "t>link.external" },
+                        visible: "{= !!${link}}"
+                    })
+                        .addStyleClass("consentResponseItemRendererLink")
+                        .attachPress((oEvent) => {
+                            const button = oEvent.getSource()
+                            const object = button.getBindingContext().getObject()
+                            window.open(object.link, "_blank")
+                        })
                 )
             },
 
@@ -78,9 +94,9 @@ sap.ui.define(
                     oRM.renderControl(foundAttribute)
                 }
 
-                const buttonControl = oControl.getAggregation("_button")
-                if (buttonControl) {
-                    oRM.renderControl(buttonControl)
+                const linkControl = oControl.getAggregation("_link")
+                if (linkControl) {
+                    oRM.renderControl(linkControl)
                 }
 
                 oRM.write("</div>")
