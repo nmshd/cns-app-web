@@ -63,7 +63,6 @@ sap.ui.define(
 
             createAttributeWithValue(value) {
                 const item = this.getBindingContext().getObject()
-                let owner = runtime.currentAccount.address
 
                 return item.attribute.content
             },
